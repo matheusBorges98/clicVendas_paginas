@@ -2,7 +2,7 @@
     //'use strict';
 
     angular
-        .module('app')
+        .module('appOne')
         .controller('HelloWorldCtrl', HelloWorldCtrl)
 		
     function HelloWorldCtrl($scope) {
