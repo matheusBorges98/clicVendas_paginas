@@ -3,8 +3,22 @@
 <html lang="en">
 <head>
 	
+	<script>
+		(function () {
+			//'use strict';
+	
+			angular
+				.module('appOne', [])
+				.controller('PedidoV2Controller', PedidoV2Controller)
+				
+			function PedidoV2Controller($scope) {
+				$scope.message = "Oi mundoX"
+				console.log("A")	
+			};    
+		})();
+	</script>
 </head>
-<body ng-app="app">
+<body ng-app="appOne">
     <div ng-controller="PedidoV2Controller">
         <h2>{{message}}</h2>
     </div>
