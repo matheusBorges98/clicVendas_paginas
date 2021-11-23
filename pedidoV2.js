@@ -1,3 +1,13 @@
-angular.module("app", []).controller("HelloWorldCtrl", function($scope) {  
-    $scope.message="Hello World" 
-})
+(function () {
+    //'use strict';
+
+    angular
+        .module('app')
+        .controller('HelloWorldCtrl', HelloWorldCtrl)
+		
+    function HelloWorldCtrl($scope) {
+        $scope.message = "Oi mundo"
+			
+	};    
+
+})();
