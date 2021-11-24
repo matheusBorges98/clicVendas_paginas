@@ -7,33 +7,18 @@
 </head>  
 <body>
 <h1 ng-controller="PedidoV2Ctrl">{{message2}}</h1>
+<h1 ng-controller="teste">{{message}}</h1>
 
-<script>
-(function () {  
+<script>  
     angular
-		.module("app")
-		.controller("PedidoV2Ctrl", PedidoV2Ctrl)
+		.module("app", [])
+		.controller("PedidoV2Ctrl", function($scope) {  
+    	$scope.message2="Hello WorldXXX" 
 		
-		function PedidoV2Ctrl($scope) {  
-    		$scope.message2="Hello WorldXXAAAAX"
-		} 
-
-		// var dados = {};
-		// dados.idCvtccnpj	= dadosUserLogado.cId;				
-		// dados.codRepExterno	= dadosUserLogado.rCod;
-		// $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/listarPedidoPersonalizado', dados).then(function(response) {    
-		// 	modalInstance.close();	
-		// 	if	(response.data.msg != '') {				
-		// 		SrvMsg.geraMensagem("erro", response.data.msg);
-		// 	} else {				
-		// 		$scope.htmlPedido = response.data.conteudoHTML;
-		// 	}				
-		// }, 
-		// function(response) {
-		// 	modalInstance.close();	
-		// 	SrvMsg.geraMensagem("erro", "Não foi possível realizar a consulta. Por favor, tente novamente mais tarde.");
-		// });
-    })();
+    })
+	.controller("teste", function($scope){
+		$scope.message="He" 
+	})
 </script> 
 
 </body>  
