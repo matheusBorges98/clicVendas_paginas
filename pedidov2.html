@@ -12,9 +12,13 @@
 <script>  
     angular
 		.module("app", [])
-		.controller("PedidoV2Ctrl", function($scope) {  
+		.controller("PedidoV2Ctrl", function($scope, $http, dadosUserLogado) {  
     	$scope.message2="Hello WorldXXX" 
 		
+		$http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/estruturaHtmlPedidoV2', dados).then(function(response) {   
+			console.log(response) 
+				
+		});		
     })
 	.controller("teste", function($scope){
 		$scope.message="He" 
