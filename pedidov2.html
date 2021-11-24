@@ -7,7 +7,7 @@
 </head>  
 <body>
 	<h1 ng-controller="PedidoV2Ctrl">{{message2}}</h1>
-	<h1 ng-controller="teste">{{message}}</h1>
+	<!-- <h1 ng-controller="teste">{{message}}</h1> -->
 
 </body>  
 </html>
@@ -17,15 +17,16 @@
 		'use strict';
 		angular
 		.module("app", [])
-		.controller("PedidoV2Ctrl", function($scope, $http) {  
-			$scope.message2="Hello WorldXXXXXXX"
-			var a =  "AAAAA"
+		.controller("PedidoV2Ctrl", PedidoV2Ctrl) 
+			function PedidoV2Ctrl($scope, $http) {  
+				$scope.message2="Hello WorldXXXXXXX"
+				var a =  "AAAAA"
 
 			
 					
-		})
-		.controller("teste", function($scope){
-			$scope.message="He" 
-		})
+		}
+		// .controller("teste", function($scope){
+		// 	$scope.message="He" 
+		// })
 	})()
 </script> 
