@@ -6,12 +6,31 @@
     <title>Cv</title>     
 </head>  
 <body>
+	<div style="background-color: white;position: fixed; min-height: calc(100% - 150px); width: calc(100% - 70px);">	
+		<div ng-bind-html="htmlPedido" compiler="htmlPedido" style="background-color: white;position: fixed; height: calc(100% - 150px); width: calc(100% - 70px); overflow-y: auto;"></div>	
+	</div>
 <h1 ng-controller="PedidoV2Ctrl">{{message2}}</h1>
 
 <script>  
     angular.module("app", []).controller("PedidoV2Ctrl", function($scope) {  
-    $scope.message2="Hello WorldXXX" 
-    } )
+    	$scope.message2="Hello WorldXXX" 
+
+		var dados = {};
+		dados.idCvtccnpj	= dadosUserLogado.cId;				
+		dados.codRepExterno	= dadosUserLogado.rCod;
+		$http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/listarPedidoPersonalizado', dados).then(function(response) {    
+			modalInstance.close();	
+			if	(response.data.msg != '') {				
+				SrvMsg.geraMensagem("erro", response.data.msg);
+			} else {				
+				$scope.htmlPedido = response.data.conteudoHTML;
+			}				
+		}, 
+		function(response) {
+			modalInstance.close();	
+			SrvMsg.geraMensagem("erro", "Não foi possível realizar a consulta. Por favor, tente novamente mais tarde.");
+		});
+    })
 </script> 
 
 </body>  
