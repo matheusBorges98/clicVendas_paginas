@@ -10,6 +10,7 @@
 <h1 ng-controller="teste">{{message}}</h1>
 
 <script>
+(function () {
     angular
 		.module("app", [])
 		.controller("PedidoV2Ctrl", function($scope, $http) {  
@@ -21,6 +22,7 @@
 	.controller("teste", function($scope){
 		$scope.message="He" 
 	})
+})();
 </script> 
 
 </body>  
