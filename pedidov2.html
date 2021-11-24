@@ -1,15 +1,18 @@
+<!DOCTYPE html>  
+<html ng-app="app">  
+<head> 
+	<script src="https://semex.clicvenda.com.br/clicVendas/plugins/angJS/angular.min.js"></script> 
+    <meta charset="utf 8">
+    <title>Cv</title>     
+</head>  
+<body>
+<h1 ng-controller="HelloWorldCtrl">{{message}}</h1>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	
-</head>
-<body ng-app="app">
-    <div ng-controller="PedidoV2Controller">
-		<div>
-			<table id="gridPedidoV2" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border hover table-striped table-bordered"/>
-		</div>	 
-    </div>
+<script>  
+    angular.module("app", []).controller("HelloWorldCtrl", function($scope) {  
+    $scope.message="Hello World" 
+    } )
+</script> 
 
-</body>
+</body>  
 </html>
