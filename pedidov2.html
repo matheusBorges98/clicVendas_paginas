@@ -6,24 +6,24 @@
     <title>Cv</title>     
 </head>  
 <body>
-<h1 ng-controller="PedidoV2Ctrl">{{message2}}</h1>
-<h1 ng-controller="teste">{{message}}</h1>
-
-<script>
-(function () {
-    angular
-		.module("app", [])
-		.controller("PedidoV2Ctrl", function($scope, $http) {  
-    	$scope.message2="Hello WorldXXXXXXX" 
-		
-		console.log("teste")
-		
-    })
-	.controller("teste", function($scope){
-		$scope.message="He" 
-	})
-})();
-</script> 
+	<h1 ng-controller="PedidoV2Ctrl">{{message2}}</h1>
+	<h1 ng-controller="teste">{{message}}</h1>
 
 </body>  
 </html>
+
+<script>
+	(function () {
+		angular
+			.module("app", [])
+			.controller("PedidoV2Ctrl", function($scope, $http) {  
+			$scope.message2="Hello WorldXXXXXXX" 
+			
+			console.log("teste")
+			
+		})
+		.controller("teste", function($scope){
+			$scope.message="He" 
+		})
+	})();
+</script> 
