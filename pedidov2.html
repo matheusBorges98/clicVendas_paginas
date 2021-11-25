@@ -3,16 +3,21 @@
 <head> 
 	<meta charset="utf 8">
 	<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script> 
-	<script
+	<!-- <script
 		src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
 		integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
 		crossorigin="anonymous">
-	</script>
+	</script> -->
 
 	<title>CXxxv</title>     
 </head>  
 <body>
-	<h1 ng-controller="PedidoV2Ctrl">{{message2}}</h1>
+	<div ng-controller="PedidoV2Ctrl">
+		<div ng-repeat="produto in listaProd">
+			<div>{{produto.desPro}}</div>
+		</div>
+	</div>
+
 	<h1 ng-controller="teste">{{message}}</h1>
 	
 	<!-- Regra de negócio -->
@@ -20,38 +25,43 @@
 		(function () {
 			'use strict';
 			angular
-			.module("appV2", [])
-			.controller("PedidoV2Ctrl", function($scope, $http) {  
-				$scope.message2="Hello WorldXXXXXXX";
-				var a =  "AAAAA";
-				console.log(parent.dadosUserLogado());
-				
-				
-				$scope.executaRequisicaoExterna = function($json){
-					$http.post(parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json).then(	
-						function(response) {
-							console.log(response)    
-							return response.data;
-						}, 
-						function(response) {
-							//Falha
-							SrvMsg.geraMensagem("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
-					});
-				};
-				
-				var parametros = {	
-								idCvtccnpj	: parent.dadosUserLogado().cId,
-								numreg		: 750, 
-								pRotina		: "listaPedidoRepresentante",
-								pCodRep		: parent.dadosUserLogado().rId 
-							};
+				.module("appV2", [])
+				.controller("PedidoV2Ctrl", function($scope, $http, $rootScope) {  
+					$scope.message2="Controller A";
+					
+					$scope.executaRequisicaoExterna = async ($json) => {
+						try{
+							let response = await $http.post(parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json)
+							
+							return response.data
+						}catch(response){
+							SrvMsg.geraMensagem("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.")
+						}
+					};
+					
+					
+					const getListaProduto = async () =>{
+						let result = await $scope.executaRequisicaoExterna(
+						{
+							idCvtccnpj	: parent.dadosUserLogado().cId,
+							numreg		: 750, 
+							pRotina		: "listarProdutoB2B",
+							pCodCli     : 255018,
+							pNomPro     : "",
+							pTipPro     : "",
+						});
 
-				$scope.executaRequisicaoExterna(parametros);
-	
-			})
-			.controller("teste", function($scope){
-				$scope.message="He" ;
-			})
+						$scope.listaProd = result;
+						$scope.$apply();
+					};
+
+					getListaProduto();
+					
+					console.log($scope.listaProd);
+				})
+				.controller("teste", function($scope){
+					$scope.message="Controller B" ;
+				})
 		})()
 	</script> 
 
