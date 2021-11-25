@@ -31,11 +31,11 @@
 					
 					$scope.executaRequisicaoExterna = async ($json) => {
 						try{
-							let response = await $http.post(parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json)
+							let response = await $http.post(parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
 							
-							return response.data
+							return response.data;
 						}catch(response){
-							SrvMsg.geraMensagem("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.")
+							SrvMsg.geraMensagem("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
 						}
 					};
 					
