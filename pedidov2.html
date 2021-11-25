@@ -9,7 +9,8 @@
 <body>
 	<h1 ng-controller="PedidoV2Ctrl">{{message2}}</h1>
 	<h1 ng-controller="teste">{{message}}</h1>
-
+	
+	<!-- Regra de negócio -->
 	<script type='text/javascript'>
 		(function () {
 			'use strict';
@@ -19,9 +20,31 @@
 				$scope.message2="Hello WorldXXXXXXX";
 				var a =  "AAAAA";
 				console.log(parent.dadosUserLogado());
-				alert(a);
 				
-						
+				
+				function listaProduto() {
+
+					var parametros = {	idCvtccnpj	: parent.dadosUserLogado().cId,
+										numreg		: 750, 
+										pRotina		: "listarProdutoB2B", 
+										pCodCli     : [CODIGO_CLIENTE],
+										pNomPro     : filtro.nome,
+										pTipPro     : filtro.tipo
+									};
+
+					$.ajax({
+						url: parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna',
+						type: "POST",
+						data : JSON.stringify(parametros),
+						success : function(response) {
+
+							console.log(response);
+
+							var objRetorno = JSON.parse(response);	
+						}, 
+					});	
+				};
+	
 			})
 			.controller("teste", function($scope){
 				$scope.message="He" ;
