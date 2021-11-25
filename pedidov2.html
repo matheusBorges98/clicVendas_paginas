@@ -3,8 +3,13 @@
 <head> 
 	<meta charset="utf 8">
 	<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script> 
+	<script
+		src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+		integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+		crossorigin="anonymous">
+	</script>
 
-    <title>CXxxv</title>     
+	<title>CXxxv</title>     
 </head>  
 <body>
 	<h1 ng-controller="PedidoV2Ctrl">{{message2}}</h1>
@@ -22,28 +27,26 @@
 				console.log(parent.dadosUserLogado());
 				
 				
-				function listaProduto() {
-
-					var parametros = {	idCvtccnpj	: parent.dadosUserLogado().cId,
-										numreg		: 750, 
-										pRotina		: "listarProdutoB2B", 
-										pCodCli     : [CODIGO_CLIENTE],
-										pNomPro     : filtro.nome,
-										pTipPro     : filtro.tipo
-									};
-
-					$.ajax({
-						url: parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna',
-						type: "POST",
-						data : JSON.stringify(parametros),
-						success : function(response) {
-
-							console.log(response);
-
-							var objRetorno = JSON.parse(response);	
+				$scope.executaRequisicaoExterna = function($json){
+					$http.post(parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json).then(	
+						function(response) {
+							console.log(response)    
+							return response.data;
 						}, 
-					});	
+						function(response) {
+							//Falha
+							SrvMsg.geraMensagem("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
+					});
 				};
+				
+				var parametros = {	
+								idCvtccnpj	: parent.dadosUserLogado().cId,
+								numreg		: 750, 
+								pRotina		: "listaPedidoRepresentante",
+								pCodRep		: parent.dadosUserLogado().rId 
+							};
+
+				$scope.executaRequisicaoExterna(parametros);
 	
 			})
 			.controller("teste", function($scope){
