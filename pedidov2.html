@@ -2,11 +2,14 @@
 <html ng-app="appV2">  
 <head> 
 	<meta charset="utf 8">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
-	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-	
-	<!-- View --> 
+<!-- Imports CSS-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap.min.css">
+<!-- Imports CSS-->
+
+<!-- View --> 
 </head>  
 <body>
 	<div>
@@ -17,63 +20,83 @@
 		</div>
 
 		<div ng-controller="ColunasController">
-			<h1>{{message}}</h1>
+			
+			<h5>{{message}}</h5>
 		</div>
 	</div>
-	
-	<!-- Regra de negócio -->
-	<script type='text/javascript'>
-		(function () {
-			'use strict';
-			angular
-				.module("appV2", [])
+<!-- View --> 
 
-				var app = angular.module('appV2');
-
-				app.controller("PedidoV2Ctrl", PedidoV2Ctrl)
-				function PedidoV2Ctrl($scope, $http, $rootScope) {  
-									
-					$scope.executaRequisicaoExterna = async ($json) => {
-						try{
-							let response = await $http.post(parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-							
-							return response.data;
-						}catch(response){
-							SrvMsg.geraMensagem("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
-						}
-					};
-					
-					/*Irá retornar os documentos para o usuario - EX: Pedidos
-						Funcionalidade: Chama 'executarRequisicaoExterna', passando o json esperado pela regra;
-						------
-						View: $scope.listaDocs - Listagem de documentos, EX: Pedidos
-					*/
-					const getListaDocumentos = async () =>{
-						
-						let result = await $scope.executaRequisicaoExterna(
-						{
-							idCvtccnpj	: parent.dadosUserLogado().cId,
-							numreg		: 750, 
-							pRotina		: "listarProdutoB2B",
-							pCodCli     : parent.dadosUserLogado().rId,
-							pNomPro     : "",
-							pTipPro     : "",
-						});
-
-						$scope.listaDocs = result;
-						$scope.$apply();
-					};
-					getListaDocumentos();
-					
-				};
-
-				app.controller("ColunasController", ColunasController)
-				function ColunasController($scope, $http, $rootScope ){
-					
-					$scope.message = "Controller colunas"
-				};
-		})()
-	</script> 
-
+<!-- Scripts importados -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.4/plugins/buttons/angular-datatables.buttons.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+<!-- Scripts importados -->	
 </body>  
 </html>
+
+<!-- Regra de negócio -->
+<script>
+	setTimeout(() =>{
+
+	
+	(function () {
+		'use strict';
+		angular
+			.module("appV2",['ngRoute', 'datatables'])
+
+			var app = angular.module('appV2',['ngRoute', 'datatables']);
+
+			app.controller("PedidoV2Ctrl", PedidoV2Ctrl)
+			function PedidoV2Ctrl($scope, $http, $rootScope) {  
+								
+				$scope.executaRequisicaoExterna = async ($json) => {
+					try{
+						let response = await $http.post(parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+						
+						return response.data;
+					}catch(response){
+						SrvMsg.geraMensagem("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
+					}
+				};
+				
+				/*Irá retornar os documentos para o usuario - EX: Pedidos
+					Funcionalidade: Chama 'executarRequisicaoExterna', passando o json esperado pela regra;
+					------
+					View: $scope.listaDocs - Listagem de documentos, EX: Pedidos
+				*/
+				const getListaDocumentos = async () =>{
+					
+					let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj	: parent.dadosUserLogado().cId,
+						numreg		: 750, 
+						pRotina		: "listarProdutoB2B",
+						pCodCli     : parent.dadosUserLogado().rId,
+						pNomPro     : "",
+						pTipPro     : "",
+					});
+
+					$scope.listaDocs = result;
+					$scope.$apply();
+				};
+				getListaDocumentos();
+				
+			};
+
+			app.controller("ColunasController", ColunasController)
+			function ColunasController($scope, $rootScope, $compile,  $http, $timeout){
+				
+				
+
+
+				$scope.message = "Controller colunas";
+			};
+	})()
+}, 10000)
+</script> 
