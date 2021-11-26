@@ -1,7 +1,0 @@
-'use strict';angular.module('datatables.options',[]).constant('DT_DEFAULT_OPTIONS',{sAjaxDataProp:'',aoColumns:[]}).constant('DT_LOADING_CLASS','dt-loading').service('DTDefaultOptions',dtDefaultOptions);function dtDefaultOptions(){var options={loadingTemplate:'<h3>Loading...</h3>',bootstrapOptions:{},setLoadingTemplate:setLoadingTemplate,setLanguageSource:setLanguageSource,setLanguage:setLanguage,setDisplayLength:setDisplayLength,setBootstrapOptions:setBootstrapOptions,setDOM:setDOM,setOption:setOption};return options;function setLoadingTemplate(loadingTemplate){options.loadingTemplate=loadingTemplate;return options;}
-function setLanguageSource(sLanguageSource){$.ajax({dataType:'json',url:sLanguageSource,success:function(json){$.extend(true,$.fn.DataTable.defaults,{language:json});}});return options;}
-function setLanguage(language){$.extend(true,$.fn.DataTable.defaults,{language:language});return options;}
-function setDisplayLength(displayLength){$.extend($.fn.DataTable.defaults,{displayLength:displayLength});return options;}
-function setBootstrapOptions(oBootstrapOptions){options.bootstrapOptions=oBootstrapOptions;return options;}
-function setDOM(dom){$.extend($.fn.DataTable.defaults,{dom:dom});return options;}
-function setOption(key,value){if(angular.isString(key)){var obj={};obj[key]=value;$.extend($.fn.DataTable.defaults,obj);}}}
