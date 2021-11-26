@@ -2,19 +2,24 @@
 <html ng-app="appV2">  
 <head> 
 	<meta charset="utf 8">
-	<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script> 
-
-	<!-- View -->
-	<title>CXxxv</title>     
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
+	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	
+	<!-- View --> 
 </head>  
 <body>
-	<div ng-controller="PedidoV2Ctrl">
-		<div ng-repeat="doc in listaDocs">
-			<div>{{doc.desPro}}</div>
+	<div>
+		<div ng-controller="PedidoV2Ctrl">
+			<div ng-repeat="doc in listaDocs">
+				<div>{{doc.desPro}}</div>
+			</div>
+		</div>
+
+		<div ng-controller="ColunasController">
+			<h1>{{message}}</h1>
 		</div>
 	</div>
-
-	<h1 ng-controller="teste">{{message}}</h1>
 	
 	<!-- Regra de negócio -->
 	<script type='text/javascript'>
@@ -22,9 +27,12 @@
 			'use strict';
 			angular
 				.module("appV2", [])
-				.controller("PedidoV2Ctrl", function($scope, $http, $rootScope) {  
-					$scope.message2="Controller A";
-					
+
+				var app = angular.module('appV2');
+
+				app.controller("PedidoV2Ctrl", PedidoV2Ctrl)
+				function PedidoV2Ctrl($scope, $http, $rootScope) {  
+									
 					$scope.executaRequisicaoExterna = async ($json) => {
 						try{
 							let response = await $http.post(parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
@@ -56,12 +64,14 @@
 						$scope.$apply();
 					};
 					getListaDocumentos();
-									
-					console.log($scope.listaDocs);
-				})
-				.controller("teste", function($scope){
-					$scope.message="Controller B" ;
-				})
+					
+				};
+
+				app.controller("ColunasController", ColunasController)
+				function ColunasController($scope, $http, $rootScope ){
+					
+					$scope.message = "Controller colunas"
+				};
 		})()
 	</script> 
 
