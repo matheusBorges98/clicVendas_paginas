@@ -70,7 +70,7 @@
 
 			var app = angular.module('appV2',['ngRoute', 'datatables']);
 
-			app.controller("PedidoV2Ctrl", PedidoV2Ctrl)
+			app.controller("PedidoV2Ctrl", PedidoV2Ctrl);
 			function PedidoV2Ctrl($scope, $http, $rootScope) {  
 								
 				$scope.executaRequisicaoExterna = async ($json) => {
@@ -107,7 +107,7 @@
 				
 			};
 
-			app.controller("ColunasController", ColunasController)
+			app.controller("ColunasController", ColunasController);
 			function ColunasController($scope, $rootScope, $compile,  $http, $timeout){
 				
 				
