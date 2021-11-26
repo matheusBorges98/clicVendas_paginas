@@ -3,18 +3,14 @@
 <head> 
 	<meta charset="utf 8">
 	<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script> 
-	<!-- <script
-		src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-		integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
-		crossorigin="anonymous">
-	</script> -->
 
+	<!-- View -->
 	<title>CXxxv</title>     
 </head>  
 <body>
 	<div ng-controller="PedidoV2Ctrl">
-		<div ng-repeat="produto in listaProd">
-			<div>{{produto.desPro}}</div>
+		<div ng-repeat="doc in listaDocs">
+			<div>{{doc.desPro}}</div>
 		</div>
 	</div>
 
@@ -39,25 +35,29 @@
 						}
 					};
 					
-					
-					const getListaProduto = async () =>{
+					/*Irá retornar os documentos para o usuario - EX: Pedidos
+						Funcionalidade: Chama 'executarRequisicaoExterna', passando o json esperado pela regra;
+						------
+						View: $scope.listaDocs - Listagem de documentos, EX: Pedidos
+					*/
+					const getListaDocumentos = async () =>{
+						
 						let result = await $scope.executaRequisicaoExterna(
 						{
 							idCvtccnpj	: parent.dadosUserLogado().cId,
 							numreg		: 750, 
 							pRotina		: "listarProdutoB2B",
-							pCodCli     : 255018,
+							pCodCli     : parent.dadosUserLogado().rId,
 							pNomPro     : "",
 							pTipPro     : "",
 						});
 
-						$scope.listaProd = result;
+						$scope.listaDocs = result;
 						$scope.$apply();
 					};
-
-					getListaProduto();
-					
-					console.log($scope.listaProd);
+					getListaDocumentos();
+									
+					console.log($scope.listaDocs);
 				})
 				.controller("teste", function($scope){
 					$scope.message="Controller B" ;
