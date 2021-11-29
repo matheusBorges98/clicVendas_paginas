@@ -4,15 +4,15 @@
 	<meta charset="utf 8">
 <!-- Imports CSS-->
 	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/bootstrap.min.css">
-    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
-    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
-    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.tableTools.css">
-    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.css">
-    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
-    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
-    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
-    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.tableTools.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
 <!-- Imports CSS-->
 
 <!-- View --> 
@@ -27,6 +27,38 @@
 
 		<div ng-controller="ColunasController">
 			
+			<div ng-show="exibeFormProdutos">
+				<button class="btn btn_acao_header btn_cor_padrao" ng-click="listarDocumentos()"> Listar </button>
+									
+					<div class="spacer">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-sm-4" ng-repeat="item in camposFormCapa">
+										<label>{{item.valor.label}}</label>	
+										<input type="text" class="form-control" ng-model="item[campo]" ng-value="item[campo]" ng-blur="salvarForm(item)" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								<div>
+									<div class="spacer alignRight">
+										<div class="btn-group">
+											<button class="btn btn_grid btn_cor_padrao" ng-click="listarDocumentos()"> Cancelar </button>
+										</div>
+										<div class="btn-group">
+											<button class="btn btn_grid btn_cor_padrao" ng-click="salvarForm(item)"> Salvar </button>
+										</div>	
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
+			</div>
+
+			<div ng-show="exibeListaDocumentos">
+				<table id="gridPedidoErp" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border hover table-striped table-bordered"/>
+			</div>
 			<h5>{{message}}</h5>
 		</div>
 	</div>
@@ -64,7 +96,7 @@
 	(function () {
 		'use strict';
 		angular
-			.module("appV2",['ngRoute', 'datatables']);
+			.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons']);
 
 			var app = angular.module('appV2');
 
@@ -107,12 +139,203 @@
 			};
 
 			app.controller("ColunasController", ColunasController);
-			function ColunasController($scope, $rootScope, $compile,  $http, $timeout){
+			function ColunasController(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout){
+
+				var vm = this;
 				
+				$rootScope.exibeFormProdutos 	= false;
+				$rootScope.exibeFormTenantInfo 	= false;
+				$rootScope.exibeListaDocumentos = true;
 				
+				vm.novoPedido = () =>{
+					$rootScope.exibeListaDocumentos = false;
+					$rootScope.exibeFormProdutos 	= true;
+			
+					$scope.$apply();
+				}
+
+				$scope.listarDocumentos = () => {
+					$rootScope.exibeListaDocumentos = true;
+					$rootScope.exibeFormProdutos 	= false;
+				}
+
+				$scope.camposExtraCapa = () =>{
+					$scope.camposFormCapa = [];
+
+					let formCapa = {
+						nome	: { placeholder: "Nome do cliente", 
+									tipo:"lista", 
+									label:"Nome Cliente",
+									funcao:"salvarForm()", 
+									lista:{opcao1: "op1", opcao2: "op2"}
+								  },
+						// tipoVenda	: {placeholder: "Tipo venda", tipo:"texto", label:"Tipo Venda"},
+						// orcamento	: {placeholder: "",  tipo:"texto", label:"Orçamento"},
+					};
+
+					for(let key in formCapa){
+	
+						$scope.camposFormCapa.push(
+							{
+								campo: key,
+								valor: formCapa[key] || "",
+							}
+						);
+					};
+
+					console.log($scope.camposFormCapa)
+				
+				};
+
+				$scope.camposExtraCapa();
+
+				$scope.salvarForm = (item) =>{
+					console.log(item)
+					console.log($scope.nome, $scope.tipoVenda, $scope.orcamento)
+				}
 
 
-				$scope.message = "Controller colunas";
-			};
+				// Define o idioma usado no Datatables
+				DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
+
+				var idGridDB = 4; /* Grid Pedidos Externos ERP */
+					$http({
+						url: '/clicVendas/rest/Listas/listaColunasGrid',
+						method: 'POST',
+						data : {cId : parent.dadosUserLogado().cId, idGrid : idGridDB} 	
+					}).then(function(response) {	
+					
+						$scope.dtOptions = DTOptionsBuilder.newOptions()            
+						.withOption('ajax', {
+							url		: parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/listarPedidosExternosRepErp',
+							type	: 'POST',
+							data	: function(d) {
+										var	parametros = {
+											idGrid : idGridDB
+										};
+										d.parametros = parametros;
+										
+										var filtros = {
+												dtEmissaoInicio		: ((angular.isUndefined($rootScope.dtEmissaoInicio) || $rootScope.dtEmissaoInicio == null)?"":$rootScope.dtEmissaoInicio.toLocaleDateString()),
+												dtEmissaoFim		: ((angular.isUndefined($rootScope.dtEmissaoFim) || $rootScope.dtEmissaoFim == null)?"":$rootScope.dtEmissaoFim.toLocaleDateString()),
+												dtPrevisaoInicio	: ((angular.isUndefined($rootScope.dtPrevisaoInicio) || $rootScope.dtPrevisaoInicio == null)?"":$rootScope.dtPrevisaoInicio.toLocaleDateString()),
+												dtPrevisaoFim 		: ((angular.isUndefined($rootScope.dtPrevisaoFim) || $rootScope.dtPrevisaoFim == null)?"":$rootScope.dtPrevisaoFim.toLocaleDateString()),
+												idCvtccnpj 			: (angular.isUndefined(parent.dadosUserLogado().cId)?0:parent.dadosUserLogado().cId),
+												rId 				: parent.dadosUserLogado().rId,
+												rTipoId 			: parent.dadosUserLogado().rTipoId
+										};
+										d.filtros = filtros;
+										return JSON.stringify(d);
+									},
+							'error': function(e){
+								//Falha
+								console.log("Erro na requisicao")
+								//SrvMsg.geraMensagem("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
+							},
+
+						})
+						.withDataProp('data')
+						.withOption('processing', true)
+						.withOption('serverSide', true)
+						.withOption('searchDelay', 1500)
+						.withOption('scrollY', "100%")
+						.withPaginationType('full_numbers')            
+						.withDisplayLength(20)
+						.withDOM('<"toolbar">ftrip')
+						.withButtons([
+							{
+								text: 'Novo',
+								key: '1',
+								className: 'btn_grid btn_cor_padrao',
+								action: function (e, dt, node, config) {
+									vm.novoPedido();
+								}
+							}
+						]);
+
+						var montaColunas = response.data.columns;									
+						$scope.dtColumns = montaColunas;
+									
+						
+						/* Personalizar as Colunas */
+						angular.forEach($scope.dtColumns, function (item,index){								
+						
+							switch (item.data) {				
+								
+								case 'status':					
+									montaColunas[index].mRender		= function(data, type, row) {return vm.retornaIcStatus(row)};				
+								break;
+								
+								case 'tipoVenda':						
+									montaColunas[index].mRender		= function(data, type, row) {return (row.tipoVenda != null)?row.tipoVenda.tipoVenda:""};						
+								break;
+								
+								case 'dataEmissao':						
+									montaColunas[index].mRender		= function(data, type, row) {return row.dataEmissaoFormat};			
+								break;								
+								
+								case 'cliente':						
+									montaColunas[index].mRender		= function(data, type, row) {return (row.cliente != null)?row.cliente.nome:""};
+								break;	
+								
+								case 'botoes':						
+									montaColunas[index].mRender		= vm.retornaBotoes;
+									montaColunas[index].sClass 		= 'colBtn';						
+								break;
+								default:
+							}
+						});
+						
+						$scope.dtOptions.withOption('order', response.data.order);	
+						
+						$scope.dtOptions.withOption('fnRowCallback',
+							function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+								$compile(nRow)($scope);
+						});		
+								
+						//Inicializa DataTable
+						angular.element('#gridPedidoErp').attr('datatable', '');
+						$compile(angular.element('#gridPedidoErp'))($scope);
+					});
+					
+					$scope.message = "Controller colunas"
+				
+			}
 	})();
 </script> 
+
+<style>
+	:root {
+  		--cor_principal: #047cca;
+	}
+
+	.btn_grid{
+		background-image: none !important;
+		color: #fff !important;
+		font-weight: 600;
+	}
+
+	.btn_acao_header{
+		background-image: none !important;
+		color: #fff !important;
+		font-weight: 600;
+		width: 80px;
+		height: 35px;
+		font-size: 0.88em;
+	}
+
+	.btn_cor_padrao {
+		background-color: var(--cor_principal) !important;
+		border-color: var(--cor_principal) !important; 
+	}
+
+	.spacer{
+		margin-top:20px;
+	}
+
+	.alignRight{
+		position: fixed; 
+		right: 10px;
+	}
+	
+</style>
