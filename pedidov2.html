@@ -3,11 +3,16 @@
 <head> 
 	<meta charset="utf 8">
 <!-- Imports CSS-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap.min.css">
-
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/bootstrap.min.css">
+    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
+    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
+    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.tableTools.css">
+    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.css">
+    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
+    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
+    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
 <!-- Imports CSS-->
 
 <!-- View --> 
@@ -28,16 +33,28 @@
 <!-- View --> 
 
 <!-- Scripts importados -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
-	<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-	<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.4/plugins/buttons/angular-datatables.buttons.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
-
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/jquery-3.1.1.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/easytimer.min.js"></script>	
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-route.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-ui-router.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-cookies.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angular-ui-notification/angular-ui-notification.min.js"></script>  
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/ui-bootstrap-tpls-2.5.0.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/dist/jquery.dataTables.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/dist/angular-datatables.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/bootstrap.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.bootstrap.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.factory.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.options.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/dataTables.buttons.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.colVis.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.flash.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.html5.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.print.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.buttons.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
 <!-- Scripts importados -->	
 </body>  
 </html>
@@ -81,6 +98,7 @@
 						pTipPro     : "",
 					});
 
+					console.log(result);
 					$scope.listaDocs = result;
 					$scope.$apply();
 				};
