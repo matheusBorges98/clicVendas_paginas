@@ -27,39 +27,90 @@
 
 		<div ng-controller="ColunasController">
 			
-			<div ng-show="exibeFormProdutos">
+			<div ng-show="exibeFormulario" class="container col-sm-12">
 				<button class="btn btn_acao_header btn_cor_padrao" ng-click="listarDocumentos()"> Listar </button>
-									
-					<div class="spacer">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="row">
-									<div class="col-sm-4" ng-repeat="item in camposFormCapa">
-										<label>{{item.valor.label}}</label>	
-										<input type="text" class="form-control" ng-model="item[campo]" ng-value="item[campo]" ng-blur="salvarForm(item)" aria-describedby="basic-addon1">
-									</div>
-								</div>
-								<div>
-									<div class="spacer alignRight">
-										<div class="btn-group">
-											<button class="btn btn_grid btn_cor_padrao" ng-click="listarDocumentos()"> Cancelar </button>
-										</div>
-										<div class="btn-group">
-											<button class="btn btn_grid btn_cor_padrao" ng-click="salvarForm(item)"> Salvar </button>
-										</div>	
-									</div>
-								</div>
-							</div>
+
+				<!-- Capa do pedido -->
+				<div class="row spacer">
+					
+					<div class="col-sm-12">
+						
+						<!-- Header formulario -->
+						<div class="divider-titulo col-sm-12">
+							<div class="spacer titulo vcenter">
+								Novo pedido
+							</div>			
+						</div>
+						<!-- Header formulario -->
+
+						<!-- Body formulario -->
+						<div class="col-sm-4 spacer">
+							<label>Tipo venda:</label>	
+							<input type="text" placeholder="Informe o tipo de venda" class="form-control" ng-model="tipoVenda">
+						</div>
+
+						<div class="col-sm-4 spacer">
+							<label>Tabela de preço:</label>	
+							<input type="text" placeholder="Informe a tabela de preço" class="form-control" ng-model="tabelaPreco">
+						</div>
+
+						<div class="col-sm-4 spacer">
+							<label>Cliente</label>	
+							<input type="text" placeholder="Informe o cliente" class="form-control" ng-model="cliente">
+						</div>
+
+						<div class="col-sm-4 spacer">
+							<label>Endereço de entrega</label>	
+							<input type="text" placeholder="Informe o endereço de entrega" class="form-control" ng-model="endEntrega">
 						</div>
 						
+						<div class="col-sm-4 spacer">
+							<label>Previsão entrega</label>	
+							<input type="text" placeholder="Informe a previsão de entrega" class="form-control" ng-model="prevEntrega">
+						</div>
+
+						<div class="form-group col-md-12  col-sm-12 spacer">
+							<label for="frmObservacao">Descrição: <span ng-show="frmOrcamentoEmail.frmObservacao.$error.required" style="color: red">*</span></label>
+							<textarea class="form-control" rows="3" id="frmObservacao" ng-model="frmObservacao" name="frmObservacao" ng-trim="false" maxlength="249"></textarea>
+							<span>Restam {{249 - frmObservacao.length}} caracteres.</span>
+						</div>
+				
+					</div>		
+
+				</div>
+				<!-- Capa do pedido -->
+				<hr class="divider">
+
+				<div class="row spacer">
+					<div class="col-sm-12">
+						<h1>TESTE</h1>
+						<h1>TESTE</h1>
+						<h1>TESTE</h1>
+						<h1>TESTE</h1>
 					</div>
+				</div>
+				
+				<hr class="divider">
+				<!-- Ações sob o formulario -->
+				<div class="row spacer">
+					<div class="pull-right" style="padding-right: 10px;">
+						<div class="btn-group">
+							<button class="btn btn_grid btn_cor_padrao" ng-click="listarDocumentos()"> Cancelar </button>
+						</div>
+						<div class="btn-group">
+							<button class="btn btn_grid btn_cor_padrao" ng-click="salvarForm()"> Salvar </button>
+						</div>	
+					</div>
+				</div>
+			
+				<hr class="divider">				
 
 			</div>
-
+			
+			<!-- Listagem de documentos na tabela  -->
 			<div ng-show="exibeListaDocumentos">
 				<table id="gridPedidoErp" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border hover table-striped table-bordered"/>
 			</div>
-			<h5>{{message}}</h5>
 		</div>
 	</div>
 <!-- View --> 
@@ -118,8 +169,7 @@
 					------
 					View: $scope.listaDocs - Listagem de documentos, EX: Pedidos
 				*/
-				const getListaDocumentos = async () =>{
-					
+				$rootScope.getListaDocumentos = async () =>{
 					let result = await $scope.executaRequisicaoExterna(
 					{
 						idCvtccnpj	: parent.dadosUserLogado().cId,
@@ -134,64 +184,46 @@
 					$scope.listaDocs = result;
 					$scope.$apply();
 				};
-				getListaDocumentos();
+				$rootScope.getListaDocumentos();
 				
 			};
 
 			app.controller("ColunasController", ColunasController);
-			function ColunasController(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout){
+			function ColunasController(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
 
 				var vm = this;
 				
-				$rootScope.exibeFormProdutos 	= false;
-				$rootScope.exibeFormTenantInfo 	= false;
-				$rootScope.exibeListaDocumentos = true;
+				// Define o que será exibido quando abrir página  
+				$rootScope.exibeFormulario 		= false; // Formulario capa pedido
+				$rootScope.exibeListaDocumentos = true; // Listagem de tabelas
 				
 				vm.novoPedido = () =>{
 					$rootScope.exibeListaDocumentos = false;
-					$rootScope.exibeFormProdutos 	= true;
+					$rootScope.exibeFormulario 		= true;
 			
 					$scope.$apply();
 				}
 
 				$scope.listarDocumentos = () => {
 					$rootScope.exibeListaDocumentos = true;
-					$rootScope.exibeFormProdutos 	= false;
+					$rootScope.exibeFormulario 		= false;
+
+					$rootScope.getListaDocumentos();
 				}
 
-				$scope.camposExtraCapa = () =>{
-					$scope.camposFormCapa = [];
-
-					let formCapa = {
-						nome	: { placeholder: "Nome do cliente", 
-									tipo:"lista", 
-									label:"Nome Cliente",
-									funcao:"salvarForm()", 
-									lista:{opcao1: "op1", opcao2: "op2"}
-								  },
-						// tipoVenda	: {placeholder: "Tipo venda", tipo:"texto", label:"Tipo Venda"},
-						// orcamento	: {placeholder: "",  tipo:"texto", label:"Orçamento"},
+				$scope.salvarForm = () => {
+					
+					let dados = {
+						tipoVenda		: $scope.tipoVenda,
+						tabelaPreco		: $scope.tabelaPreco,
+						cliente			: $scope.cliente,
+						endEntrega		: $scope.endEntrega,
+						prevEntrega 	: $scope.prevEntrega,
+						frmObservacao	: $scope.frmObservacao,
 					};
 
-					for(let key in formCapa){
-	
-						$scope.camposFormCapa.push(
-							{
-								campo: key,
-								valor: formCapa[key] || "",
-							}
-						);
-					};
-
-					console.log($scope.camposFormCapa)
-				
-				};
-
-				$scope.camposExtraCapa();
-
-				$scope.salvarForm = (item) =>{
-					console.log(item)
-					console.log($scope.nome, $scope.tipoVenda, $scope.orcamento)
+					
+					console.log(dados);
 				}
 
 
@@ -297,8 +329,6 @@
 						angular.element('#gridPedidoErp').attr('datatable', '');
 						$compile(angular.element('#gridPedidoErp'))($scope);
 					});
-					
-					$scope.message = "Controller colunas"
 				
 			}
 	})();
@@ -306,9 +336,9 @@
 
 <style>
 	:root {
-  		--cor_principal: #047cca;
+		  --cor_principal: #047cca;
 	}
-
+				
 	.btn_grid{
 		background-image: none !important;
 		color: #fff !important;
@@ -329,13 +359,33 @@
 		border-color: var(--cor_principal) !important; 
 	}
 
+	.container{
+		height: calc(100% - 40px); 
+		position: relative;
+	}
+
+	.divider{
+		border-top: 1px solid #bbb;
+	}
+	
+	.divider-titulo{
+		border-top: 0.8px solid #bbb;
+		border-bottom: 0.8px solid #bbb;
+		height: 50px;
+	}
+
 	.spacer{
 		margin-top:20px;
 	}
 
-	.alignRight{
-		position: fixed; 
-		right: 10px;
+	.titulo{
+		font-size: 15px;
+		font-weight: 900;
+	}
+
+	.vcenter {
+		display: flex;
+    	align-items: center;
 	}
 	
 </style>
