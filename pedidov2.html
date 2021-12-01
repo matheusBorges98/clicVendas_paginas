@@ -168,16 +168,15 @@
 			app.controller("MainController", MainController);
 			function MainController($scope, $http, $rootScope, $timeout) {  
 
-				// Define o que será exibido quando abrir página  - VALOR PADRAO
-				$rootScope.exibeFormulario 		= false; // Formulario capa pedido
-				$rootScope.exibeListaDocumentos = true; // Listagem de tabelas
+				$rootScope.exibeFormulario 		= false; 
+				$rootScope.exibeListaDocumentos = true; 
 
 				$rootScope.listarDocumentos = () => {
 					$rootScope.exibeListaDocumentos = true;
 					$rootScope.exibeFormulario 		= false;
 
 					$rootScope.getListaDocumentos();
-				}
+				};
 								
 				$scope.executaRequisicaoExterna = async ($json) => {
 					try{
