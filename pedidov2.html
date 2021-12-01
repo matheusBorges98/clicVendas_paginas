@@ -280,7 +280,7 @@
 								} else {					
 									$rootScope.objVenda		= response.data.parametros.venda;										
 									$rootScope.idPedido		= $rootScope.objVenda.id; 
-								}					
+								};					
 							}, 
 							function errorCallback(response) {
 								console.log("critica", "Não foi possível carregar o pedido. Tente novamente mais tarde. ");
@@ -295,7 +295,7 @@
 					$rootScope.exibeListaDocumentos = false;
 					$rootScope.exibeFormulario 		= true;
 
-					console.log($rootScope.objVenda)
+					console.log($rootScope.objVenda);
 
 					$scope.$apply();
 				};
@@ -303,7 +303,7 @@
 				// Define o idioma usado no Datatables
 				DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
 
-				console.log(parent.dadosUserLogado())
+				console.log(parent.dadosUserLogado());
 				
 				var idGridDB = 3; /* Código Cadastro Grid banco */
 				$http({
