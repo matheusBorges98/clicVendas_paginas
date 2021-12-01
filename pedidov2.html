@@ -209,13 +209,12 @@
 					$scope.listaDocs = result;
 					$scope.$apply();
 				};
-				//$rootScope.getListaDocumentos();
-
+				
 				$scope.getTipoPedido = function(val) {
 					return $http.post('/clicVendas/rest/Listas/tipoPedido', {
 						params: {
 							filtro		: val || '', 
-							idCvTccnpj	: parent.dadosUserLogado().cId 
+							idCvTccnpj	: parent.dadosUserLogado().cId,
 						}
 					}).then(function(response){     
 						if (response.data.length == 1) {
@@ -230,7 +229,7 @@
 
 				$scope.limpaTipoPedido = function () {						
 					$scope.frmTipoVenda	= "";
-					//$rootScope.objVenda.tipoVenda	= null;
+					$rootScope.objVenda.tipoVenda	= null;
 					let cTipoPedido		= angular.element(document.querySelector('#frmTipoVenda'));
 					$timeout(function () {
 						cTipoPedido.focus();
@@ -299,7 +298,7 @@
 					$scope.$apply();
 				};
 				
-				// Define o idioma usado no Datatables
+				/*Define o idioma usado no Datatables*/
 				DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
 
 				console.log(parent.dadosUserLogado());
@@ -350,7 +349,7 @@
 							.withDOM('<"toolbar">ftrip')
 							.withButtons([
 						{
-							// enabled: parent.dadosUserLogado().params.paramPermiteCadastrarPedido == 'S',
+							/*enabled: parent.dadosUserLogado().params.paramPermiteCadastrarPedido == 'S',*/
 							text: 'Novo',
 							key: '1',
 							className: 'btn_grid btn_cor_padrao',
@@ -389,20 +388,20 @@
 						switch (item.data) {
 											
 							
-							// case 'mobile':					
-							// 	montaColunas[index].mRender		= function(data, type, row) {return vm.retornaMobile(row.mobile)};
-							// 	montaColunas[index].sClass 		= 'text-center';											
-							// break;
+						/*	case 'mobile':					
+								montaColunas[index].mRender		= function(data, type, row) {return vm.retornaMobile(row.mobile)};
+								montaColunas[index].sClass 		= 'text-center';											
+							break;
 							
-							// case 'status':					
-							// 	montaColunas[index].mRender		= function(data, type, row) {return vm.retornaIcStatus(row.status)};
-							// 	montaColunas[index].sClass 		= 'text-center';											
-							// break;
+							case 'status':					
+								montaColunas[index].mRender		= function(data, type, row) {return vm.retornaIcStatus(row.status)};
+								montaColunas[index].sClass 		= 'text-center';											
+							break;
 							
-							// case 'sincronizado':						
-							// 	montaColunas[index].mRender		= function(data, type, row) {return vm.retornaIcSinc(row.sincronizado, row.logIntegracao)};
-							// 	montaColunas[index].sClass 		= 'text-center';					
-							// break;
+							case 'sincronizado':						
+								montaColunas[index].mRender		= function(data, type, row) {return vm.retornaIcSinc(row.sincronizado, row.logIntegracao)};
+								montaColunas[index].sClass 		= 'text-center';					
+							break;*/
 							
 							case 'tipoVenda':						
 								montaColunas[index].mRender		= function(data, type, row) {return (row.tipoVenda != null)?row.tipoVenda.tipoVenda:""};						
@@ -428,17 +427,18 @@
 								montaColunas[index].mRender		= function(data, type, row) {return row.ramoAtividade};
 							break;
 
-							// case 'botoes':						
-							// 	montaColunas[index].mRender		= vm.retornaBotoes;
-							// 	montaColunas[index].sClass 		= 'colBtn';						
-							// break;
+							/*case 'botoes':						
+								montaColunas[index].mRender		= vm.retornaBotoes;
+								montaColunas[index].sClass 		= 'colBtn';						
+							break;*/
+
 							default:
 						}
 					});
 					
 					$scope.dtOptions.withOption('order', response.data.order);	
 													
-					//Inicializa DataTable
+					/*Inicializa DataTable*/
 					angular.element('#gridPedidoV2').attr('datatable', '');
 					$compile(angular.element('#gridPedidoV2'))($scope);
 					
