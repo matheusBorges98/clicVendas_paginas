@@ -319,10 +319,10 @@
 									d.parametros = parametros;
 									
 									var filtros = {
-											dtEmissaoInicio			: ((angular.isUndefined($rootScope.dtEmissaoInicio) || $rootScope.dtEmissaoInicio == null)?"":$rootScope.dtEmissaoInicio.toLocaleDateString()),
-											dtEmissaoFim			: ((angular.isUndefined($rootScope.dtEmissaoFim) || $rootScope.dtEmissaoFim == null)?"":$rootScope.dtEmissaoFim.toLocaleDateString()),
-											dtPrevisaoInicio		: ((angular.isUndefined($rootScope.dtPrevisaoInicio) || $rootScope.dtPrevisaoInicio == null)?"":$rootScope.dtPrevisaoInicio.toLocaleDateString()),
-											dtPrevisaoFim 			: ((angular.isUndefined($rootScope.dtPrevisaoFim) || $rootScope.dtPrevisaoFim == null)?"":$rootScope.dtPrevisaoFim.toLocaleDateString()),
+											dtEmissaoInicio			: ((angular.isUndefined($rootScope.dtEmissaoInicio) || $rootScope.dtEmissaoInicio == null)?'':$rootScope.dtEmissaoInicio.toLocaleDateString()),
+											dtEmissaoFim			: ((angular.isUndefined($rootScope.dtEmissaoFim) || $rootScope.dtEmissaoFim == null)?'':$rootScope.dtEmissaoFim.toLocaleDateString()),
+											dtPrevisaoInicio		: ((angular.isUndefined($rootScope.dtPrevisaoInicio) || $rootScope.dtPrevisaoInicio == null)?'':$rootScope.dtPrevisaoInicio.toLocaleDateString()),
+											dtPrevisaoFim 			: ((angular.isUndefined($rootScope.dtPrevisaoFim) || $rootScope.dtPrevisaoFim == null)?'':$rootScope.dtPrevisaoFim.toLocaleDateString()),
 											idCvtccnpj 				: (angular.isUndefined(parent.dadosUserLogado().cId)?0:parent.dadosUserLogado().cId),
 											rId 					: parent.dadosUserLogado().rId,
 											rTipoId 				: parent.dadosUserLogado().rTipoId,
@@ -341,7 +341,7 @@
 							.withOption('processing', true)
 							.withOption('serverSide', true)
 							.withOption('searchDelay', 1000)
-							.withOption('scrollY', "100%")            
+							.withOption('scrollY', '100%')            
 							.withPaginationType('full_numbers')            
 							.withDisplayLength(20)
 							.withDOM('<"toolbar">ftrip')
