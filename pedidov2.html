@@ -415,16 +415,16 @@
 					});
 					
 					$scope.dtOptions.withOption('order', response.data.order);	
-													
-					angular.element('#gridPedidoV2').attr('datatable', '');
-					$compile(angular.element('#gridPedidoV2'))($scope);
-					
-					$scope.dtOptions.withOption('fnRowCallback',
-						function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-							$compile(nRow)($scope);
-					});		
-					
-				});
+			
+						$scope.dtOptions.withOption('fnRowCallback',
+							function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+								$compile(nRow)($scope);
+						});		
+								
+						//Inicializa DataTable
+						angular.element('#gridPedidoV2').attr('datatable', '');
+						$compile(angular.element('#gridPedidoV2'))($scope);
+					});
 				
 			};
 
