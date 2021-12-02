@@ -384,23 +384,7 @@
 					/* Personalizar as Colunas */
 					angular.forEach($scope.dtColumns, function (item,index){								
 						switch (item.data) {
-											
-							
-						/*	case 'mobile':					
-								montaColunas[index].mRender		= function(data, type, row) {return vm.retornaMobile(row.mobile)};
-								montaColunas[index].sClass 		= 'text-center';											
-							break;
-							
-							case 'status':					
-								montaColunas[index].mRender		= function(data, type, row) {return vm.retornaIcStatus(row.status)};
-								montaColunas[index].sClass 		= 'text-center';											
-							break;
-							
-							case 'sincronizado':						
-								montaColunas[index].mRender		= function(data, type, row) {return vm.retornaIcSinc(row.sincronizado, row.logIntegracao)};
-								montaColunas[index].sClass 		= 'text-center';					
-							break;*/
-							
+																		
 							case 'tipoVenda':						
 								montaColunas[index].mRender		= function(data, type, row) {return (row.tipoVenda != null)?row.tipoVenda.tipoVenda:""};						
 							break;
@@ -425,10 +409,6 @@
 								montaColunas[index].mRender		= function(data, type, row) {return row.ramoAtividade};
 							break;
 
-							/*case 'botoes':						
-								montaColunas[index].mRender		= vm.retornaBotoes;
-								montaColunas[index].sClass 		= 'colBtn';						
-							break;*/
 
 							default:
 						};
