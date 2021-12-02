@@ -155,6 +155,10 @@
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
 <!-- Scripts importados -->	
 
+</body>  
+</html>
+
+<!-- Regra de negócio -->
 <script>	
 	(function () {
 		
@@ -166,8 +170,8 @@
 			app.controller("MainController", MainController);
 			function MainController($scope, $http, $rootScope, $timeout) {  
 
-				$rootScope.exibeFormulario 		= false; 
-				$rootScope.exibeListaDocumentos = true; 
+				$rootScope.exibeFormulario 		= true; 
+				$rootScope.exibeListaDocumentos = false; 
 
 				$rootScope.listarDocumentos = () => {
 					$rootScope.exibeListaDocumentos = true;
@@ -301,119 +305,15 @@
 
 				console.log(parent.dadosUserLogado());
 				
-				// Define o idioma usado no Datatables
-				DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
-
-				var idGridDB = 4; /* Grid Pedidos Externos ERP */
-					$http({
-						url: '/clicVendas/rest/Listas/listaColunasGrid',
-						method: 'POST',
-						data : {cId : parent.dadosUserLogado().cId, idGrid : idGridDB} 	
-					}).then(function(response) {	
-					
-						$scope.dtOptions = DTOptionsBuilder.newOptions()            
-						.withOption('ajax', {
-							url		: parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/listarPedidosExternosRepErp',
-							type	: 'POST',
-							data	: function(d) {
-										var	parametros = {
-											idGrid : idGridDB
-										};
-										d.parametros = parametros;
-										
-										var filtros = {
-												dtEmissaoInicio		: ((angular.isUndefined($rootScope.dtEmissaoInicio) || $rootScope.dtEmissaoInicio == null)?"":$rootScope.dtEmissaoInicio.toLocaleDateString()),
-												dtEmissaoFim		: ((angular.isUndefined($rootScope.dtEmissaoFim) || $rootScope.dtEmissaoFim == null)?"":$rootScope.dtEmissaoFim.toLocaleDateString()),
-												dtPrevisaoInicio	: ((angular.isUndefined($rootScope.dtPrevisaoInicio) || $rootScope.dtPrevisaoInicio == null)?"":$rootScope.dtPrevisaoInicio.toLocaleDateString()),
-												dtPrevisaoFim 		: ((angular.isUndefined($rootScope.dtPrevisaoFim) || $rootScope.dtPrevisaoFim == null)?"":$rootScope.dtPrevisaoFim.toLocaleDateString()),
-												idCvtccnpj 			: (angular.isUndefined(parent.dadosUserLogado().cId)?0:parent.dadosUserLogado().cId),
-												rId 				: parent.dadosUserLogado().rId,
-												rTipoId 			: parent.dadosUserLogado().rTipoId
-										};
-										d.filtros = filtros;
-										return JSON.stringify(d);
-									},
-							'error': function(e){
-								//Falha
-								console.log("Erro na requisicao")
-								//SrvMsg.geraMensagem("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
-							},
-
-						})
-						.withDataProp('data')
-						.withOption('processing', true)
-						.withOption('serverSide', true)
-						.withOption('searchDelay', 1500)
-						.withOption('scrollY', "100%")
-						.withPaginationType('full_numbers')            
-						.withDisplayLength(20)
-						.withDOM('<"toolbar">ftrip')
-						.withButtons([
-							{
-								text: 'Novo',
-								key: '1',
-								className: 'btn_grid btn_cor_padrao',
-								action: function (e, dt, node, config) {
-									vm.novoPedido();
-								}
-							}
-						]);
-
-						var montaColunas = response.data.columns;									
-						$scope.dtColumns = montaColunas;
-									
-						
-						/* Personalizar as Colunas */
-						angular.forEach($scope.dtColumns, function (item,index){								
-						
-							switch (item.data) {				
-								
-								case 'status':					
-									montaColunas[index].mRender		= function(data, type, row) {return vm.retornaIcStatus(row)};				
-								break;
-								
-								case 'tipoVenda':						
-									montaColunas[index].mRender		= function(data, type, row) {return (row.tipoVenda != null)?row.tipoVenda.tipoVenda:""};						
-								break;
-								
-								case 'dataEmissao':						
-									montaColunas[index].mRender		= function(data, type, row) {return row.dataEmissaoFormat};			
-								break;								
-								
-								case 'cliente':						
-									montaColunas[index].mRender		= function(data, type, row) {return (row.cliente != null)?row.cliente.nome:""};
-								break;	
-								
-								case 'botoes':						
-									montaColunas[index].mRender		= vm.retornaBotoes;
-									montaColunas[index].sClass 		= 'colBtn';						
-								break;
-								default:
-							}
-						});
-						
-						$scope.dtOptions.withOption('order', response.data.order);	
-						
-						$scope.dtOptions.withOption('fnRowCallback',
-							function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-								$compile(nRow)($scope);
-						});		
-								
-						//Inicializa DataTable
-						angular.element('#gridPedidoV2').attr('datatable', '');
-						$compile(angular.element('#gridPedidoV2'))($scope);
-						/*1540*/
-					});
 				
 			};
 
+			app.controller("UtilsController", UtilsController);
+			function UtilsController($scope, $rootScope, $http){
+							/*1541*/	
+			};
 	})();
 </script> 
-</body>  
-</html>
-
-<!-- Regra de negócio -->
-
 				
 <style>
 	:root {
