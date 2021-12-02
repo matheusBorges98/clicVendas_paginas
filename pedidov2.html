@@ -337,44 +337,7 @@
 										return JSON.stringify(d);
 									}
 								})
-								.withDataProp('data')
-								.withOption('processing', true)
-								.withOption('serverSide', true)
-								.withOption('searchDelay', 1000)
-								.withOption('scrollY', "100%")            
-								.withPaginationType('full_numbers')            
-								.withDisplayLength(20)
-								.withDOM('<"toolbar">ftrip')
-								.withButtons([
-							{
-								enabled: parent.dadosUserLogado().params.paramPermiteCadastrarPedido == 'S',
-								text: 'Novo',
-								key: '1',
-								className: 'btn_grid btn_cor_padrao',
-								action: function (e, dt, node, config) {
-									$rootScope.usarItensCarrinho = false;
-									$scope.dadosExternosNovoPedido = 'undefined';						
-									$rootScope.abreFormPedido();						
-								}
-							},
-							{
-								text: 'Filtrar',
-								key: '2',
-								className: 'btn_grid btn_cor_padrao',
-								action: function (e, dt, node, config) {
-									vm.abreModalFiltro();
-								}
-							},
-							{
-								text: 'Atualizar',
-								key: '4',
-								className: 'btn_grid btn_cor_padrao',
-								action: function (e, dt, node, config) {
-									vm.atualizarPedidos();
-								}
-							},
-								
-						]);	
+						
 
 						
 
