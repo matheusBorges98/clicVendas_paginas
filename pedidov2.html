@@ -165,8 +165,8 @@
 			app.controller("MainController", MainController);
 			function MainController($scope, $http, $rootScope, $timeout) {  
 
-				$rootScope.exibeFormulario 		= false; 
-				$rootScope.exibeListaDocumentos = true; 
+				$rootScope.exibeFormulario 		= true; 
+				$rootScope.exibeListaDocumentos = false; 
 
 				$rootScope.listarDocumentos = () => {
 					$rootScope.exibeListaDocumentos = true;
