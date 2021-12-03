@@ -209,7 +209,8 @@
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
 <!-- Scripts importados -->	
 
-<script>	
+<script>
+	var dadosUserLogado = parent.dadosUserLogado();	
 	(function () {
 		
 		angular
@@ -232,7 +233,7 @@
 								
 				$scope.executaRequisicaoExterna = async ($json) => {
 					try{
-						let response = await $http.post(parent.dadosUserLogado().cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+						let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
 						
 						return response.data;
 					}catch(response){
@@ -244,10 +245,10 @@
 					console.log('a');
 					let result = await $scope.executaRequisicaoExterna(
 					{
-						idCvtccnpj	: parent.dadosUserLogado().cId,
+						idCvtccnpj	: dadosUserLogado.cId,
 						numreg		: 750, 
 						pRotina		: "listarProdutoB2B",
-						pCodCli     : parent.dadosUserLogado().rId,
+						pCodCli     : dadosUserLogado.rId,
 						pNomPro     : "",
 						pTipPro     : "",
 					});
@@ -261,7 +262,7 @@
 					return $http.post('/clicVendas/rest/Listas/tipoPedido', {
 						params: {
 							filtro		: val || '', 
-							idCvTccnpj	: parent.dadosUserLogado().cId,
+							idCvTccnpj	: dadosUserLogado.cId,
 						}
 					}).then(function(response){     
 						if (response.data.length == 1) {
@@ -275,7 +276,7 @@
 				};
 
 				$scope.obterSeRepresentante = function(val) {
-					return parent.dadosUserLogado().rTipoId == 1; //1=REPRESENTANTE   
+					return dadosUserLogado.rTipoId == 1; //1=REPRESENTANTE   
 				};
 
 				$scope.getClientes = function(val) {
@@ -283,7 +284,7 @@
 					
 					if ($rootScope.ehNovoPedido) {
 						if	($scope.obterSeRepresentante()){
-							idRep = parent.dadosUserLogado().rId;
+							idRep = dadosUserLogado.rId;
 						} else{
 							idRep = $rootScope.representante.id;
 						}
@@ -308,7 +309,7 @@
 					if	(angular.isDefined($rootScope.objVenda.cliente) &&
 							$rootScope.objVenda.cliente != null){
 						var dados = {};
-						dados.idCvTccnpj	= parent.dadosUserLogado().cId;
+						dados.idCvTccnpj	= dadosUserLogado.cId;
 						dados.idCvTocliente	= $rootScope.objVenda.cliente.id;
 						dados.filtro		= val || '';
 						return $http.post('/clicVendas/rest/ListaPreco/listarTabelaPrecosVenda', dados).then(function(response){
@@ -437,7 +438,7 @@
 						$http({
 							method	: 'POST',
 							url		: '/clicVendas/rest/pedido/consulta/' + $id,
-							data	: {idCvTccnpj : parent.dadosUserLogado().cId}				
+							data	: {idCvTccnpj : dadosUserLogado.cId}				
 						}).then(
 							function successCallback(response) {
 								if	(response.resultado == 'ERRO'){
@@ -468,13 +469,13 @@
 				/*Define o idioma usado no Datatables*/
 				DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
 
-				console.log(parent.dadosUserLogado());
+				console.log(dadosUserLogado);
 				
 				var idGridDB = 3; /* Código Cadastro Grid banco */
 				$http({
 					url: '/clicVendas/rest/Listas/listaColunasGrid',
 					method: 'POST',
-					data : {cId : parent.dadosUserLogado().cId, idGrid : idGridDB} 	
+					data : {cId : dadosUserLogado.cId, idGrid : idGridDB} 	
 				}).then(function(response) {
 
 					$scope.dtOptions = DTOptionsBuilder.newOptions()            
@@ -492,9 +493,9 @@
 											dtEmissaoFim			: ((angular.isUndefined($rootScope.dtEmissaoFim) || $rootScope.dtEmissaoFim == null)?"":$rootScope.dtEmissaoFim.toLocaleDateString()),
 											dtPrevisaoInicio		: ((angular.isUndefined($rootScope.dtPrevisaoInicio) || $rootScope.dtPrevisaoInicio == null)?"":$rootScope.dtPrevisaoInicio.toLocaleDateString()),
 											dtPrevisaoFim 			: ((angular.isUndefined($rootScope.dtPrevisaoFim) || $rootScope.dtPrevisaoFim == null)?"":$rootScope.dtPrevisaoFim.toLocaleDateString()),
-											idCvtccnpj 				: (angular.isUndefined(parent.dadosUserLogado().cId)?0:parent.dadosUserLogado().cId),
-											rId 					: parent.dadosUserLogado().rId,
-											rTipoId 				: parent.dadosUserLogado().rTipoId,
+											idCvtccnpj 				: (angular.isUndefined(dadosUserLogado.cId)?0:dadosUserLogado.cId),
+											rId 					: dadosUserLogado.rId,
+											rTipoId 				: dadosUserLogado.rTipoId,
 											listaStatusPed		  	: $rootScope.statusPedSel,
 											listaFilSincronizacao	: $rootScope.filSincronizacaoSel,
 											listaTipoPed			: $rootScope.tipoPedSel,
@@ -516,7 +517,7 @@
 							.withDOM('<"toolbar">ftrip')
 							.withButtons([
 						{
-							/*enabled: parent.dadosUserLogado().params.paramPermiteCadastrarPedido == 'S',*/
+							/*enabled: dadosUserLogado.params.paramPermiteCadastrarPedido == 'S',*/
 							text: 'Novo',
 							key: '1',
 							className: 'btn_grid btn_cor_padrao',
