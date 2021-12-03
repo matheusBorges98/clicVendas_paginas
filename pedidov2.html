@@ -1,696 +1,657 @@
-<!DOCTYPE html>  
-<html ng-app="appV2">  
-<head> 
-	<meta harset="utf-8" >
-<!-- Imports CSS-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.tableTools.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
-<!-- Imports CSS-->
-
-<!-- View --> 
-</head>  
-<body>
-	<div>
-		<div ng-controller="MainController">
-
-			<div ng-show="exibeFormulario" class="container col-sm-12">
-				<button class="btn btn_acao_header btn_cor_padrao" ng-click="listarDocumentos()"> Listar </button>
-
-				<!-- Header formulario -->
-				<div class="divider-titulo col-sm-12">
-					<div class="spacer titulo vcenter">
-						Novo pedido
-					</div>			
-				</div>
-				<!-- Header formulario -->
-				
-				<!-- Capa do pedido -->
-				<div class="row spacer">
-					
-					<div class="col-sm-12">
-
-						<!-- Body formulario -->
-						<div class="col-sm-5 spacer">
-							<label>Tipo venda:</label>	
-							<div class="input-group">
-								<input 
-									type="text" 
-									ng-model="frmTipoVenda"
-									id="frmTipoVenda" 
-									placeholder="Informe o tipo de venda" 
-									uib-typeahead="tpv.tipoVenda for tpv in getTipoPedido($viewValue)" 
-									typeahead-on-select="onSelectTipoPedido($item, $model, $label)" 
-									class="form-control" 
-									required="true" 
-									autocomplete="off" 
-									typeahead-min-length="0" 
-								>
-								<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTipoPedido()"><i class="glyphicon glyphicon-remove"></i></span>  
-							</div>
-							<i ng-show="loadingFrmTipoVenda" class="glyphicon glyphicon-refresh"></i>
-						</div>
-
-						<div class="col-sm-5 spacer">
-							<label for="frmCliente">Cliente</label>	
-							<div class="input-group">
-								<input 
-									type="text" 
-									ng-model="frmCliente" 
-									name="frmCliente" 
-									id="frmCliente" 
-									placeholder="Informe o cliente" 
-									uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" 
-									typeahead-loading="loadingCli" 
-									typeahead-no-results="noResultsCli"  
-									typeahead-on-select="onSelectCli($item, $model, $label)" 
-									class="form-control" 
-									required="true" 
-									autocomplete="off" 
-									typeahead-min-length="0" 
-								>
-								<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
-								<!-- <span  ng-disabled="!objVenda.cliente" class="btn btn-xs input-group-addon" style="cursor: pointer;" ng-show="exibeDadosAdcCliente" ng-click="$ctrl.informacoesAdicionaisPedidoCliente()"><i class="fas fa-info"></i></span> -->
-							</div>
-						</div>
-
-						<div class="col-sm-2 spacer">
-							<label style="padding-top: 2px;">Orçamento:</label>
-							<label class="switch switch-green">
-								<input type="checkbox" class="switch-input" ng-model="frmEhOrcamento" name="frmEhOrcamento" ng-disabled="(!ehNovoPedido || paramPadraoOrcamento=='SSL' || paramPadraoOrcamento=='NSL') ? 'disabled' : ''">
-								<span class="switch-label" data-on="Sim" data-off="Não"></span>
-								<span class="switch-handle"></span>
-							</label>					
-						</div>
-
-						<div class="col-sm-4 spacer">
-							<label for="frmTabPreco">Tabela de preço:</label>	
-							<div class="input-group">
-								<input 
-									type="text" 
-									ng-model="frmTabPreco" 
-									name="frmTabPreco" 
-									placeholder="Informe a tabela de preço" 
-									uib-typeahead="tabpreco.nome for tabpreco in getTabPreco($viewValue)" 
-									typeahead-on-select="onSelectTabPre($item, $model, $label)" 
-									class="form-control" 
-									required="true" 
-									autocomplete="off" 
-									typeahead-min-length="0"
-								>
-								<span class="input-group-addon" style="cursor: pointer;" ng-click="limparTabPreco()"><i class="glyphicon glyphicon-remove"></i></span>
-							</div>
-							<!-- <span ng-show="critInfClienteTp" class="help-block"><small>Favor informar um cliente para carregar as tabelas de preço</small></span> -->
-						</div>
-
-						<div class="col-sm-4 spacer">
-							<label for="frmEndEntrega">Endereço de entrega</label>	
-							<div class="input-group">
-								<input 
-									type="text" 
-									ng-model="frmEndEntrega" 
-									name="frmEndEntrega" 
-									placeholder="Informe o endereço de entrega" 
-									uib-typeahead="ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + ee.complemento for ee in getEndEntrega($viewValue)" 
-									typeahead-on-select="onSelectEE($item, $model, $label)" 
-									class="form-control"  
-									autocomplete="off" 
-									typeahead-min-length="0">
-								<span class="input-group-addon" style="cursor: pointer;" ng-click="limparEndEntrega()"><i class="glyphicon glyphicon-remove"></i></span>
-							</div>						
-							<!-- <span ng-show="critInfClienteEe" class="help-block"><small>Favor informar um cliente para que os endereços sejam carregados</small></span> -->
-						</div>
-
-
-						<div class="col-sm-4 spacer">
-							<label for="frmEndEntrega">Endereço de entrega</label>	
-							<input type="text" placeholder="Informe o endereço de entrega" class="form-control" ng-model="endEntrega">
-						</div>
-						
-						<div class="form-group col-md-12  col-sm-12 spacer">
-							<label for="frmObservacao">Descrição: <span ng-show="frmOrcamentoEmail.frmObservacao.$error.required" style="color: red">*</span></label>
-							<textarea class="form-control" rows="3" id="frmObservacao" ng-model="frmObservacao" name="frmObservacao" ng-trim="false" maxlength="249"></textarea>
-							<span>Restam {{249 - frmObservacao.length}} caracteres.</span>
-						</div>
-				
-					</div>		
-
-				</div>
-				<!-- Capa do pedido -->
-				<hr class="divider">
-
-				<div class="row spacer">
-					<div class="col-sm-12">
-						<h1>TESTE</h1>
-						<h1>TESTE</h1>
-						<h1>TESTE</h1>
-						<h1>TESTE</h1>
-					</div>
-				</div>
-				
-				<hr class="divider">
-				<!-- Ações sob o formulario -->
-				<div class="row spacer">
-					<div class="pull-right" style="padding-right: 10px;">
-						<div class="btn-group">
-							<button class="btn btn_grid btn_cor_padrao" ng-click="listarDocumentos()"> Cancelar </button>
-						</div>
-						<div class="btn-group">
-							<button class="btn btn_grid btn_cor_padrao" ng-click="salvarForm()"> Salvar </button>
-						</div>	
-					</div>
-				</div>
-			
-				<hr class="divider">				
-
-			</div>
-		</div>
-
-		<div ng-controller="ColumnsController">			
-			<!-- Listagem de documentos na tabela  -->
-			<div ng-show="exibeListaDocumentos">
-				<table id="gridPedidoV2" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border hover table-striped table-bordered"/>
-			</div>
-			<!-- Listagem de documentos na tabela  -->
-		</div>
-	</div>
-<!-- View --> 
-
-<!-- Scripts importados -->
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/jquery-3.1.1.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/easytimer.min.js"></script>	
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-route.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-ui-router.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-cookies.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angular-ui-notification/angular-ui-notification.min.js"></script>  
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/ui-bootstrap-tpls-2.5.0.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/dist/jquery.dataTables.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/dist/angular-datatables.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/bootstrap.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.bootstrap.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.factory.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.options.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/dataTables.buttons.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.colVis.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.flash.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.html5.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.print.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.buttons.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
-<!-- Scripts importados -->	
-</body>  
-</html>
-<script>
-	var dadosUserLogado = parent.dadosUserLogado();	
-
-	(function () {
-		angular
-			.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons']);
-
-			var app = angular.module('appV2');
-
-			app.controller("MainController", MainController);
-			function MainController($scope, $http, $rootScope, $timeout) {  
-
-				$rootScope.exibeFormulario 		= false; 
-				$rootScope.exibeListaDocumentos = true; 
-
-				$rootScope.listarDocumentos = () => {
-					$rootScope.exibeListaDocumentos = true;
-					$rootScope.exibeFormulario 		= false;
-
-					$rootScope.getListaDocumentos();
-				};
-								
-				$scope.executaRequisicaoExterna = async ($json) => {
-					try{
-						let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-						
-						return response.data;
-					}catch(response){
-						console.log("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
-					}
-				};
-				
-				$rootScope.getListaDocumentos = async () =>{
-					console.log('a');
-					let result = await $scope.executaRequisicaoExterna(
-					{
-						idCvtccnpj	: dadosUserLogado.cId,
-						numreg		: 750, 
-						pRotina		: "listarProdutoB2B",
-						pCodCli     : dadosUserLogado.rId,
-						pNomPro     : "",
-						pTipPro     : "",
-					});
-
-					console.log(result);
-					$scope.listaDocs = result;
-					$scope.$apply();
-				};
-				
-				$scope.getTipoPedido = function(val) {
-					return $http.post('/clicVendas/rest/Listas/tipoPedido', {
-						params: {
-							filtro		: val || '', 
-							idCvTccnpj	: dadosUserLogado.cId,
-						}
-					}).then(function(response){     
-						if (response.data.length == 1) {
-							$rootScope.objVenda.tipoVenda	= response.data[0];
-							$scope.frmTipoVenda				= response.data[0].tipoVenda;					
-						}
-						return response.data.map(function(item){					
-							return item;
-						});
-					});
-				};
-
-				$scope.obterSeRepresentante = function(val) {
-					return dadosUserLogado.rTipoId == 1; //1=REPRESENTANTE   
-				};
-
-				$scope.getClientes = function(val) {
-					var idRep = 0;
-					
-					if ($rootScope.ehNovoPedido) {
-						if	($scope.obterSeRepresentante()){
-							idRep = dadosUserLogado.rId;
-						} else{
-							idRep = $rootScope.representante.id;
-						}
-					} else {
-						idRep = $rootScope.objVenda.representante.id;
-					}		            	
-					
-					return $http.post('/clicVendas/rest/Listas/cliente', {
-						params: {
-							filtro: val || "",
-							rId: idRep
-						}
-					}).then(function(response){
-						return response.data.map(function(item){
-							return item;
-						});
-					});
-				};
-
-				$scope.getTabPreco = function(val) {					
-					$scope.critInfClienteTp = false;
-					if	(angular.isDefined($rootScope.objVenda.cliente) &&
-							$rootScope.objVenda.cliente != null){
-						var dados = {};
-						dados.idCvTccnpj	= dadosUserLogado.cId;
-						dados.idCvTocliente	= $rootScope.objVenda.cliente.id;
-						dados.filtro		= val || '';
-						return $http.post('/clicVendas/rest/ListaPreco/listarTabelaPrecosVenda', dados).then(function(response){
-							if(response.data.length == 1 && !$rootScope.usarItensCarrinho){						
-								$rootScope.objVenda.listaPreco = response.data[0];
-								$scope.frmTabPreco = response.data[0];
-							}
-							if($rootScope.usarItensCarrinho){
-									// $rootScope.objVenda.listaPreco = $scope.getListaPrecoCatalogo(response.data)
-									// $scope.frmTabPreco = $scope.getListaPrecoCatalogo(response.data)
-							}					
-							return response.data.map(function(item){	
-								return item;
-							});
-						});
-					} else {
-						$scope.critInfClienteTp = true;
-					}			
-				};
-
-				$scope.getEndEntrega = function(val) {
-					if(angular.isUndefined($scope.frmCliente) || $scope.frmCliente == ""){
-						$scope.critInfClienteEe = true;
-					}else{
-						$scope.critInfClienteEe = false;
-						
-						return $http({
-								method	: 'GET',
-								url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.objVenda.cliente.id,
-								params 	: {filtro : val || ''}
-							}).then(	
-							function(response) {    
-								//Sucesso
-								if(response.data.length == 1){				
-									var ee = response.data[0];		
-									$rootScope.objVenda.endEntrega = ee;
-									$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
-								}
-
-								return response.data.map(function(item){
-									return item;
-								});
-							}, 
-							function(response) {					
-							});
-					}
-				};
-				
-				$scope.limparEndEntrega = function(){
-					$scope.frmEndEntrega = "";
-					$rootScope.objVenda.endEntrega	= {};
-				};
-
-				$scope.limparTabPreco = function(){
-					$scope.frmTabPreco = "";
-					$rootScope.objVenda.listaPreco	= {};
-				};
-
-				$scope.limpaCliente = function () {
-					$scope.limparTabPreco();
-					$scope.limparEndEntrega();
-					$scope.frmCliente				= "";
-					$scope.frmEndEntrega			= "";
-					$rootScope.objVenda.cliente 	= null;
-					$rootScope.objVenda.endEntrega	= null;
-					var cCliente		= angular.element(document.querySelector('#frmCliente'));
-					$timeout(function () {
-						cCliente.focus();
-					}, 200);                  
-				}
-
-				$scope.limpaTipoPedido = function () {						
-					$scope.frmTipoVenda	= "";
-					$rootScope.objVenda.tipoVenda	= null;
-					let cTipoPedido		= angular.element(document.querySelector('#frmTipoVenda'));
-					$timeout(function () {
-						cTipoPedido.focus();
-					}, 200);                  
-				};
-
-				$scope.onSelectTipoPedido = function ($item, $model, $label) {
-					$rootScope.objVenda.tipoVenda = $item;						
-				};
-				
-				$scope.onSelectCli = function ($item, $model, $label) {
-					$rootScope.objVenda.cliente = $item;
-					$scope.critInfClienteEe 	= false;		
-					$scope.getTabPreco('');		
-					$scope.getEndEntrega();
-									
-				};
-
-				$scope.onSelectTabPre = function ($item, $model, $label) {
-					$rootScope.objVenda.listaPreco = $item;
-				};
-
-				$scope.onSelectEE = function ($item, $model, $label) {			
-					$rootScope.objVenda.endEntrega = $item;			
-				};
-
-				$rootScope.salvarForm = () => {
-					console.log($rootScope.objVenda);
-					let dados = {
-						tipoVenda		: $scope.tipoVenda,
-						tabelaPreco		: $scope.tabelaPreco,
-						cliente			: $scope.cliente,
-						endEntrega		: $scope.endEntrega,
-						prevEntrega 	: $scope.prevEntrega,
-						frmObservacao	: $scope.frmObservacao,
-					};
-					console.log(dados);
-				};
-				
-			};
-
-			app.controller("ColumnsController", ColumnsController);
-			function ColumnsController(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
-
-				var vm = this;
-
-				$rootScope.abreFormPedido = ($id) =>{					
-					delete $rootScope.objVenda;
-					$rootScope.ehNovoPedido = false;
-
-					if (angular.isDefined($id)){
-						$http({
-							method	: 'POST',
-							url		: '/clicVendas/rest/pedido/consulta/' + $id,
-							data	: {idCvTccnpj : dadosUserLogado.cId}				
-						}).then(
-							function successCallback(response) {
-								if	(response.resultado == 'ERRO'){
-									console.log(response.data.resultado, response.data.mensagem);
-								} else {					
-									$rootScope.objVenda		= response.data.parametros.venda;										
-									$rootScope.idPedido		= $rootScope.objVenda.id; 
-								};					
-							}, 
-							function errorCallback(response) {
-								console.log("critica", "Não foi possível carregar o pedido. Tente novamente mais tarde. ");
-							}
-						);
-					} else {
-						$rootScope.ehNovoPedido	= true;	
-						$rootScope.idPedido		= 0; 
-						$rootScope.objVenda 	= {};
-					};
-					
-					$rootScope.exibeListaDocumentos = false;
-					$rootScope.exibeFormulario 		= true;
-
-					console.log($rootScope.objVenda);
-
-					$scope.$apply();
-				};
-				
-				/*Define o idioma usado no Datatables*/
-				DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
-
-				console.log(dadosUserLogado);
-				
-				var idGridDB = 3; /* Código Cadastro Grid banco */
-				$http({
-					url: '/clicVendas/rest/Listas/listaColunasGrid',
-					method: 'POST',
-					data : {cId : dadosUserLogado.cId, idGrid : idGridDB} 	
-				}).then(function(response) {
-
-					$scope.dtOptions = DTOptionsBuilder.newOptions()            
-					.withOption('ajax', {
-						url		: '/clicVendas/rest/pedido/lista',
-						type	: 'POST',
-						data	: function(d) {
-									var	parametros = {
-										idGrid : idGridDB
-									};
-									d.parametros = parametros;
-									
-									var filtros = {
-											dtEmissaoInicio			: ((angular.isUndefined($rootScope.dtEmissaoInicio) || $rootScope.dtEmissaoInicio == null)?"":$rootScope.dtEmissaoInicio.toLocaleDateString()),
-											dtEmissaoFim			: ((angular.isUndefined($rootScope.dtEmissaoFim) || $rootScope.dtEmissaoFim == null)?"":$rootScope.dtEmissaoFim.toLocaleDateString()),
-											dtPrevisaoInicio		: ((angular.isUndefined($rootScope.dtPrevisaoInicio) || $rootScope.dtPrevisaoInicio == null)?"":$rootScope.dtPrevisaoInicio.toLocaleDateString()),
-											dtPrevisaoFim 			: ((angular.isUndefined($rootScope.dtPrevisaoFim) || $rootScope.dtPrevisaoFim == null)?"":$rootScope.dtPrevisaoFim.toLocaleDateString()),
-											idCvtccnpj 				: (angular.isUndefined(dadosUserLogado.cId)?0:dadosUserLogado.cId),
-											rId 					: dadosUserLogado.rId,
-											rTipoId 				: dadosUserLogado.rTipoId,
-											listaStatusPed		  	: $rootScope.statusPedSel,
-											listaFilSincronizacao	: $rootScope.filSincronizacaoSel,
-											listaTipoPed			: $rootScope.tipoPedSel,
-											filEhOrcamento			: $rootScope.filEhOrcamento,
-											listaFiltroRamoAtividade: $rootScope.filRamoAtividade,	
-											listaFiltroOrigem		: $rootScope.filOrigem	
-									};
-									d.filtros = filtros;
-									return JSON.stringify(d);
-								}
-							})
-							.withDataProp('data')
-							.withOption('processing', true)
-							.withOption('serverSide', true)
-							.withOption('searchDelay', 1000)
-							.withOption('scrollY', "100%")            
-							.withPaginationType('full_numbers')            
-							.withDisplayLength(20)
-							.withDOM('<"toolbar">ftrip')
-							.withButtons([
-						{
-							/*enabled: dadosUserLogado.params.paramPermiteCadastrarPedido == 'S',*/
-							text: 'Novo',
-							key: '1',
-							className: 'btn_grid btn_cor_padrao',
-							action: function (e, dt, node, config) {
-								$rootScope.usarItensCarrinho = false;
-								$scope.dadosExternosNovoPedido = 'undefined';						
-								$rootScope.abreFormPedido();						
-							}
-						},
-						{
-							text: 'Filtrar',
-							key: '2',
-							className: 'btn_grid btn_cor_padrao',
-							action: function (e, dt, node, config) {
-								vm.abreModalFiltro();
-							}
-						},
-						{
-							text: 'Atualizar',
-							key: '4',
-							className: 'btn_grid btn_cor_padrao',
-							action: function (e, dt, node, config) {
-								vm.atualizarPedidos();
-							}
-						},
-							
-					]);	
-
-					var montaColunas = response.data.columns;									
-					$scope.dtColumns = montaColunas;
-
-					/* Personalizar as Colunas */
-					angular.forEach($scope.dtColumns, function (item,index){								
-						switch (item.data) {
-											
-							
-						/*	case 'mobile':					
-								montaColunas[index].mRender		= function(data, type, row) {return vm.retornaMobile(row.mobile)};
-								montaColunas[index].sClass 		= 'text-center';											
-							break;
-							
-							case 'status':					
-								montaColunas[index].mRender		= function(data, type, row) {return vm.retornaIcStatus(row.status)};
-								montaColunas[index].sClass 		= 'text-center';											
-							break;
-							
-							case 'sincronizado':						
-								montaColunas[index].mRender		= function(data, type, row) {return vm.retornaIcSinc(row.sincronizado, row.logIntegracao)};
-								montaColunas[index].sClass 		= 'text-center';					
-							break;*/
-							
-							case 'tipoVenda':						
-								montaColunas[index].mRender		= function(data, type, row) {return (row.tipoVenda != null)?row.tipoVenda.tipoVenda:""};						
-							break;
-							
-							case 'dataEmissao':						
-								montaColunas[index].mRender		= function(data, type, row) {return row.dataEmissaoFormat};			
-							break;
-							
-							case 'previsaoEntrega':						
-								montaColunas[index].mRender		= function(data, type, row) {return row.previsaoEntregaFormat};	
-							break;
-							
-							case 'totalVenda':						
-								montaColunas[index].mRender		= function(data, type, row) {return row.totalVendaFormat};
-							break;
-
-							case 'origem':						
-								montaColunas[index].mRender		= function(data, type, row) {return row.origem};
-							break;
-
-							case 'ramoAtividade':						
-								montaColunas[index].mRender		= function(data, type, row) {return row.ramoAtividade};
-							break;
-
-							/*case 'botoes':						
-								montaColunas[index].mRender		= vm.retornaBotoes;
-								montaColunas[index].sClass 		= 'colBtn';						
-							break;*/
-
-							default:
-						}
-					});
-					
-					$scope.dtOptions.withOption('order', response.data.order);	
-													
-					angular.element('#gridPedidoV2').attr('datatable', '');
-					$compile(angular.element('#gridPedidoV2'))($scope);
-					
-					$scope.dtOptions.withOption('fnRowCallback',
-						function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-							$compile(nRow)($scope);
-					});		
-					
-				});
-				
-				
-				
-			};
-
-			app.controller("UtilsController", UtilsController);
-			function UtilsController($scope, $rootScope, $http){
-								
-			};
-	})();
-</script> 
-<!-- Regra de negócio -->
-
-				
 <style>
-	:root {
-			--cor_principal: #047cca;
+
+	#myNavbar {
+	  <!-- margin-bottom: 20px; -->
 	}
+	
+	#mySidebar {
+	  height: 100%; /* 100% Full-height */
+	  width: 0; /* 0 width - change this with JavaScript */
+	  position: absolute; /* Stay in place */
+	  z-index: 1; /* Stay on top */
+	  top: 50;
+	  left: 50;
+	  background-color: rgba(255, 255, 255, 1); 
+	  overflow-x: hidden; /* Disable horizontal scroll */
+	  overflow-y: hidden; /* Disable vertical scroll */
+	  padding-top: 60px; /* Place content 60px from the top */
+	  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */ 
+	  box-shadow: 0 5px 5px 0 rgba(0,0,0,0.50);
+  
+	}
+
+
+	#mySidebar a, label {
+	  padding: 5px 5px 5px 10px;
+	  text-decoration: none;
+	  font-size: 14px;
+	  color: #000;
+	  display: block;
+	  transition: 0.3s;
+	  
+	}
+	
+	#mySidebar input {
+	  padding: 5px 5px 5px 10px;
+	  margin-left: 10px;
+	}
+
+	.navbar-header, label {
+	  display: inline; !important
+	}
+	
+	/* When you mouse over the navigation links, change their color */
+	#mySidebar a:hover {
+	  color: #000;
+	}
+
+	/* The button used to open the sidebar */
+	.openbtn {
+	  font-size: 20px;
+	  cursor: pointer;
+	  background-color: #111;
+	  color: white;
+	  padding: 10px 15px;
+	  border: none;
+	}
+
+	.openbtn:hover {
+	  background-color: #444;
+	}
+
+	/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+	#main {
+	  transition: margin-left .5s; /* If you want a transition effect */
+	  padding: 0px;
+	}
+
+	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+	@media screen and (max-height: 450px) {
+	  .sidebar {padding-top: 15px;}
+	  .sidebar a {font-size: 18px;}
+	}
+	</style>
+
+	<div class="container">
+
+		<!-- Static navbar -->
+		<nav class="navbar navbar-default" id="myNavbar" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button class="btn btn-default navbar-btn" id="myCBTN" onclick="openNav()">&#9776;</button>
+				</div>
 				
-	.btn_grid{
-		background-image: none !important;
-		color: #fff !important;
-		font-weight: 600;
-	}
+				<div id="navbar" class="navbar-collapse collapse">
+					<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Search">
+						</div>
+						<button type="submit" class="btn btn-default">Submit</button>
+					</form>
+					<button class="btn btn-default navbar-btn" >Adicionar</button>
+					<ul class="nav navbar-nav navbar-right">
+						<button id="btnMostraTabela" style="visibility: visible;" text="" class="btn btn-default navbar-btn" onclick="mostraCompleta()">Detalhada</button>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div><!--/.container-fluid -->
+		</nav>
+	    <!-- Sidebar Menu -->
+		<div id="mySidebar" class="sidebar">
+			<form>
+				<div class="form-group">
+					<label for="filFornecedores">Fornecedor</label>
+					<input type="text" style="width: 220px;" class="form-control" id="filFornecedores" aria-describedby=" " placeholder=" ">
+				</div>
+				
+				<div class="form-group">
+					<label for="filCliente">Cliente</label>
+					<input type="text" style="width: 220px;" class="form-control" id="filCliente" aria-describedby=" " placeholder=" ">
+				</div>
+				
+				<div class="form-group">
+					<label for="filBU">BU</label>
+					<input type="text" style="width: 220px;" class="form-control" id="filBU" aria-describedby=" " placeholder=" ">
+				</div>
+				
+				<div class="form-group">
+					<label for="filCluster">Cluster</label>
+					<input type="text" style="width: 220px;" class="form-control" id="filCluster" aria-describedby=" " placeholder=" ">
+				</div>
+				
+				<div class="form-group">
+					<label for="filStatusAmostra">Status da Amostra</label>
+					<input type="text" style="width: 220px;" class="form-control" id="filStatusAmostra" aria-describedby=" " placeholder=" ">
+				</div>
+				
+				<div class="form-group">
+					<label for="filCarteira">Carteira</label>
+					<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+				</div>
+				
+				<div class="form-group">
+					<label for="filCarteira">Data Envio</label>
+					<input type="text" style="width: 75px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder="In�cio">
+				</div>
+				
+				<div class="form-group">
+					<label for="filCarteira">Data Solicita��o</label>
+					<input type="text" style="width: 75px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder="Fim">
+				</div>
+				
+				<div class="form-group">
+					<label for="filCarteira">Segmento</label>
+					<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+				</div>
+				 
+				 <div class="form-group">
+					<label for="filCarteira">SubSegmento</label>
+					<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+				</div>
+				 
+				 <div class="form-group">
+					<label for="filCarteira">Prioridade</label>
+					<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+				  </div>
+				
+				<div class="form-group">
+					<label for="filCarteira">Produto</label>
+					<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+				</div>
+			</form>
+		</div>
 
-	.btn_acao_header{
-		background-image: none !important;
-		color: #fff !important;
-		font-weight: 600;
-		width: 80px;
-		height: 35px;
-		font-size: 0.88em;
-	}
-
-	.btn_cor_padrao {
-		background-color: var(--cor_principal) !important;
-		border-color: var(--cor_principal) !important; 
-	}
-
-	.container{
-		height: calc(100% - 40px); 
-		position: relative;
-	}
-
-	.divider{
-		border-top: 1px solid #bbb;
-	}
+		<div id="main">
+			<div class="col-md-12">
+				
+				<div id="tbSimplificada" style="visibility: visible;" class="table-responsive">
+					
+					<table id="mytable" class="table table-bordred table-striped">
+						
+						<thead>
+							<th><input type="checkbox" id="checkall" /></th>
+							<th style="min-width:100px"> </th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Cliente">Cliente</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Fornecedor">Fornecedor</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Produto">Produto</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Aplica��o">Aplica��o</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Status Amostra">Status</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Prioridade">Prioridade</th>
+						</thead>
+					
+						<tbody>
+							<tr>
+								<td><input type="checkbox" class="checkthis" /></td>			
+								<td>
+									<button data-placement="top" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button>
+									<button data-placement="top" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+									
+									<span class="glyphicon glyphicon-trash"></span></button>
+								</td>
+								<td>3232</td>
+								<td>NOME DO FORNECEDOR</td>
+								<td>NOME DO RPODUTO</td>
+								<td>APLICA��O DO PRODUTO</td>
+								<td>APROVADA</td>
+								<td>ALTA</td>
+							</tr>
+						</tbody>
+					</table>
+            
+					<div class="clearfix"></div>
+						<ul class="pagination pull-right">
+							<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+						</ul>
+				</div>  <!-- Fim �rea da Tabela -->
+				
+				<div id="tbCompleta" style="visibility: hidden;" class="table-responsive">
+					
+					<table id="mytable" class="table table-bordred table-striped">
+						
+						<thead>
+							<th><input type="checkbox" id="checkall" /></th>
+							<th style="min-width:100px"> </th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Cliente-Produto-Pedido">Chave</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Ano">Ano</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Respons�vel">Responss�vel</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Projeto">Projeto</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="C�digo do Cliente">C�digo</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Nome do Cliente">Nome</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Estado do Cliente">UF</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Nome do Vendedor">Vendedor</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Segmento">Segmento</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Sub-segmento">Sub-segmento</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="BU">BU</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Aplica��o">Aplica��o</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Data de Emiss�o">Emiss�o</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="N�mero do Pedido">Pedido</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Fam�lia">Fam�lia</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Cluster">Cluster</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="C�digo do Produto">C�digo</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Descri��o do Produto">Descri��o</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Agrupamento Comercial">A. Com.</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Quantidade em kilogramas">Qtde (kg)</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Data de Status">Data Status</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Situa��o Justificativa">Situa��o</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Justificativa">Justificativa</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Consumo Cliente (kg/m�s)">Consumo</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Prioridade">Prioridade</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Potencial do Cliente (kg/ano)">Potencial</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Consumo (Ano Gerencial) (kg/ano)">Consumo AG</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Consumo 2021 indent kg/ano">Con. 2021 ident</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="Consumo 2021 m�s inicio local (em n�)">Con. 2021 (em n�)</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="Consumo 2022 m�s inicio local (em n�)">Con. 2022 (em n�)</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Consumo 2022 local kg/ano">Con. 2022 local</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="% Probabilidade de Fechamento">% Prob. Fec.</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Concorr�ncia">Concorr�ncia</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="CPre�o Concorr�ncia US$ Final">Pre�o Conc. US$</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="A��es">A��es</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Status da A��o">Status da A��o</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Data da Atualiza��o">Data Atu.</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="OFERTA - Data">OFERTA Data</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="OFERTA - Pre�o Unit�rio (US$)">OFERTA Unit. (US$)</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="Potencial OFERTA X CONSUMO MENSAL">Potencial OxCM</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="CHAVE CLIENTE-PRODUTO">Chave CP</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="INDENT - Qtde (Kg) 2021">INDENT Qtde</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="Venda">Venda</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="VENDA LOCAL (KG) - MAR21-FEV22">Venda Local (KG)</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="�ltima Data Venda TABDIN">�lt. Venda TABDIN</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="Primeira Data Venda TABDIN">1.a Venda TABDIN</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="ANO Primeira VENDA">ANO 1.a VENDA</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="TOTAL (USD) NET FATURADO - LOCAL MAR21-FEV-22">Tot. Fat. (USD)</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="MARGEM DE CONTRIBUI��O (R$)">Margem (R$)</th>
+							<th style="min-width:120px" data-toggle="tooltip" title="PRE�O USD NET 21.10.21">Pre. USD</th>
+							<th style="min-width:150px" data-toggle="tooltip" title="POTENCIAL VOLUME ANO GERENCIAL">Pot. Vol. AG</th>
+						</thead>
+					
+						<tbody>
+							<tr>
+								<td><input type="checkbox" class="checkthis" /></td>			
+								<td>
+									<button data-placement="top" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button>
+									<button data-placement="top" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+									
+									<span class="glyphicon glyphicon-trash"></span></button>
+								</td>
+								<td>3232-326-30514</td>
+								<td>2018</td>
+								<td>TATIANE</td>
+								<td>OPORTUNIDADES</td>
+								<td>3.232</td>
+								<td>Wikoff Color - Verti</td>
+								<td>SP</td>
+								<td>Geisa</td>
+								<td>Tinta Gr�fica</td>
+								<td>Rotogravura</td>
+								<td>Tintas</td>
+								<td>Tinta Gr�fica</td>
+								<td>02/01/2018</td>
+								<td>30.514</td>
+								<td>DAYGLO</td>
+								<td>EFEI</td>
+								<td>326</td>
+								<td>SPL11N SPLASH COLOR AURORA PINK DISPERSION</td>
+								<td>SPL</td>
+								<td>0,2</td>
+								<td>09/10/2018</td>
+								<td>Aprovada Tecnicamente</td>
+								<td>Aprovado - Sem demanda no momento</td>
+								<td>10</td>
+								<td>2022 - 1� TRI</td>
+								<td>120</td>
+								<td>20</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>120</td>
+								<td>100%</td>
+								<td>-</td>
+								<td>-</td>
+								<td>reuniao com Cassio</td>
+								<td>andamento</td>
+								<td>13/10/2021</td>
+								<td>04/05/2020</td>
+								<td>32,98</td>
+								<td>$329,80</td>
+								<td>3232-326</td>
+								<td>-</td>
+								<td>VENDA</td>
+								<td>54,432</td>
+								<td>14/02/2020</td>
+								<td>10/01/2018</td>
+								<td>2018</td>
+								<td>$1.194,66</td>
+								<td>R$ 1.824,47</td>
+								<td>$15,79</td>
+								<td>$315,83</td>
+							</tr>
+						</tbody>
+					</table>
+            
+					<div class="clearfix"></div>
+						<ul class="pagination pull-right">
+							<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+						</ul>
+				</div>  <!-- Fim �rea da Tabela -->
+				
+				
+			</div>
+		</div>
 	
-	.divider-titulo{
-		border-top: 0.8px solid #bbb;
-		border-bottom: 0.8px solid #bbb;
-		height: 50px;
-		margin-top: 5px;
-	}
 
-	.spacer{
-		margin-top:20px;
-	}
-
-	.titulo{
-		font-size: 15px;
-		font-weight: 900;
-	}
-
-	.vcenter {
-		display: flex;
-		align-items: center;
-	}
 	
-</style>
+	</div><!-- /#container -->
+	
+	<div class="modal fade bs-example-modal-lg" id="edit"  style="z-index: 2000; !important;" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+		<div class="modal-content">
+		 <div class="modal-header">
+			<h4 class="modal-title">Edi��o - 3232-326-30514</h4>
+		  </div>
+		  
+		  <div class="modal-body">
+			<form role="form">
+			  <div class="form-group">
+				<label for="chave">Chave</label>
+				<input type="text" class="form-control" value="3232-326-30514" id="chave" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="ano">Ano</label>
+				<input type="text" class="form-control" value="2018" id="ano" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="responsavel">Respons�vel</label>
+				<input type="text" class="form-control" value="TATIANE" id="responsavel" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="projeto">Projeto</label>
+				<input type="text" class="form-control" value="OPORTUNIDADES" id="projeto" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="codigo">C�digo</label>
+				<input type="text" class="form-control" value="3.232" id="codigo" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="nomeCliente">Nome do Cliente</label>
+				<input type="text" class="form-control" value="Wikoff Color - Verti" id="nomeCliente" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="uf">UF</label>
+				<input type="text" class="form-control" value="SP" id="uf" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="vendedor">Vendedor</label>
+				<input type="text" class="form-control" value="Geisa" id="vendedor" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">Segmento</label>
+				<input type="text" class="form-control" value="Tinta Gr�fica" id="segmento" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="subsegmento">Subsegmento</label>
+				<input type="text" class="form-control" value="Rotogravura" id="subsegmento" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="bu">BU</label>
+				<input type="text" class="form-control" value="Tintas" id="bu" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="aplicacao">Aplica��o</label>
+				<input type="text" class="form-control" value="Tinta Gr�fica" id="aplicacao" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="emissao">Emiss�o</label>
+				<input type="text" class="form-control" value="02/01/2018" id="emissao" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="pedido">Pedido</label>
+				<input type="text" class="form-control" value="30.514" id="pedido" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">Familia</label>
+				<input type="text" class="form-control" value="DAYGLO" id="familia" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">Cluster</label>
+				<input type="text" class="form-control" value="EFEI" id="cluster" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">C�digo</label>
+				<input type="text" class="form-control" value="326" id="codPro" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">Descri��o</label>
+				<input type="text" class="form-control" value="SPL11N SPLASH COLOR AURORA PINK DISPERSION" id="despro" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">Agrupamento Comercial</label>
+				<input type="text" class="form-control" value="SPL" id="desagr" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">Qtde (kg)</label>
+				<input type="text" class="form-control" value="0,2" id="segmento" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">Data Status</label>
+				<input type="text" class="form-control" value="09/10/2018" id="segmento" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">Situa��o</label>
+				<input type="text" class="form-control" value="Aprovada Tecnicamente" id="segmento" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">Justificativa</label>
+				<input type="text" class="form-control" value="Aprovado - Sem demanda no momento" id="segmento" placeholder="Chave">
+			  </div>
+			  <div class="form-group">
+				<label for="segmento">Consumo</label>
+				<input type="text" class="form-control" value="10" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Prioridade</label>
+				<input type="text" class="form-control" value="2022 - 1� TRI" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Potencial</label>
+				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Consumo AG</label>
+				<input type="text" class="form-control" value="20" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Con. 2021 ident</label>
+				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Con. 2021 (em n�)</label>
+				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Con. 2022 (em n�)</label>
+				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Con. 2022 local</label>
+				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">% Prob. Fec.</label>
+				<input type="text" class="form-control" value="100%" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Concorr�ncia</label>
+				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Pre�o Conc. US$</label>
+				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">A��es</label>
+				<input type="text" class="form-control" value="reuniao com Cassio" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Status da A��o</label>
+				<input type="text" class="form-control" value="andamento" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Data Atu.</label>
+				<input type="text" class="form-control" value="13/10/2021" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">OFERTA Data</label>
+				<input type="text" class="form-control" value="04/05/2020" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">OFERTA Unit. (US$)</label>
+				<input type="text" class="form-control" value="32,98" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Potencial OxCM</label>
+				<input type="text" class="form-control" value="329,80" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Chave CP</label>
+				<input type="text" class="form-control" value="3232-326" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">INDENT Qtde</label>
+				<input type="text" class="form-control" value="-" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Venda</label>
+				<input type="text" class="form-control" value="VENDA" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Venda Local (KG)</label>
+				<input type="text" class="form-control" value="54,432" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">�lt. Venda TABDIN</label>
+				<input type="text" class="form-control" value="14/02/2020" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">1.a Venda TABDIN</label>
+				<input type="text" class="form-control" value="10/01/2018" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">ANO 1.a VENDA</label>
+				<input type="text" class="form-control" value="2018" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Tot. Fat. (USD)</label>
+				<input type="text" class="form-control" value="1.194,66" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Margem (R$)</label>
+				<input type="text" class="form-control" value="1.824,47" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Pre. USD</label>
+				<input type="text" class="form-control" value="15,79" id="segmento" placeholder="Chave">
+			  </div>			  
+			  <div class="form-group">
+				<label for="segmento">Pot. Vol. AG</label>
+				<input type="text" class="form-control" value="315,83" id="segmento" placeholder="Chave">
+			  </div>
+			  
+			  
+			</form>
+		  </div>
+		  
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			<button type="button" class="btn btn-primary">Salvar</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<div class="modal fade" tabindex="-1" id="delete">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h4 class="modal-title">Modal title</h4>
+		  </div>
+		  <div class="modal-body">
+			<p>One fine body&hellip;</p>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Save changes</button>
+		  </div>
+		</div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 
+	
+	<script>
+	/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+	function openNav() {
+	  document.getElementById("mySidebar").style.width = "250px";
+	  document.getElementById("main").style.marginLeft = "250px";
+	  document.getElementById("myCBTN").setAttribute('onclick', "closeNav()");
+	};
 
+	/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+	function closeNav() {
+	  document.getElementById("mySidebar").style.width = "0";
+	  document.getElementById("main").style.marginLeft = "0";
+	  document.getElementById("myCBTN").setAttribute('onclick', "openNav()");
+	};
+	
+	$(document).ready(function(){
+		$("#mytable #checkall").click(function () {
+			if ($("#mytable #checkall").is(':checked')) {
+				$("#mytable input[type=checkbox]").each(function () {
+					$(this).prop("checked", true);
+				});
 
+			} else {
+				$("#mytable input[type=checkbox]").each(function () {
+					$(this).prop("checked", false);
+				});
+			}
+		});
+    
+	});
+	
+	/* activate scrollspy menu */
+	var $body   = $(document.body);
+	var navHeight = $('#mySideBar').outerHeight(true) + 10;
 
-
-
-
-
-
+	$body.scrollspy({
+		target: '#leftCol',
+		offset: navHeight
+	});
+	
+	function mostraCompleta() {
+	  document.getElementById("tbSimplificada").style.visibility = "hidden";
+	  document.getElementById("tbSimplificada").style.display = "none";
+	  document.getElementById("tbCompleta").style.visibility = "visible";
+	  document.getElementById("btnMostraTabela").setAttribute('onclick', "mostraSimplificada()");
+	  document.getElementById("btnMostraTabela").innerText = 'Simplificada';;  
+	};
+	
+	function mostraSimplificada() {
+	  document.getElementById("tbSimplificada").style.visibility = "visible";
+	  document.getElementById("tbSimplificada").style.display = "block";
+	  document.getElementById("tbCompleta").style.visibility = "hidden";
+	  document.getElementById("btnMostraTabela").setAttribute('onclick', "mostraCompleta()");
+	  document.getElementById("btnMostraTabela").innerText = 'Completa';;  
+	};
+	</script>
 
