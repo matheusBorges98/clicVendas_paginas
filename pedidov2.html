@@ -4,8 +4,7 @@
 	<meta harset="utf-8" >
 <!-- Imports CSS-->
 
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/bootstrap.min.css">
-	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"> <!-- Icones -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
 	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
 	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
@@ -40,7 +39,7 @@
 					<div class="col-sm-12">
 
 						<!-- Body formulario -->
-						<div class="col-sm-4 spacer">
+						<div class="col-sm-5 spacer">
 							<label>Tipo venda:</label>	
 							<div class="input-group">
 								<input 
@@ -60,26 +59,82 @@
 							<i ng-show="loadingFrmTipoVenda" class="glyphicon glyphicon-refresh"></i>
 						</div>
 
-						<div class="col-sm-4 spacer">
-							<label>Tabela de preço:</label>	
-							<input type="text" placeholder="Informe a tabela de preço" class="form-control" ng-model="tabelaPreco">
+						<div class="col-sm-5 spacer">
+							<label for="frmCliente">Cliente</label>	
+							<div class="input-group">
+								<input 
+									type="text" 
+									ng-model="frmCliente" 
+									name="frmCliente" 
+									id="frmCliente" 
+									placeholder="Informe o cliente" 
+									uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" 
+									typeahead-loading="loadingCli" 
+									typeahead-no-results="noResultsCli"  
+									typeahead-on-select="onSelectCli($item, $model, $label)" 
+									class="form-control" 
+									required="true" 
+									autocomplete="off" 
+									typeahead-min-length="0" 
+								>
+								<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
+								<!-- <span  ng-disabled="!objVenda.cliente" class="btn btn-xs input-group-addon" style="cursor: pointer;" ng-show="exibeDadosAdcCliente" ng-click="$ctrl.informacoesAdicionaisPedidoCliente()"><i class="fas fa-info"></i></span> -->
+							</div>
+						</div>
+
+						<div class="col-sm-2 spacer">
+							<label style="padding-top: 2px;">Orçamento:</label>
+							<label class="switch switch-green">
+								<input type="checkbox" class="switch-input" ng-model="frmEhOrcamento" name="frmEhOrcamento" ng-disabled="(!ehNovoPedido || paramPadraoOrcamento=='SSL' || paramPadraoOrcamento=='NSL') ? 'disabled' : ''">
+								<span class="switch-label" data-on="Sim" data-off="Não"></span>
+								<span class="switch-handle"></span>
+							</label>					
 						</div>
 
 						<div class="col-sm-4 spacer">
-							<label>Cliente</label>	
-							<input type="text" placeholder="Informe o cliente" class="form-control" ng-model="cliente">
+							<label for="frmTabPreco">Tabela de preço:</label>	
+							<div class="input-group">
+								<input 
+									type="text" 
+									ng-model="frmTabPreco" 
+									name="frmTabPreco" 
+									placeholder="Informe a tabela de preço" 
+									uib-typeahead="tabpreco.nome for tabpreco in getTabPreco($viewValue)" 
+									typeahead-on-select="onSelectTabPre($item, $model, $label)" 
+									class="form-control" 
+									required="true" 
+									autocomplete="off" 
+									typeahead-min-length="0"
+								>
+								<span class="input-group-addon" style="cursor: pointer;" ng-click="$ctrl.limparTabPreco()"><i class="glyphicon glyphicon-remove"></i></span>
+							</div>
+							<!-- <span ng-show="critInfClienteTp" class="help-block"><small>Favor informar um cliente para carregar as tabelas de preço</small></span> -->
 						</div>
 
 						<div class="col-sm-4 spacer">
-							<label>Endereço de entrega</label>	
+							<label for="frmEndEntrega">Endereço de entrega</label>	
+							<div class="input-group">
+								<input 
+									type="text" 
+									ng-model="frmEndEntrega" 
+									name="frmEndEntrega" 
+									placeholder="Informe o endereço de entrega" 
+									uib-typeahead="ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + ee.complemento for ee in getEndEntrega($viewValue)" 
+									typeahead-on-select="onSelectEE($item, $model, $label)" 
+									class="form-control"  
+									autocomplete="off" 
+									typeahead-min-length="0">
+								<span class="input-group-addon" style="cursor: pointer;" ng-click="limparEndEntrega()"><i class="glyphicon glyphicon-remove"></i></span>
+							</div>						
+							<!-- <span ng-show="critInfClienteEe" class="help-block"><small>Favor informar um cliente para que os endereços sejam carregados</small></span> -->
+						</div>
+
+
+						<div class="col-sm-4 spacer">
+							<label for="frmEndEntrega">Endereço de entrega</label>	
 							<input type="text" placeholder="Informe o endereço de entrega" class="form-control" ng-model="endEntrega">
 						</div>
 						
-						<div class="col-sm-4 spacer">
-							<label>Previsão entrega</label>	
-							<input type="text" placeholder="Informe a previsão de entrega" class="form-control" ng-model="prevEntrega">
-						</div>
-
 						<div class="form-group col-md-12  col-sm-12 spacer">
 							<label for="frmObservacao">Descrição: <span ng-show="frmOrcamentoEmail.frmObservacao.$error.required" style="color: red">*</span></label>
 							<textarea class="form-control" rows="3" id="frmObservacao" ng-model="frmObservacao" name="frmObservacao" ng-trim="false" maxlength="249"></textarea>
@@ -154,7 +209,7 @@
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
 <!-- Scripts importados -->	
 
-<script type="text/javascript">	
+<script>	
 	(function () {
 		
 		angular
@@ -165,8 +220,8 @@
 			app.controller("MainController", MainController);
 			function MainController($scope, $http, $rootScope, $timeout) {  
 
-				$rootScope.exibeFormulario 		= true; 
-				$rootScope.exibeListaDocumentos = false; 
+				$rootScope.exibeFormulario 		= false; 
+				$rootScope.exibeListaDocumentos = true; 
 
 				$rootScope.listarDocumentos = () => {
 					$rootScope.exibeListaDocumentos = true;
@@ -219,9 +274,115 @@
 					});
 				};
 
+				$scope.obterSeRepresentante = function(val) {
+					return parent.dadosUserLogado().rTipoId == 1; //1=REPRESENTANTE   
+				};
+
+				$scope.getClientes = function(val) {
+					var idRep = 0;
+					
+					if ($rootScope.ehNovoPedido) {
+						if	($scope.obterSeRepresentante()){
+							idRep = parent.dadosUserLogado().rId;
+						} else{
+							idRep = $rootScope.representante.id;
+						}
+					} else {
+						idRep = $rootScope.objVenda.representante.id;
+					}		            	
+					
+					return $http.post('/clicVendas/rest/Listas/cliente', {
+						params: {
+							filtro: val || "",
+							rId: idRep
+						}
+					}).then(function(response){
+						return response.data.map(function(item){
+							return item;
+						});
+					});
+				};
+
+				$scope.getTabPreco = function(val) {					
+					$scope.critInfClienteTp = false;
+					if	(angular.isDefined($rootScope.objVenda.cliente) &&
+							$rootScope.objVenda.cliente != null){
+						var dados = {};
+						dados.idCvTccnpj	= parent.dadosUserLogado().cId;
+						dados.idCvTocliente	= $rootScope.objVenda.cliente.id;
+						dados.filtro		= val || '';
+						return $http.post('/clicVendas/rest/ListaPreco/listarTabelaPrecosVenda', dados).then(function(response){
+							if(response.data.length == 1 && !$rootScope.usarItensCarrinho){						
+								$rootScope.objVenda.listaPreco = response.data[0];
+								$scope.frmTabPreco = response.data[0];
+							}
+							if($rootScope.usarItensCarrinho){
+									// $rootScope.objVenda.listaPreco = $scope.getListaPrecoCatalogo(response.data)
+									// $scope.frmTabPreco = $scope.getListaPrecoCatalogo(response.data)
+							}					
+							return response.data.map(function(item){	
+								return item;
+							});
+						});
+					} else {
+						$scope.critInfClienteTp = true;
+					}			
+				};
+
+				$scope.getEndEntrega = function(val) {
+					if(angular.isUndefined($scope.frmCliente) || $scope.frmCliente == ""){
+						$scope.critInfClienteEe = true;
+					}else{
+						$scope.critInfClienteEe = false;
+						
+						return $http({
+									method	: 'GET',
+									url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.objVenda.cliente.id,
+									params 	: {filtro : val || ''}
+								}).then(	
+								function(response) {    
+									//Sucesso
+									if(response.data.length == 1){				
+										var ee = response.data[0];		
+										$rootScope.objVenda.endEntrega = ee;
+										$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
+									}
+
+									return response.data.map(function(item){
+										return item;
+									});
+								}, 
+								function(response) {					
+								});
+					}
+				};
+				
+				$scope.limparEndEntrega = function(){
+					$scope.frmEndEntrega = "";
+					$rootScope.objVenda.endEntrega	= {};
+				};
+
+				$scope.limparTabPreco = function(){
+					$scope.frmTabPreco = "";
+					$rootScope.objVenda.listaPreco	= {};
+				};
+
+				$scope.limpaCliente = function () {
+					// $ctrl.limparTabPreco();
+					// $ctrl.limparEndEntrega();
+					$scope.frmCliente				= "";
+					$scope.frmEndEntrega			= "";
+					$rootScope.objVenda.cliente 	= null;
+					$rootScope.objVenda.endEntrega	= null;
+					var cCliente		= angular.element(document.querySelector('#frmCliente'));
+					$timeout(function () {
+						cCliente.focus();
+					}, 200);                  
+				}
+
 				$scope.limpaTipoPedido = function () {						
 					$scope.frmTipoVenda	= "";
-					$rootScope.objVenda.tipoVenda	= null;
+					//$rootScope.objVenda.tipoVenda	= null;
 					let cTipoPedido		= angular.element(document.querySelector('#frmTipoVenda'));
 					$timeout(function () {
 						cTipoPedido.focus();
@@ -230,7 +391,23 @@
 
 				$scope.onSelectTipoPedido = function ($item, $model, $label) {
 					$rootScope.objVenda.tipoVenda = $item;						
-				};    
+				};
+				
+				$scope.onSelectCli = function ($item, $model, $label) {
+					$rootScope.objVenda.cliente = $item;
+					$scope.critInfClienteEe 	= false;		
+					$scope.getTabPreco('');		
+					$scope.getEndEntrega();
+									
+				};
+
+				$scope.onSelectTabPre = function ($item, $model, $label) {
+					$rootScope.objVenda.listaPreco = $item;
+				};
+
+				$scope.onSelectEE = function ($item, $model, $label) {			
+					$rootScope.objVenda.endEntrega = $item;			
+				};
 
 				$rootScope.salvarForm = () => {
 					console.log($rootScope.objVenda);
@@ -242,8 +419,6 @@
 						prevEntrega 	: $scope.prevEntrega,
 						frmObservacao	: $scope.frmObservacao,
 					};
-
-					
 					console.log(dados);
 				};
 				
