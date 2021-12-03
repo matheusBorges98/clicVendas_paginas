@@ -3,7 +3,6 @@
 <head> 
 	<meta harset="utf-8" >
 <!-- Imports CSS-->
-
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
 	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
@@ -106,7 +105,7 @@
 									autocomplete="off" 
 									typeahead-min-length="0"
 								>
-								<span class="input-group-addon" style="cursor: pointer;" ng-click="$ctrl.limparTabPreco()"><i class="glyphicon glyphicon-remove"></i></span>
+								<span class="input-group-addon" style="cursor: pointer;" ng-click="limparTabPreco()"><i class="glyphicon glyphicon-remove"></i></span>
 							</div>
 							<!-- <span ng-show="critInfClienteTp" class="help-block"><small>Favor informar um cliente para carregar as tabelas de preço</small></span> -->
 						</div>
@@ -208,11 +207,12 @@
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
 <!-- Scripts importados -->	
-
+</body>  
+</html>
 <script>
 	var dadosUserLogado = parent.dadosUserLogado();	
+
 	(function () {
-		
 		angular
 			.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons']);
 
@@ -337,24 +337,24 @@
 						$scope.critInfClienteEe = false;
 						
 						return $http({
-									method	: 'GET',
-									url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.objVenda.cliente.id,
-									params 	: {filtro : val || ''}
-								}).then(	
-								function(response) {    
-									//Sucesso
-									if(response.data.length == 1){				
-										var ee = response.data[0];		
-										$rootScope.objVenda.endEntrega = ee;
-										$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
-									}
+								method	: 'GET',
+								url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.objVenda.cliente.id,
+								params 	: {filtro : val || ''}
+							}).then(	
+							function(response) {    
+								//Sucesso
+								if(response.data.length == 1){				
+									var ee = response.data[0];		
+									$rootScope.objVenda.endEntrega = ee;
+									$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
+								}
 
-									return response.data.map(function(item){
-										return item;
-									});
-								}, 
-								function(response) {					
+								return response.data.map(function(item){
+									return item;
 								});
+							}, 
+							function(response) {					
+							});
 					}
 				};
 				
@@ -369,8 +369,8 @@
 				};
 
 				$scope.limpaCliente = function () {
-					// $ctrl.limparTabPreco();
-					// $ctrl.limparEndEntrega();
+					$scope.limparTabPreco();
+					$scope.limparEndEntrega();
 					$scope.frmCliente				= "";
 					$scope.frmEndEntrega			= "";
 					$rootScope.objVenda.cliente 	= null;
@@ -383,7 +383,7 @@
 
 				$scope.limpaTipoPedido = function () {						
 					$scope.frmTipoVenda	= "";
-					//$rootScope.objVenda.tipoVenda	= null;
+					$rootScope.objVenda.tipoVenda	= null;
 					let cTipoPedido		= angular.element(document.querySelector('#frmTipoVenda'));
 					$timeout(function () {
 						cTipoPedido.focus();
@@ -624,9 +624,6 @@
 			};
 	})();
 </script> 
-</body>  
-</html>
-
 <!-- Regra de negócio -->
 
 				
@@ -686,4 +683,14 @@
 	}
 	
 </style>
+
+
+
+
+
+
+
+
+
+
 
