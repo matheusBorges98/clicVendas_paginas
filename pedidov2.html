@@ -572,13 +572,10 @@
 var dadosUserLogado = parent.dadosUserLogado();	
 
 angular
-	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons']);
-
-	var app = angular.module('appV2');
-
-	app.controller("MainController", MainController);
-	function MainController($scope, $http, $rootScope, $timeout) {  
-
+	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons'])
+	.controller("MainController",
+	function($scope, $http, $rootScope, $timeout){
+		
 		$rootScope.exibeFormulario 		= false; 
 		$rootScope.exibeListaDocumentos = true; 
 
@@ -615,8 +612,7 @@ angular
 			$scope.listaDocs = result;
 			$scope.$apply();
 		};
-		
-	};
+	});
 </script> 
 <!-- Regra de negócio -->
 
