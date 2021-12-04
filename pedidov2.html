@@ -18,7 +18,7 @@
 <!-- View --> 
 </head>  
 <body>
-	<div class="container">
+	<div class="container" ng-app="appV2">
 
 		<!-- Static navbar -->
 		<nav class="navbar navbar-default" id="myNavbar" role="navigation">
@@ -248,7 +248,7 @@
 								<td>Aprovada Tecnicamente</td>
 								<td>Aprovado - Sem demanda no momento</td>
 								<td>10</td>
-								<td>2022 - 1� TRI</td>
+								<td>2022 - 1º TRI</td>
 								<td>120</td>
 								<td>20</td>
 								<td>-</td>
@@ -569,6 +569,172 @@
 <!-- Scripts importados -->	
 
 <script>
+	var dadosUserLogado = parent.dadosUserLogado();	
+
+	(function () {
+		angular
+			.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons']);
+
+			var app = angular.module('appV2');
+
+			app.controller("MainController", MainController);
+			function MainController($scope, $http, $rootScope, $timeout) {  
+
+				$rootScope.exibeFormulario 		= false; 
+				$rootScope.exibeListaDocumentos = true; 
+
+				$rootScope.listarDocumentos = () => {
+					$rootScope.exibeListaDocumentos = true;
+					$rootScope.exibeFormulario 		= false;
+
+					$rootScope.getListaDocumentos();
+				};
+								
+				$scope.executaRequisicaoExterna = async ($json) => {
+					try{
+						let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+						
+						return response.data;
+					}catch(response){
+						console.log("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
+					}
+				};
+				
+				$rootScope.getListaDocumentos = async () =>{
+					console.log('a');
+					let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj	: dadosUserLogado.cId,
+						numreg		: 750, 
+						pRotina		: "listarProdutoB2B",
+						pCodCli     : dadosUserLogado.rId,
+						pNomPro     : "",
+						pTipPro     : "",
+					});
+
+					console.log(result);
+					$scope.listaDocs = result;
+					$scope.$apply();
+				};
+				
+				// $rootScope.salvarForm = () => {
+				// 	console.log($rootScope.objVenda);
+				// 	let dados = {
+				// 		tipoVenda		: $scope.tipoVenda,
+				// 		tabelaPreco		: $scope.tabelaPreco,
+				// 		cliente			: $scope.cliente,
+				// 		endEntrega		: $scope.endEntrega,
+				// 		prevEntrega 	: $scope.prevEntrega,
+				// 		frmObservacao	: $scope.frmObservacao,
+				// 	};
+				// 	console.log(dados);
+				// };
+				
+			};
+
+			app.controller("ColumnsController", ColumnsController);
+			function ColumnsController(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
+				
+				/*Define o idioma usado no Datatables*/
+				// DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
+
+				console.log(dadosUserLogado);
+				
+				// var idGridDB = 3; /* Código Cadastro Grid banco */
+				// $http({
+				// 	url: '/clicVendas/rest/Listas/listaColunasGrid',
+				// 	method: 'POST',
+				// 	data : {cId : dadosUserLogado.cId, idGrid : idGridDB} 	
+				// }).then(function(response) {
+
+				// 	$scope.dtOptions = DTOptionsBuilder.newOptions()            
+				// 	.withOption('ajax', {
+				// 		url		: '/clicVendas/rest/pedido/lista',
+				// 		type	: 'POST',
+				// 		data	: function(d) {
+				// 					var	parametros = {
+				// 						idGrid : idGridDB
+				// 					};
+				// 					d.parametros = parametros;
+									
+				// 					var filtros = {
+				// 							dtEmissaoInicio			: ((angular.isUndefined($rootScope.dtEmissaoInicio) || $rootScope.dtEmissaoInicio == null)?"":$rootScope.dtEmissaoInicio.toLocaleDateString()),
+				// 							dtEmissaoFim			: ((angular.isUndefined($rootScope.dtEmissaoFim) || $rootScope.dtEmissaoFim == null)?"":$rootScope.dtEmissaoFim.toLocaleDateString()),
+				// 							dtPrevisaoInicio		: ((angular.isUndefined($rootScope.dtPrevisaoInicio) || $rootScope.dtPrevisaoInicio == null)?"":$rootScope.dtPrevisaoInicio.toLocaleDateString()),
+				// 							dtPrevisaoFim 			: ((angular.isUndefined($rootScope.dtPrevisaoFim) || $rootScope.dtPrevisaoFim == null)?"":$rootScope.dtPrevisaoFim.toLocaleDateString()),
+				// 							idCvtccnpj 				: (angular.isUndefined(dadosUserLogado.cId)?0:dadosUserLogado.cId),
+				// 							rId 					: dadosUserLogado.rId,
+				// 							rTipoId 				: dadosUserLogado.rTipoId,
+				// 							listaStatusPed		  	: $rootScope.statusPedSel,
+				// 							listaFilSincronizacao	: $rootScope.filSincronizacaoSel,
+				// 							listaTipoPed			: $rootScope.tipoPedSel,
+				// 							filEhOrcamento			: $rootScope.filEhOrcamento,
+				// 							listaFiltroRamoAtividade: $rootScope.filRamoAtividade,	
+				// 							listaFiltroOrigem		: $rootScope.filOrigem	
+				// 					};
+				// 					d.filtros = filtros;
+				// 					return JSON.stringify(d);
+				// 				}
+				// 			})
+				// 			.withDataProp('data')
+				// 			.withOption('processing', true)
+				// 			.withOption('serverSide', true)
+				// 			.withOption('searchDelay', 1000)
+				// 			.withOption('scrollY', "100%")            
+				// 			.withPaginationType('full_numbers')            
+				// 			.withDisplayLength(20)
+				// 			.withDOM('<"toolbar">ftrip')
+				// 			.withButtons([
+				// 		{
+				// 			/*enabled: dadosUserLogado.params.paramPermiteCadastrarPedido == 'S',*/
+				// 			text: 'Novo',
+				// 			key: '1',
+				// 			className: 'btn_grid btn_cor_padrao',
+				// 			action: function (e, dt, node, config) {
+				// 				$rootScope.usarItensCarrinho = false;
+				// 				$scope.dadosExternosNovoPedido = 'undefined';						
+				// 				$rootScope.abreFormPedido();						
+				// 			}
+				// 		},
+							
+				// 	]);	
+
+				// 	var montaColunas = response.data.columns;									
+				// 	$scope.dtColumns = montaColunas;
+
+				// 	/* Personalizar as Colunas */
+				// 	angular.forEach($scope.dtColumns, function (item,index){								
+				// 		switch (item.data) {
+											
+				// 			case 'tipoVenda':						
+				// 				montaColunas[index].mRender		= function(data, type, row) {return (row.tipoVenda != null)?row.tipoVenda.tipoVenda:""};						
+				// 			break;
+
+				// 			default:
+				// 		}
+				// 	});
+					
+				// 	$scope.dtOptions.withOption('order', response.data.order);	
+													
+				// 	angular.element('#gridPedidoV2').attr('datatable', '');
+				// 	$compile(angular.element('#gridPedidoV2'))($scope);
+					
+				// 	$scope.dtOptions.withOption('fnRowCallback',
+				// 		function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+				// 			$compile(nRow)($scope);
+				// 	});		
+					
+				// });
+				
+				
+				
+			};
+	})();
+</script> 
+<!-- Regra de negócio -->
+
+
+<script>
 	/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
 	function openNav() {
 	  document.getElementById("mySidebar").style.width = "250px";
@@ -632,7 +798,60 @@
 				
 <style>
 
+:root {
+			--cor_principal: #047cca;
+	}
+				
+	.btn_grid{
+		background-image: none !important;
+		color: #fff !important;
+		font-weight: 600;
+	}
+
+	.btn_acao_header{
+		background-image: none !important;
+		color: #fff !important;
+		font-weight: 600;
+		width: 80px;
+		height: 35px;
+		font-size: 0.88em;
+	}
+
+	.btn_cor_padrao {
+		background-color: var(--cor_principal) !important;
+		border-color: var(--cor_principal) !important; 
+	}
+
+	.container{
+		height: calc(100% - 40px); 
+		position: relative;
+	}
+
+	.divider{
+		border-top: 1px solid #bbb;
+	}
 	
+	.divider-titulo{
+		border-top: 0.8px solid #bbb;
+		border-bottom: 0.8px solid #bbb;
+		height: 50px;
+		margin-top: 5px;
+	}
+
+	.spacer{
+		margin-top:20px;
+	}
+
+	.titulo{
+		font-size: 15px;
+		font-weight: 900;
+	}
+
+	.vcenter {
+		display: flex;
+		align-items: center;
+	}
+
 	#mySidebar {
 	  height: 100%; /* 100% Full-height */
 	  width: 0; /* 0 width - change this with JavaScript */
