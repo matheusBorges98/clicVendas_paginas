@@ -110,7 +110,7 @@
 			</div>
 
 			<!-- Tabela -->
-			<div id="main" ng-show="!exibeFormulario">
+			<div id="main" ng-show="exibeListaDocumentos">
 				<div class="col-md-12">
 					
 					<div id="tbSimplificada" style="visibility: visible;" class="table-responsive">
@@ -122,7 +122,7 @@
 		
 
 		
-		</div><!-- /#container -->
+		</div>
 		
 		<!-- FORM NOVO DOCUMENTO -->
 
@@ -413,6 +413,11 @@ angular
 
 			$rootScope.getListaDocumentos();
 		};
+
+		$rootScope.exibeFormulario = () =>{
+			$rootScope.exibeFormulario = true;
+			$rootScope.exibeListaDocumentos = false;
+		}
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
 			try{
