@@ -110,7 +110,7 @@
 			</div>
 
 			<!-- Tabela -->
-			<div id="main">
+			<div id="main" ng-show="!exibeFormulario">
 				<div class="col-md-12">
 					
 					<div id="tbSimplificada" style="visibility: visible;" class="table-responsive">
@@ -127,7 +127,7 @@
 		<!-- FORM NOVO DOCUMENTO -->
 
 		<div ng-show="exibeFormulario" class="container col-sm-12">
-			<button class="btn btn_acao_header btn_cor_padrao" ng-click="listarDocumentos()"> Listar </button>
+			<button class="btn btn_acao_header btn_cor_padrao" ng-click="listarDocumentos()"> Voltar </button>
 
 			<!-- Header formulario -->
 			<div class="divider-titulo col-sm-12">
@@ -511,7 +511,7 @@ angular
 					action: function (e, dt, node, config) {
 						$rootScope.usarItensCarrinho = false;
 						$scope.dadosExternosNovoPedido = 'undefined';						
-						$rootScope.abreFormPedido();						
+						$rootScope.exibeFormulario 	=true; 						
 					}
 				},							
 			]);	
