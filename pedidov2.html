@@ -452,6 +452,114 @@ angular
 			}
 		
 		};
+
+		/*Define o idioma usado no Datatables*/
+		DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
+			
+		var idGridDB = 3; /* Código Cadastro Grid banco */
+		$http({
+			url: '/clicVendas/rest/Listas/listaColunasGrid',
+			method: 'POST',
+			data : {cId : dadosUserLogado.cId, idGrid : idGridDB} 	
+		}).then(function(response) {
+
+			$scope.dtOptions = DTOptionsBuilder.newOptions()            
+			.withOption('ajax', {
+				url		: '/clicVendas/rest/pedido/lista',
+				type	: 'POST',
+				data	: function(d) {
+							var	parametros = {
+								idGrid : idGridDB
+							};
+							d.parametros = parametros;
+							
+							var filtros = {
+									dtEmissaoInicio			: ((angular.isUndefined($rootScope.dtEmissaoInicio) || $rootScope.dtEmissaoInicio == null)?"":$rootScope.dtEmissaoInicio.toLocaleDateString()),
+									dtEmissaoFim			: ((angular.isUndefined($rootScope.dtEmissaoFim) || $rootScope.dtEmissaoFim == null)?"":$rootScope.dtEmissaoFim.toLocaleDateString()),
+									dtPrevisaoInicio		: ((angular.isUndefined($rootScope.dtPrevisaoInicio) || $rootScope.dtPrevisaoInicio == null)?"":$rootScope.dtPrevisaoInicio.toLocaleDateString()),
+									dtPrevisaoFim 			: ((angular.isUndefined($rootScope.dtPrevisaoFim) || $rootScope.dtPrevisaoFim == null)?"":$rootScope.dtPrevisaoFim.toLocaleDateString()),
+									idCvtccnpj 				: (angular.isUndefined(dadosUserLogado.cId)?0:dadosUserLogado.cId),
+									rId 					: dadosUserLogado.rId,
+									rTipoId 				: dadosUserLogado.rTipoId,
+									listaStatusPed		  	: $rootScope.statusPedSel,
+									listaFilSincronizacao	: $rootScope.filSincronizacaoSel,
+									listaTipoPed			: $rootScope.tipoPedSel,
+									filEhOrcamento			: $rootScope.filEhOrcamento,
+									listaFiltroRamoAtividade: $rootScope.filRamoAtividade,	
+									listaFiltroOrigem		: $rootScope.filOrigem	
+							};
+							d.filtros = filtros;
+							return JSON.stringify(d);
+						}
+					})
+					.withDataProp('data')
+					.withOption('processing', true)
+					.withOption('serverSide', true)
+					.withOption('searchDelay', 1000)
+					.withOption('scrollY', "100%")            
+					.withPaginationType('full_numbers')            
+					.withDisplayLength(20)
+					.withDOM('<"toolbar">ftrip')
+					.withButtons([
+				{
+					enabled: dadosUserLogado.params.paramPermiteCadastrarPedido == 'S',
+					text: 'Novo',
+					key: '1',
+					className: 'btn_grid btn_cor_padrao',
+					action: function (e, dt, node, config) {
+						$rootScope.usarItensCarrinho = false;
+						$scope.dadosExternosNovoPedido = 'undefined';						
+						$rootScope.abreFormPedido();						
+					}
+				},							
+			]);	
+
+			var montaColunas = response.data.columns;									
+			$scope.dtColumns = montaColunas;
+
+			/* Personalizar as Colunas */
+			angular.forEach($scope.dtColumns, function (item,index){								
+				switch (item.data) {
+									
+					case 'tipoVenda':						
+						montaColunas[index].mRender		= function(data, type, row) {return (row.tipoVenda != null)?row.tipoVenda.tipoVenda:""};						
+					break;
+					
+					case 'dataEmissao':						
+						montaColunas[index].mRender		= function(data, type, row) {return row.dataEmissaoFormat};			
+					break;
+					
+					case 'previsaoEntrega':						
+						montaColunas[index].mRender		= function(data, type, row) {return row.previsaoEntregaFormat};	
+					break;
+					
+					case 'totalVenda':						
+						montaColunas[index].mRender		= function(data, type, row) {return row.totalVendaFormat};
+					break;
+
+					case 'origem':						
+						montaColunas[index].mRender		= function(data, type, row) {return row.origem};
+					break;
+
+					case 'ramoAtividade':						
+						montaColunas[index].mRender		= function(data, type, row) {return row.ramoAtividade};
+					break;
+
+					default:
+				}
+			});
+			
+			$scope.dtOptions.withOption('order', response.data.order);	
+											
+			angular.element('#listaDocumentos').attr('datatable', '');
+			$compile(angular.element('#listaDocumentos'))($scope);
+			
+			$scope.dtOptions.withOption('fnRowCallback',
+				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+					$compile(nRow)($scope);
+			});		
+			
+		});
 		
 	});
 </script> 
