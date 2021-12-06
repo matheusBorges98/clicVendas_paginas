@@ -20,7 +20,7 @@
 <body>
 	<div class="container" ng-controller="MainController">
 
-		<div>
+		<div ng-show="exibeListaDocumentos">
 
 			<!-- Static navbar -->
 			<nav class="navbar navbar-default" id="myNavbar" role="navigation">
@@ -110,7 +110,7 @@
 			</div>
 
 			<!-- Tabela -->
-			<div id="main" ng-show="exibeListaDocumentos">
+			<div id="main">
 				<div class="col-md-12">
 					
 					<div id="tbSimplificada" style="visibility: visible;" class="table-responsive">
@@ -410,8 +410,6 @@ angular
 		$rootScope.listarDocumentos = () => {
 			$rootScope.exibeListaDocumentos = true;
 			$rootScope.exibeFormulario 		= false;
-
-			$rootScope.getListaDocumentos();
 		};
 
 		$rootScope.exibeFormulario = () =>{
