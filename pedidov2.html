@@ -20,528 +20,531 @@
 <body>
 	<div class="container" ng-app="appV2">
 
-		<!-- Static navbar -->
-		<nav class="navbar navbar-default" id="myNavbar" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button class="btn btn-default navbar-btn" id="myCBTN" onclick="openNav()">&#9776;</button>
-				</div>
-				
-				<div id="navbar" class="navbar-collapse collapse">
-					<form class="navbar-form navbar-left" role="search">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search">
-						</div>
-						<button type="submit" class="btn btn-default">Submit</button>
-					</form>
-					<button class="btn btn-default navbar-btn" >Adicionar</button>
-					<ul class="nav navbar-nav navbar-right">
-						<button id="btnMostraTabela" style="visibility: visible;" text="" class="btn btn-default navbar-btn" onclick="mostraCompleta()">Detalhada</button>
-					</ul>
-				</div><!--/.nav-collapse -->
-			</div><!--/.container-fluid -->
-		</nav>
-	    <!-- Sidebar Menu -->
-		<div id="mySidebar" class="sidebar">
-			<form>
-				<div class="form-group">
-					<label for="filFornecedores">Fornecedor</label>
-					<input type="text" style="width: 220px;" class="form-control" id="filFornecedores" aria-describedby=" " placeholder=" ">
-				</div>
-				
-				<div class="form-group">
-					<label for="filCliente">Cliente</label>
-					<input type="text" style="width: 220px;" class="form-control" id="filCliente" aria-describedby=" " placeholder=" ">
-				</div>
-				
-				<div class="form-group">
-					<label for="filBU">BU</label>
-					<input type="text" style="width: 220px;" class="form-control" id="filBU" aria-describedby=" " placeholder=" ">
-				</div>
-				
-				<div class="form-group">
-					<label for="filCluster">Cluster</label>
-					<input type="text" style="width: 220px;" class="form-control" id="filCluster" aria-describedby=" " placeholder=" ">
-				</div>
-				
-				<div class="form-group">
-					<label for="filStatusAmostra">Status da Amostra</label>
-					<input type="text" style="width: 220px;" class="form-control" id="filStatusAmostra" aria-describedby=" " placeholder=" ">
-				</div>
-				
-				<div class="form-group">
-					<label for="filCarteira">Carteira</label>
-					<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
-				</div>
-				
-				<div class="form-group">
-					<label for="filCarteira">Data Envio</label>
-					<input type="text" style="width: 75px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder="In�cio">
-				</div>
-				
-				<div class="form-group">
-					<label for="filCarteira">Data Solicita��o</label>
-					<input type="text" style="width: 75px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder="Fim">
-				</div>
-				
-				<div class="form-group">
-					<label for="filCarteira">Segmento</label>
-					<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
-				</div>
-				 
-				 <div class="form-group">
-					<label for="filCarteira">SubSegmento</label>
-					<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
-				</div>
-				 
-				 <div class="form-group">
-					<label for="filCarteira">Prioridade</label>
-					<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
-				  </div>
-				
-				<div class="form-group">
-					<label for="filCarteira">Produto</label>
-					<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
-				</div>
-			</form>
-		</div>
+		<div class="container">
 
-		<div id="main">
-			<div class="col-md-12">
-				
-				<div id="tbSimplificada" style="visibility: visible;" class="table-responsive">
+			<!-- Static navbar -->
+			<nav class="navbar navbar-default" id="myNavbar" role="navigation">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button class="btn btn-default navbar-btn" id="myCBTN" onclick="openNav()">&#9776;</button>
+					</div>
 					
-					<table id="mytable" class="table table-bordred table-striped">
-						
-						<thead>
-							<th><input type="checkbox" id="checkall" /></th>
-							<th style="min-width:100px"> </th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Cliente">Cliente</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Fornecedor">Fornecedor</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Produto">Produto</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Aplica��o">Aplica��o</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Status Amostra">Status</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Prioridade">Prioridade</th>
-						</thead>
-					
-						<tbody>
-							<tr>
-								<td><input type="checkbox" class="checkthis" /></td>			
-								<td>
-									<button data-placement="top" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button>
-									<button data-placement="top" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
-									
-									<span class="glyphicon glyphicon-trash"></span></button>
-								</td>
-								<td>3232</td>
-								<td>NOME DO FORNECEDOR</td>
-								<td>NOME DO RPODUTO</td>
-								<td>APLICA��O DO PRODUTO</td>
-								<td>APROVADA</td>
-								<td>ALTA</td>
-							</tr>
-						</tbody>
-					</table>
-            
-					<div class="clearfix"></div>
-						<ul class="pagination pull-right">
-							<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+					<div id="navbar" class="navbar-collapse collapse">
+						<form class="navbar-form navbar-left" role="search">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Search">
+							</div>
+							<button type="submit" class="btn btn-default">Submit</button>
+						</form>
+						<button class="btn btn-default navbar-btn" >Adicionar</button>
+						<ul class="nav navbar-nav navbar-right">
+							<button id="btnMostraTabela" style="visibility: visible;" text="" class="btn btn-default navbar-btn" onclick="mostraCompleta()">Detalhada</button>
 						</ul>
-				</div>  <!-- Fim �rea da Tabela -->
-				
-				<div id="tbCompleta" style="visibility: hidden;" class="table-responsive">
+					</div><!--/.nav-collapse -->
+				</div><!--/.container-fluid -->
+			</nav>
+			<!-- Sidebar Menu -->
+			<div id="mySidebar" class="sidebar">
+				<form>
+					<div class="form-group">
+						<label for="filFornecedores">Fornecedor</label>
+						<input type="text" style="width: 220px;" class="form-control" id="filFornecedores" aria-describedby=" " placeholder=" ">
+					</div>
 					
-					<table id="mytable" class="table table-bordred table-striped">
+					<div class="form-group">
+						<label for="filCliente">Cliente</label>
+						<input type="text" style="width: 220px;" class="form-control" id="filCliente" aria-describedby=" " placeholder=" ">
+					</div>
+					
+					<div class="form-group">
+						<label for="filBU">BU</label>
+						<input type="text" style="width: 220px;" class="form-control" id="filBU" aria-describedby=" " placeholder=" ">
+					</div>
+					
+					<div class="form-group">
+						<label for="filCluster">Cluster</label>
+						<input type="text" style="width: 220px;" class="form-control" id="filCluster" aria-describedby=" " placeholder=" ">
+					</div>
+					
+					<div class="form-group">
+						<label for="filStatusAmostra">Status da Amostra</label>
+						<input type="text" style="width: 220px;" class="form-control" id="filStatusAmostra" aria-describedby=" " placeholder=" ">
+					</div>
+					
+					<div class="form-group">
+						<label for="filCarteira">Carteira</label>
+						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+					</div>
+					
+					<div class="form-group">
+						<label for="filCarteira">Data Envio</label>
+						<input type="text" style="width: 75px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder="In�cio">
+					</div>
+					
+					<div class="form-group">
+						<label for="filCarteira">Data Solicita��o</label>
+						<input type="text" style="width: 75px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder="Fim">
+					</div>
+					
+					<div class="form-group">
+						<label for="filCarteira">Segmento</label>
+						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+					</div>
+					
+					<div class="form-group">
+						<label for="filCarteira">SubSegmento</label>
+						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+					</div>
+					
+					<div class="form-group">
+						<label for="filCarteira">Prioridade</label>
+						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+					</div>
+					
+					<div class="form-group">
+						<label for="filCarteira">Produto</label>
+						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+					</div>
+				</form>
+			</div>
+
+			<div id="main">
+				<div class="col-md-12">
+					
+					<div id="tbSimplificada" style="visibility: visible;" class="table-responsive">
 						
-						<thead>
-							<th><input type="checkbox" id="checkall" /></th>
-							<th style="min-width:100px"> </th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Cliente-Produto-Pedido">Chave</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Ano">Ano</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Respons�vel">Responss�vel</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Projeto">Projeto</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="C�digo do Cliente">C�digo</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Nome do Cliente">Nome</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Estado do Cliente">UF</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Nome do Vendedor">Vendedor</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Segmento">Segmento</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Sub-segmento">Sub-segmento</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="BU">BU</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Aplica��o">Aplica��o</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Data de Emiss�o">Emiss�o</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="N�mero do Pedido">Pedido</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Fam�lia">Fam�lia</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Cluster">Cluster</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="C�digo do Produto">C�digo</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Descri��o do Produto">Descri��o</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Agrupamento Comercial">A. Com.</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Quantidade em kilogramas">Qtde (kg)</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Data de Status">Data Status</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Situa��o Justificativa">Situa��o</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Justificativa">Justificativa</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Consumo Cliente (kg/m�s)">Consumo</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Prioridade">Prioridade</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Potencial do Cliente (kg/ano)">Potencial</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Consumo (Ano Gerencial) (kg/ano)">Consumo AG</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Consumo 2021 indent kg/ano">Con. 2021 ident</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="Consumo 2021 m�s inicio local (em n�)">Con. 2021 (em n�)</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="Consumo 2022 m�s inicio local (em n�)">Con. 2022 (em n�)</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Consumo 2022 local kg/ano">Con. 2022 local</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="% Probabilidade de Fechamento">% Prob. Fec.</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Concorr�ncia">Concorr�ncia</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="CPre�o Concorr�ncia US$ Final">Pre�o Conc. US$</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="A��es">A��es</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Status da A��o">Status da A��o</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Data da Atualiza��o">Data Atu.</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="OFERTA - Data">OFERTA Data</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="OFERTA - Pre�o Unit�rio (US$)">OFERTA Unit. (US$)</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="Potencial OFERTA X CONSUMO MENSAL">Potencial OxCM</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="CHAVE CLIENTE-PRODUTO">Chave CP</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="INDENT - Qtde (Kg) 2021">INDENT Qtde</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="Venda">Venda</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="VENDA LOCAL (KG) - MAR21-FEV22">Venda Local (KG)</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="�ltima Data Venda TABDIN">�lt. Venda TABDIN</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="Primeira Data Venda TABDIN">1.a Venda TABDIN</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="ANO Primeira VENDA">ANO 1.a VENDA</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="TOTAL (USD) NET FATURADO - LOCAL MAR21-FEV-22">Tot. Fat. (USD)</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="MARGEM DE CONTRIBUI��O (R$)">Margem (R$)</th>
-							<th style="min-width:120px" data-toggle="tooltip" title="PRE�O USD NET 21.10.21">Pre. USD</th>
-							<th style="min-width:150px" data-toggle="tooltip" title="POTENCIAL VOLUME ANO GERENCIAL">Pot. Vol. AG</th>
-						</thead>
+						<table id="mytable" class="table table-bordred table-striped">
+							
+							<thead>
+								<th><input type="checkbox" id="checkall" /></th>
+								<th style="min-width:100px"> </th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Cliente">Cliente</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Fornecedor">Fornecedor</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Produto">Produto</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Aplica��o">Aplica��o</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Status Amostra">Status</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Prioridade">Prioridade</th>
+							</thead>
+						
+							<tbody>
+								<tr>
+									<td><input type="checkbox" class="checkthis" /></td>			
+									<td>
+										<button data-placement="top" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button>
+										<button data-placement="top" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+										
+										<span class="glyphicon glyphicon-trash"></span></button>
+									</td>
+									<td>3232</td>
+									<td>NOME DO FORNECEDOR</td>
+									<td>NOME DO RPODUTO</td>
+									<td>APLICA��O DO PRODUTO</td>
+									<td>APROVADA</td>
+									<td>ALTA</td>
+								</tr>
+							</tbody>
+						</table>
+				
+						<div class="clearfix"></div>
+							<ul class="pagination pull-right">
+								<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+								<li class="active"><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+							</ul>
+					</div>  <!-- Fim �rea da Tabela -->
 					
-						<tbody>
-							<tr>
-								<td><input type="checkbox" class="checkthis" /></td>			
-								<td>
-									<button data-placement="top" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button>
-									<button data-placement="top" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
-									
-									<span class="glyphicon glyphicon-trash"></span></button>
-								</td>
-								<td>3232-326-30514</td>
-								<td>2018</td>
-								<td>TATIANE</td>
-								<td>OPORTUNIDADES</td>
-								<td>3.232</td>
-								<td>Wikoff Color - Verti</td>
-								<td>SP</td>
-								<td>Geisa</td>
-								<td>Tinta Gr�fica</td>
-								<td>Rotogravura</td>
-								<td>Tintas</td>
-								<td>Tinta Gr�fica</td>
-								<td>02/01/2018</td>
-								<td>30.514</td>
-								<td>DAYGLO</td>
-								<td>EFEI</td>
-								<td>326</td>
-								<td>SPL11N SPLASH COLOR AURORA PINK DISPERSION</td>
-								<td>SPL</td>
-								<td>0,2</td>
-								<td>09/10/2018</td>
-								<td>Aprovada Tecnicamente</td>
-								<td>Aprovado - Sem demanda no momento</td>
-								<td>10</td>
-								<td>2022 - 1º TRI</td>
-								<td>120</td>
-								<td>20</td>
-								<td>-</td>
-								<td>-</td>
-								<td>-</td>
-								<td>120</td>
-								<td>100%</td>
-								<td>-</td>
-								<td>-</td>
-								<td>reuniao com Cassio</td>
-								<td>andamento</td>
-								<td>13/10/2021</td>
-								<td>04/05/2020</td>
-								<td>32,98</td>
-								<td>$329,80</td>
-								<td>3232-326</td>
-								<td>-</td>
-								<td>VENDA</td>
-								<td>54,432</td>
-								<td>14/02/2020</td>
-								<td>10/01/2018</td>
-								<td>2018</td>
-								<td>$1.194,66</td>
-								<td>R$ 1.824,47</td>
-								<td>$15,79</td>
-								<td>$315,83</td>
-							</tr>
-						</tbody>
-					</table>
-            
-					<div class="clearfix"></div>
-						<ul class="pagination pull-right">
-							<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-						</ul>
-				</div>  <!-- Fim �rea da Tabela -->
+					<div id="tbCompleta" style="visibility: hidden;" class="table-responsive">
+						
+						<table id="mytable" class="table table-bordred table-striped">
+							
+							<thead>
+								<th><input type="checkbox" id="checkall" /></th>
+								<th style="min-width:100px"> </th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Cliente-Produto-Pedido">Chave</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Ano">Ano</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Respons�vel">Responss�vel</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Projeto">Projeto</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="C�digo do Cliente">C�digo</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Nome do Cliente">Nome</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Estado do Cliente">UF</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Nome do Vendedor">Vendedor</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Segmento">Segmento</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Sub-segmento">Sub-segmento</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="BU">BU</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Aplica��o">Aplica��o</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Data de Emiss�o">Emiss�o</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="N�mero do Pedido">Pedido</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Fam�lia">Fam�lia</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Cluster">Cluster</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="C�digo do Produto">C�digo</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Descri��o do Produto">Descri��o</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Agrupamento Comercial">A. Com.</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Quantidade em kilogramas">Qtde (kg)</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Data de Status">Data Status</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Situa��o Justificativa">Situa��o</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Justificativa">Justificativa</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Consumo Cliente (kg/m�s)">Consumo</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Prioridade">Prioridade</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Potencial do Cliente (kg/ano)">Potencial</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Consumo (Ano Gerencial) (kg/ano)">Consumo AG</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Consumo 2021 indent kg/ano">Con. 2021 ident</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="Consumo 2021 m�s inicio local (em n�)">Con. 2021 (em n�)</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="Consumo 2022 m�s inicio local (em n�)">Con. 2022 (em n�)</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Consumo 2022 local kg/ano">Con. 2022 local</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="% Probabilidade de Fechamento">% Prob. Fec.</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Concorr�ncia">Concorr�ncia</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="CPre�o Concorr�ncia US$ Final">Pre�o Conc. US$</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="A��es">A��es</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Status da A��o">Status da A��o</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Data da Atualiza��o">Data Atu.</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="OFERTA - Data">OFERTA Data</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="OFERTA - Pre�o Unit�rio (US$)">OFERTA Unit. (US$)</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="Potencial OFERTA X CONSUMO MENSAL">Potencial OxCM</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="CHAVE CLIENTE-PRODUTO">Chave CP</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="INDENT - Qtde (Kg) 2021">INDENT Qtde</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="Venda">Venda</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="VENDA LOCAL (KG) - MAR21-FEV22">Venda Local (KG)</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="�ltima Data Venda TABDIN">�lt. Venda TABDIN</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="Primeira Data Venda TABDIN">1.a Venda TABDIN</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="ANO Primeira VENDA">ANO 1.a VENDA</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="TOTAL (USD) NET FATURADO - LOCAL MAR21-FEV-22">Tot. Fat. (USD)</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="MARGEM DE CONTRIBUI��O (R$)">Margem (R$)</th>
+								<th style="min-width:120px" data-toggle="tooltip" title="PRE�O USD NET 21.10.21">Pre. USD</th>
+								<th style="min-width:150px" data-toggle="tooltip" title="POTENCIAL VOLUME ANO GERENCIAL">Pot. Vol. AG</th>
+							</thead>
+						
+							<tbody>
+								<tr>
+									<td><input type="checkbox" class="checkthis" /></td>			
+									<td>
+										<button data-placement="top" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button>
+										<button data-placement="top" class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+										
+										<span class="glyphicon glyphicon-trash"></span></button>
+									</td>
+									<td>3232-326-30514</td>
+									<td>2018</td>
+									<td>TATIANE</td>
+									<td>OPORTUNIDADES</td>
+									<td>3.232</td>
+									<td>Wikoff Color - Verti</td>
+									<td>SP</td>
+									<td>Geisa</td>
+									<td>Tinta Gr�fica</td>
+									<td>Rotogravura</td>
+									<td>Tintas</td>
+									<td>Tinta Gr�fica</td>
+									<td>02/01/2018</td>
+									<td>30.514</td>
+									<td>DAYGLO</td>
+									<td>EFEI</td>
+									<td>326</td>
+									<td>SPL11N SPLASH COLOR AURORA PINK DISPERSION</td>
+									<td>SPL</td>
+									<td>0,2</td>
+									<td>09/10/2018</td>
+									<td>Aprovada Tecnicamente</td>
+									<td>Aprovado - Sem demanda no momento</td>
+									<td>10</td>
+									<td>2022 - 1º TRI</td>
+									<td>120</td>
+									<td>20</td>
+									<td>-</td>
+									<td>-</td>
+									<td>-</td>
+									<td>120</td>
+									<td>100%</td>
+									<td>-</td>
+									<td>-</td>
+									<td>reuniao com Cassio</td>
+									<td>andamento</td>
+									<td>13/10/2021</td>
+									<td>04/05/2020</td>
+									<td>32,98</td>
+									<td>$329,80</td>
+									<td>3232-326</td>
+									<td>-</td>
+									<td>VENDA</td>
+									<td>54,432</td>
+									<td>14/02/2020</td>
+									<td>10/01/2018</td>
+									<td>2018</td>
+									<td>$1.194,66</td>
+									<td>R$ 1.824,47</td>
+									<td>$15,79</td>
+									<td>$315,83</td>
+								</tr>
+							</tbody>
+						</table>
+				
+						<div class="clearfix"></div>
+							<ul class="pagination pull-right">
+								<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+								<li class="active"><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+							</ul>
+					</div>  <!-- Fim �rea da Tabela -->
+					
+					
+				</div>
+			</div>
+		
+
+		
+		</div><!-- /#container -->
+		
+		<div class="modal fade bs-example-modal-lg" id="edit"  style="z-index: 200 !important;" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Edi��o - 3232-326-30514</h4>
+			</div>
+			
+			<div class="modal-body">
+				<form role="form">
+				<div class="form-group">
+					<label for="chave">Chave</label>
+					<input type="text" class="form-control" value="3232-326-30514" id="chave" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="ano">Ano</label>
+					<input type="text" class="form-control" value="2018" id="ano" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="responsavel">Respons�vel</label>
+					<input type="text" class="form-control" value="TATIANE" id="responsavel" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="projeto">Projeto</label>
+					<input type="text" class="form-control" value="OPORTUNIDADES" id="projeto" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="codigo">C�digo</label>
+					<input type="text" class="form-control" value="3.232" id="codigo" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="nomeCliente">Nome do Cliente</label>
+					<input type="text" class="form-control" value="Wikoff Color - Verti" id="nomeCliente" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="uf">UF</label>
+					<input type="text" class="form-control" value="SP" id="uf" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="vendedor">Vendedor</label>
+					<input type="text" class="form-control" value="Geisa" id="vendedor" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">Segmento</label>
+					<input type="text" class="form-control" value="Tinta Gr�fica" id="segmento" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="subsegmento">Subsegmento</label>
+					<input type="text" class="form-control" value="Rotogravura" id="subsegmento" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="bu">BU</label>
+					<input type="text" class="form-control" value="Tintas" id="bu" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="aplicacao">Aplica��o</label>
+					<input type="text" class="form-control" value="Tinta Gr�fica" id="aplicacao" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="emissao">Emiss�o</label>
+					<input type="text" class="form-control" value="02/01/2018" id="emissao" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="pedido">Pedido</label>
+					<input type="text" class="form-control" value="30.514" id="pedido" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">Familia</label>
+					<input type="text" class="form-control" value="DAYGLO" id="familia" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">Cluster</label>
+					<input type="text" class="form-control" value="EFEI" id="cluster" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">C�digo</label>
+					<input type="text" class="form-control" value="326" id="codPro" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">Descri��o</label>
+					<input type="text" class="form-control" value="SPL11N SPLASH COLOR AURORA PINK DISPERSION" id="despro" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">Agrupamento Comercial</label>
+					<input type="text" class="form-control" value="SPL" id="desagr" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">Qtde (kg)</label>
+					<input type="text" class="form-control" value="0,2" id="segmento" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">Data Status</label>
+					<input type="text" class="form-control" value="09/10/2018" id="segmento" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">Situa��o</label>
+					<input type="text" class="form-control" value="Aprovada Tecnicamente" id="segmento" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">Justificativa</label>
+					<input type="text" class="form-control" value="Aprovado - Sem demanda no momento" id="segmento" placeholder="Chave">
+				</div>
+				<div class="form-group">
+					<label for="segmento">Consumo</label>
+					<input type="text" class="form-control" value="10" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Prioridade</label>
+					<input type="text" class="form-control" value="2022 - 1� TRI" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Potencial</label>
+					<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Consumo AG</label>
+					<input type="text" class="form-control" value="20" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Con. 2021 ident</label>
+					<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Con. 2021 (em n�)</label>
+					<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Con. 2022 (em n�)</label>
+					<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Con. 2022 local</label>
+					<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">% Prob. Fec.</label>
+					<input type="text" class="form-control" value="100%" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Concorr�ncia</label>
+					<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Pre�o Conc. US$</label>
+					<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">A��es</label>
+					<input type="text" class="form-control" value="reuniao com Cassio" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Status da A��o</label>
+					<input type="text" class="form-control" value="andamento" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Data Atu.</label>
+					<input type="text" class="form-control" value="13/10/2021" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">OFERTA Data</label>
+					<input type="text" class="form-control" value="04/05/2020" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">OFERTA Unit. (US$)</label>
+					<input type="text" class="form-control" value="32,98" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Potencial OxCM</label>
+					<input type="text" class="form-control" value="329,80" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Chave CP</label>
+					<input type="text" class="form-control" value="3232-326" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">INDENT Qtde</label>
+					<input type="text" class="form-control" value="-" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Venda</label>
+					<input type="text" class="form-control" value="VENDA" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Venda Local (KG)</label>
+					<input type="text" class="form-control" value="54,432" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">�lt. Venda TABDIN</label>
+					<input type="text" class="form-control" value="14/02/2020" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">1.a Venda TABDIN</label>
+					<input type="text" class="form-control" value="10/01/2018" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">ANO 1.a VENDA</label>
+					<input type="text" class="form-control" value="2018" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Tot. Fat. (USD)</label>
+					<input type="text" class="form-control" value="1.194,66" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Margem (R$)</label>
+					<input type="text" class="form-control" value="1.824,47" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Pre. USD</label>
+					<input type="text" class="form-control" value="15,79" id="segmento" placeholder="Chave">
+				</div>			  
+				<div class="form-group">
+					<label for="segmento">Pot. Vol. AG</label>
+					<input type="text" class="form-control" value="315,83" id="segmento" placeholder="Chave">
+				</div>
 				
 				
+				</form>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button type="button" ng-click="salvar()" class="btn btn-primary">Salvar</button>
+			</div>
 			</div>
 		</div>
-	
-
-	
-	</div><!-- /#container -->
-	
-	<div class="modal fade bs-example-modal-lg" id="edit"  style="z-index: 200 !important;" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg">
-		<div class="modal-content">
-		 <div class="modal-header">
-			<h4 class="modal-title">Edi��o - 3232-326-30514</h4>
-		  </div>
-		  
-		  <div class="modal-body">
-			<form role="form">
-			  <div class="form-group">
-				<label for="chave">Chave</label>
-				<input type="text" class="form-control" value="3232-326-30514" id="chave" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="ano">Ano</label>
-				<input type="text" class="form-control" value="2018" id="ano" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="responsavel">Respons�vel</label>
-				<input type="text" class="form-control" value="TATIANE" id="responsavel" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="projeto">Projeto</label>
-				<input type="text" class="form-control" value="OPORTUNIDADES" id="projeto" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="codigo">C�digo</label>
-				<input type="text" class="form-control" value="3.232" id="codigo" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="nomeCliente">Nome do Cliente</label>
-				<input type="text" class="form-control" value="Wikoff Color - Verti" id="nomeCliente" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="uf">UF</label>
-				<input type="text" class="form-control" value="SP" id="uf" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="vendedor">Vendedor</label>
-				<input type="text" class="form-control" value="Geisa" id="vendedor" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">Segmento</label>
-				<input type="text" class="form-control" value="Tinta Gr�fica" id="segmento" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="subsegmento">Subsegmento</label>
-				<input type="text" class="form-control" value="Rotogravura" id="subsegmento" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="bu">BU</label>
-				<input type="text" class="form-control" value="Tintas" id="bu" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="aplicacao">Aplica��o</label>
-				<input type="text" class="form-control" value="Tinta Gr�fica" id="aplicacao" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="emissao">Emiss�o</label>
-				<input type="text" class="form-control" value="02/01/2018" id="emissao" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="pedido">Pedido</label>
-				<input type="text" class="form-control" value="30.514" id="pedido" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">Familia</label>
-				<input type="text" class="form-control" value="DAYGLO" id="familia" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">Cluster</label>
-				<input type="text" class="form-control" value="EFEI" id="cluster" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">C�digo</label>
-				<input type="text" class="form-control" value="326" id="codPro" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">Descri��o</label>
-				<input type="text" class="form-control" value="SPL11N SPLASH COLOR AURORA PINK DISPERSION" id="despro" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">Agrupamento Comercial</label>
-				<input type="text" class="form-control" value="SPL" id="desagr" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">Qtde (kg)</label>
-				<input type="text" class="form-control" value="0,2" id="segmento" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">Data Status</label>
-				<input type="text" class="form-control" value="09/10/2018" id="segmento" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">Situa��o</label>
-				<input type="text" class="form-control" value="Aprovada Tecnicamente" id="segmento" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">Justificativa</label>
-				<input type="text" class="form-control" value="Aprovado - Sem demanda no momento" id="segmento" placeholder="Chave">
-			  </div>
-			  <div class="form-group">
-				<label for="segmento">Consumo</label>
-				<input type="text" class="form-control" value="10" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Prioridade</label>
-				<input type="text" class="form-control" value="2022 - 1� TRI" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Potencial</label>
-				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Consumo AG</label>
-				<input type="text" class="form-control" value="20" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Con. 2021 ident</label>
-				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Con. 2021 (em n�)</label>
-				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Con. 2022 (em n�)</label>
-				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Con. 2022 local</label>
-				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">% Prob. Fec.</label>
-				<input type="text" class="form-control" value="100%" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Concorr�ncia</label>
-				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Pre�o Conc. US$</label>
-				<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">A��es</label>
-				<input type="text" class="form-control" value="reuniao com Cassio" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Status da A��o</label>
-				<input type="text" class="form-control" value="andamento" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Data Atu.</label>
-				<input type="text" class="form-control" value="13/10/2021" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">OFERTA Data</label>
-				<input type="text" class="form-control" value="04/05/2020" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">OFERTA Unit. (US$)</label>
-				<input type="text" class="form-control" value="32,98" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Potencial OxCM</label>
-				<input type="text" class="form-control" value="329,80" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Chave CP</label>
-				<input type="text" class="form-control" value="3232-326" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">INDENT Qtde</label>
-				<input type="text" class="form-control" value="-" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Venda</label>
-				<input type="text" class="form-control" value="VENDA" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Venda Local (KG)</label>
-				<input type="text" class="form-control" value="54,432" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">�lt. Venda TABDIN</label>
-				<input type="text" class="form-control" value="14/02/2020" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">1.a Venda TABDIN</label>
-				<input type="text" class="form-control" value="10/01/2018" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">ANO 1.a VENDA</label>
-				<input type="text" class="form-control" value="2018" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Tot. Fat. (USD)</label>
-				<input type="text" class="form-control" value="1.194,66" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Margem (R$)</label>
-				<input type="text" class="form-control" value="1.824,47" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Pre. USD</label>
-				<input type="text" class="form-control" value="15,79" id="segmento" placeholder="Chave">
-			  </div>			  
-			  <div class="form-group">
-				<label for="segmento">Pot. Vol. AG</label>
-				<input type="text" class="form-control" value="315,83" id="segmento" placeholder="Chave">
-			  </div>
-			  
-			  
-			</form>
-		  </div>
-		  
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-			<button type="button" ng-click="salvar()" class="btn btn-primary">Salvar</button>
-		  </div>
 		</div>
-	  </div>
-	</div>
 
-	<div class="modal fade" tabindex="-1" id="delete">
-	  <div class="modal-dialog">
-		<div class="modal-content">
-		  <div class="modal-header">
-			<h4 class="modal-title">Modal title</h4>
-		  </div>
-		  <div class="modal-body">
-			<p>One fine body&hellip;</p>
-		  </div>
-		  <div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Save changes</button>
-		  </div>
-		</div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-<!-- View --> 
+		<div class="modal fade" tabindex="-1" id="delete">
+		<div class="modal-dialog">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				<p>One fine body&hellip;</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	<!-- View --> 
+	</div>
 
 <!-- Scripts importados -->
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/jquery-3.1.1.min.js"></script>
@@ -687,7 +690,7 @@ angular
 <style>
 
 :root {
-			--cor_principal: #047cca;
+		--cor_principal: #047cca;
 	}
 				
 	.btn_grid{
