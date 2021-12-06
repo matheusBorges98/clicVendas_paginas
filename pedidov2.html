@@ -20,7 +20,7 @@
 <body>
 	<div class="container" ng-controller="MainController">
 
-		<div class="container">
+		<div>
 
 			<!-- Static navbar -->
 			<nav class="navbar navbar-default" id="myNavbar" role="navigation">
@@ -43,71 +43,73 @@
 					</div><!--/.nav-collapse -->
 				</div><!--/.container-fluid -->
 			</nav>
-			<!-- Sidebar Menu -->
+
+			<!-- Sidebar Menu FILTRO -->
 			<div id="mySidebar" class="sidebar">
 				<form>
 					<div class="form-group">
 						<label for="filFornecedores">Fornecedor</label>
-						<input type="text" style="width: 220px;" class="form-control" id="filFornecedores" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control" id="filFornecedores" ng-model="filFornecedores" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCliente">Cliente</label>
-						<input type="text" style="width: 220px;" class="form-control" id="filCliente" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control" id="filCliente" ng-model="filCliente" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
 						<label for="filBU">BU</label>
-						<input type="text" style="width: 220px;" class="form-control" id="filBU" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control" id="filBU" ng-model="filBU" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCluster">Cluster</label>
-						<input type="text" style="width: 220px;" class="form-control" id="filCluster" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control" id="filCluster" ng-model="filCluster" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
 						<label for="filStatusAmostra">Status da Amostra</label>
-						<input type="text" style="width: 220px;" class="form-control" id="filStatusAmostra" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control" id="filStatusAmostra" ng-model="filStatusAmostra" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCarteira">Carteira</label>
-						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" ng-model="filCarteira" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCarteira">Data Envio</label>
-						<input type="text" style="width: 75px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder="In�cio">
+						<input type="text" style="width: 75px;" class="form-control" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" " placeholder="In�cio">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCarteira">Data Solicitação</label>
-						<input type="text" style="width: 75px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder="Fim">
+						<input type="text" style="width: 75px;" class="form-control" id="filDataSolicitacao" ng-model="filDataSolicitacao" aria-describedby=" " placeholder="Fim">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCarteira">Segmento</label>
-						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control" id="filSegmento" ng-model="filSegmento" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCarteira">SubSegmento</label>
-						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control" id="filSubSegmento" ng-model="filSubSegmento" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCarteira">Prioridade</label>
-						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control" id="filPrioridade" ng-model="filPrioridade" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCarteira">Produto</label>
-						<input type="text" style="width: 220px;" class="form-control" id="filCarteira" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control" id="filProduto" ng-model="filProduto" aria-describedby=" " placeholder=" ">
 					</div>
 				</form>
 			</div>
 
+			<!-- Tabela -->
 			<div id="main">
 				<div class="col-md-12">
 					
@@ -305,7 +307,7 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Edi��o - 3232-326-30514</h4>
+				<h4 class="modal-title">Edição - 3232-326-30514</h4>
 			</div>
 			
 			<div class="modal-body">
@@ -599,7 +601,7 @@ angular
 			}
 		};
 		
-		$rootScope.getListaDocumentos = async () =>{
+		$scope.getListaDocumentos = async () =>{
 			let result = await $scope.executaRequisicaoExterna(
 			{
 				idCvtccnpj	: dadosUserLogado.cId,
@@ -615,10 +617,21 @@ angular
 			$scope.$apply();
 		};
 
-		$scope.salvar = () => {
-			console.log("salvar");
-		}
+		$scope.salvarDocumento = async () => {
 
+			let id 			= 1;//$scope.id
+			let itemDoc		= {};
+			let dados 		= {};
+
+			try{
+				let response = await $http.post('clicVendas/rest/ROTA_ENDPOINT/salvar', id, dados);
+
+			}catch(err){
+				console.log(err)
+			}
+		
+		}
+		
 	});
 </script> 
 <!-- Regra de negócio -->
