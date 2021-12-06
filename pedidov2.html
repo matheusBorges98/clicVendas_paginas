@@ -400,7 +400,7 @@ var dadosUserLogado = parent.dadosUserLogado();
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons'])
 	.controller("MainController",
-	function($scope, $http, $rootScope, $timeout){
+	function(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
 		
 		$rootScope.exibeFormulario 		= false; 
 		$rootScope.exibeListaDocumentos = true; 
