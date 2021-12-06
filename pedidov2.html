@@ -619,7 +619,7 @@ angular
 
 		$scope.salvarDocumento = async () => {
 
-			let id 			= 1;//$scope.id
+			let id 			= 1;
 			let itemDoc		= {};
 			let dados 		= {};
 
@@ -627,10 +627,10 @@ angular
 				let response = await $http.post('clicVendas/rest/ROTA_ENDPOINT/salvar', id, dados);
 
 			}catch(err){
-				console.log(err)
+				console.log(err);
 			}
 		
-		}
+		};
 		
 	});
 </script> 
