@@ -566,10 +566,12 @@ angular
 	function openNav() {
 		if(document.getElementById("mySidebar").style.width == "0"){
 			document.getElementById("mySidebar").style.width = "250px";
+			document.getElementById("mySidebar").style.height = "100%";
 	  		document.getElementById("main").style.marginLeft = "250px";
 		}else{
 			document.getElementById("mySidebar").style.width = "0";
 	  		document.getElementById("main").style.marginLeft = "0";
+			document.getElementById("mySidebar").style.height = "0";
 		}
 	  
 	}
