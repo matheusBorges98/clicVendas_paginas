@@ -523,7 +523,7 @@
 			
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-				<button type="button" ng-click="salvar()" class="btn btn-primary">Salvar</button>
+				<button type="button" ng-click="salvarDocumento()" class="btn btn-primary">Salvar</button>
 			</div>
 			</div>
 		</div>
@@ -618,13 +618,13 @@ angular
 		};
 
 		$scope.salvarDocumento = async () => {
-
+			
 			let id 			= 1;
 			let itemDoc		= {};
 			let dados 		= {};
 
 			try{
-				let response = await $http.post('clicVendas/rest/ROTA_ENDPOINT/salvar', id, dados);
+				let response = await $http.post('clicVendas/rest/pedidov2/salvar', id, dados);
 
 			}catch(err){
 				console.log(err);
