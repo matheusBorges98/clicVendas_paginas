@@ -404,8 +404,8 @@ angular
 	.controller("MainController",
 	function(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
 		
-		$rootScope.exibeFormulario 		= false; 
-		$rootScope.exibeListaDocumentos = true; 
+		$scope.exibeFormulario 		= false; 
+		$scope.exibeListaDocumentos = true; 
 
 		console.log($rootScope.exibeFormulario, $rootScope.exibeListaDocumentos);
 
