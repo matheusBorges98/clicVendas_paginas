@@ -19,7 +19,8 @@
 </head>  
 <body>
 	<div class="container" ng-controller="MainController">
-
+		
+		<!--Primeira página-->
 		<div ng-show="exibeListaDocumentos">
 
 			<!-- Static navbar -->
@@ -43,7 +44,7 @@
 					</div><!--/.nav-collapse -->
 				</div><!--/.container-fluid -->
 			</nav>
-
+		
 			<!-- Sidebar Menu FILTRO -->
 			<div id="mySidebar" class="sidebar">
 				<form>
@@ -108,24 +109,23 @@
 					</div>
 				</form>
 			</div>
-
+			<!--Sidebar Menu FILTRO-->
+		
 			<!-- Tabela -->
 			<div id="main">
-				<div class="col-md-12">
-					
-					<div id="tbSimplificada" style="visibility: visible;" class="table-responsive">
-						
-						<table id="listaDocumentos"  dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border hover table-striped table-bordered"/>					
-					
+				<div class="col-sm-12">
+					<table id="listDocuments"  dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border hover table-striped table-bordered"></table>					
 				</div>
 			</div>
+			<!-- Tabela -->
 		
 		</div>
-		
+		<!--Primeira página-->
+
 		<!-- FORM NOVO DOCUMENTO -->
 
-		<div ng-show="exibeFormulario" class="container col-sm-12">
-			<button class="btn btn_acao_header btn_cor_padrao" ng-click="listarDocumentos()"> Voltar </button>
+		<div ng-show="exibeFormulario">
+			<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button>
 
 			<!-- Header formulario -->
 			<div class="divider-titulo col-sm-12">
@@ -141,207 +141,207 @@
 				<div class="col-sm-12">
 
 					<!-- Body formulario -->
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="chave">Chave</label>
-						<input type="text" class="form-control" ng-model="chave" value="3232-326-30514" id="chave" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="chave" value="3232-326-30414" id="chave" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="ano">Ano</label>
 						<input type="text" class="form-control" ng-model="ano" value="2018" id="ano" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="responsavel">Responsável</label>
 						<input type="text" class="form-control" ng-model="responsavel" value="TATIANE" id="responsavel" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="projeto">Projeto</label>
 						<input type="text" class="form-control" ng-model="projeto" value="OPORTUNIDADES" id="projeto" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="codigo">Código</label>
 						<input type="text" class="form-control" ng-model="codigo" value="3.232" id="codigo" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="nomeCliente">Nome do Cliente</label>
 						<input type="text" class="form-control" ng-model="nomeCliente" value="Wikoff Color - Verti" id="nomeCliente" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="uf">UF</label>
 						<input type="text" class="form-control" ng-model="uf" value="SP" id="uf" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="vendedor">Vendedor</label>
 						<input type="text" class="form-control" value="Geisa" id="vendedor" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Segmento</label>
 						<input type="text" class="form-control" value="Tinta Gr�fica" id="segmento" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="subsegmento">Subsegmento</label>
 						<input type="text" class="form-control" value="Rotogravura" id="subsegmento" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="bu">BU</label>
 						<input type="text" class="form-control" value="Tintas" id="bu" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="aplicacao">Aplicação</label>
 						<input type="text" class="form-control" value="Tinta Gr�fica" id="aplicacao" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="emissao">Emissão</label>
 						<input type="text" class="form-control" value="02/01/2018" id="emissao" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="pedido">Pedido</label>
-						<input type="text" class="form-control" value="30.514" id="pedido" placeholder="Chave">
+						<input type="text" class="form-control" value="30.414" id="pedido" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Familia</label>
 						<input type="text" class="form-control" value="DAYGLO" id="familia" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Cluster</label>
 						<input type="text" class="form-control" value="EFEI" id="cluster" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Código</label>
 						<input type="text" class="form-control" value="326" id="codPro" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Descrição</label>
 						<input type="text" class="form-control" value="SPL11N SPLASH COLOR AURORA PINK DISPERSION" id="despro" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Agrupamento Comercial</label>
 						<input type="text" class="form-control" value="SPL" id="desagr" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Qtde (kg)</label>
 						<input type="text" class="form-control" value="0,2" id="segmento" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Data Status</label>
 						<input type="text" class="form-control" value="09/10/2018" id="segmento" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Situação</label>
 						<input type="text" class="form-control" value="Aprovada Tecnicamente" id="segmento" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Justificativa</label>
 						<input type="text" class="form-control" value="Aprovado - Sem demanda no momento" id="segmento" placeholder="Chave">
 					</div>
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Consumo</label>
 						<input type="text" class="form-control" value="10" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Prioridade</label>
 						<input type="text" class="form-control" value="2022 - 1� TRI" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Potencial</label>
 						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Consumo AG</label>
 						<input type="text" class="form-control" value="20" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Con. 2021 ident</label>
 						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Con. 2021 (em n�)</label>
 						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Con. 2022 (em n�)</label>
 						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Con. 2022 local</label>
 						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">% Prob. Fec.</label>
 						<input type="text" class="form-control" value="100%" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Concorrência</label>
 						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Preço Conc. US$</label>
 						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">A��es</label>
 						<input type="text" class="form-control" value="reuniao com Cassio" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Status da A��o</label>
 						<input type="text" class="form-control" value="andamento" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Data Atu.</label>
 						<input type="text" class="form-control" value="13/10/2021" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">OFERTA Data</label>
-						<input type="text" class="form-control" value="04/05/2020" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" value="04/04/2020" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">OFERTA Unit. (US$)</label>
 						<input type="text" class="form-control" value="32,98" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Potencial OxCM</label>
 						<input type="text" class="form-control" value="329,80" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Chave CP</label>
 						<input type="text" class="form-control" value="3232-326" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">INDENT Qtde</label>
 						<input type="text" class="form-control" value="-" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Venda</label>
 						<input type="text" class="form-control" value="VENDA" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Venda Local (KG)</label>
-						<input type="text" class="form-control" value="54,432" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" value="44,432" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">�lt. Venda TABDIN</label>
 						<input type="text" class="form-control" value="14/02/2020" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">1.a Venda TABDIN</label>
 						<input type="text" class="form-control" value="10/01/2018" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">ANO 1.a VENDA</label>
 						<input type="text" class="form-control" value="2018" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Tot. Fat. (USD)</label>
 						<input type="text" class="form-control" value="1.194,66" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Margem (R$)</label>
 						<input type="text" class="form-control" value="1.824,47" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Pre. USD</label>
-						<input type="text" class="form-control" value="15,79" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" value="14,79" id="segmento" placeholder="Chave">
 					</div>			  
-					<div class="col-sm-5 spacer">
+					<div class="col-sm-4 spacer">
 						<label for="segmento">Pot. Vol. AG</label>
 						<input type="text" class="form-control" value="315,83" id="segmento" placeholder="Chave">
 					</div>
@@ -349,25 +349,28 @@
 				</div>	
 					
 			</div>
+			<!-- Capa do pedido -->
 						
 			<hr class="divider">
 			<!-- Ações sob o formulario -->
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" ng-click="listarDocumentos()"> Cancelar </button>
+						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
 					</div>
 					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" ng-click="salvarForm()"> Salvar </button>
+						<button class="btn btn_grid btn_cor_padrao" ng-click="salvarDocumento()"> Salvar </button>
 					</div>	
 				</div>
 			</div>
+			<!-- Ações sob o formulario -->
 			<hr class="divider">	
 
 		</div>
+	
 	</div>
 	<!-- View --> 
-	</div>
+
 
 <!-- Scripts importados -->
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/jquery-3.1.1.min.js"></script>
@@ -402,23 +405,22 @@ angular
 	.controller("MainController",
 	function(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
 		
-		$rootScope.exibeFormulario 		= false; 
-		$rootScope.exibeListaDocumentos = true; 
+		$scope.exibeFormulario 		= false; 
+		$scope.exibeListaDocumentos = true; 
 
-		console.log($rootScope.exibeFormulario, $rootScope.exibeListaDocumentos);
+		$rootScope.changeView = () => {
+			if($scope.exibeFormulario == false){
 
-		$rootScope.listarDocumentos = () => {
-			$rootScope.exibeListaDocumentos = false;
-			$rootScope.exibeFormulario 		= true;
+				$scope.exibeFormulario = true;
+				$scope.exibeListaDocumentos = false;
+				
+				$scope.$apply()
+			}else if($scope.exibeFormulario == true){
 
-			$scope.$apply();
-		};
+				$scope.exibeFormulario = false;
+				$scope.exibeListaDocumentos = true;
+			};
 
-		$rootScope.abreFormulario = () =>{
-			$rootScope.exibeFormulario = true;
-			$rootScope.exibeListaDocumentos = false;
-
-			$scope.$apply();
 		};
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
@@ -428,7 +430,7 @@ angular
 				return response.data;
 			}catch(response){
 				console.log("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
-			}
+			};
 		};
 		
 		$scope.getListaDocumentos = async () =>{
@@ -449,13 +451,26 @@ angular
 
 		$scope.salvarDocumento = async () => {
 			
-			let id 			= 1;
-			let itemDoc		= {};
+			let id 			= 0;
+			let jsonDocs	= {};
 			let dados 		= {};
 
-			try{
-				let response = await $http.post('clicVendas/rest/pedidov2/salvar', id, dados);
+			dados.idCvTccnpj	= dadosUserLogado.cId;
 
+			jsonDocs = {
+				chave : $scope.chave,
+			};
+
+			dados.jsonDocs = JSON.stringify(jsonDocs)
+			console.log(dados)
+
+			try{
+				if(id > 0){
+					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
+				}else{
+					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
+				}
+				
 			}catch(err){
 				console.log(err);
 			}
@@ -508,7 +523,7 @@ angular
 					.withOption('scrollY', "100%")            
 					.withPaginationType('full_numbers')            
 					.withDisplayLength(20)
-					.withDOM(`<'toolbar'>ftrip`)
+					.withDOM('<"toolbar">ftrip')
 					.withButtons([
 				{
 					enabled: dadosUserLogado.params.paramPermiteCadastrarPedido == 'S',
@@ -516,7 +531,7 @@ angular
 					key: '1',
 					className: 'btn_grid btn_cor_padrao',
 					action: function (e, dt, node, config) {									
-						$rootScope.abreFormulario();					
+						$rootScope.changeView();					
 					}
 				},							
 			]);	
@@ -558,8 +573,8 @@ angular
 			
 			$scope.dtOptions.withOption('order', response.data.order);	
 											
-			angular.element('#listaDocumentos').attr('datatable', '');
-			$compile(angular.element('#listaDocumentos'))($scope);
+			angular.element('#listDocuments').attr('datatable', '');
+			$compile(angular.element('#listDocuments'))($scope);
 			
 			$scope.dtOptions.withOption('fnRowCallback',
 				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -601,7 +616,7 @@ angular
 				});
 			}
 		});
-    
+	
 	});
 	
 	/* activate scrollspy menu */
@@ -630,11 +645,10 @@ angular
 	};
 	</script>
 <!-- Regra de negócio -->
-</body>  
+</body>
+
 </html>
 
-
-				
 <style>
 
 :root {
