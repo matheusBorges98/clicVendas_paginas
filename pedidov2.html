@@ -408,8 +408,8 @@ angular
 		console.log($rootScope.exibeFormulario, $rootScope.exibeListaDocumentos);
 
 		$rootScope.listarDocumentos = () => {
-			$rootScope.exibeListaDocumentos = true;
-			$rootScope.exibeFormulario 		= false;
+			$rootScope.exibeListaDocumentos = false;
+			$rootScope.exibeFormulario 		= true;
 
 			$scope.$apply();
 		};
