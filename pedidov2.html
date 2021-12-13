@@ -404,8 +404,8 @@ angular
 	.controller("MainController",
 	function(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
 		
-		$scope.exibeFormulario 		= false; 
-		$scope.exibeListaDocumentos = true; 
+		$rootScope.exibeFormulario 		= false; 
+		$rootScope.exibeListaDocumentos = true; 
 
 		console.log($rootScope.exibeFormulario, $rootScope.exibeListaDocumentos);
 
@@ -414,7 +414,7 @@ angular
 			$rootScope.exibeFormulario 		= false;
 		};
 
-		$rootScope.exibeFormulario = () =>{
+		$rootScope.abreFormulario = () =>{
 			$rootScope.exibeFormulario = true;
 			$rootScope.exibeListaDocumentos = false;
 		};
@@ -513,10 +513,8 @@ angular
 					text: 'Novo',
 					key: '1',
 					className: 'btn_grid btn_cor_padrao',
-					action: function (e, dt, node, config) {
-						$rootScope.usarItensCarrinho = false;
-						$scope.dadosExternosNovoPedido = 'undefined';						
-						$rootScope.exibeFormulario();					
+					action: function (e, dt, node, config) {									
+						$rootScope.abreFormulario();					
 					}
 				},							
 			]);	
