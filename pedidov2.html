@@ -24,26 +24,26 @@
 		<div ng-show="exibeListaDocumentos">
 
 			<!-- Static navbar -->
-			<nav class="navbar navbar-default" id="myNavbar" role="navigation">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button class="btn btn-default navbar-btn" id="myCBTN" onclick="openNav()">&#9776;</button>
+				<!-- <nav class="navbar navbar-default" id="myNavbar" role="navigation">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<button class="btn btn-default navbar-btn" id="myCBTN" onclick="openNav()">&#9776;</button>
+						</div>
+						
+						<div id="navbar" class="navbar-collapse collapse">
+							<form class="navbar-form navbar-left" role="search">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Search">
+								</div>
+								<button type="submit" class="btn btn-default">Submit</button>
+							</form>
+							<button class="btn btn-default navbar-btn" >Adicionar</button>
+							<ul class="nav navbar-nav navbar-right">
+								<button id="btnMostraTabela" style="visibility: visible;" text="" class="btn btn-default navbar-btn" onclick="mostraCompleta()">Detalhada</button>
+							</ul>
+						</div>
 					</div>
-					
-					<div id="navbar" class="navbar-collapse collapse">
-						<form class="navbar-form navbar-left" role="search">
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Search">
-							</div>
-							<button type="submit" class="btn btn-default">Submit</button>
-						</form>
-						<button class="btn btn-default navbar-btn" >Adicionar</button>
-						<ul class="nav navbar-nav navbar-right">
-							<button id="btnMostraTabela" style="visibility: visible;" text="" class="btn btn-default navbar-btn" onclick="mostraCompleta()">Detalhada</button>
-						</ul>
-					</div><!--/.nav-collapse -->
-				</div><!--/.container-fluid -->
-			</nav>
+				</nav> -->
 		
 			<!-- Sidebar Menu FILTRO -->
 			<div id="mySidebar" class="sidebar">
@@ -462,6 +462,7 @@ angular
 			};
 
 			dados.jsonDocs = JSON.stringify(jsonDocs)
+			
 			console.log(dados)
 
 			try{
@@ -533,7 +534,15 @@ angular
 					action: function (e, dt, node, config) {									
 						$rootScope.changeView();					
 					}
-				},							
+				},		
+				{
+					text: 'Filtrar',
+					key: '1',
+					className: 'btn_grid btn_cor_padrao',
+					action: function (e, dt, node, config) {									
+						openNav();					
+					}
+				},								
 			]);	
 
 			var montaColunas = response.data.columns;									
@@ -591,17 +600,18 @@ angular
 <script>
 	/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
 	function openNav() {
-	  document.getElementById("mySidebar").style.width = "250px";
-	  document.getElementById("main").style.marginLeft = "250px";
-	  document.getElementById("myCBTN").setAttribute('onclick', "closeNav()");
+		if(document.getElementById("mySidebar").style.width =="250px"){
+			document.getElementById("mySidebar").style.width = "0";
+			document.getElementById("main").style.marginLeft = "0";
+	  	}else{
+			document.getElementById("mySidebar").style.width = "250px";
+			document.getElementById("main").style.marginLeft = "250px";
+		  }
+		
 	};
 
 	/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-	function closeNav() {
-	  document.getElementById("mySidebar").style.width = "0";
-	  document.getElementById("main").style.marginLeft = "0";
-	  document.getElementById("myCBTN").setAttribute('onclick', "openNav()");
-	};
+
 	
 	$(document).ready(function(){
 		$("#mytable #checkall").click(function () {
