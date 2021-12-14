@@ -458,7 +458,14 @@ angular
 			dados.idCvTccnpj	= dadosUserLogado.cId;
 
 			jsonDocs = {
-				chave : $scope.chave,
+				chave 		: $scope.chave,
+				ano	  		: $scope.ano,
+				responsavel	: $scope.responsavel,
+				projeto     : $scope.projeto,
+				codigo		: $scope.codigo,
+				nomeCliente : $scope.nomeCliente,
+				uf 			: $scope.uf,
+				
 			};
 
 			dados.jsonDocs = JSON.stringify(jsonDocs)
