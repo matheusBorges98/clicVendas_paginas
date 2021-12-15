@@ -540,13 +540,13 @@ angular
 				},								
 			]);	
 				
-			defPD = {	'id'			:	{i:0, vsbl: false,	tlt: '',        	width:'80px'	},
-						'jsonDocs'		:	{i:1, vsbl: true,	tlt: 'chave',		width:'70px'	},
-						'titulo'		:	{i:2, vsbl: true,	tlt: 'Titulo',		width:''		},
-						'linkHref'		:	{i:3, vsbl: true,	tlt: 'Link',		width:''		},
-						'descricao'		:	{i:4, vsbl: true,	tlt: 'Descrição',	width:''		}	};
-
-			console.log(defPD)
+			defPD = {	'id'			:	{i:0, vsbl: false,	tlt: '',        		width:'80px'	},
+						'jsonDocs'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:'70px'	},
+						'titulo'		:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''		},
+						'linkHref'		:	{i:3, vsbl: true,	tlt: 'Produto',			width:''		},
+						'descricao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''		},
+						'descricao1'	:	{i:4, vsbl: true,	tlt: 'Status Amostra',	width:''		},
+						'descricao2'	:	{i:4, vsbl: true,	tlt: 'Prioridade',		width:''		}	};
 		
 			var montaColunas = [];
 								
@@ -562,8 +562,8 @@ angular
 			$scope.dtOptions.withOption('fnRowCallback',
 				
 				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-					aData = JSON.parse(aData)
-					console.log(aData.chave)
+					//aData = JSON.parse(aData.jsonDocs)
+					//console.log(JSON.parse(aData.jsonDocs))
 					$compile(nRow)($scope);
 			});		
 			
