@@ -22,28 +22,6 @@
 		
 		<!--Primeira página-->
 		<div ng-show="exibeListaDocumentos">
-
-			<!-- Static navbar -->
-				<!-- <nav class="navbar navbar-default" id="myNavbar" role="navigation">
-					<div class="container-fluid">
-						<div class="navbar-header">
-							<button class="btn btn-default navbar-btn" id="myCBTN" onclick="openNav()">&#9776;</button>
-						</div>
-						
-						<div id="navbar" class="navbar-collapse collapse">
-							<form class="navbar-form navbar-left" role="search">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Search">
-								</div>
-								<button type="submit" class="btn btn-default">Submit</button>
-							</form>
-							<button class="btn btn-default navbar-btn" >Adicionar</button>
-							<ul class="nav navbar-nav navbar-right">
-								<button id="btnMostraTabela" style="visibility: visible;" text="" class="btn btn-default navbar-btn" onclick="mostraCompleta()">Detalhada</button>
-							</ul>
-						</div>
-					</div>
-				</nav> -->
 		
 			<!-- Sidebar Menu FILTRO -->
 			<div id="mySidebar" class="sidebar">
@@ -80,7 +58,7 @@
 					
 					<div class="form-group">
 						<label for="filCarteira">Data Envio</label>
-						<input type="text" style="width: 75px;" class="form-control" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" " placeholder="In�cio">
+						<input type="date" style="width: 75px;" class="form-control" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" " placeholder="In�cio">
 					</div>
 					
 					<div class="form-group">
@@ -143,207 +121,207 @@
 					<!-- Body formulario -->
 					<div class="col-sm-4 spacer">
 						<label for="chave">Chave</label>
-						<input type="text" class="form-control" ng-model="chave" value="3232-326-30414" id="chave" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="chave" id="chave" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="ano">Ano</label>
-						<input type="text" class="form-control" ng-model="ano" value="2018" id="ano" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="ano" id="ano" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="responsavel">Responsável</label>
-						<input type="text" class="form-control" ng-model="responsavel" value="TATIANE" id="responsavel" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="responsavel" id="responsavel" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="projeto">Projeto</label>
-						<input type="text" class="form-control" ng-model="projeto" value="OPORTUNIDADES" id="projeto" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="projeto" id="projeto" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="codigo">Código</label>
-						<input type="text" class="form-control" ng-model="codigo" value="3.232" id="codigo" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="codigo" id="codigo" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="nomeCliente">Nome do Cliente</label>
-						<input type="text" class="form-control" ng-model="nomeCliente" value="Wikoff Color - Verti" id="nomeCliente" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="nomeCliente" id="nomeCliente" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="uf">UF</label>
-						<input type="text" class="form-control" ng-model="uf" value="SP" id="uf" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="uf" id="uf" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="vendedor">Vendedor</label>
-						<input type="text" class="form-control" value="Geisa" id="vendedor" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="vendedor" id="vendedor" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Segmento</label>
-						<input type="text" class="form-control" value="Tinta Gr�fica" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="segmento" id="segmento" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="subsegmento">Subsegmento</label>
-						<input type="text" class="form-control" value="Rotogravura" id="subsegmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="subsegmento" id="subsegmento" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="bu">BU</label>
-						<input type="text" class="form-control" value="Tintas" id="bu" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="bu" id="bu" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="aplicacao">Aplicação</label>
-						<input type="text" class="form-control" value="Tinta Gr�fica" id="aplicacao" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="aplicacao" id="aplicacao" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="emissao">Emissão</label>
-						<input type="text" class="form-control" value="02/01/2018" id="emissao" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="emissao" id="emissao" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="pedido">Pedido</label>
-						<input type="text" class="form-control" value="30.414" id="pedido" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="pedido" id="pedido" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Familia</label>
-						<input type="text" class="form-control" value="DAYGLO" id="familia" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="familia" id="familia" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Cluster</label>
-						<input type="text" class="form-control" value="EFEI" id="cluster" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="cluster" id="cluster" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Código</label>
-						<input type="text" class="form-control" value="326" id="codPro" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="codigo" id="codPro" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Descrição</label>
-						<input type="text" class="form-control" value="SPL11N SPLASH COLOR AURORA PINK DISPERSION" id="despro" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="descricao" id="despro" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Agrupamento Comercial</label>
-						<input type="text" class="form-control" value="SPL" id="desagr" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="desagr" id="desagr" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Qtde (kg)</label>
-						<input type="text" class="form-control" value="0,2" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="quantidadeKg" id="quantidadeKg" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Data Status</label>
-						<input type="text" class="form-control" value="09/10/2018" id="segmento" placeholder="Chave">
+						<input type="date" class="form-control" ng-model="dataStatus" id="dataStatus" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Situação</label>
-						<input type="text" class="form-control" value="Aprovada Tecnicamente" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="situacao" id="situacao" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Justificativa</label>
-						<input type="text" class="form-control" value="Aprovado - Sem demanda no momento" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="justificativa" id="justificativa" >
 					</div>
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Consumo</label>
-						<input type="text" class="form-control" value="10" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="consumo" id="consumo" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Prioridade</label>
-						<input type="text" class="form-control" value="2022 - 1� TRI" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="prioridade" id="prioridade" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Potencial</label>
-						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="potencial" id="potencial" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Consumo AG</label>
-						<input type="text" class="form-control" value="20" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="consumoAg" id="consumoAg" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Con. 2021 ident</label>
-						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="con2021Ident" id="con2021Ident" >
 					</div>			  
 					<div class="col-sm-4 spacer">
-						<label for="segmento">Con. 2021 (em n�)</label>
-						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+						<label for="segmento">Con. 2021 (em nº)</label>
+						<input type="text" class="form-control" ng-model="con2021n" id="con2021n" >
 					</div>			  
 					<div class="col-sm-4 spacer">
-						<label for="segmento">Con. 2022 (em n�)</label>
-						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+						<label for="segmento">Con. 2022 (em nº)</label>
+						<input type="text" class="form-control" ng-model="con2022n" id="con2022n" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Con. 2022 local</label>
-						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="con2022Local" id="con2022Local" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">% Prob. Fec.</label>
-						<input type="text" class="form-control" value="100%" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="probFechamento" id="probFechamento" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Concorrência</label>
-						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="concorrencia" id="concorrencia" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Preço Conc. US$</label>
-						<input type="text" class="form-control" value="120" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="precoConc" id="precoConc" >
 					</div>			  
-					<div class="col-sm-4 spacer">
+					<!-- <div class="col-sm-4 spacer">
 						<label for="segmento">A��es</label>
-						<input type="text" class="form-control" value="reuniao com Cassio" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="" id="segmento" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Status da A��o</label>
-						<input type="text" class="form-control" value="andamento" id="segmento" placeholder="Chave">
-					</div>			  
+						<input type="text" class="form-control" ng-model="" id="segmento" >
+					</div>			   -->
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Data Atu.</label>
-						<input type="text" class="form-control" value="13/10/2021" id="segmento" placeholder="Chave">
+						<input type="date" class="form-control" ng-model="dataAtu" id="dataAtu" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">OFERTA Data</label>
-						<input type="text" class="form-control" value="04/04/2020" id="segmento" placeholder="Chave">
+						<input type="date" class="form-control" ng-model="ofertaData" id="ofertaData" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">OFERTA Unit. (US$)</label>
-						<input type="text" class="form-control" value="32,98" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="ofertaUnit" id="ofertaUnit" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Potencial OxCM</label>
-						<input type="text" class="form-control" value="329,80" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="potencial0XCM" id="potencial0XCM" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Chave CP</label>
-						<input type="text" class="form-control" value="3232-326" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="chaveCp" id="chaveCp" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">INDENT Qtde</label>
-						<input type="text" class="form-control" value="-" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="identQtd" id="identQtd" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Venda</label>
-						<input type="text" class="form-control" value="VENDA" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="venda" id="venda" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Venda Local (KG)</label>
-						<input type="text" class="form-control" value="44,432" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="vendaLocalKg" id="vendaLocalKg" >
 					</div>			  
-					<div class="col-sm-4 spacer">
+					<!-- <div class="col-sm-4 spacer">
 						<label for="segmento">�lt. Venda TABDIN</label>
-						<input type="text" class="form-control" value="14/02/2020" id="segmento" placeholder="Chave">
-					</div>			  
-					<div class="col-sm-4 spacer">
+						<input type="text" class="form-control" ng-model="" id="segmento" >
+					</div>			   -->
+					<!-- <div class="col-sm-4 spacer">
 						<label for="segmento">1.a Venda TABDIN</label>
-						<input type="text" class="form-control" value="10/01/2018" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="" id="segmento" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">ANO 1.a VENDA</label>
-						<input type="text" class="form-control" value="2018" id="segmento" placeholder="Chave">
-					</div>			  
+						<input type="text" class="form-control" ng-model="" id="segmento" >
+					</div>			   -->
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Tot. Fat. (USD)</label>
-						<input type="text" class="form-control" value="1.194,66" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="totalFatUSD" id="totalFatUSD" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Margem (R$)</label>
-						<input type="text" class="form-control" value="1.824,47" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="margemR" id="margemR" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Pre. USD</label>
-						<input type="text" class="form-control" value="14,79" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="preUSD" id="preUSD" >
 					</div>			  
 					<div class="col-sm-4 spacer">
 						<label for="segmento">Pot. Vol. AG</label>
-						<input type="text" class="form-control" value="315,83" id="segmento" placeholder="Chave">
+						<input type="text" class="form-control" ng-model="potVolAg" id="potVolAg" >
 					</div>
 				
 				</div>	
@@ -451,53 +429,89 @@ angular
 
 		$scope.salvarDocumento = async () => {
 			
-			let id 			= 0;
+			let id 			= 1;
 			let jsonDocs	= {};
 			let dados 		= {};
 
 			dados.idCvTccnpj	= dadosUserLogado.cId;
 
 			jsonDocs = {
-				chave 		: $scope.chave,
-				ano	  		: $scope.ano,
-				responsavel	: $scope.responsavel,
-				projeto     : $scope.projeto,
-				codigo		: $scope.codigo,
-				nomeCliente : $scope.nomeCliente,
-				uf 			: $scope.uf,
-				
+				chave 			: $scope.chave,
+				ano	  			: $scope.ano,
+				responsavel		: $scope.responsavel,
+				projeto     	: $scope.projeto,
+				codigo			: $scope.codigo,
+				nomeCliente 	: $scope.nomeCliente,
+				uf 				: $scope.uf,
+				vendedor		: $scope.vendedor,
+				segmento		: $scope.segmento,
+				subsegmento 	: $scope.subsegmento,
+				bu 				: $scope.bu,
+				aplicacao		: $scope.aplicacao,
+				emissao			: $scope.emissao,
+				pedido			: $scope.pedido,
+				familia			: $scope.familia,
+				cluster			: $scope.cluster,
+				codigo			: $scope.codigo,
+				descricao		: $scope.descricao,
+				desagr			: $scope.desagr,
+				dataStatus		: $scope.dataStatus,
+				quantidadeKg	: $scope.quantidadeKg,
+				situacao		: $scope.situacao,
+				justificativa	: $scope.justificativa,
+				consumo			: $scope.consumo,
+				prioridade		: $scope.prioridade,
+				consumoAg		: $scope.consumoAg,
+				con2021Ident	: $scope.con2021Ident,
+				con2021n		: $scope.con2021n,
+				con2022n		: $scope.con2022n,
+				con2022Local	: $scope.con2022Local,
+				probFechamento	: $scope.probFechamento,
+				concorrencia	: $scope.concorrencia,
+				precoConc		: $scope.precoConc,
+				dataAtu			: $scope.dataAtu,
+				ofertaData		: $scope.ofertaData,
+				ofertaUnit		: $scope.ofertaUnit,
+				potencial0XCM	: $scope.potencial0XCM,
+				chaveCp			: $scope.chaveCp,
+				identQtd		: $scope.identQtd,
+				venda			: $scope.venda,
+				vendaLocalKg	: $scope.vendaLocalKg,
+				totalFatUSD		: $scope.totalFatUSD,
+				margemR			: $scope.margemR,
+				preUSD			: $scope.preUSD,
+				potVolAg		: $scope.potVolAg,
 			};
 
-			dados.jsonDocs = JSON.stringify(jsonDocs)
-			
-			console.log(dados)
-
+			dados.jsonDocs = JSON.stringify(jsonDocs);
+		
 			try{
 				if(id > 0){
 					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
 				}else{
 					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
 				}
-				
 			}catch(err){
 				console.log(err);
 			}
-		
-		};
 
+			$rootScope.changeView();
+		};
+		
 		/*Define o idioma usado no Datatables*/
 		DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
 			
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
-    	         url	: '/clicVendas/rest/centralDownload/lista',
-    	         type	: 'POST',
-    	         data	: function(d) {   
-    	        	 		var param = {idCvTccnpj	: dadosUserLogado.cId};
-    	        	 		d.param = param;
-    						return JSON.stringify(d);
-    					}
-    	     	})
+				 url	: '/clicVendas/rest/pedidov2/lista',
+				 type	: 'POST',
+				 data	: function(d) {   
+							 var param = {idCvTccnpj	: dadosUserLogado.cId};
+							 d.param = param;
+							 console.log(JSON.stringify(d), "data")
+							return JSON.stringify(d);
+						}
+				 })
 					.withDataProp('data')
 					.withOption('processing', true)
 					.withOption('serverSide', true)
@@ -525,26 +539,31 @@ angular
 					}
 				},								
 			]);	
-
+				
 			defPD = {	'id'			:	{i:0, vsbl: false,	tlt: '',        	width:'80px'	},
-						'dataFormat'	:	{i:1, vsbl: true,	tlt: 'Data',		width:'70px'	},
+						'jsonDocs'		:	{i:1, vsbl: true,	tlt: 'chave',		width:'70px'	},
 						'titulo'		:	{i:2, vsbl: true,	tlt: 'Titulo',		width:''		},
 						'linkHref'		:	{i:3, vsbl: true,	tlt: 'Link',		width:''		},
 						'descricao'		:	{i:4, vsbl: true,	tlt: 'Descrição',	width:''		}	};
+
+			console.log(defPD)
 		
 			var montaColunas = [];
 								
 			angular.forEach(defPD, function(value, key) {
 				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sWidth', value.width));
 			});
-
+			
 			$scope.dtColumns = montaColunas;
 											
 			angular.element('#listDocuments').attr('datatable', '');
 			$compile(angular.element('#listDocuments'))($scope);
-			
+
 			$scope.dtOptions.withOption('fnRowCallback',
+				
 				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+					aData = JSON.parse(aData)
+					console.log(aData.chave)
 					$compile(nRow)($scope);
 			});		
 			
@@ -559,32 +578,17 @@ angular
 	function openNav() {
 		if(document.getElementById("mySidebar").style.width =="250px"){
 			document.getElementById("mySidebar").style.width = "0";
+			document.getElementById("mySidebar").style.height = "0";
 			document.getElementById("main").style.marginLeft = "0";
-	  	}else{
+		  }else{
 			document.getElementById("mySidebar").style.width = "250px";
+			document.getElementById("mySidebar").style.height = "100%";
 			document.getElementById("main").style.marginLeft = "250px";
 		  }
 		
 	};
 
 	/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-
-	
-	$(document).ready(function(){
-		$("#mytable #checkall").click(function () {
-			if ($("#mytable #checkall").is(':checked')) {
-				$("#mytable input[type=checkbox]").each(function () {
-					$(this).prop("checked", true);
-				});
-
-			} else {
-				$("#mytable input[type=checkbox]").each(function () {
-					$(this).prop("checked", false);
-				});
-			}
-		});
-	
-	});
 	
 	/* activate scrollspy menu */
 	var $body   = $(document.body);
@@ -643,8 +647,8 @@ angular
 	}
 
 	.container{
-		height: calc(100% - 40px); 
-		position: relative;
+		flex:1;
+		width: -webkit-fill-available;
 	}
 
 	.divider{
@@ -681,7 +685,6 @@ angular
 	  left: 50;
 	  background-color: rgba(255, 255, 255, 1); 
 	  overflow-x: hidden; /* Disable horizontal scroll */
-	  overflow-y: hidden; /* Disable vertical scroll */
 	  padding-top: 60px; /* Place content 60px from the top */
 	  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */ 
 	  box-shadow: 0 5px 5px 0 rgba(0,0,0,0.50);
