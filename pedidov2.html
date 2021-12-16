@@ -121,7 +121,7 @@
 					<!-- Body formulario -->
 					<div class="form-row">
 						<div class="form-group col-md-12">
-							<div class="col-sm-2 spacer">
+							<div class="col-sm-2">
 								<label for="chave">Chv.(Cli-Prod-Ped)</label>
 								<input type="text" ng-disabled="inputDesabilitado" class="form-control" ng-model="chave" id="chave">
 							</div>
@@ -468,8 +468,6 @@ angular
 
 		$scope.abreFormulario = ($dados) =>{
 
-			$rootScope.idDocumento = $dados !=undefined ? $dados.id : 0;
-
 			if($dados == undefined){
 				$rootScope.idDocumento = 0;
 				
@@ -525,7 +523,7 @@ angular
 				$scope.acoes			= '';
 			}else{
 
-				let docs 				=  JSON.parse($dados.jsonDocs);
+				let docs 				=  $dados.jsonDocs;
 				$rootScope.idDocumento 	= $dados.id;
 
 				$scope.chave 			= docs.chave
@@ -676,7 +674,18 @@ angular
 							d.param = param;
 							console.log(JSON.stringify(d), "data")
 							return JSON.stringify(d);
-						}
+						},
+				dataSrc: function(json) {
+					let dadosGrid = json.data;
+
+					console.log(json.data)
+					
+					for(ped of dadosGrid){
+						ped.jsonDocs = JSON.parse(ped.jsonDocs);
+					}
+					console.log(dadosGrid)
+					return dadosGrid;
+					}
 				})
 					.withDataProp('data')
 					.withOption('processing', true)
@@ -715,23 +724,23 @@ angular
 			]);	
 			
 			if(modo == "completa"){
-				defPD = {'id'			:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						'jsonDocs'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs'		:	{i:2, vsbl: false,	tlt: 'Fornecedor',		width:''	},
-						'jsonDocs'		:	{i:3, vsbl: false,	tlt: 'Produto',			width:''	},
-						'jsonDocs'		:	{i:4, vsbl: false,	tlt: 'Aplicação',		width:''	},
-						'jsonDocs'		:	{i:5, vsbl: false,	tlt: 'Status Amostra',	width:''	},
-						'jsonDocs'		:	{i:6, vsbl: false,	tlt: 'Prioridade',		width:''	}	
+				defPD = {'id'					:	{i:0, vsbl: false,	tlt: '',        		width:''	},
+						// 'jsonDocs.chave'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
+						// 'jsonDocs'		:	{i:2, vsbl: false,	tlt: 'Fornecedor',		width:''	},
+						// 'jsonDocs'		:	{i:3, vsbl: false,	tlt: 'Produto',			width:''	},
+						// 'jsonDocs'		:	{i:4, vsbl: false,	tlt: 'Aplicação',		width:''	},
+						// 'jsonDocs'		:	{i:5, vsbl: false,	tlt: 'Status Amostra',	width:''	},
+						// 'jsonDocs'		:	{i:6, vsbl: false,	tlt: 'Prioridade',		width:''	}	
 						};
 		
 			}else{
-				defPD = {'id'			:	{i:0, vsbl: true,	tlt: 'TESTE',        	width:''	},
-						'jsonDocs'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs'		:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''	},
-						'jsonDocs'		:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},
-						'jsonDocs'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
-						'jsonDocs'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
+				defPD = {'id'						:	{i:0, vsbl: false,	tlt: '',        		width:''	},
+						 'jsonDocs.nomeCliente'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
+						 'jsonDocs.vendedor'		:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''	},
+						 'jsonDocs.codigo'			:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
+						 'jsonDocs.aplicacao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},
+						 'jsonDocs.statusAcao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
+						 'jsonDocs.prioridade'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
 					};
 		
 			}
@@ -757,8 +766,6 @@ angular
 			$scope.dtOptions.withOption('fnRowCallback',
 				
 				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-					//aData = JSON.parse(aData.jsonDocs)
-					//console.log(JSON.parse(aData.jsonDocs))
 					$compile(nRow)($scope);
 			});
 
