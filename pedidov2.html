@@ -402,6 +402,7 @@
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.buttons.min.js"></script>
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <!-- Scripts importados -->	
 
 <script>
@@ -468,6 +469,116 @@ angular
 		$scope.abreFormulario = ($dados) =>{
 
 			$rootScope.idDocumento = $dados !=undefined ? $dados.id : 0;
+
+			if($dados == undefined){
+				$rootScope.idDocumento = 0;
+				
+				$scope.chave 			= '';
+				$scope.ano 				= '';
+				$scope.responsavel		= '';
+				$scope.projeto			= '';
+				$scope.codigo			= '';
+				$scope.nomeCliente		= '';
+				$scope.uf				= '';
+				$scope.vendedor			= '';
+				$scope.segmento			= '';
+				$scope.subsegmento		= '';
+				$scope.bu				= '';
+				$scope.aplicacao		= '';
+				$scope.emissao			= '';
+				$scope.pedido			= '';
+				$scope.familia			= '';
+				$scope.cluster			= '';
+				$scope.codigo			= '';
+				$scope.descricao		= '';
+				$scope.desagr			= '';
+				$scope.dataStatus		= '';
+				$scope.quantidadeKg		= '';
+				$scope.situacao			= '';
+				$scope.justificativa	= '';
+				$scope.consumo			= '';
+				$scope.prioridade		= '';
+				$scope.consumoAg		= '';
+				$scope.con2021Ident		= '';
+				$scope.con2021n			= '';
+				$scope.con2022n			= '';
+				$scope.con2022Local		= '';
+				$scope.probFechamento	= '';
+				$scope.concorrencia		= '';
+				$scope.precoConc		= '';
+				$scope.dataAtu			= '';
+				$scope.ofertaData		= '';
+				$scope.ofertaUnit		= '';
+				$scope.potencial0XCM	= '';
+				$scope.chaveCp			= '';
+				$scope.identQtd			= '';
+				$scope.venda			= '';
+				$scope.vendaLocalKg		= '';
+				$scope.totalFatUSD		= '';
+				$scope.margemR			= '';
+				$scope.preUSD			= '';
+				$scope.potVolAg			= '';
+				$scope.ultVendaTabdin	= '';
+				$scope.primVendaTabdin	= '';
+				$scope.anoPrimVenda		= '';
+				$scope.statusAcao		= '';
+				$scope.acoes			= '';
+			}else{
+
+				let docs 				=  JSON.parse($dados.jsonDocs);
+				$rootScope.idDocumento 	= $dados.id;
+
+				$scope.chave 			= docs.chave
+				$scope.ano 				= docs.ano != "" ? new Date(docs.ano) : "";
+				$scope.responsavel		= docs.responsavel;
+				$scope.projeto			= docs.projeto;
+				$scope.codigo			= docs.codigo;
+				$scope.nomeCliente		= docs.nomeCliente;
+				$scope.uf				= docs.uf;
+				$scope.vendedor			= docs.vendedor;
+				$scope.segmento			= docs.segmento;
+				$scope.subsegmento		= docs.subsegmento;
+				$scope.bu				= docs.bu;
+				$scope.aplicacao		= docs.aplicacao;
+				$scope.emissao			= docs.emissao != "" ? new Date(docs.emissao) : "";
+				$scope.pedido			= docs.pedido;
+				$scope.familia			= docs.familia;
+				$scope.cluster			= docs.cluster;
+				$scope.codigo			= docs.codigo;
+				$scope.descricao		= docs.descricao;
+				$scope.desagr			= docs.desagr;
+				$scope.dataStatus		= docs.dataStatus != "" ? new Date(docs.dataStatus) : "";
+				$scope.quantidadeKg		= docs.quantidadeKg;
+				$scope.situacao			= docs.situacao;
+				$scope.justificativa	= docs.justificativa;
+				$scope.consumo			= docs.consumo;
+				$scope.prioridade		= docs.prioridade;
+				$scope.consumoAg		= docs.consumoAg;
+				$scope.con2021Ident		= docs.con2021Ident;
+				$scope.con2021n			= docs.con2021n;
+				$scope.con2022n			= docs.con2022n;
+				$scope.con2022Local		= docs.con2022Local;
+				$scope.probFechamento	= docs.probFechamento;
+				$scope.concorrencia		= docs.concorrencia;
+				$scope.precoConc		= docs.precoConc;
+				$scope.dataAtu			= docs.dataAtu != "" ? new Date(docs.dataAtu) : "";
+				$scope.ofertaData		= docs.ofertaData != "" ? new Date(docs.ofertaData) : "";
+				$scope.ofertaUnit		= docs.ofertaUnit;
+				$scope.potencial0XCM	= docs.potencial0XCM;
+				$scope.chaveCp			= docs.chaveCp;
+				$scope.identQtd			= docs.identQtd;
+				$scope.venda			= docs.venda;
+				$scope.vendaLocalKg		= docs.vendaLocalKg;
+				$scope.totalFatUSD		= docs.totalFatUSD;
+				$scope.margemR			= docs.margemR;
+				$scope.preUSD			= docs.preUSD;
+				$scope.potVolAg			= docs.potVolAg;
+				$scope.ultVendaTabdin	= docs.ultVendaTabdin;
+				$scope.primVendaTabdin	= docs.primVendaTabdin;
+				$scope.anoPrimVenda		= docs.anoPrimVenda != "" ? new Date(docs.anoPrimVenda) : "";
+				$scope.statusAcao		= docs.statusAcao;
+				$scope.acoes			= docs.acoes;
+			}
 
 			$rootScope.changeView($dados);
 
@@ -663,12 +774,28 @@ angular
 			$scope.atualizaTabela();
 		};
 
-		$scope.removerDocumento = async ($dados) =>{	
+		$scope.removerDocumento = ($dados) =>{	
 			var id = $dados.id;
 
-			let response = await $http.delete('/clicVendas/rest/pedidov2/deleta/'+id);
+			bootbox.confirm({
+				message:'Confirma a exclusão do registro?',
+				onHidden: function(e) {
+					$scope.atualizaTabela();
+    			},
+				callback: function(confirmacao){
 
-			$scope.atualizaTabela();   
+					if (confirmacao){
+						$http.delete('/clicVendas/rest/pedidov2/deleta/'+id); 
+						setTimeout(() => {$scope.atualizaTabela();}, 1000);
+					}
+				},
+				buttons: {
+					cancel: {label: 'Cancelar',className:'btn-default'},
+					confirm: {label: 'Excluir',className:'btn_grid btn_cor_padrao'}
+					
+				}
+			});
+			 
 		};
 			
 	});
