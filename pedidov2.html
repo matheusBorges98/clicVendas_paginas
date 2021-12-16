@@ -91,8 +91,12 @@
 		
 			<!-- Tabela -->
 			<div id="main">
-				<div class="col-sm-12">
+				<div ng-hide="tabelaCompleta" class="col-sm-12">
 					<table id="listDocuments"  dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border hover table-striped table-bordered"></table>					
+				</div>
+
+				<div ng-show="tabelaCompleta" class="col-sm-12">
+					<table id="listDocumentsFull"  dt-options="dtOptionsFull" dt-columns="dtColumnsFull" dt-instance="dtInstanceFull" class="row-border hover table-striped table-bordered"></table>					
 				</div>
 			</div>
 			<!-- Tabela -->
@@ -672,14 +676,11 @@ angular
 				data	: function(d) {   
 							var param = {idCvTccnpj	: dadosUserLogado.cId};
 							d.param = param;
-							console.log(JSON.stringify(d), "data")
 							return JSON.stringify(d);
 						},
 				dataSrc: function(json) {
 					let dadosGrid = json.data;
 
-					console.log(json.data)
-					
 					for(ped of dadosGrid){
 						ped.jsonDocs = JSON.parse(ped.jsonDocs);
 					}
@@ -697,7 +698,6 @@ angular
 					.withDOM('ftrip')
 					.withButtons([
 				{
-					enabled: dadosUserLogado.params.paramPermiteCadastrarPedido == 'S',
 					text: 'Novo',
 					key: '1',
 					className: 'btn_grid btn_cor_padrao',
@@ -714,36 +714,26 @@ angular
 					}
 				},		
 				{
-					text: modo == 'completa' ? 'Tabela Simplificada' :'Tabela Completa',
+					text: 'Tabela Completa',
 					key: '3',
 					className: 'btn_grid btn_cor_padrao',
 					action: function () {									
-						modo == 'completa' ? $scope.mostraTabelaSimplificada() : $scope.mostraTabelaCompleta();					
+						$scope.mostraTabelaCompleta();					
 					}
 				},								
 			]);	
 			
-			if(modo == "completa"){
-				defPD = {'id'					:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						// 'jsonDocs.chave'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						// 'jsonDocs'		:	{i:2, vsbl: false,	tlt: 'Fornecedor',		width:''	},
-						// 'jsonDocs'		:	{i:3, vsbl: false,	tlt: 'Produto',			width:''	},
-						// 'jsonDocs'		:	{i:4, vsbl: false,	tlt: 'Aplicação',		width:''	},
-						// 'jsonDocs'		:	{i:5, vsbl: false,	tlt: 'Status Amostra',	width:''	},
-						// 'jsonDocs'		:	{i:6, vsbl: false,	tlt: 'Prioridade',		width:''	}	
-						};
+			
+			defPD = {'id'							:	{i:0, vsbl: false,	tlt: '',        		width:''	},
+						'jsonDocs.nomeCliente'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
+						'jsonDocs.vendedor'			:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''	},
+						'jsonDocs.codigo'			:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
+						'jsonDocs.aplicacao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},
+						'jsonDocs.statusAcao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
+						'jsonDocs.prioridade'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
+				};
 		
-			}else{
-				defPD = {'id'						:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						 'jsonDocs.nomeCliente'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						 'jsonDocs.vendedor'		:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''	},
-						 'jsonDocs.codigo'			:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
-						 'jsonDocs.aplicacao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},
-						 'jsonDocs.statusAcao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
-						 'jsonDocs.prioridade'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
-					};
-		
-			}
+			
 			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
 			var montaColunas = [];
 			
@@ -771,13 +761,106 @@ angular
 
 		}
 			
+		$scope.atualizaTabelaCompleta = (modo) =>{
+
+			$scope.dtOptionsFull = DTOptionsBuilder.newOptions()            
+			.withOption('ajax', {
+				url	: '/clicVendas/rest/pedidov2/lista',
+				type	: 'POST',
+				data	: function(d) {   
+							var param = {idCvTccnpj	: dadosUserLogado.cId};
+							d.param = param;
+							console.log(JSON.stringify(d), "data")
+							return JSON.stringify(d);
+						},
+				dataSrc: function(json) {
+					let dadosGrid = json.data;
+					
+					for(ped of dadosGrid){
+						ped.jsonDocs = JSON.parse(ped.jsonDocs);
+					}
+					console.log(dadosGrid)
+					return dadosGrid;
+					}
+				})
+					.withDataProp('data')
+					.withOption('processing', true)
+					.withOption('serverSide', true)
+					.withOption('searchDelay', 1000)
+					.withOption('scrollY', "100%")            
+					.withPaginationType('full_numbers')            
+					.withDisplayLength(20)
+					.withDOM('ftrip')
+					.withButtons([
+				{
+					text: 'Novo',
+					key: '1',
+					className: 'btn_grid btn_cor_padrao',
+					action: function (e, dt, node, config) {									
+						$scope.abreFormulario();					
+					}
+				},		
+				{
+					text: 'Filtrar',
+					key: '2',
+					className: 'btn_grid btn_cor_padrao',
+					action: function (e, dt, node, config) {									
+						openNav();					
+					}
+				},		
+				{
+					text: 'Tabela Simplificada',
+					key: '3',
+					className: 'btn_grid btn_cor_padrao',
+					action: function () {									
+						$scope.mostraTabelaSimplificada();					
+					}
+				},								
+			]);	
+			
+			defPD = {	'id'						:	{i:0, vsbl: false,	tlt: '',        		width:''	},
+						'jsonDocs.nomeCliente'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
+						'jsonDocs.vendedor'			:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''	},
+				};
+		
+			
+			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
+			var montaColunas = [];
+			
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass("colBtn").withOption('sWidth', '50px').renderWith(function(data, type, row) {
+				var btnhtml = "";				
+				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
+				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
+				return btnhtml;
+			}));
+			
+			angular.forEach(defPD, function(value, key) {
+				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sWidth', value.width));
+			});
+			
+			$scope.dtColumnsFull = montaColunas;
+											
+			angular.element('#listDocumentsFull').attr('datatable', '');
+			$compile(angular.element('#listDocumentsFull'))($scope);
+
+			$scope.dtOptionsFull.withOption('fnRowCallback',
+				
+				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+					$compile(nRow)($scope);
+			});
+
+		}
+		
 		$scope.atualizaTabela();
+		$scope.atualizaTabelaCompleta();
 		
 		$scope.mostraTabelaCompleta = () => {
-			$scope.atualizaTabela("completa"); 
+			$scope.tabelaCompleta = true;
+			$scope.atualizaTabelaCompleta(); 
 		};
 
 		$scope.mostraTabelaSimplificada = () =>{
+			$scope.tabelaCompleta = false;
 			$scope.atualizaTabela();
 		};
 
@@ -788,12 +871,16 @@ angular
 				message:'Confirma a exclusão do registro?',
 				onHidden: function(e) {
 					$scope.atualizaTabela();
+					$scope.atualizaTabelaCompleta();
     			},
 				callback: function(confirmacao){
 
 					if (confirmacao){
 						$http.delete('/clicVendas/rest/pedidov2/deleta/'+id); 
-						setTimeout(() => {$scope.atualizaTabela();}, 1000);
+						setTimeout(() => {
+							$scope.atualizaTabela();
+							$scope.atualizaTabelaCompleta();
+						}, 1000);
 					}
 				},
 				buttons: {
