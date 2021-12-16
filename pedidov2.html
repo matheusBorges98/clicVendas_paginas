@@ -590,11 +590,13 @@ angular
 
 		$scope.salvarDocumento = async () => {
 			
-			let id 			= $rootScope.idDocumento;
-			let jsonDocs	= {};
-			let dados 		= {};
+			let id 					= $rootScope.idDocumento;
+			let jsonDocs			= {};
+			let dados 				= {};
+			
+			$scope.messageNotific	= '';
 
-			dados.cnpj 		= {id: dadosUserLogado.cId};
+			dados.cnpj 				= {id: dadosUserLogado.cId};
 
 			jsonDocs = {
 				chave 			: $scope.chave,
@@ -653,13 +655,18 @@ angular
 		
 			try{
 				if(id > 0){
+					$scope.messageNotific = 'Registro alterado com sucesso';
 					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
 				}else{
+					$scope.messageNotific = 'Registro inserido com sucesso';
+					$scope.geraNotificacao($scope.messageNotific)
 					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
 				}
 			}catch(err){
 				console.log(err);
 			}
+
+			$scope.geraNotificacao($scope.messageNotific)
 
 			$scope.exibeFormulario = false;
 			$scope.exibeListaDocumentos = true;
@@ -836,30 +843,53 @@ angular
 				},									
 			]);	
 			
-			defPD = {	'id'						:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						'jsonDocs.ano'				:	{i:1, vsbl: true,	tlt: 'Ano',				width:''	},
-						'jsonDocs.responsavel'		:	{i:3, vsbl: true,	tlt: 'Respons.',		width:''	},
-						'jsonDocs.projeto'			:	{i:4, vsbl: true,	tlt: 'Projeto',			width:''	},
-						'jsonDocs.codigo'			:	{i:5, vsbl: true,	tlt: 'Código',			width:''	},
-						'jsonDocs.nomeCliente'		:	{i:6, vsbl: true,	tlt: 'Nome',			width:''	},
-						'jsonDocs.uf'				:	{i:7, vsbl: true,	tlt: 'UF',				width:''	},
-						'jsonDocs.vendedor'			:	{i:8, vsbl: true,	tlt: 'Vendedor',		width:''	},
-						'jsonDocs.segmento'			:	{i:9, vsbl: true,	tlt: 'Segmento',		width:''	},
-						'jsonDocs.subsegmento'		:	{i:10, vsbl: true,	tlt: 'Sub-Seg.',		width:''	},
-						'jsonDocs.bu'				:	{i:11, vsbl: true,	tlt: 'BU',				width:''	},
-						'jsonDocs.aplicacao'		:	{i:12, vsbl: true,	tlt: 'Aplicação',		width:''	},
-						'jsonDocs.pedido'			:	{i:13, vsbl: true,	tlt: 'Pedido',			width:''	},
-						'jsonDocs.familia'			:	{i:14, vsbl: true,	tlt: 'Família',			width:''	},
-						'jsonDocs.cluster'			:	{i:15, vsbl: true,	tlt: 'Cluster',			width:''	},
-						'jsonDocs.descricao'		:	{i:16, vsbl: true,	tlt: 'Descrição',		width:''	},
-						'jsonDocs.desagr'			:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',width:''	},
-						'jsonDocs.quantidadeKg'		:	{i:18, vsbl: true,	tlt: 'Qtd. KG',			width:''	},
-						'jsonDocs.dataStatus'		:	{i:19, vsbl: true,	tlt: 'Data Status',		width:''	},
-						'jsonDocs.situacao'			:	{i:20, vsbl: true,	tlt: 'Situação',		width:''	},
-						'jsonDocs.consumo'      	:	{i:21, vsbl: true,	tlt: 'Consumo',			width:''	},
-						'jsonDocs.prioridade'		:	{i:22, vsbl: true,	tlt: 'Prioridade',		width:''	},
-						'jsonDocs.potencial0XCM'	:	{i:23, vsbl: true,	tlt: 'Potencial',		width:''	},
-
+			defPD = {	'id'						:	{i:0,  vsbl: false,	tlt: '',        				width:''	},
+						'jsonDocs.ano'				:	{i:1,  vsbl: true,	tlt: 'Ano',						width:''	},
+						'jsonDocs.responsavel'		:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:''	},
+						'jsonDocs.projeto'			:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
+						'jsonDocs.codigo'			:	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
+						'jsonDocs.nomeCliente'		:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
+						'jsonDocs.uf'				:	{i:7,  vsbl: true,	tlt: 'UF',						width:''	},
+						'jsonDocs.vendedor'			:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
+						'jsonDocs.segmento'			:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
+						'jsonDocs.subsegmento'		:	{i:10, vsbl: true,	tlt: 'Sub-Seg.',				width:''	},
+						'jsonDocs.bu'				:	{i:11, vsbl: true,	tlt: 'BU',						width:''	},
+						'jsonDocs.aplicacao'		:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:''	},
+						'jsonDocs.pedido'			:	{i:13, vsbl: true,	tlt: 'Pedido',					width:''	},
+						'jsonDocs.familia'			:	{i:14, vsbl: true,	tlt: 'Família',					width:''	},
+						'jsonDocs.cluster'			:	{i:15, vsbl: true,	tlt: 'Cluster',					width:''	},
+						'jsonDocs.descricao'		:	{i:16, vsbl: true,	tlt: 'Descrição',				width:''	},
+						'jsonDocs.desagr'			:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',		width:''	},
+						'jsonDocs.quantidadeKg'		:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:''	},
+						'jsonDocs.dataStatus'		:	{i:19, vsbl: true,	tlt: 'Data Status',				width:''	},
+						'jsonDocs.situacao'			:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
+						'jsonDocs.consumo'      	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:''	},
+						'jsonDocs.prioridade'		:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:''	},
+						'jsonDocs.potencial0XCM'	:	{i:23, vsbl: true,	tlt: 'Potencial',				width:''	},
+						'jsonDocs.consumoAg'      	:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:''	},
+						'jsonDocs.con2021Ident'     :	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:''	},
+						'jsonDocs.con2021n'      	:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:''	},
+						'jsonDocs.con2022n'      	:	{i:27, vsbl: true,	tlt: 'Con. 2022(em nº)',		width:''	},
+						'jsonDocs.con2022Local'    	:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:''	},
+						'jsonDocs.probFechamento'  	:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:''	},
+						'jsonDocs.concorrencia'    	:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:''	},
+						'jsonDocs.acoes'	      	:	{i:31, vsbl: true,	tlt: 'Ações',					width:''	},
+						'jsonDocs.statusAcao'      	:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:''	},
+						'jsonDocs.dataAtu'      	:	{i:33, vsbl: true,	tlt: 'Dat. Atu.',				width:''	},
+						'jsonDocs.ofertaData'      	:	{i:34, vsbl: true,	tlt: 'Dat. Oferta',				width:''	},
+						'jsonDocs.ofertaUnit'      	:	{i:35, vsbl: true,	tlt: 'Oferta Unit. (US$)',		width:''	},
+						'jsonDocs.potencial0XCM'   	:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:''	},
+						'jsonDocs.chaveCp'      	:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:''	},
+						'jsonDocs.identQtd'      	:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:''	},
+						'jsonDocs.venda'	      	:	{i:39, vsbl: true,	tlt: 'Venda',					width:''	},
+						'jsonDocs.vendaLocalKg'    	:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:''	},
+						'jsonDocs.ultVendaTabdin'  	:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:''	},
+						'jsonDocs.primVendaTabdin' 	:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:''	},
+						'jsonDocs.anoPrimVenda'     :	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:''	},
+						'jsonDocs.totalFatUSD'      :	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:''	},
+						'jsonDocs.margemR'	      	:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:''	},
+						'jsonDocs.preUSD'	      	:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:''	},
+						'jsonDocs.potVolAg'	      	:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:''	},
 				};
 		
 			
@@ -889,6 +919,19 @@ angular
 			});
 
 		};
+
+		$scope.geraNotificacao = (message) =>{
+			var dialog = bootbox.dialog({
+				message: "<p class='text-center'>"+message+"</p>",
+				closeButton: false
+			});
+						
+			// do something in the background
+			setTimeout(() => {
+				dialog.modal('hide');
+			}, 1200);
+		
+		}
 		
 		$scope.atualizaTabela();
 		$scope.atualizaTabelaCompleta();
