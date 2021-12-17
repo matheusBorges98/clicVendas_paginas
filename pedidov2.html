@@ -28,7 +28,7 @@
 				<form>
 					<div class="form-group">
 						<label for="filFornecedores">Fornecedor</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filFornecedores" ng-model="filFornecedores" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filFornecedores" ng-model="filFornecedores" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
@@ -48,12 +48,12 @@
 					
 					<div class="form-group">
 						<label for="filStatusAmostra">Status da Amostra</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filStatusAmostra" ng-model="filStatusAmostra" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filStatusAmostra" ng-model="filStatusAmostra" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCarteira">Carteira</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCarteira" ng-model="filCarteira" aria-describedby=" " placeholder=" ">
+						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filCarteira" ng-model="filCarteira" aria-describedby=" " placeholder=" ">
 					</div>
 					
 					<div class="form-group">
@@ -63,7 +63,7 @@
 					
 					<div class="form-group">
 						<label for="filCarteira">Data Solicitação</label>
-						<input type="text" style="width: 75px;" class="form-control spacer-input" id="filDataSolicitacao" ng-model="filDataSolicitacao" aria-describedby=" " placeholder="Fim">
+						<input type="text" style="width: 75px;" class="form-control spacer-input"  id="filDataSolicitacao" ng-model="filDataSolicitacao" aria-describedby=" " placeholder="Fim">
 					</div>
 					
 					<div class="form-group">
@@ -86,6 +86,16 @@
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filProduto" ng-model="filProduto" aria-describedby=" " placeholder=" ">
 					</div>
 				</form>
+
+				<div class="text-center">
+					<div class="btn-group">
+						<button class="btn btn_grid btn_cor_padrao" ng-click="aplicarFiltros()"> Buscar </button>
+					</div>
+					<div class="btn-group">
+						<button class="btn btn_grid btn_cor_padrao" ng-click="limparFiltros();"> Limpar </button>
+					</div>
+				</div>
+
 			</div>
 			<!--Sidebar Menu FILTRO-->
 		
@@ -418,7 +428,21 @@ angular
 	function(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
 		
 		$scope.exibeFormulario 		= false; 
-		$scope.exibeListaDocumentos = true; 
+		$scope.exibeListaDocumentos = true;
+		
+		/* Inicializa filtros */
+		$scope.filCliente 			= "";
+		$scope.filFornecedores 		= "";
+		$scope.filBU 				= "";
+		$scope.filCluster 			= "";
+		$scope.filStatusAmostra		= "";
+		$scope.filCarteira 			= "";
+		$scope.filDataEnvio 		= "";
+		$scope.filDataSolicitacao	= "";
+		$scope.filSegmento			= "";
+		$scope.filSubSegmento 		= "";
+		$scope.filPrioridade		= "";
+		$scope.filProduto			= "";
 
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
@@ -672,7 +696,45 @@ angular
 			$scope.exibeListaDocumentos = true;
 			$scope.atualizaTabela();
 		};
-		
+
+		$scope.limparFiltros = () =>{
+			
+			$scope.filCliente 			= "";
+			$scope.filFornecedores 		= "";
+			$scope.filBU 				= "";
+			$scope.filCluster 			= "";
+			$scope.filStatusAmostra		= "";
+			$scope.filCarteira 			= "";
+			$scope.filDataEnvio 		= "";
+			$scope.filDataSolicitacao	= "";
+			$scope.filSegmento			= "";
+			$scope.filSubSegmento 		= "";
+			$scope.filPrioridade		= "";
+			$scope.filProduto			= "";
+
+			$scope.atualizaTabela();
+			$scope.atualizaTabelaCompleta();
+		}
+
+		$scope.aplicarFiltros = (valor) => {
+
+				$scope.filCliente 			= $scope.filCliente; 		
+				$scope.filFornecedores 		= $scope.filFornecedores;	
+				$scope.filBU 				= $scope.filBU;				
+				$scope.filCluster 			= $scope.filCluster; 		
+				$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
+				$scope.filCarteira 			= $scope.filCarteira; 		
+				$scope.filDataEnvio 		= $scope.filDataEnvio; 		
+				$scope.filDataSolicitacao 	= $scope.filDataSolicitacao; 		
+				$scope.filSegmento 			= $scope.filSegmento; 		
+				$scope.filSubSegmento 		= $scope.filSubSegmento; 		
+				$scope.filPrioridade 		= $scope.filPrioridade; 
+				$scope.filProduto 			= $scope.filProduto; 		
+
+			$scope.atualizaTabela();
+			$scope.atualizaTabelaCompleta();
+		};
+
 		/*Define o idioma usado no Datatables*/
 		$scope.atualizaTabela = (modo) =>{
 
@@ -682,7 +744,21 @@ angular
 				type	: 'POST',
 				data	: function(d) {   
 							var param = {idCvTccnpj	: dadosUserLogado.cId};
+							var filter = {
+								fil1:  $scope.filCliente,
+								fil2:  $scope.filFornecedores,
+								fil3:  $scope.filBU,
+								fil4:  $scope.filCluster,
+								fil5:  $scope.filStatusAmostra,
+								fil6:  $scope.filDataEnvio,
+								fil7:  $scope.filDataSolicitacao,
+								fil8:  $scope.filSegmento,
+								fil9:  $scope.filSubSegmento,
+								fil10: $scope.filPrioridade,
+								fil11: $scope.filProduto
+							};
 							d.param = param;
+							d.filter = filter;
 							return JSON.stringify(d);
 						},
 				dataSrc: function(json) {
@@ -785,7 +861,21 @@ angular
 				type	: 'POST',
 				data	: function(d) {   
 							var param = {idCvTccnpj	: dadosUserLogado.cId};
+							var filter = {
+								fil1: $scope.filCliente,
+								fil2: $scope.filFornecedores,
+								fil3: $scope.filBU,
+								fil4: $scope.filCluster,
+								fil5: $scope.filStatusAmostra,
+								fil6: $scope.filDataEnvio,
+								fil7: $scope.filDataSolicitacao,
+								fil8: $scope.filSegmento,
+								fil9: $scope.filSubSegmento,
+								fil10: $scope.filPrioridade,
+								fil11: $scope.filProduto
+							};
 							d.param = param;
+							d.filter = filter;
 							console.log(JSON.stringify(d), "data")
 							return JSON.stringify(d);
 						},
@@ -935,7 +1025,7 @@ angular
 		
 		$scope.atualizaTabela();
 		$scope.atualizaTabelaCompleta();
-		
+				
 		$scope.mostraTabelaCompleta = () => {
 			$scope.tabelaCompleta = true;
 			$scope.atualizaTabelaCompleta(); 
