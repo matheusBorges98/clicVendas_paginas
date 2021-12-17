@@ -142,7 +142,7 @@
 							</div>
 							<div class="col-sm-2 spacer">
 								<label for="ano">Ano</label>
-								<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ano" id="ano">
+								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ano" id="ano">
 							</div>
 							<div class="col-sm-3 spacer">
 								<label for="responsavel">Responsável</label>
@@ -348,7 +348,7 @@
 							</div>			  
 							<div class="col-sm-2 spacer">
 								<label for="anoPrimVenda">ANO 1.a VENDA</label>
-								<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda">
+								<input type="date" ng-disabled="inputDesabilitado"  min="1997-01-01" max="2030-12-31" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda">
 							</div>
 							<div class="col-sm-2 spacer">
 								<label for="totalFatUSD">Tot. Fat. (USD)</label>
@@ -417,6 +417,7 @@
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/fullcalendar-3.10.0/lib/moment.min.js"></script>	
 <!-- Scripts importados -->	
 
 <script>
@@ -457,7 +458,7 @@ angular
 					$scope.$apply();
 				}else{
 					$scope.tipoFormulario = "Edição";
-					$scope.inputDesabilitado  = true;
+					$scope.inputDesabilitado  = false;
 				}
 				
 			}else if($scope.exibeFormulario == true){
@@ -555,7 +556,7 @@ angular
 				$rootScope.idDocumento 	= $dados.id;
 
 				$scope.chave 			= docs.chave
-				$scope.ano 				= docs.ano != "" ? new Date(docs.ano) : "";
+				$scope.ano 				= docs.ano;
 				$scope.responsavel		= docs.responsavel;
 				$scope.projeto			= docs.projeto;
 				$scope.codigo			= docs.codigo;
@@ -566,14 +567,14 @@ angular
 				$scope.subsegmento		= docs.subsegmento;
 				$scope.bu				= docs.bu;
 				$scope.aplicacao		= docs.aplicacao;
-				$scope.emissao			= docs.emissao != "" ? new Date(docs.emissao) : "";
+				$scope.emissao			= docs.emissao != "" ? new Date(moment(docs.emissao).format('DD/MM/YYYY')) : "";
 				$scope.pedido			= docs.pedido;
 				$scope.familia			= docs.familia;
 				$scope.cluster			= docs.cluster;
 				$scope.codigo			= docs.codigo;
 				$scope.descricao		= docs.descricao;
 				$scope.desagr			= docs.desagr;
-				$scope.dataStatus		= docs.dataStatus != "" ? new Date(docs.dataStatus) : "";
+				$scope.dataStatus		= docs.dataStatus != "" ? new Date(moment(docs.dataStatus).format('DD/MM/YYYY')) : "";
 				$scope.quantidadeKg		= docs.quantidadeKg;
 				$scope.situacao			= docs.situacao;
 				$scope.justificativa	= docs.justificativa;
@@ -587,8 +588,8 @@ angular
 				$scope.probFechamento	= docs.probFechamento;
 				$scope.concorrencia		= docs.concorrencia;
 				$scope.precoConc		= docs.precoConc;
-				$scope.dataAtu			= docs.dataAtu != "" ? new Date(docs.dataAtu) : "";
-				$scope.ofertaData		= docs.ofertaData != "" ? new Date(docs.ofertaData) : "";
+				$scope.dataAtu			= docs.dataAtu != "" ? new Date(moment(docs.dataAtu).format('DD/MM/YYYY')) : "";
+				$scope.ofertaData		= docs.ofertaData != "" ? new Date(moment(docs.ofertaData).format('DD/MM/YYYY')) : "";
 				$scope.ofertaUnit		= docs.ofertaUnit;
 				$scope.potencial0XCM	= docs.potencial0XCM;
 				$scope.chaveCp			= docs.chaveCp;
@@ -601,7 +602,7 @@ angular
 				$scope.potVolAg			= docs.potVolAg;
 				$scope.ultVendaTabdin	= docs.ultVendaTabdin;
 				$scope.primVendaTabdin	= docs.primVendaTabdin;
-				$scope.anoPrimVenda		= docs.anoPrimVenda != "" ? new Date(docs.anoPrimVenda) : "";
+				$scope.anoPrimVenda		= docs.anoPrimVenda != "" ? new Date(moment(docs.anoPrimVenda).format('DD/MM/YYYY')) : "";
 				$scope.statusAcao		= docs.statusAcao;
 				$scope.acoes			= docs.acoes;
 			}
@@ -635,14 +636,14 @@ angular
 				subsegmento 	: $scope.subsegmento,
 				bu 				: $scope.bu,
 				aplicacao		: $scope.aplicacao,
-				emissao			: $scope.emissao,
+				emissao			: $scope.emissao != "" ? $scope.emissao.toLocaleDateString() : "",
 				pedido			: $scope.pedido,
 				familia			: $scope.familia,
 				cluster			: $scope.cluster,
 				codigo			: $scope.codigo,
 				descricao		: $scope.descricao,
 				desagr			: $scope.desagr,
-				dataStatus		: $scope.dataStatus,
+				dataStatus		: $scope.dataStatus != "" ? $scope.dataStatus.toLocaleDateString(): "",
 				quantidadeKg	: $scope.quantidadeKg,
 				situacao		: $scope.situacao,
 				justificativa	: $scope.justificativa,
@@ -656,8 +657,8 @@ angular
 				probFechamento	: $scope.probFechamento,
 				concorrencia	: $scope.concorrencia,
 				precoConc		: $scope.precoConc,
-				dataAtu			: $scope.dataAtu,
-				ofertaData		: $scope.ofertaData,
+				dataAtu			: $scope.dataAtu != "" ? $scope.dataAtu.toLocaleDateString() : "",
+				ofertaData		: $scope.ofertaData != "" ? $scope.ofertaData.toLocaleDateString() : "",
 				ofertaUnit		: $scope.ofertaUnit,
 				potencial0XCM	: $scope.potencial0XCM,
 				chaveCp			: $scope.chaveCp,
@@ -670,7 +671,7 @@ angular
 				potVolAg		: $scope.potVolAg,
 				ultVendaTabdin  : $scope.ultVendaTabdin,
 				primVendaTabdin : $scope.primVendaTabdin,
-				anoPrimVenda	: $scope.anoPrimVenda,
+				anoPrimVenda	: $scope.anoPrimVenda != "" ? $scope.anoPrimVenda.toLocaleDateString() : "",
 				statusAcao		: $scope.statusAcao,
 				acoes			: $scope.acoes,
 			};
