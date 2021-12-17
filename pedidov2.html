@@ -696,6 +696,7 @@ angular
 			$scope.exibeFormulario = false;
 			$scope.exibeListaDocumentos = true;
 			$scope.atualizaTabela();
+			$scope.atualizaTabelaCompleta();
 		};
 
 		$scope.limparFiltros = () =>{
@@ -1013,11 +1014,10 @@ angular
 
 		$scope.geraNotificacao = (message) =>{
 			var dialog = bootbox.dialog({
-				message: "<p class='text-center'>"+message+"</p>",
+				message: "<p style='font-size=1.2em' class='text-center'>"+message+"</p>",
 				closeButton: false
 			});
 						
-			// do something in the background
 			setTimeout(() => {
 				dialog.modal('hide');
 			}, 1200);
