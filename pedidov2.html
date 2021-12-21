@@ -123,251 +123,371 @@
 			<!-- Header formulario -->
 			<div class="divider-titulo col-sm-12">
 				<div class="spacer titulo vcenter">
-					{{tipoFormulario}}
+					<!-- {{tipoFormulario}} -->
+					<h4>{{tipoFormulario}}</h4>
 				</div>			
 			</div>
 			<!-- Header formulario -->
 			
 			<!-- Capa do pedido -->
-			<div class="row spacer">
+			<div id="docAdd" class="row spacer ">
 				
-				<div class="col-sm-12">
+				<div class="col-sm-12 spacer">
 
 					<!-- Body formulario -->
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<div class="col-sm-2 spacer">
-								<label for="chave">Chv.(Cli-Prod-Ped)</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="chave" id="chave">
+					
+					<ul class="nav nav-tabs" role="tablist" id="myTab">
+					  <li role="presentation" class="active"><a href="#docAdd-cliente-tab" role="tab" data-toggle="tab">Informações</a></li>
+					  <li role="presentation"><a href="#docAdd-produto-tab" role="tab" data-toggle="tab">Produtos</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="docAdd-cliente-tab">
+							<div id="docAdd-cliente" class="form-row">
+								<div class="form-group col-md-12">
+									
+									<div class="col-sm-2 spacer">
+										<label for="codigoCliente">Cód. do Cliente</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoCliente" id="codigoCliente">
+									</div>
+									<!-- <div class="col-sm-7 spacer">
+										<label for="nomeCliente">Nome do Cliente</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="nomeCliente" id="nomeCliente">
+									</div>						 -->
+									<div class="col-sm-7 spacer">
+										<label for="nomeCliente">Cliente</label>
+										<div class="input-group spacer">
+											<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
+											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
+										</div>
+									</div>	
+									<div class="col-sm-3 spacer ">
+										<label for="vendedor">Vendedor</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendedor" id="vendedor">
+									</div>
+								</div>
 							</div>
-							<div class="col-sm-2 spacer">
-								<label for="ano">Ano</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ano" id="ano">
-							</div>
-							<div class="col-sm-3 spacer">
-								<label for="responsavel">Responsável</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="responsavel" id="responsavel">
-							</div>
-							<div class="col-sm-2 spacer">
-								<label for="projeto">Projeto</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto">
+						</div>
+						
+						<div role="tabpanel" class="tab-pane" id="docAdd-produto-tab">
+							<div id="docAdd-produto" class="form-row">
+								<div class="form-group col-md-12">
+									<div class="col-sm-2 spacer">
+										<label for="codPro">Cód. Produto</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro">
+									</div>
+									<div class="col-sm-4 spacer">
+										<label for="despro">Descrição</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricao" id="despro">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="consumo">Consumo (Kg/mês)</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoProdutoKgMes" id="consumoProdutoKgMes">
+									</div>
+									<div class="col-sm-3 spacer ">
+										<label for="aplicacao">Aplicação</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="aplicacao" id="aplicacao">
+									</div>
+									
+									<div class="col-sm-1 spacer" style="padding-top: 30px;">
+										<label for="aplicacao"> </label>							
+										<div class="btn-group">
+											<button class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group col-md-12">
+									<div class="col-sm-12 spacer">
+										<table id="listDocumentsProdutos" dt-options="dtOptionsProd" dt-columns="dtColumnsProd" dt-instance="dtInstanceProd" class="row-border responsive hover table-striped table-bordered"></table>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>	
+
+			<div id="docEdit" class="row spacer ">
+				
+				<div class="col-sm-12 spacer">	
+				
+					<ul class="nav nav-tabs" role="tablist" id="myTab">
+						<li role="presentation" class="active"><a href="#docEdit-info-projeto" role="tab" data-toggle="tab">Informações do projeto</a></li>
+						<li role="presentation"><a href="#docEdit-manu-projeto" role="tab" data-toggle="tab">Manutenção</a></li>
+						<li role="presentation"><a href="#docEdit-hist-projeto" role="tab" data-toggle="tab">Histórico / Observações</a></li>
+					</ul>
 					
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<div class="col-sm-3 spacer">
-								<label for="vendedor">Vendedor</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendedor" id="vendedor">
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="docEdit-info-projeto">
+
+							<div class="form-row ">
+								<div class="form-group col-md-12" >
+									<div class="col-sm-2 spacer ">
+										<label for="anoFat">Ano Faturamento</label>
+										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoFat" id="anoFat">
+									</div>
+									<div class="col-sm-3 spacer ">
+										<label for="responsavel">Responsável</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="responsavel" id="responsavel">
+									</div>
+									<div class="col-sm-2 spacer ">
+										<label for="projeto">Projeto</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto">
+									</div>
+								</div>
 							</div>
-							<div class="col-sm-2 spacer">
-								<label for="codigoCliente">Cód. do Cliente</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigo" id="codigoCliente">
+				
+							<div class="form-row " >
+								<div class="form-group col-md-12">
+									
+									<div class="col-sm-2 spacer">
+										<label for="codigoCliente">Cód. do Cliente</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoCliente" id="codigoCliente">
+									</div>
+									<div class="col-sm-6 spacer">
+										<label for="nomeCliente">Nome do Cliente</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="nomeCliente"  id="nomeCliente">
+									</div>
+									<div class="col-sm-1 spacer ">
+										<label for="uf">UF</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="uf" id="uf">
+									</div>
+									
+									<div class="col-sm-3 spacer ">
+										<label for="vendedor">Vendedor</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendedor" id="vendedor">
+									</div>
+									
+									<div class="col-sm-3 spacer ">
+										<label for="segmento">Segmento</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="segmento" id="segmento">
+									</div>
+									<div class="col-sm-3 spacer ">
+										<label for="subsegmento">Subsegmento</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="subsegmento" id="subsegmento">
+									</div>
+									<div class="col-sm-3 spacer ">
+										<label for="bu">BU</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="bu" id="bu">
+									</div>
+								</div>
 							</div>
-							<div class="col-sm-6 spacer">
-								<label for="nomeCliente">Nome do Cliente</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="nomeCliente" id="nomeCliente">
-							</div>
-							<div class="col-sm-1 spacer">
-								<label for="uf">UF</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="uf" id="uf">
-							</div>
-							<div class="col-sm-3 spacer">
-								<label for="segmento">Segmento</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="segmento" id="segmento">
-							</div>
-							<div class="col-sm-3 spacer">
-								<label for="subsegmento">Subsegmento</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="subsegmento" id="subsegmento">
-							</div>
-							<div class="col-sm-3 spacer">
-								<label for="bu">BU</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="bu" id="bu">
-							</div>
-							<div class="col-sm-3 spacer">
-								<label for="aplicacao">Aplicação</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="aplicacao" id="aplicacao">
-							</div>
-						</div>
-					</div>
 					
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<div class="col-sm-2 spacer">
-								<label for="pedido">Pedido</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedido" id="pedido">
-							</div>
-							<div class="col-sm-2 spacer">
-								<label for="emissao">Emissão</label>
-								<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="emissao" id="emissao">
-							</div>
-							<div class="col-sm-4 spacer">
-								<label for="familia">Familia</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="familia" id="familia">
-							</div>
-							<div class="col-sm-4 spacer">
-								<label for="cluster">Cluster</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="cluster" id="cluster">
-							</div>
-							<div class="col-sm-2 spacer">
-								<label for="codPro">Cód. Produto</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigo" id="codPro">
-							</div>
-							<div class="col-sm-4 spacer">
-								<label for="despro">Descrição</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricao" id="despro">
-							</div>
-							<div class="col-sm-2 spacer">
-								<label for="desagr">Ag. Comercial</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="desagr" id="desagr">
-							</div>
-							<div class="col-sm-2 spacer">
-								<label for="quantidadeKg">Qtde (kg)</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="quantidadeKg" id="quantidadeKg">
-							</div>
-							<div class="col-sm-2 spacer">
-								<label for="dataStatus">Data Status</label>
-								<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="dataStatus" id="dataStatus">
-							</div>
-							<div class="col-sm-2 spacer">
-								<label for="situacao">Situação Amostra</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="situacao" id="situacao">
-							</div>
-							<div class="col-sm-2 spacer">
-								<label for="consumo">Consumo (Kg/mês)</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumo" id="consumo">
-							</div>
-							<div class="col-sm-8 spacer">
-								<label for="justificativa">Justificativa</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="justificativa" id="justificativa">
-							</div>							
-						</div>	
-					</div>
 					
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<div class="col-sm-2 spacer">
-								<label for="consumoAg">Consumo Ano Gerencial</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoAg" id="consumoAg">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="con2021Ident">Con. 2021 ident</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021Ident" id="con2021Ident">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="con2021n">Con. 2021 (em nº)</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021n" id="con2021n">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="con2022n">Con. 2022 (em nº)</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2022n" id="con2022n">
+							<div class="form-row ">
+								<div class="form-group col-md-12">
+									<div class="col-sm-2 spacer">
+										<label for="pedido">Pedido</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedido" id="pedido">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="emissao">Emissão</label>
+										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="emissao" id="emissao">
+									</div>
+									<div class="col-sm-4 spacer">
+										<label for="familia">Familia</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="familia" id="familia">
+									</div>
+									<div class="col-sm-4 spacer">
+										<label for="cluster">Cluster</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="cluster" id="cluster">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="codPro">Cód. Produto</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro">
+									</div>
+									<div class="col-sm-4 spacer">
+										<label for="despro">Descrição</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricao" id="despro">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="desagr">Ag. Comercial</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="desagr" id="desagr">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="quantidadeKg">Qtde (kg)</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="quantidadeKg" id="quantidadeKg">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="dataStatus">Data Status</label>
+										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="dataStatus" id="dataStatus">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="situacao">Situação Amostra</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="situacao" id="situacao">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="consumo">Consumo (Kg/mês)</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoProdutoKgMes" id="consumoProdutoKgMes">
+									</div>
+									<div class="col-sm-8 spacer">
+										<label for="justificativa">Justificativa</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="justificativa" id="justificativa">
+									</div>				  		  
+									<div class="col-sm-2 spacer">
+										<label for="con2021n">Con. 2021 (em nº)</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021n" id="con2021n">
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="con2022n">Con. 2022 (em nº)</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2022n" id="con2022n">
+									</div>
+								</div>	
+							</div>
+							
+							<div class="form-row ">
+								<div class="form-group col-md-12">
+									<div class="col-sm-2 spacer">
+										<label for="ofertaData">OFERTA Data</label>
+										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaData" id="ofertaData">
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="ofertaUnit">OFERTA Unit. (US$)</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaUnit" id="ofertaUnit">
+									</div>			  
+									
+									<div class="col-sm-2 spacer">
+										<label for="venda">INDENT Qtde</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="identQtd" id="identQtd">
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="venda">Venda</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="venda" id="venda">
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="vendaLocalKg">Venda Local (KG)</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendaLocalKg" id="vendaLocalKg">
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="ultVendaTabdin">Últ. Venda TABDIN</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ultVendaTabdin" id="ultVendaTabdin">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="primVendaTabdin">1.a Venda TABDIN</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="primVendaTabdin" id="primVendaTabdin">
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="anoPrimVenda">ANO 1.a VENDA</label>
+										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="totalFatUSD">Tot. Fat. (USD)</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="totalFatUSD" id="totalFatUSD">
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="margemR">Margem (R$)</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="margemR" id="margemR"> 
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="preUSD">Pre. USD</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="preUSD" id="preUSD">
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="potVolAg">Pot. Vol. AG</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="potVolAg" id="potVolAg">
+									</div>
+								</div>
 							</div>
 
-							<div class="col-sm-2 spacer">
-								<label for="prioridade">Prioridade</label>
-								<input type="text" class="form-control spacer-input" ng-model="prioridade" id="prioridade" >
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="potencial">Potencial</label>
-								<input type="text" class="form-control spacer-input" ng-model="potencial" id="potencial" >
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="con2022Local">Consumo 2022 kg/ano</label>
-								<input type="text" class="form-control spacer-input" ng-model="con2022Local" id="con2022Local" >
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="probFechamento">% Prob. Fec.</label>
-								<input type="text" class="form-control spacer-input" ng-model="probFechamento" id="probFechamento" >
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="concorrencia">Concorrência</label>
-								<input type="text" class="form-control spacer-input" ng-model="concorrencia" id="concorrencia" >
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="precoConc">Preço Conc. US$</label>
-								<input type="text" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
-							</div>
 						</div>
-					</div>
-
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<div class="col-sm-8 spacer">
-								<label for="acoes">Ações</label>
-								<input type="text" class="form-control spacer-input" ng-model="acoes" id="acoes" >
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="statusAcao">Status da Ação</label>
-								<input type="text" class="form-control spacer-input" ng-model="statusAcao" id="statusAcao" >
-							</div>			   
-							<div class="col-sm-2 spacer">
-								<label for="dataAtu">Data Atualização</label>
-								<input type="date" class="form-control spacer-input" ng-model="dataAtu" id="dataAtu" >
+					
+						<div role="tabpanel" class="tab-pane" id="docEdit-manu-projeto">
+					
+							<div class="form-row ">
+								<div class="form-group col-md-12">
+									<div class="col-sm-2 spacer ">
+										<label for="projeto">Projeto</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto">
+									</div>
+									<div class="col-sm-2 spacer ">
+										<label for="responsavel">Responsável</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="responsavel" id="responsavel" >
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="prioridade">Prioridade</label>
+										<input type="text" class="form-control spacer-input" ng-model="prioridade" id="prioridade" >
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="potencial">Potencial</label>
+										<input type="text" class="form-control spacer-input" ng-model="potencial" id="potencial" >
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="consumoAg">Consumo Ano Gerencial</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoAg" id="consumoAg">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="con2021Ident">Consumo 2021 ident</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021Ident" id="con2021Ident">
+									</div>	
+									<div class="col-sm-2 spacer">
+										<label for="con2022Local">Consumo 2022 local</label>
+										<input type="text" class="form-control spacer-input" ng-model="con2022Local" id="con2022Local" >
+									</div>		
+									<div class="col-sm-2 spacer">
+										<label for="mesIniConsumo">Mes Início Consumo</label>
+										<input type="text" class="form-control spacer-input" ng-model="mesIniConsumo" id="mesIniConsumo" >
+									</div>											
+									<div class="col-sm-2 spacer">
+										<label for="probFechamento">% Prob. Fec.</label>
+										<input type="text" class="form-control spacer-input" ng-model="probFechamento" id="probFechamento" >
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="concorrencia">Concorrência</label>
+										<input type="text" class="form-control spacer-input" ng-model="concorrencia" id="concorrencia" >
+									</div>			  
+									<div class="col-sm-2 spacer">
+										<label for="precoConc">Preço Conc. US$</label>
+										<input type="text" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
+									</div>
+									<div class="col-sm-2 spacer hidden">
+										<label for="dataAtu">Data Atualização</label>
+										<input type="date" class="form-control spacer-input" ng-model="dataAtu" id="dataAtu" >
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-row col-md-12 spacer">
+									<hr class="divider"> 
+							</div>
+								
+							<div class="form-row ">
+								<div class="form-group col-md-12">		  	   
+									<div class="col-sm-10 spacer">
+										<label for="acoes">Ações</label>
+										<textarea class="form-control spacer-input" ng-model="acoes" id="acoes" rows="3"></textarea>
+									</div>	
+									<div class="col-sm-2 spacer">
+										<label for="statusAcao">Status da Ação</label>
+										<input type="text" class="form-control spacer-input" ng-model="statusAcao" id="statusAcao" >
+									</div>		
+								</div>
+							</div>
+							
+						</div>
+					
+						
+						<div role="tabpanel" class="tab-pane" id="docEdit-hist-projeto">
+							<div class="form-row">
+								<div class="col-sm-12 spacer">
+										<label for="histOportunidade">Histórico</label>
+										<textarea class="form-control spacer-input"  ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-sm-12 spacer">
+									<hr class="divider">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-sm-11 spacer">
+									<label for="obsOportunidade">Observação</label>
+									<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
+								</div>
 							</div>
 						</div>
 					</div>
 					
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<div class="col-sm-2 spacer">
-								<label for="ofertaData">OFERTA Data</label>
-								<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaData" id="ofertaData">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="ofertaUnit">OFERTA Unit. (US$)</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaUnit" id="ofertaUnit">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="potencial0XCM">Potencial OxCM</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="chaveCp">Chave CP</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="chaveCp" id="chaveCp">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="venda">INDENT Qtde</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="identQtd" id="identQtd">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="venda">Venda</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="venda" id="venda">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="vendaLocalKg">Venda Local (KG)</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendaLocalKg" id="vendaLocalKg">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="ultVendaTabdin">Últ. Venda TABDIN</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ultVendaTabdin" id="ultVendaTabdin">
-							</div>
-							<div class="col-sm-2 spacer">
-								<label for="primVendaTabdin">1.a Venda TABDIN</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="primVendaTabdin" id="primVendaTabdin">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="anoPrimVenda">ANO 1.a VENDA</label>
-								<input type="date" ng-disabled="inputDesabilitado"  min="1997-01-01" max="2030-12-31" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda">
-							</div>
-							<div class="col-sm-2 spacer">
-								<label for="totalFatUSD">Tot. Fat. (USD)</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="totalFatUSD" id="totalFatUSD">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="margemR">Margem (R$)</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="margemR" id="margemR">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="preUSD">Pre. USD</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="preUSD" id="preUSD">
-							</div>			  
-							<div class="col-sm-2 spacer">
-								<label for="potVolAg">Pot. Vol. AG</label>
-								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="potVolAg" id="potVolAg">
-							</div>
-						</div>
-					</div>
 				</div>	
 					
 			</div>
@@ -378,10 +498,13 @@
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
+						<button class="btn btn_grid btn-success" ng-click="salvarDocumento('FINALIZAR')"> Finalizar </button>
+					</div>	
+					<div class="btn-group">
 						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
 					</div>
 					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" ng-click="salvarDocumento()"> Salvar </button>
+						<button class="btn btn_grid btn_cor_padrao" ng-click="salvarDocumento('SALVAR')"> Salvar </button>
 					</div>	
 				</div>
 			</div>
@@ -445,6 +568,12 @@ angular
 		$scope.filPrioridade		= "";
 		$scope.filProduto			= "";
 
+		/*Incializa produtos*/
+		$rootScope.produtos 		= [];
+		
+		/*Incializa cliente*/
+		$rootScope.cliente			= {};
+
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
 
@@ -457,8 +586,14 @@ angular
 					
 					$scope.$apply();
 				}else{
+					console.log($dados, "DADOS")
 					$scope.tipoFormulario = "Edição";
-					$scope.inputDesabilitado  = true;
+					if($dados.jsonDocs[0].exportarDoc == "S"){
+						$scope.inputDesabilitado  = true;
+					}else{
+						$scope.inputDesabilitado = false;
+					}
+						
 				}
 				
 			}else if($scope.exibeFormulario == true){
@@ -468,6 +603,46 @@ angular
 			};
 
 		};
+
+		$scope.getClientes = function(val) {
+			var idRep = 0;
+			
+			// if ($rootScope.ehNovoPedido) {
+			// 	if	($scope.obterSeRepresentante()){
+			// 		idRep = dadosUserLogado.rId;
+			// 	} else{
+			// 		idRep = $rootScope.representante.id;
+			// 	}
+			// } else {
+			// 	idRep = $rootScope.objVenda.representante.id;
+			// }		            	
+			idRep = dadosUserLogado.rId;
+
+			return $http.post('/clicVendas/rest/Listas/cliente', {
+				params: {
+					filtro: val,
+					rId: idRep
+				}
+			}).then(function(response){
+				return response.data.map(function(item){
+					return item;
+				});
+			});
+		};
+
+		$scope.onSelectCli = ($item, $model, $label) => {
+			console.log($item);
+			$rootScope.cliente = $item;							
+		};
+
+		$scope.limpaCliente = () =>{
+			$scope.frmCliente 	= "";
+			var cCliente		= angular.element(document.querySelector('#frmCliente'));
+			
+			$timeout(function () {
+				cCliente.focus();
+			}, 200);
+		}
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
 			try{
@@ -500,112 +675,117 @@ angular
 			if($dados == undefined){
 				$rootScope.idDocumento = 0;
 				
-				$scope.chave 			= '';
-				$scope.ano 				= '';
-				$scope.responsavel		= '';
-				$scope.projeto			= '';
-				$scope.codigo			= '';
-				$scope.nomeCliente		= '';
-				$scope.uf				= '';
-				$scope.vendedor			= '';
-				$scope.segmento			= '';
-				$scope.subsegmento		= '';
-				$scope.bu				= '';
-				$scope.aplicacao		= '';
-				$scope.emissao			= '';
-				$scope.pedido			= '';
-				$scope.familia			= '';
-				$scope.cluster			= '';
-				$scope.codigo			= '';
-				$scope.descricao		= '';
-				$scope.desagr			= '';
-				$scope.dataStatus		= '';
-				$scope.quantidadeKg		= '';
-				$scope.situacao			= '';
-				$scope.justificativa	= '';
-				$scope.consumo			= '';
-				$scope.prioridade		= '';
-				$scope.consumoAg		= '';
-				$scope.con2021Ident		= '';
-				$scope.con2021n			= '';
-				$scope.con2022n			= '';
-				$scope.con2022Local		= '';
-				$scope.probFechamento	= '';
-				$scope.concorrencia		= '';
-				$scope.precoConc		= '';
-				$scope.dataAtu			= '';
-				$scope.ofertaData		= '';
-				$scope.ofertaUnit		= '';
-				$scope.potencial0XCM	= '';
-				$scope.chaveCp			= '';
-				$scope.identQtd			= '';
-				$scope.venda			= '';
-				$scope.vendaLocalKg		= '';
-				$scope.totalFatUSD		= '';
-				$scope.margemR			= '';
-				$scope.preUSD			= '';
-				$scope.potVolAg			= '';
-				$scope.ultVendaTabdin	= '';
-				$scope.primVendaTabdin	= '';
-				$scope.anoPrimVenda		= '';
-				$scope.statusAcao		= '';
-				$scope.acoes			= '';
+				$scope.chave 				= '';
+				$scope.ano 					= '';
+				$scope.responsavel			= '';
+				$scope.projeto				= '';
+				$scope.codigoCliente		= '';
+				$scope.codigoProduto		= '';
+				$scope.descricao			= '';
+				$scope.nomeCliente			= '';
+				$scope.uf					= '';
+				$scope.vendedor				= '';
+				$scope.segmento				= '';
+				$scope.subsegmento			= '';
+				$scope.bu					= '';
+				$scope.aplicacao			= '';
+				$scope.emissao				= '';
+				$scope.pedido				= '';
+				$scope.familia				= '';
+				$scope.cluster				= '';
+				$scope.codigoProduto		= '';
+				$scope.descricao			= '';
+				$scope.desagr				= '';
+				$scope.dataStatus			= '';
+				$scope.quantidadeKg			= '';
+				$scope.situacao				= '';
+				$scope.justificativa		= '';
+				$scope.consumoProdutoKgMes	= '';
+				$scope.prioridade			= '';
+				$scope.consumoAg			= '';
+				$scope.con2021Ident			= '';
+				$scope.con2021n				= '';
+				$scope.con2022n				= '';
+				$scope.con2022Local			= '';
+				$scope.probFechamento		= '';
+				$scope.concorrencia			= '';
+				$scope.precoConc			= '';
+				$scope.dataAtu				= '';
+				$scope.ofertaData			= '';
+				$scope.ofertaUnit			= '';
+				$scope.potencial0XCM		= '';
+				$scope.chaveCp				= '';
+				$scope.identQtd				= '';
+				$scope.venda				= '';
+				$scope.vendaLocalKg			= '';
+				$scope.totalFatUSD			= '';
+				$scope.margemR				= '';
+				$scope.preUSD				= '';
+				$scope.potVolAg				= '';
+				$scope.ultVendaTabdin		= '';
+				$scope.primVendaTabdin		= '';
+				$scope.anoPrimVenda			= '';
+				$scope.statusAcao			= '';
+				$scope.acoes				= '';
+
+				//$scope.salvarDocumento("SALVAR")
 			}else{
 
-				let docs 				=  $dados.jsonDocs;
-				$rootScope.idDocumento 	= $dados.id;
+				let docs 					= $dados.jsonDocs;
+				$rootScope.idDocumento 		= $dados.id;
 
-				$scope.chave 			= docs.chave
-				$scope.ano 				= docs.ano;
-				$scope.responsavel		= docs.responsavel;
-				$scope.projeto			= docs.projeto;
-				$scope.codigo			= docs.codigo;
-				$scope.nomeCliente		= docs.nomeCliente;
-				$scope.uf				= docs.uf;
-				$scope.vendedor			= docs.vendedor;
-				$scope.segmento			= docs.segmento;
-				$scope.subsegmento		= docs.subsegmento;
-				$scope.bu				= docs.bu;
-				$scope.aplicacao		= docs.aplicacao;
-				$scope.emissao			= docs.emissao != "" ? new Date(moment(docs.emissao).format('DD/MM/YYYY')) : "";
-				$scope.pedido			= docs.pedido;
-				$scope.familia			= docs.familia;
-				$scope.cluster			= docs.cluster;
-				$scope.codigo			= docs.codigo;
-				$scope.descricao		= docs.descricao;
-				$scope.desagr			= docs.desagr;
-				$scope.dataStatus		= docs.dataStatus != "" ? new Date(moment(docs.dataStatus).format('DD/MM/YYYY')) : "";
-				$scope.quantidadeKg		= docs.quantidadeKg;
-				$scope.situacao			= docs.situacao;
-				$scope.justificativa	= docs.justificativa;
-				$scope.consumo			= docs.consumo;
-				$scope.prioridade		= docs.prioridade;
-				$scope.consumoAg		= docs.consumoAg;
-				$scope.con2021Ident		= docs.con2021Ident;
-				$scope.con2021n			= docs.con2021n;
-				$scope.con2022n			= docs.con2022n;
-				$scope.con2022Local		= docs.con2022Local;
-				$scope.probFechamento	= docs.probFechamento;
-				$scope.concorrencia		= docs.concorrencia;
-				$scope.precoConc		= docs.precoConc;
-				$scope.dataAtu			= docs.dataAtu != "" ? new Date(moment(docs.dataAtu).format('DD/MM/YYYY')) : "";
-				$scope.ofertaData		= docs.ofertaData != "" ? new Date(moment(docs.ofertaData).format('DD/MM/YYYY')) : "";
-				$scope.ofertaUnit		= docs.ofertaUnit;
-				$scope.potencial0XCM	= docs.potencial0XCM;
-				$scope.chaveCp			= docs.chaveCp;
-				$scope.identQtd			= docs.identQtd;
-				$scope.venda			= docs.venda;
-				$scope.vendaLocalKg		= docs.vendaLocalKg;
-				$scope.totalFatUSD		= docs.totalFatUSD;
-				$scope.margemR			= docs.margemR;
-				$scope.preUSD			= docs.preUSD;
-				$scope.potVolAg			= docs.potVolAg;
-				$scope.ultVendaTabdin	= docs.ultVendaTabdin;
-				$scope.primVendaTabdin	= docs.primVendaTabdin;
-				$scope.anoPrimVenda		= docs.anoPrimVenda != "" ? new Date(moment(docs.anoPrimVenda).format('DD/MM/YYYY')) : "";
-				$scope.statusAcao		= docs.statusAcao;
-				$scope.acoes			= docs.acoes;
+				$scope.chave 				= docs.chave
+				$scope.ano 					= docs.ano;
+				$scope.responsavel			= docs.responsavel;
+				$scope.projeto				= docs.projeto;
+				$scope.codigo				= docs.codigo;
+				$scope.nomeCliente			= docs.nomeCliente;
+				$scope.uf					= docs.uf;
+				$scope.vendedor				= docs.vendedor;
+				$scope.segmento				= docs.segmento;
+				$scope.subsegmento			= docs.subsegmento;
+				$scope.bu					= docs.bu;
+				//$scope.aplicacao			= docs.aplicacao;
+				$scope.emissao				= docs.emissao != "" ? new Date(moment(docs.emissao).format('DD/MM/YYYY')) : "";
+				$scope.pedido				= docs.pedido;
+				$scope.familia				= docs.familia;
+				$scope.cluster				= docs.cluster;
+				//$scope.codigoProduto		= docs.produto.codigoProduto;
+				//$scope.descricao			= docs.descricao;
+				$scope.desagr				= docs.desagr;
+				$scope.dataStatus			= docs.dataStatus != "" ? new Date(moment(docs.dataStatus).format('DD/MM/YYYY')) : "";
+				$scope.quantidadeKg			= docs.quantidadeKg;
+				$scope.situacao				= docs.situacao;
+				$scope.justificativa		= docs.justificativa;
+				//$scope.consumoProdutoKgMes	= docs.consumoProdutoKgMes;
+				$scope.prioridade			= docs.prioridade;
+				$scope.consumoAg			= docs.consumoAg;
+				$scope.con2021Ident			= docs.con2021Ident;
+				$scope.con2021n				= docs.con2021n;
+				$scope.con2022n				= docs.con2022n;
+				$scope.con2022Local			= docs.con2022Local;
+				$scope.probFechamento		= docs.probFechamento;
+				$scope.concorrencia			= docs.concorrencia;
+				$scope.precoConc			= docs.precoConc;
+				$scope.dataAtu				= docs.dataAtu != "" ? new Date(moment(docs.dataAtu).format('DD/MM/YYYY')) : "";
+				$scope.ofertaData			= docs.ofertaData != "" ? new Date(moment(docs.ofertaData).format('DD/MM/YYYY')) : "";
+				$scope.ofertaUnit			= docs.ofertaUnit;
+				$scope.potencial0XCM		= docs.potencial0XCM;
+				$scope.chaveCp				= docs.chaveCp;
+				$scope.identQtd				= docs.identQtd;
+				$scope.venda				= docs.venda;
+				$scope.vendaLocalKg			= docs.vendaLocalKg;
+				$scope.totalFatUSD			= docs.totalFatUSD;
+				$scope.margemR				= docs.margemR;
+				$scope.preUSD				= docs.preUSD;
+				$scope.potVolAg				= docs.potVolAg;
+				$scope.ultVendaTabdin		= docs.ultVendaTabdin;
+				$scope.primVendaTabdin		= docs.primVendaTabdin;
+				$scope.anoPrimVenda			= docs.anoPrimVenda != "" ? new Date(moment(docs.anoPrimVenda).format('DD/MM/YYYY')) : "";
+				$scope.statusAcao			= docs.statusAcao;
+				$scope.acoes				= docs.acoes;
 			}
+			$scope.atualizaTabelaProdutos();
 
 			$rootScope.changeView($dados);
 
@@ -613,71 +793,95 @@ angular
 
 		};
 
-		$scope.salvarDocumento = async () => {
+		$scope.adicionarProduto = () =>{
+			
+			$rootScope.produtos.push(
+				{ 
+					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
+					descricao			: $scope.descricao,
+					codigoProduto		: $scope.codigoProduto,
+					aplicacao			: $scope.aplicacao,
+				}
+			);
+
+			$scope.salvarDocumento('ADCPROD');
+		};
+
+		$scope.salvarDocumento = async (rotina) => {
 			
 			let id 					= $rootScope.idDocumento;
-			let jsonDocs			= {};
+			let jsonDocs			= [];
 			let dados 				= {};
 			
 			$scope.messageNotific	= '';
 
 			dados.cnpj 				= {id: dadosUserLogado.cId};
 
-			jsonDocs = {
-				chave 			: $scope.chave,
-				ano	  			: $scope.ano,
-				responsavel		: $scope.responsavel,
-				projeto     	: $scope.projeto,
-				codigo			: $scope.codigo,
-				nomeCliente 	: $scope.nomeCliente,
-				uf 				: $scope.uf,
-				vendedor		: $scope.vendedor,
-				segmento		: $scope.segmento,
-				subsegmento 	: $scope.subsegmento,
-				bu 				: $scope.bu,
-				aplicacao		: $scope.aplicacao,
-				emissao			: $scope.emissao != "" ? $scope.emissao.toLocaleDateString() : "",
-				pedido			: $scope.pedido,
-				familia			: $scope.familia,
-				cluster			: $scope.cluster,
-				codigo			: $scope.codigo,
-				descricao		: $scope.descricao,
-				desagr			: $scope.desagr,
-				dataStatus		: $scope.dataStatus != "" ? $scope.dataStatus.toLocaleDateString(): "",
-				quantidadeKg	: $scope.quantidadeKg,
-				situacao		: $scope.situacao,
-				justificativa	: $scope.justificativa,
-				consumo			: $scope.consumo,
-				prioridade		: $scope.prioridade,
-				consumoAg		: $scope.consumoAg,
-				con2021Ident	: $scope.con2021Ident,
-				con2021n		: $scope.con2021n,
-				con2022n		: $scope.con2022n,
-				con2022Local	: $scope.con2022Local,
-				probFechamento	: $scope.probFechamento,
-				concorrencia	: $scope.concorrencia,
-				precoConc		: $scope.precoConc,
-				dataAtu			: $scope.dataAtu != "" ? $scope.dataAtu.toLocaleDateString() : "",
-				ofertaData		: $scope.ofertaData != "" ? $scope.ofertaData.toLocaleDateString() : "",
-				ofertaUnit		: $scope.ofertaUnit,
-				potencial0XCM	: $scope.potencial0XCM,
-				chaveCp			: $scope.chaveCp,
-				identQtd		: $scope.identQtd,
-				venda			: $scope.venda,
-				vendaLocalKg	: $scope.vendaLocalKg,
-				totalFatUSD		: $scope.totalFatUSD,
-				margemR			: $scope.margemR,
-				preUSD			: $scope.preUSD,
-				potVolAg		: $scope.potVolAg,
-				ultVendaTabdin  : $scope.ultVendaTabdin,
-				primVendaTabdin : $scope.primVendaTabdin,
-				anoPrimVenda	: $scope.anoPrimVenda != "" ? $scope.anoPrimVenda.toLocaleDateString() : "",
-				statusAcao		: $scope.statusAcao,
-				acoes			: $scope.acoes,
-			};
+			jsonDocs = [{
+				chave 				: $scope.chave,
+				ano	  				: $scope.ano,
+				responsavel			: $scope.responsavel,
+				projeto     		: $scope.projeto,
+				nomeCliente 		: $scope.nomeCliente,
+				codigoCliente		: $scope.codigoCliente,
+				uf 					: $scope.uf,
+				vendedor			: $scope.vendedor,
+				segmento			: $scope.segmento,
+				subsegmento 		: $scope.subsegmento,
+				bu 					: $scope.bu,
+				emissao				: $scope.emissao != "" ? $scope.emissao.toLocaleDateString() : "",
+				pedido				: $scope.pedido,
+				familia				: $scope.familia,
+				cluster				: $scope.cluster,
+				desagr				: $scope.desagr,
+				dataStatus			: $scope.dataStatus != "" ? $scope.dataStatus.toLocaleDateString(): "",
+				quantidadeKg		: $scope.quantidadeKg,
+				situacao			: $scope.situacao,
+				justificativa		: $scope.justificativa,
+				prioridade			: $scope.prioridade,
+				consumoAg			: $scope.consumoAg,
+				con2021Ident		: $scope.con2021Ident,
+				con2021n			: $scope.con2021n,
+				con2022n			: $scope.con2022n,
+				con2022Local		: $scope.con2022Local,
+				probFechamento		: $scope.probFechamento,
+				concorrencia		: $scope.concorrencia,
+				precoConc			: $scope.precoConc,
+				dataAtu				: $scope.dataAtu != "" ? $scope.dataAtu.toLocaleDateString() 	: "",
+				ofertaData			: $scope.ofertaData != "" ? $scope.ofertaData.toLocaleDateString() 	: "",
+				ofertaUnit			: $scope.ofertaUnit,
+				potencial0XCM		: $scope.potencial0XCM,
+				chaveCp				: $scope.chaveCp,
+				identQtd			: $scope.identQtd,
+				venda				: $scope.venda,
+				vendaLocalKg		: $scope.vendaLocalKg,
+				totalFatUSD			: $scope.totalFatUSD,
+				margemR				: $scope.margemR,
+				preUSD				: $scope.preUSD,
+				potVolAg			: $scope.potVolAg,
+				ultVendaTabdin  	: $scope.ultVendaTabdin,
+				primVendaTabdin 	: $scope.primVendaTabdin,
+				anoPrimVenda		: $scope.anoPrimVenda != "" ? $scope.anoPrimVenda.toLocaleDateString() : "",
+				statusAcao			: $scope.statusAcao,
+				acoes				: $scope.acoes,
+				observacao			: "",
+				
+				//Metodos
+				exportarDoc		: rotina == "FINALIZAR" ? "S" : "N",
+				idDocument		: $rootScope.idDocumento,
+				
+				//Produtos
+				produtos		: $rootScope.produtos,
 
+				//Cliente
+
+				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.fantasia},
+			}];
+						
 			dados.jsonDocs = JSON.stringify(jsonDocs);
-		
+			
+			console.log(dados, "dadosEnvio")
+			
 			try{
 				if(id > 0){
 					$scope.messageNotific = 'Registro alterado com sucesso';
@@ -691,12 +895,17 @@ angular
 				console.log(err);
 			}
 
-			$scope.geraNotificacao($scope.messageNotific)
-
-			$scope.exibeFormulario = false;
-			$scope.exibeListaDocumentos = true;
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
+			$scope.atualizaTabelaProdutos();
+
+			if(rotina != 'ADCPROD'){
+				$scope.geraNotificacao($scope.messageNotific)
+				$scope.exibeFormulario = false;
+				$scope.exibeListaDocumentos = true;
+			}
+			
+			
 		};
 
 		$scope.limparFiltros = () =>{
@@ -737,7 +946,6 @@ angular
 			$scope.atualizaTabelaCompleta();
 		};
 
-		/*Define o idioma usado no Datatables*/
 		$scope.atualizaTabela = (modo) =>{
 
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
@@ -816,32 +1024,32 @@ angular
 					}
 				},								
 			]);	
-			
-			
-			defPD = {'id'							:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						'jsonDocs.nomeCliente'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs.vendedor'			:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''	},
-						'jsonDocs.codigo'			:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs.aplicacao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},
-						'jsonDocs.statusAcao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
-						'jsonDocs.prioridade'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
+
+
+			defPD = {	'id'							:	{i:0, vsbl: false,	tlt: '',        		width:''	},
+						'jsonDocs[0].cliente.nome'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
+						'jsonDocs[0].vendedor'			:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''	},
+						'jsonDocs[0].codigo'			:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
+						//'jsonDocs.aplicacao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},
+						'jsonDocs[0].statusAcao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
+						'jsonDocs[0].prioridade'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
 				};
-		
-			
+
+
 			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
 			var montaColunas = [];
-			
+
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass("colBtn").withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml = "";				
 				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
 				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
 				return btnhtml;
 			}));
-			
+
 			angular.forEach(defPD, function(value, key) {
 				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sWidth', value.width));
 			});
-			
+
 			$scope.dtColumns = montaColunas;
 											
 			angular.element('#listDocuments').attr('datatable', '');
@@ -855,7 +1063,7 @@ angular
 
 		}
 			
-		$scope.atualizaTabelaCompleta = (modo) =>{
+		$scope.atualizaTabelaCompleta = () =>{
 
 			$scope.dtOptionsFull = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -935,53 +1143,53 @@ angular
 				},									
 			]);	
 			
-			defPD = {	'id'						:	{i:0,  vsbl: false,	tlt: '',        				width:''	},
-						'jsonDocs.ano'				:	{i:1,  vsbl: true,	tlt: 'Ano',						width:''	},
-						'jsonDocs.responsavel'		:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:''	},
-						'jsonDocs.projeto'			:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
-						'jsonDocs.codigo'			:	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
-						'jsonDocs.nomeCliente'		:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
-						'jsonDocs.uf'				:	{i:7,  vsbl: true,	tlt: 'UF',						width:''	},
-						'jsonDocs.vendedor'			:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
-						'jsonDocs.segmento'			:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
-						'jsonDocs.subsegmento'		:	{i:10, vsbl: true,	tlt: 'Sub-Seg.',				width:''	},
-						'jsonDocs.bu'				:	{i:11, vsbl: true,	tlt: 'BU',						width:''	},
-						'jsonDocs.aplicacao'		:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:''	},
-						'jsonDocs.pedido'			:	{i:13, vsbl: true,	tlt: 'Pedido',					width:''	},
-						'jsonDocs.familia'			:	{i:14, vsbl: true,	tlt: 'Família',					width:''	},
-						'jsonDocs.cluster'			:	{i:15, vsbl: true,	tlt: 'Cluster',					width:''	},
-						'jsonDocs.descricao'		:	{i:16, vsbl: true,	tlt: 'Descrição',				width:''	},
-						'jsonDocs.desagr'			:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',		width:''	},
-						'jsonDocs.quantidadeKg'		:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:''	},
-						'jsonDocs.dataStatus'		:	{i:19, vsbl: true,	tlt: 'Data Status',				width:''	},
-						'jsonDocs.situacao'			:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
-						'jsonDocs.consumo'      	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:''	},
-						'jsonDocs.prioridade'		:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:''	},
-						'jsonDocs.potencial0XCM'	:	{i:23, vsbl: true,	tlt: 'Potencial',				width:''	},
-						'jsonDocs.consumoAg'      	:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:''	},
-						'jsonDocs.con2021Ident'     :	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:''	},
-						'jsonDocs.con2021n'      	:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:''	},
-						'jsonDocs.con2022n'      	:	{i:27, vsbl: true,	tlt: 'Con. 2022(em nº)',		width:''	},
-						'jsonDocs.con2022Local'    	:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:''	},
-						'jsonDocs.probFechamento'  	:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:''	},
-						'jsonDocs.concorrencia'    	:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:''	},
-						'jsonDocs.acoes'	      	:	{i:31, vsbl: true,	tlt: 'Ações',					width:''	},
-						'jsonDocs.statusAcao'      	:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:''	},
-						'jsonDocs.dataAtu'      	:	{i:33, vsbl: true,	tlt: 'Dat. Atu.',				width:''	},
-						'jsonDocs.ofertaData'      	:	{i:34, vsbl: true,	tlt: 'Dat. Oferta',				width:''	},
-						'jsonDocs.ofertaUnit'      	:	{i:35, vsbl: true,	tlt: 'Oferta Unit. (US$)',		width:''	},
-						'jsonDocs.potencial0XCM'   	:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:''	},
-						'jsonDocs.chaveCp'      	:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:''	},
-						'jsonDocs.identQtd'      	:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:''	},
-						'jsonDocs.venda'	      	:	{i:39, vsbl: true,	tlt: 'Venda',					width:''	},
-						'jsonDocs.vendaLocalKg'    	:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:''	},
-						'jsonDocs.ultVendaTabdin'  	:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:''	},
-						'jsonDocs.primVendaTabdin' 	:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:''	},
-						'jsonDocs.anoPrimVenda'     :	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:''	},
-						'jsonDocs.totalFatUSD'      :	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:''	},
-						'jsonDocs.margemR'	      	:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:''	},
-						'jsonDocs.preUSD'	      	:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:''	},
-						'jsonDocs.potVolAg'	      	:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:''	},
+			defPD = {	'id'							:	{i:0,  vsbl: false,	tlt: '',        				width:''	},
+						'jsonDocs[0].ano'				:	{i:1,  vsbl: true,	tlt: 'Ano',						width:''	},
+						'jsonDocs[0].responsavel'		:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:''	},
+						'jsonDocs[0].projeto'			:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
+						'jsonDocs[0].codigo'			:	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
+						'jsonDocs[0].nomeCliente'		:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
+						'jsonDocs[0].uf'				:	{i:7,  vsbl: true,	tlt: 'UF',						width:''	},
+						'jsonDocs[0].vendedor'			:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
+						'jsonDocs[0].segmento'			:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
+						'jsonDocs[0].subsegmento'		:	{i:10, vsbl: true,	tlt: 'Sub-Seg.',				width:''	},
+						'jsonDocs[0].bu'				:	{i:11, vsbl: true,	tlt: 'BU',						width:''	},
+						'jsonDocs[0].aplicacao'			:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:''	},
+						'jsonDocs[0].pedido'			:	{i:13, vsbl: true,	tlt: 'Pedido',					width:''	},
+						'jsonDocs[0].familia'			:	{i:14, vsbl: true,	tlt: 'Família',					width:''	},
+						'jsonDocs[0].cluster'			:	{i:15, vsbl: true,	tlt: 'Cluster',					width:''	},
+						'jsonDocs[0].descricao'			:	{i:16, vsbl: true,	tlt: 'Descrição',				width:''	},
+						'jsonDocs[0].desagr'			:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',		width:''	},
+						'jsonDocs[0].quantidadeKg'		:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:''	},
+						'jsonDocs[0].dataStatus'		:	{i:19, vsbl: true,	tlt: 'Data Status',				width:''	},
+						'jsonDocs[0].situacao'			:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
+						'jsonDocs[0].consumoProdutoKgMes':	{i:21, vsbl: true,	tlt: 'Consumo',					width:''	},
+						'jsonDocs[0].prioridade'		:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:''	},
+						'jsonDocs[0].potencial0XCM'		:	{i:23, vsbl: true,	tlt: 'Potencial',				width:''	},
+						'jsonDocs[0].consumoAg'      	:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:''	},
+						'jsonDocs[0].con2021Ident'     	:	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:''	},
+						'jsonDocs[0].con2021n'      	:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:''	},
+						'jsonDocs[0].con2022n'      	:	{i:27, vsbl: true,	tlt: 'Con. 2022(em nº)',		width:''	},
+						'jsonDocs[0].con2022Local'    	:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:''	},
+						'jsonDocs[0].probFechamento'  	:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:''	},
+						'jsonDocs[0].concorrencia'    	:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:''	},
+						'jsonDocs[0].acoes'	      		:	{i:31, vsbl: true,	tlt: 'Ações',					width:''	},
+						'jsonDocs[0].statusAcao'      	:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:''	},
+						'jsonDocs[0].dataAtu'      		:	{i:33, vsbl: true,	tlt: 'Dat. Atu.',				width:''	},
+						'jsonDocs[0].ofertaData'      	:	{i:34, vsbl: true,	tlt: 'Dat. Oferta',				width:''	},
+						'jsonDocs[0].ofertaUnit'      	:	{i:35, vsbl: true,	tlt: 'Oferta Unit. (US$)',		width:''	},
+						'jsonDocs[0].potencial0XCM'   	:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:''	},
+						'jsonDocs[0].chaveCp'      		:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:''	},
+						'jsonDocs[0].identQtd'      	:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:''	},
+						'jsonDocs[0].venda'	      		:	{i:39, vsbl: true,	tlt: 'Venda',					width:''	},
+						'jsonDocs[0].vendaLocalKg'    	:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:''	},
+						'jsonDocs[0].ultVendaTabdin'  	:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:''	},
+						'jsonDocs[0].primVendaTabdin' 	:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:''	},
+						'jsonDocs[0].anoPrimVenda'     	:	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:''	},
+						'jsonDocs[0].totalFatUSD'      	:	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:''	},
+						'jsonDocs[0].margemR'	      	:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:''	},
+						'jsonDocs[0].preUSD'	      	:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:''	},
+						'jsonDocs[0].potVolAg'	      	:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:''	},
 				};
 		
 			
@@ -1011,6 +1219,87 @@ angular
 			});
 
 		};
+
+		/*Tabela de produtos*/
+
+		$scope.atualizaTabelaProdutos = () =>{
+
+			$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
+			.withOption('ajax', {
+				url	: '/clicVendas/rest/pedidov2/lista',
+				type	: 'POST',
+				data	: function(d) {   
+							var param = {idCvTccnpj	: dadosUserLogado.cId};
+							var filter = {
+								fil1:  "",
+								fil2:  "",
+								fil3:  "",
+								fil4:  "",
+								fil5:  "",
+								fil6:  "",
+								fil7:  "",
+								fil8:  "",
+								fil9:  "",
+								fil10: "",
+								fil11: ""
+							};
+							d.param = param;
+							d.filter = filter;
+							return JSON.stringify(d);
+						},
+				dataSrc: function(json) {
+					let dadosGrid = json.data;
+
+					for(ped of dadosGrid){	
+						ped.jsonDocs = JSON.parse(ped.jsonDocs);
+						
+					}
+					console.log(dadosGrid, "PRODUTO");
+					return dadosGrid;
+					}
+				})
+					.withDataProp('data')
+					.withOption('processing', true)
+					.withOption('serverSide', true)
+					.withOption('searchDelay', 1000)
+					.withOption('scrollY', "100%")      
+					.withOption('scrollX', "100%")       
+					.withDisplayLength(20)
+					.withDOM('tr')
+					
+			defPD = {	'id'										:	{i:0, vsbl: false,	tlt: '',        		width:''	},
+						'jsonDocs[0].produtos' 						:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
+						'jsonDocs[0].produtos.descricao'			:	{i:4, vsbl: true,	tlt: 'Descricao',		width:''	},
+						'jsonDocs[0].produtos.consumoProdutoKgMes'	:	{i:5, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''	},
+						'jsonDocs[0].produtos.aplicacao'			:	{i:6, vsbl: true,	tlt: 'Aplicacação',		width:''	}	
+				};
+
+
+			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
+			var montaColunas = [];
+
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass("colBtn").withOption('sWidth', '50px').renderWith(function(data, type, row) {
+				var btnhtml = "";				
+				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
+				return btnhtml;
+			}));
+
+			angular.forEach(defPD, function(value, key) {
+				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sWidth', value.width));
+			});
+
+			$scope.dtColumnsProd = montaColunas;
+											
+			angular.element('#listDocumentsProdutos').attr('datatable', '');
+			$compile(angular.element('#listDocumentsProdutos'))($scope);
+
+			$scope.dtOptionsProd.withOption('fnRowCallback',
+				
+				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+					$compile(nRow)($scope);
+			});
+
+		}
 
 		$scope.geraNotificacao = (message) =>{
 			var dialog = bootbox.dialog({
