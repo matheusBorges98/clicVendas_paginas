@@ -123,14 +123,13 @@
 			<!-- Header formulario -->
 			<div class="divider-titulo col-sm-12">
 				<div class="spacer titulo vcenter">
-					<!-- {{tipoFormulario}} -->
-					<h4>{{tipoFormulario}}</h4>
+					<h4 style="margin-top: 0;">{{tipoFormulario}}</h4>
 				</div>			
 			</div>
 			<!-- Header formulario -->
 			
 			<!-- Capa do pedido -->
-			<div id="docAdd" class="row spacer ">
+			<div id="docAdd" class="row spacer " ng-show="permiteEditar">
 				
 				<div class="col-sm-12 spacer">
 
@@ -228,7 +227,7 @@
 				</div>
 			</div>	
 
-			<div id="docEdit" class="row spacer ">
+			<div id="docEdit" class="row spacer" ng-show="!permiteEditar">
 				
 				<div class="col-sm-12 spacer">	
 				
@@ -602,18 +601,20 @@ angular
 				
 				if($dados == undefined){
 					$scope.tipoFormulario = "Novo";
+
 					$scope.inputDesabilitado  = false;
+					$scope.permiteEditar	  = true;
 					
 					$scope.$apply();
+
 				}else{
-					console.log($dados, "DADOS")
+					
 					$scope.tipoFormulario = "Edição";
-					if($dados.jsonDocs[0].exportarDoc == "S"){
+					
+					// if($dados.jsonDocs[0].documento.exportarDoc == "S"){
 						$scope.inputDesabilitado  = true;
-					}else{
-						$scope.inputDesabilitado = false;
-					}
-						
+						$scope.permiteEditar	  = false;
+					// }
 				}
 				
 			}else if($scope.exibeFormulario == true){
@@ -799,6 +800,21 @@ angular
 			$scope.$apply();
 		};
 
+		$scope.gravaDocumentoERP = async ($item) => {
+
+			let result = await $scope.executaRequisicaoExterna(
+				{
+					idCvTccnpj : dadosUserLogado.cId,
+					numreg	   : 750,
+					pRotina	   : "criarPedidoAmostra",
+					pCodCli    : dadosUserLogado.rId,
+					documento  : $item
+				}		
+			);
+
+			return result;
+		};
+
 		$scope.getProdutos = (val) => {			
 			var dados = {};
 			dados.filtro			= val|| '';
@@ -813,19 +829,22 @@ angular
 		};
 
 		$scope.onSelectProd = ($item, $model, $label) => {
-			//$rootScope.produto 	 = $item;
-
-			$scope.itemProd 	 = "";
-
+			
 			$scope.descricaoProd = $item.produto.nome;
 			$scope.codVariacao	 = $item.produto.nomeVariacao;
 			$scope.codExterno	 = $item.produto.codExterno;
 			$scope.codigoProduto = $item.produto.id;
 
-			console.log($rootScope.produto, "produto")
-		}
+			var focusBtn		 = angular.element(document.querySelector('#consumoProdutoKgMes'));
+						
+			$timeout(function () {
+				focusBtn.focus();
+			}, 200);
 
-		$scope.limpaProduto = () =>{
+			console.log($rootScope.produto, "produto");
+		};
+
+		$scope.limpaProduto = (acao) =>{
 			$scope.itemProd 	 		= '';
 			$scope.aplicacao			= "";
 			$scope.consumoProdutoKgMes  = "";
@@ -837,10 +856,13 @@ angular
 			
 			var produto		 = angular.element(document.querySelector('#itemProd'));
 			
-			$timeout(function () {
-				produto.focus();
-			}, 200);
-		}
+			if(acao == undefined){
+				$timeout(function () {
+					produto.focus();
+				}, 200);
+			};
+
+		};
 
 		$scope.abreFormulario = ($dados) =>{
 
@@ -906,10 +928,8 @@ angular
 				$scope.acoes				= '';
 
 			}else{
-				let docs 					= $dados.jsonDocs[0];
+				let docs 					= $dados.jsonDocs[0].documento;
 				$rootScope.idDocumento 		= $dados.id;
-
-				console.log(docs, "DOCS")
 
 				$rootScope.produtos			= docs.produtos;
 
@@ -994,6 +1014,7 @@ angular
 			$scope.codExterno	 		= "";
 			$scope.codigoProduto 		= "";
 			
+			$scope.limpaProduto('noFocus');
 			$scope.atualizaTabelaProdutos();
 			//$scope.salvarDocumento('ADCPROD');
 		};
@@ -1016,61 +1037,65 @@ angular
 			dados.cnpj 				= {id: dadosUserLogado.cId};
 
 			jsonDocs = [{
-				chave 				: $scope.chave,
-				ano	  				: $scope.ano,
-				responsavel			: $scope.responsavel,
-				projeto     		: $scope.projeto,
-				uf 					: $scope.uf,
-				vendedor			: $scope.vendedor,
-				segmento			: $scope.segmento,
-				subsegmento 		: $scope.subsegmento,
-				bu 					: $scope.bu,
-				emissao				: $scope.emissao != "" ? $scope.emissao.toLocaleDateString() : "",
-				pedido				: $scope.pedido,
-				familia				: $scope.familia,
-				cluster				: $scope.cluster,
-				desagr				: $scope.desagr,
-				dataStatus			: $scope.dataStatus != "" ? $scope.dataStatus.toLocaleDateString(): "",
-				quantidadeKg		: $scope.quantidadeKg,
-				situacao			: $scope.situacao,
-				justificativa		: $scope.justificativa,
-				prioridade			: $scope.prioridade,
-				consumoAg			: $scope.consumoAg,
-				con2021Ident		: $scope.con2021Ident,
-				con2021n			: $scope.con2021n,
-				con2022n			: $scope.con2022n,
-				con2022Local		: $scope.con2022Local,
-				probFechamento		: $scope.probFechamento,
-				concorrencia		: $scope.concorrencia,
-				precoConc			: $scope.precoConc,
-				dataAtu				: $scope.dataAtu != "" ? $scope.dataAtu.toLocaleDateString() 	: "",
-				ofertaData			: $scope.ofertaData != "" ? $scope.ofertaData.toLocaleDateString() 	: "",
-				ofertaUnit			: $scope.ofertaUnit,
-				potencial0XCM		: $scope.potencial0XCM,
-				chaveCp				: $scope.chaveCp,
-				identQtd			: $scope.identQtd,
-				venda				: $scope.venda,
-				vendaLocalKg		: $scope.vendaLocalKg,
-				totalFatUSD			: $scope.totalFatUSD,
-				margemR				: $scope.margemR,
-				preUSD				: $scope.preUSD,
-				potVolAg			: $scope.potVolAg,
-				ultVendaTabdin  	: $scope.ultVendaTabdin,
-				primVendaTabdin 	: $scope.primVendaTabdin,
-				anoPrimVenda		: $scope.anoPrimVenda != "" ? $scope.anoPrimVenda.toLocaleDateString() : "",
-				statusAcao			: $scope.statusAcao,
-				acoes				: $scope.acoes,
-				observacao			: "",
-				
-				//Metodos
-				exportarDoc		: rotina == "FINALIZAR" ? "S" : "N",
-				idDocument		: $rootScope.idDocumento,
-				
-				//Produtos
-				produtos		: $rootScope.produtos,
+				documento :
+				{
+					chave 				: $scope.chave,
+					ano	  				: $scope.ano,
+					responsavel			: $scope.responsavel,
+					projeto     		: $scope.projeto,
+					uf 					: $scope.uf,
+					vendedor			: $scope.vendedor,
+					segmento			: $scope.segmento,
+					subsegmento 		: $scope.subsegmento,
+					bu 					: $scope.bu,
+					emissao				: $scope.emissao != "" ? $scope.emissao.toLocaleDateString() : "",
+					pedido				: $scope.pedido,
+					familia				: $scope.familia,
+					cluster				: $scope.cluster,
+					desagr				: $scope.desagr,
+					dataStatus			: $scope.dataStatus != "" ? $scope.dataStatus.toLocaleDateString(): "",
+					quantidadeKg		: $scope.quantidadeKg,
+					situacao			: $scope.situacao,
+					justificativa		: $scope.justificativa,
+					prioridade			: $scope.prioridade,
+					consumoAg			: $scope.consumoAg,
+					con2021Ident		: $scope.con2021Ident,
+					con2021n			: $scope.con2021n,
+					con2022n			: $scope.con2022n,
+					con2022Local		: $scope.con2022Local,
+					probFechamento		: $scope.probFechamento,
+					concorrencia		: $scope.concorrencia,
+					precoConc			: $scope.precoConc,
+					dataAtu				: $scope.dataAtu != "" ? $scope.dataAtu.toLocaleDateString() 	: "",
+					ofertaData			: $scope.ofertaData != "" ? $scope.ofertaData.toLocaleDateString() 	: "",
+					ofertaUnit			: $scope.ofertaUnit,
+					potencial0XCM		: $scope.potencial0XCM,
+					chaveCp				: $scope.chaveCp,
+					identQtd			: $scope.identQtd,
+					venda				: $scope.venda,
+					vendaLocalKg		: $scope.vendaLocalKg,
+					totalFatUSD			: $scope.totalFatUSD,
+					margemR				: $scope.margemR,
+					preUSD				: $scope.preUSD,
+					potVolAg			: $scope.potVolAg,
+					ultVendaTabdin  	: $scope.ultVendaTabdin,
+					primVendaTabdin 	: $scope.primVendaTabdin,
+					anoPrimVenda		: $scope.anoPrimVenda != "" ? $scope.anoPrimVenda.toLocaleDateString() : "",
+					statusAcao			: $scope.statusAcao,
+					acoes				: $scope.acoes,
+					observacao			: "",
+					
+					//Metodos
+					exportarDoc		: rotina == "FINALIZAR" ? "S" : "N",
+					idDocument		: $rootScope.idDocumento,
+					
+					//Produtos
+					produtos		: $rootScope.produtos,
 
-				//Cliente
-				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
+					//Cliente
+					cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
+				}
+				
 			}];
 						
 			dados.jsonDocs = JSON.stringify(jsonDocs);
@@ -1172,6 +1197,7 @@ angular
 					let dadosGrid = json.data;
 
 					for(ped of dadosGrid){
+						console.log(ped, "PED")
 						ped.jsonDocs = JSON.parse(ped.jsonDocs);
 					}
 					console.log(dadosGrid);
@@ -1223,13 +1249,13 @@ angular
 			]);	
 
 
-			defPD = {	'id'							:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						'jsonDocs[0].cliente.nome'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs[0].vendedor'			:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''	},
-						'jsonDocs[0].codigo'			:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
-						//'jsonDocs.aplicacao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},
-						'jsonDocs[0].statusAcao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
-						'jsonDocs[0].prioridade.nome'	:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
+			defPD = {	'id'									:	{i:0, vsbl: false,	tlt: '',        		width:''	},
+						'jsonDocs[0].documento.cliente.nome'	:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
+						'jsonDocs[0].documento.vendedor'		:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''	},
+						'jsonDocs[0].documento.codigo'			:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
+						'jsonDocs[0].documento.statusAcao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
+						'jsonDocs[0].documento.prioridade.nome'	:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}
+						//'jsonDocs.aplicacao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},	
 				};
 
 
@@ -1340,53 +1366,53 @@ angular
 				},									
 			]);	
 			
-			defPD = {	'id'							:	{i:0,  vsbl: false,	tlt: '',        				width:''	},
-						'jsonDocs[0].ano'				:	{i:1,  vsbl: true,	tlt: 'Ano',						width:''	},
-						'jsonDocs[0].responsavel'		:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:''	},
-						'jsonDocs[0].projeto.nome'		:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
-						'jsonDocs[0].codigo'			:	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
-						'jsonDocs[0].cliente.nome'		:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
-						'jsonDocs[0].uf'				:	{i:7,  vsbl: true,	tlt: 'UF',						width:''	},
-						'jsonDocs[0].vendedor'			:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
-						'jsonDocs[0].segmento'			:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
-						'jsonDocs[0].subsegmento'		:	{i:10, vsbl: true,	tlt: 'Sub-Seg.',				width:''	},
-						'jsonDocs[0].bu'				:	{i:11, vsbl: true,	tlt: 'BU',						width:''	},
-						'jsonDocs[0].aplicacao'			:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:''	},
-						'jsonDocs[0].pedido'			:	{i:13, vsbl: true,	tlt: 'Pedido',					width:''	},
-						'jsonDocs[0].familia'			:	{i:14, vsbl: true,	tlt: 'Família',					width:''	},
-						'jsonDocs[0].cluster'			:	{i:15, vsbl: true,	tlt: 'Cluster',					width:''	},
-						'jsonDocs[0].descricao'			:	{i:16, vsbl: true,	tlt: 'Descrição',				width:''	},
-						'jsonDocs[0].desagr'			:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',		width:''	},
-						'jsonDocs[0].quantidadeKg'		:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:''	},
-						'jsonDocs[0].dataStatus'		:	{i:19, vsbl: true,	tlt: 'Data Status',				width:''	},
-						'jsonDocs[0].situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
-						'jsonDocs[0].consumoProdutoKgMes':	{i:21, vsbl: true,	tlt: 'Consumo',					width:''	},
-						'jsonDocs[0].prioridade.nome'	:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:''	},
-						'jsonDocs[0].potencial0XCM'		:	{i:23, vsbl: true,	tlt: 'Potencial',				width:''	},
-						'jsonDocs[0].consumoAg'      	:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:''	},
-						'jsonDocs[0].con2021Ident'     	:	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:''	},
-						'jsonDocs[0].con2021n'      	:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:''	},
-						'jsonDocs[0].con2022n'      	:	{i:27, vsbl: true,	tlt: 'Con. 2022(em nº)',		width:''	},
-						'jsonDocs[0].con2022Local'    	:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:''	},
-						'jsonDocs[0].probFechamento'  	:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:''	},
-						'jsonDocs[0].concorrencia'    	:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:''	},
-						'jsonDocs[0].acoes'	      		:	{i:31, vsbl: true,	tlt: 'Ações',					width:''	},
-						'jsonDocs[0].statusAcao'      	:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:''	},
-						'jsonDocs[0].dataAtu'      		:	{i:33, vsbl: true,	tlt: 'Dat. Atu.',				width:''	},
-						'jsonDocs[0].ofertaData'      	:	{i:34, vsbl: true,	tlt: 'Dat. Oferta',				width:''	},
-						'jsonDocs[0].ofertaUnit'      	:	{i:35, vsbl: true,	tlt: 'Oferta Unit. (US$)',		width:''	},
-						'jsonDocs[0].potencial0XCM'   	:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:''	},
-						'jsonDocs[0].chaveCp'      		:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:''	},
-						'jsonDocs[0].identQtd'      	:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:''	},
-						'jsonDocs[0].venda'	      		:	{i:39, vsbl: true,	tlt: 'Venda',					width:''	},
-						'jsonDocs[0].vendaLocalKg'    	:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:''	},
-						'jsonDocs[0].ultVendaTabdin'  	:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:''	},
-						'jsonDocs[0].primVendaTabdin' 	:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:''	},
-						'jsonDocs[0].anoPrimVenda'     	:	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:''	},
-						'jsonDocs[0].totalFatUSD'      	:	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:''	},
-						'jsonDocs[0].margemR'	      	:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:''	},
-						'jsonDocs[0].preUSD'	      	:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:''	},
-						'jsonDocs[0].potVolAg'	      	:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:''	},
+			defPD = {	'id'										:	{i:0,  vsbl: false,	tlt: '',        				width:''	},
+						'jsonDocs[0].documento.documento.ano'		:	{i:1,  vsbl: true,	tlt: 'Ano',						width:''	},
+						'jsonDocs[0].documento.responsavel'			:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:''	},
+						'jsonDocs[0].documento.projeto.nome'		:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
+						'jsonDocs[0].documento.codigo'				:	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
+						'jsonDocs[0].documento.cliente.nome'		:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
+						'jsonDocs[0].documento.uf'					:	{i:7,  vsbl: true,	tlt: 'UF',						width:''	},
+						'jsonDocs[0].documento.vendedor'			:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
+						'jsonDocs[0].documento.segmento'			:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
+						'jsonDocs[0].documento.subsegmento'			:	{i:10, vsbl: true,	tlt: 'Sub-Seg.',				width:''	},
+						'jsonDocs[0].documento.bu'					:	{i:11, vsbl: true,	tlt: 'BU',						width:''	},
+						'jsonDocs[0].documento.aplicacao'			:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:''	},
+						'jsonDocs[0].documento.pedido'				:	{i:13, vsbl: true,	tlt: 'Pedido',					width:''	},
+						'jsonDocs[0].documento.familia'				:	{i:14, vsbl: true,	tlt: 'Família',					width:''	},
+						'jsonDocs[0].documento.cluster'				:	{i:15, vsbl: true,	tlt: 'Cluster',					width:''	},
+						'jsonDocs[0].documento.descricao'			:	{i:16, vsbl: true,	tlt: 'Descrição',				width:''	},
+						'jsonDocs[0].documento.desagr'				:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',		width:''	},
+						'jsonDocs[0].documento.quantidadeKg'		:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:''	},
+						'jsonDocs[0].documento.dataStatus'			:	{i:19, vsbl: true,	tlt: 'Data Status',				width:''	},
+						'jsonDocs[0].documento.situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
+						'jsonDocs[0].documento.consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:''	},
+						'jsonDocs[0].documento.prioridade.nome'		:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:''	},
+						'jsonDocs[0].documento.potencial0XCM'		:	{i:23, vsbl: true,	tlt: 'Potencial',				width:''	},
+						'jsonDocs[0].documento.consumoAg'      		:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:''	},
+						'jsonDocs[0].documento.con2021Ident'     	:	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:''	},
+						'jsonDocs[0].documento.con2021n'      		:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:''	},
+						'jsonDocs[0].documento.con2022n'      		:	{i:27, vsbl: true,	tlt: 'Con. 2022(em nº)',		width:''	},
+						'jsonDocs[0].documento.con2022Local'    	:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:''	},
+						'jsonDocs[0].documento.probFechamento'  	:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:''	},
+						'jsonDocs[0].documento.concorrencia'    	:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:''	},
+						'jsonDocs[0].documento.acoes'	      		:	{i:31, vsbl: true,	tlt: 'Ações',					width:''	},
+						'jsonDocs[0].documento.statusAcao'      	:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:''	},
+						'jsonDocs[0].documento.dataAtu'      		:	{i:33, vsbl: true,	tlt: 'Dat. Atu.',				width:''	},
+						'jsonDocs[0].documento.ofertaData'      	:	{i:34, vsbl: true,	tlt: 'Dat. Oferta',				width:''	},
+						'jsonDocs[0].documento.ofertaUnit'      	:	{i:35, vsbl: true,	tlt: 'Oferta Unit. (US$)',		width:''	},
+						'jsonDocs[0].documento.potencial0XCM'   	:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:''	},
+						'jsonDocs[0].documento.chaveCp'      		:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:''	},
+						'jsonDocs[0].documento.identQtd'      		:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:''	},
+						'jsonDocs[0].documento.venda'	      		:	{i:39, vsbl: true,	tlt: 'Venda',					width:''	},
+						'jsonDocs[0].documento.vendaLocalKg'    	:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:''	},
+						'jsonDocs[0].documento.ultVendaTabdin'  	:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:''	},
+						'jsonDocs[0].documento.primVendaTabdin' 	:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:''	},
+						'jsonDocs[0].documento.anoPrimVenda'     	:	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:''	},
+						'jsonDocs[0].documento.totalFatUSD'      	:	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:''	},
+						'jsonDocs[0].documento.margemR'	      		:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:''	},
+						'jsonDocs[0].documento.preUSD'	      		:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:''	},
+						'jsonDocs[0].documento.potVolAg'	      	:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:''	},
 				};
 		
 			
@@ -1445,14 +1471,7 @@ angular
 							return JSON.stringify(d);
 						},
 				dataSrc: function(json) {
-					// let dadosGrid = json.data;
-
-					// for(ped of dadosGrid){	
-					// 	ped.jsonDocs = JSON.parse(ped.jsonDocs);
-						
-					// }
-					// console.log(dadosGrid, "PRODUTO");
-					console.log($rootScope.produtos)
+			
 					return $rootScope.produtos;
 					}
 				})
