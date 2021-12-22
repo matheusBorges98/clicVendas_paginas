@@ -186,7 +186,7 @@
 										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 										<div class="input-group spacer">
 											<input type="text" ng-disabled="inputDesabilitado" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
-											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
+											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 										</div>
 									</div>
 
@@ -253,7 +253,7 @@
 									</div>
 									<div class="col-sm-2 spacer ">
 										<label for="projeto">Projeto</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 									</div>
 								</div>
 							</div>
@@ -418,7 +418,7 @@
 								<div class="form-group col-md-12">
 									<div class="col-sm-2 spacer ">
 										<label for="projeto">Projeto</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 									</div>
 									<div class="col-sm-2 spacer ">
 										<label for="responsavel">Responsável</label>
@@ -426,7 +426,7 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="prioridade">Prioridade</label>
-										<input type="text" class="form-control spacer-input" ng-model="prioridade" id="prioridade" >
+										<input type="text" class="form-control spacer-input" ng-model="prioridade" id="prioridade" uib-typeahead="(prioridades.nome) for prioridades in getPrioridades($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectPrioridade($item, $model, $label)">
 									</div>			  
 									<div class="col-sm-2 spacer">
 										<label for="potencial">Potencial</label>
@@ -594,11 +594,6 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		/*Tipos de projeto*/
-		// $scope.projetos = {
-		// 	nome: 
-		// }
-
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
 
@@ -627,6 +622,66 @@ angular
 				$scope.exibeListaDocumentos = true;
 			};
 
+		};
+
+		$scope.getPrioridades = () => {
+			
+			$scope.listaPrioridades = [
+				{
+					nome:"BAIXA",
+					id:1
+				},
+				{
+					nome:"MÉDIA",
+					id:2
+				},
+				{
+					nome:"ALTA",
+					id:3
+				}
+			];
+
+			return $scope.listaPrioridades;
+		};
+
+		$scope.onSelectPrioridade = ($item, $model, $label) => {
+			
+			$scope.prioridade 		= $item.nome;
+			$scope.idPrioridade 	= $item.id;
+		};
+
+		$scope.getProjetos = () =>{
+
+			$scope.listaProjetos = [ 
+				{
+					nome: "PROSPECÇÃO",
+					id: 1
+				},
+				{
+					nome: "OPORTUNIDADE",
+					id: 2
+				},
+				{
+					nome: "PROJETO",
+					id: 3
+				},
+				{
+					nome: "SUBSTITUIÇÃO",
+					id: 4
+				},
+				{
+					nome: "CAMPANHA",
+					id: 5
+				}
+			];
+
+			return $scope.listaProjetos;
+		};
+
+		$scope.onSelectProjeto = ($item, $model, $label) => {
+			
+			$scope.projeto 		= $item.nome;
+			$scope.idProjeto 	= $item.id;
 		};
 
 		$scope.getClientes = function(val) {
@@ -660,7 +715,7 @@ angular
 			$timeout(function () {
 				cCliente.focus();
 			}, 200);
-		}
+		};
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
 			try{
@@ -714,6 +769,23 @@ angular
 			console.log($rootScope.produto, "produto")
 		}
 
+		$scope.limpaProduto = () =>{
+			$scope.itemProd 	 		= '';
+			$scope.aplicacao			= "";
+			$scope.consumoProdutoKgMes  = "";
+			$scope.quantidadeProduto 	= "";
+			$scope.descricaoProd 		= "";
+			$scope.codVariacao	 		= "";
+			$scope.codExterno	 		= "";
+			$scope.codigoProduto 		= "";
+			
+			var produto		 = angular.element(document.querySelector('#itemProd'));
+			
+			$timeout(function () {
+				produto.focus();
+			}, 200);
+		}
+
 		$scope.abreFormulario = ($dados) =>{
 
 			if($dados == undefined){
@@ -728,7 +800,7 @@ angular
 				$scope.projeto				= '';
 				
 				$scope.codigoProduto		= '';
-				$scope.descricao			= '';
+				$scope.descricaoProd		= '';
 				$scope.nomeCliente			= '';
 				$scope.uf					= '';
 				$scope.vendedor				= '';
@@ -740,8 +812,8 @@ angular
 				$scope.pedido				= '';
 				$scope.familia				= '';
 				$scope.cluster				= '';
-				$scope.codigoProduto		= '';
-				$scope.descricao			= '';
+				// $scope.codigoProduto		= '';
+				// $scope.descricao			= '';
 				$scope.desagr				= '';
 				$scope.dataStatus			= '';
 				$scope.quantidadeKg			= '';
@@ -962,7 +1034,6 @@ angular
 				$scope.exibeFormulario = false;
 				$scope.exibeListaDocumentos = true;
 			}
-			
 			
 		};
 
