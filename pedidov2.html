@@ -211,7 +211,7 @@
 									<div class="col-sm-1 spacer" style="padding-top: 30px;">
 										<label for="aplicacao"> </label>							
 										<div class="btn-group">
-											<button class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
+											<button ng-disabled="descricaoProd == '' " class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
 										</div>
 									</div>
 								</div>
@@ -866,6 +866,8 @@ angular
 
 		$scope.abreFormulario = ($dados) =>{
 
+			console.log(dadosUserLogado)
+
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
 
@@ -883,7 +885,7 @@ angular
 				$scope.descricaoProd		= '';
 				$scope.nomeCliente			= '';
 				$scope.uf					= '';
-				$scope.vendedor				= '';
+				$scope.vendedor				= dadosUserLogado.rNome;//{rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome};
 				$scope.segmento				= '';
 				$scope.subsegmento			= '';
 				$scope.bu					= '';
@@ -928,10 +930,15 @@ angular
 				$scope.acoes				= '';
 
 			}else{
+				
 				let docs 					= $dados.jsonDocs[0].documento;
 				$rootScope.idDocumento 		= $dados.id;
 
+				console.log(docs.cliente, "DOCS CLIENTE");
+
 				$rootScope.produtos			= docs.produtos;
+
+				$rootScope.cliente			= docs.cliente;
 
 				$scope.frmCliente			= docs.cliente;
 				$scope.codigoCliente		= docs.cliente.codExterno;
@@ -1044,7 +1051,7 @@ angular
 					responsavel			: $scope.responsavel,
 					projeto     		: $scope.projeto,
 					uf 					: $scope.uf,
-					vendedor			: $scope.vendedor,
+					vendedor			: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},//$scope.vendedor,
 					segmento			: $scope.segmento,
 					subsegmento 		: $scope.subsegmento,
 					bu 					: $scope.bu,
@@ -1251,7 +1258,7 @@ angular
 
 			defPD = {	'id'									:	{i:0, vsbl: false,	tlt: '',        		width:''	},
 						'jsonDocs[0].documento.cliente.nome'	:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs[0].documento.vendedor'		:	{i:2, vsbl: true,	tlt: 'Fornecedor',		width:''	},
+						'jsonDocs[0].documento.vendedor.nome'	:	{i:2, vsbl: true,	tlt: 'Vendedor',		width:''	},
 						'jsonDocs[0].documento.codigo'			:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
 						'jsonDocs[0].documento.statusAcao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
 						'jsonDocs[0].documento.prioridade.nome'	:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}
@@ -1373,7 +1380,7 @@ angular
 						'jsonDocs[0].documento.codigo'				:	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
 						'jsonDocs[0].documento.cliente.nome'		:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
 						'jsonDocs[0].documento.uf'					:	{i:7,  vsbl: true,	tlt: 'UF',						width:''	},
-						'jsonDocs[0].documento.vendedor'			:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
+						'jsonDocs[0].documento.vendedor.nome'		:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
 						'jsonDocs[0].documento.segmento'			:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
 						'jsonDocs[0].documento.subsegmento'			:	{i:10, vsbl: true,	tlt: 'Sub-Seg.',				width:''	},
 						'jsonDocs[0].documento.bu'					:	{i:11, vsbl: true,	tlt: 'BU',						width:''	},
@@ -1655,12 +1662,12 @@ angular
 	}
 
 	.divider{
-		border-top: 1px solid #bbb;
+		border-top: 1px solid rgb(230, 230, 230);
 	}
 	
 	.divider-titulo{
-		border-top: 0.8px solid #bbb;
-		border-bottom: 0.8px solid #bbb;
+		border-top: 0.8px solid rgb(230, 230, 230);
+		border-bottom: 0.8px solid rgb(230, 230, 230);
 		height: 50px;
 		margin-top: 5px;
 	}
