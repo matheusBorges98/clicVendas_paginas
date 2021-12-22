@@ -335,7 +335,7 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="situacao">Situação Amostra</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="situacao" id="situacao">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="situacao" id="situacao"  uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 									</div>
 									<!-- <div class="col-sm-2 spacer">
 										<label for="consumo">Consumo (Kg/mês)</label>
@@ -624,6 +624,62 @@ angular
 
 		};
 
+		$scope.getSituacaoAmostra = () => {
+			
+			$scope.listaSituacaoAmostra = [
+				{
+					nome:"SOLICITAÇÃO DE AMOSTRA",
+					id:1
+				},
+				{
+					nome:"ENVIADA",
+					id:2
+				},
+				{
+					nome:"TESTE",
+					id:3
+				},
+				{
+					nome:"TESTE INDUSTRIAL",
+					id:4
+				},
+				{
+					nome:"CATÁLOGO",
+					id:5
+				},
+				{
+					nome:"REPROVADA TECNICAMENTE",
+					id:6
+				},
+				{
+					nome:"APROVADA TECNICAMENTE",
+					id:7
+				},
+				{
+					nome:"REPROVADA COMERCIALMENTE",
+					id:8
+				},
+				{
+					nome:"APROV. TEC E REP. COMERCIAL",
+					id:9
+				},
+				{
+					nome:"STAND BY",
+					id:10
+				},
+				{
+					nome:"CANCELADA",
+					id:11
+				},
+			];
+
+			return $scope.listaSituacaoAmostra;
+		}
+
+		$scope.onSelectSituacaoAmostra = ($item, $model, $label) => {
+			$scope.situacao 	= $item;
+		}
+
 		$scope.getPrioridades = () => {
 			
 			$scope.listaPrioridades = [
@@ -646,8 +702,8 @@ angular
 
 		$scope.onSelectPrioridade = ($item, $model, $label) => {
 			
-			$scope.prioridade 		= $item.nome;
-			$scope.idPrioridade 	= $item.id;
+			$scope.prioridade 		= $item;
+			//$scope.idPrioridade 	= $item.id;
 		};
 
 		$scope.getProjetos = () =>{
@@ -680,8 +736,8 @@ angular
 
 		$scope.onSelectProjeto = ($item, $model, $label) => {
 			
-			$scope.projeto 		= $item.nome;
-			$scope.idProjeto 	= $item.id;
+			$scope.projeto 		= $item;
+			//$scope.idProjeto 	= $item.id;
 		};
 
 		$scope.getClientes = function(val) {
@@ -789,7 +845,9 @@ angular
 		$scope.abreFormulario = ($dados) =>{
 
 			if($dados == undefined){
-				$rootScope.idDocumento = 0;
+				$rootScope.idDocumento 		= 0;
+
+				$rootScope.produtos			= [];
 
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
@@ -852,6 +910,8 @@ angular
 				$rootScope.idDocumento 		= $dados.id;
 
 				console.log(docs, "DOCS")
+
+				$rootScope.produtos			= docs.produtos;
 
 				$scope.frmCliente			= docs.cliente;
 				$scope.codigoCliente		= docs.cliente.codExterno;
@@ -933,11 +993,19 @@ angular
 			$scope.codVariacao	 		= "";
 			$scope.codExterno	 		= "";
 			$scope.codigoProduto 		= "";
-
-			$scope.salvarDocumento('ADCPROD');
+			
+			$scope.atualizaTabelaProdutos();
+			//$scope.salvarDocumento('ADCPROD');
 		};
 
+		$scope.removerProduto = ($item) => {
+			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
+
+			$scope.salvarDocumento('ADCPROD');
+		}
+
 		$scope.salvarDocumento = async (rotina) => {
+			console.log(rotina)
 			
 			let id 					= $rootScope.idDocumento;
 			let jsonDocs			= [];
@@ -952,8 +1020,6 @@ angular
 				ano	  				: $scope.ano,
 				responsavel			: $scope.responsavel,
 				projeto     		: $scope.projeto,
-				nomeCliente 		: $scope.nomeCliente,
-				codigoCliente		: $scope.codigoCliente,
 				uf 					: $scope.uf,
 				vendedor			: $scope.vendedor,
 				segmento			: $scope.segmento,
@@ -1004,37 +1070,39 @@ angular
 				produtos		: $rootScope.produtos,
 
 				//Cliente
-
 				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
 			}];
 						
 			dados.jsonDocs = JSON.stringify(jsonDocs);
 			
 			console.log(dados, "dadosEnvio")
-			
-			try{
-				if(id > 0){
-					$scope.messageNotific = 'Registro alterado com sucesso';
-					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
-				}else{
-					$scope.messageNotific = 'Registro inserido com sucesso';
-					$scope.geraNotificacao($scope.messageNotific)
-					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
-				}
-			}catch(err){
-				console.log(err);
-			}
 
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
 			$scope.atualizaTabelaProdutos();
 
-			if(rotina != 'ADCPROD'){
+			if(rotina == "FINALIZAR" || rotina == "SALVAR"){
+				console.log(rotina, "DENTRO")
+				try{
+					if(id > 0){
+						$scope.messageNotific = 'Registro alterado com sucesso';
+						let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
+					}else{
+						$scope.messageNotific = 'Registro inserido com sucesso';
+						$scope.geraNotificacao($scope.messageNotific)
+						let response = await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
+					}
+				}catch(err){
+					console.log(err);
+				}
 				$scope.geraNotificacao($scope.messageNotific)
+			}
+
+			if(rotina !="ADCPROD"){
 				$scope.exibeFormulario = false;
 				$scope.exibeListaDocumentos = true;
 			}
-			
+						
 		};
 
 		$scope.limparFiltros = () =>{
@@ -1161,7 +1229,7 @@ angular
 						'jsonDocs[0].codigo'			:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
 						//'jsonDocs.aplicacao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},
 						'jsonDocs[0].statusAcao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
-						'jsonDocs[0].prioridade'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
+						'jsonDocs[0].prioridade.nome'	:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
 				};
 
 
@@ -1275,9 +1343,9 @@ angular
 			defPD = {	'id'							:	{i:0,  vsbl: false,	tlt: '',        				width:''	},
 						'jsonDocs[0].ano'				:	{i:1,  vsbl: true,	tlt: 'Ano',						width:''	},
 						'jsonDocs[0].responsavel'		:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:''	},
-						'jsonDocs[0].projeto'			:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
+						'jsonDocs[0].projeto.nome'		:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
 						'jsonDocs[0].codigo'			:	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
-						'jsonDocs[0].nomeCliente'		:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
+						'jsonDocs[0].cliente.nome'		:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
 						'jsonDocs[0].uf'				:	{i:7,  vsbl: true,	tlt: 'UF',						width:''	},
 						'jsonDocs[0].vendedor'			:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
 						'jsonDocs[0].segmento'			:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
@@ -1291,9 +1359,9 @@ angular
 						'jsonDocs[0].desagr'			:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',		width:''	},
 						'jsonDocs[0].quantidadeKg'		:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:''	},
 						'jsonDocs[0].dataStatus'		:	{i:19, vsbl: true,	tlt: 'Data Status',				width:''	},
-						'jsonDocs[0].situacao'			:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
+						'jsonDocs[0].situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
 						'jsonDocs[0].consumoProdutoKgMes':	{i:21, vsbl: true,	tlt: 'Consumo',					width:''	},
-						'jsonDocs[0].prioridade'		:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:''	},
+						'jsonDocs[0].prioridade.nome'	:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:''	},
 						'jsonDocs[0].potencial0XCM'		:	{i:23, vsbl: true,	tlt: 'Potencial',				width:''	},
 						'jsonDocs[0].consumoAg'      	:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:''	},
 						'jsonDocs[0].con2021Ident'     	:	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:''	},
@@ -1377,14 +1445,15 @@ angular
 							return JSON.stringify(d);
 						},
 				dataSrc: function(json) {
-					let dadosGrid = json.data;
+					// let dadosGrid = json.data;
 
-					for(ped of dadosGrid){	
-						ped.jsonDocs = JSON.parse(ped.jsonDocs);
+					// for(ped of dadosGrid){	
+					// 	ped.jsonDocs = JSON.parse(ped.jsonDocs);
 						
-					}
-					console.log(dadosGrid, "PRODUTO");
-					return dadosGrid;
+					// }
+					// console.log(dadosGrid, "PRODUTO");
+					console.log($rootScope.produtos)
+					return $rootScope.produtos;
 					}
 				})
 					.withDataProp('data')
@@ -1396,11 +1465,11 @@ angular
 					.withDisplayLength(20)
 					.withDOM('tr')
 					
-			defPD = {	'id'										:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						'jsonDocs[0].produtos' 						:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs[0].produtos.descricao'			:	{i:4, vsbl: true,	tlt: 'Descricao',		width:''	},
-						'jsonDocs[0].produtos.consumoProdutoKgMes'	:	{i:5, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''	},
-						'jsonDocs[0].produtos.aplicacao'			:	{i:6, vsbl: true,	tlt: 'Aplicacação',		width:''	}	
+			defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''	},
+						'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''	},
+						'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''	},
+						'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''	},
+						'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicacação',		width:''	}	
 				};
 
 
@@ -1409,7 +1478,7 @@ angular
 
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass("colBtn").withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml = "";				
-				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
+				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(row)+")' ></div>";
 				return btnhtml;
 			}));
 
