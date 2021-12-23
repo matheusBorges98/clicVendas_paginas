@@ -780,35 +780,41 @@ angular
 			};
 		};
 		
-		$scope.getListaDocumentos = async () =>{
-			let result = await $scope.executaRequisicaoExterna(
-			{
-				idCvtccnpj	: dadosUserLogado.cId,
-				numreg		: 750, 
-				pRotina		: "listarProdutoB2B",
-				pCodCli     : dadosUserLogado.rId,
-				pNomPro     : "",
-				pTipPro     : "",
-			});
+		// $scope.getListaDocumentos = async () =>{
+		// 	let result = await $scope.executaRequisicaoExterna(
+		// 	{
+		// 		idCvtccnpj	: dadosUserLogado.cId,
+		// 		numreg		: 750, 
+		// 		pRotina		: "listarProdutoB2B",
+		// 		pCodCli     : dadosUserLogado.rId,
+		// 		pNomPro     : "",
+		// 		pTipPro     : "",
+		// 	});
 
-			console.log(result);
-			$scope.listaDocs = result;
-			$scope.$apply();
-		};
+		// 	console.log(result, "RESULTADOS LISTA DOCUMENTOS");
+		// 	$scope.listaDocs = result;
+		// 	$scope.$apply();
+		// };
+
+		// $scope.getListaDocumentos();
 
 		$scope.gravaDocumentoERP = async ($item) => {
 
+			console.log($item, "ITEMMMM")
+
 			let result = await $scope.executaRequisicaoExterna(
 				{
-					idCvTccnpj : dadosUserLogado.cId,
-					numreg	   : 750,
+					idCvtccnpj : dadosUserLogado.cId,
+					numreg	   : 752,
 					pRotina	   : "criarPedidoAmostra",
 					pCodCli    : dadosUserLogado.rId,
-					documento  : $item
+					documento  : $item.documento
 				}		
 			);
 
+			console.log(result, "gravarDocumentoERP")
 			return result;
+
 		};
 
 		$scope.getProdutos = (val) => {			
@@ -1022,8 +1028,8 @@ angular
 		};
 
 		$scope.salvarDocumento = async (rotina) => {
-			console.log(rotina)
-			
+
+			let hashDoc 			= '_' + Math.random().toString(36).substr(2, 9);						
 			let id 					= $rootScope.idDocumento;
 			let jsonDocs			= [];
 			let dados 				= {};
@@ -1085,7 +1091,8 @@ angular
 					//Metodos
 					exportarDoc		: rotina == "FINALIZAR" ? "S" : "N",
 					idDocument		: $rootScope.idDocumento,
-					sincronizado	: "N",		
+					sincronizado	: "N",
+					docCtrl			: hashDoc,		
 					
 					//Produtos
 					produtos		: $rootScope.produtos,
@@ -1094,11 +1101,15 @@ angular
 					cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
 				}
 				
-			}];
-						
-			dados.jsonDocs = JSON.stringify(jsonDocs);
+			}];		
+			dados.jsonDocs 		= JSON.stringify(jsonDocs);
+
+			let sendToERP 		= JSON.parse(dados.jsonDocs);
+			let documentoERP 	= await $scope.gravaDocumentoERP(sendToERP[0]);
 			
 			console.log(dados, "dadosEnvio")
+
+			
 
 			try{
 				if(id > 0){
@@ -1543,7 +1554,7 @@ angular
 				onHidden: function(e) {
 					$scope.atualizaTabela();
 					$scope.atualizaTabelaCompleta();
-    			},
+				},
 				callback: function(confirmacao){
 
 					if (confirmacao){
