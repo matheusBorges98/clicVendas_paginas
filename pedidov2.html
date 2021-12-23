@@ -885,7 +885,7 @@ angular
 				$scope.descricaoProd		= '';
 				$scope.nomeCliente			= '';
 				$scope.uf					= '';
-				$scope.vendedor				= dadosUserLogado.rNome;//{rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome};
+				$scope.vendedor				= dadosUserLogado.rNome;
 				$scope.segmento				= '';
 				$scope.subsegmento			= '';
 				$scope.bu					= '';
@@ -894,8 +894,6 @@ angular
 				$scope.pedido				= '';
 				$scope.familia				= '';
 				$scope.cluster				= '';
-				// $scope.codigoProduto		= '';
-				// $scope.descricao			= '';
 				$scope.desagr				= '';
 				$scope.dataStatus			= '';
 				$scope.quantidadeKg			= '';
@@ -933,8 +931,6 @@ angular
 				
 				let docs 					= $dados.jsonDocs[0].documento;
 				$rootScope.idDocumento 		= $dados.id;
-
-				console.log(docs.cliente, "DOCS CLIENTE");
 
 				$rootScope.produtos			= docs.produtos;
 
@@ -995,8 +991,6 @@ angular
 
 			$rootScope.changeView($dados);
 
-			console.log($dados);
-
 		};
 
 		$scope.adicionarProduto = () =>{
@@ -1023,14 +1017,13 @@ angular
 			
 			$scope.limpaProduto('noFocus');
 			$scope.atualizaTabelaProdutos();
-			//$scope.salvarDocumento('ADCPROD');
 		};
 
 		$scope.removerProduto = ($item) => {
+			
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
-
-			$scope.salvarDocumento('ADCPROD');
-		}
+			$scope.atualizaTabelaProdutos();
+		};
 
 		$scope.salvarDocumento = async (rotina) => {
 			console.log(rotina)
@@ -1109,32 +1102,26 @@ angular
 			
 			console.log(dados, "dadosEnvio")
 
+			try{
+				if(id > 0){
+					$scope.messageNotific = 'Registro alterado com sucesso';
+					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
+				}else{
+					$scope.messageNotific = 'Registro inserido com sucesso';
+					$scope.geraNotificacao($scope.messageNotific)
+					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
+				}
+			}catch(err){
+				console.log(err);
+			};
+			
+			$scope.geraNotificacao($scope.messageNotific)
+
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
-			$scope.atualizaTabelaProdutos();
-
-			if(rotina == "FINALIZAR" || rotina == "SALVAR"){
-				console.log(rotina, "DENTRO")
-				try{
-					if(id > 0){
-						$scope.messageNotific = 'Registro alterado com sucesso';
-						let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
-					}else{
-						$scope.messageNotific = 'Registro inserido com sucesso';
-						$scope.geraNotificacao($scope.messageNotific)
-						let response = await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
-					}
-				}catch(err){
-					console.log(err);
-				}
-				$scope.geraNotificacao($scope.messageNotific)
-			}
-
-			if(rotina !="ADCPROD"){
-				$scope.exibeFormulario = false;
-				$scope.exibeListaDocumentos = true;
-			}
-						
+			
+			$scope.exibeFormulario = false;
+			$scope.exibeListaDocumentos = true;
 		};
 
 		$scope.limparFiltros = () =>{
@@ -1504,7 +1491,7 @@ angular
 
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass("colBtn").withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml = "";				
-				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(row)+")' ></div>";
+				btnhtml += "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(row)+")' ></div>";
 				return btnhtml;
 			}));
 
