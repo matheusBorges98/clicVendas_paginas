@@ -145,11 +145,7 @@
 							<div id="docAdd-cliente" class="form-row">
 								<div class="form-group col-md-12">
 									
-									<!-- <div class="col-sm-7 spacer">
-										<label for="nomeCliente">Nome do Cliente</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="nomeCliente" id="nomeCliente">
-									</div>						 -->
-									<div class="col-sm-7 spacer" style="margin-top:2.1%">
+									<div class="col-sm-7 spacer" style="margin-top:1.5%">
 										<label for="nomeCliente">Nome Cliente</label>
 										<div class="input-group spacer">
 											<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
@@ -248,11 +244,11 @@
 									</div>
 									<div class="col-sm-3 spacer ">
 										<label for="responsavel">Responsável</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="responsavel" id="responsavel">
+										<input type="text" class="form-control spacer-input" ng-model="responsavel" id="responsavel">
 									</div>
 									<div class="col-sm-2 spacer ">
 										<label for="projeto">Projeto</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
+										<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 									</div>
 								</div>
 							</div>
@@ -417,11 +413,11 @@
 								<div class="form-group col-md-12">
 									<div class="col-sm-2 spacer ">
 										<label for="projeto">Projeto</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
+										<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 									</div>
 									<div class="col-sm-2 spacer ">
 										<label for="responsavel">Responsável</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="responsavel" id="responsavel" >
+										<input type="text" class="form-control spacer-input" ng-model="responsavel" id="responsavel" >
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="prioridade">Prioridade</label>
@@ -866,8 +862,6 @@ angular
 
 		$scope.abreFormulario = ($dados) =>{
 
-			console.log(dadosUserLogado)
-
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
 
@@ -926,14 +920,15 @@ angular
 				$scope.anoPrimVenda			= '';
 				$scope.statusAcao			= '';
 				$scope.acoes				= '';
+				$scope.obsOportunidade		= '';
+				$scope.histOportunidade		= '';
 
 			}else{
 				
 				let docs 					= $dados.jsonDocs[0].documento;
+
 				$rootScope.idDocumento 		= $dados.id;
-
 				$rootScope.produtos			= docs.produtos;
-
 				$rootScope.cliente			= docs.cliente;
 
 				$scope.frmCliente			= docs.cliente;
@@ -985,11 +980,12 @@ angular
 				$scope.anoPrimVenda			= docs.anoPrimVenda != "" ? new Date(moment(docs.anoPrimVenda).format('DD/MM/YYYY')) : "";
 				$scope.statusAcao			= docs.statusAcao;
 				$scope.acoes				= docs.acoes;
-			}
-
-			$scope.atualizaTabelaProdutos();
-
+				$scope.obsOportunidade		= docs.obsOportunidade;
+				$scope.histOportunidade		= docs.histOportunidade;
+			};
+			
 			$rootScope.changeView($dados);
+			$scope.atualizaTabelaProdutos();
 
 		};
 
@@ -1083,11 +1079,13 @@ angular
 					anoPrimVenda		: $scope.anoPrimVenda != "" ? $scope.anoPrimVenda.toLocaleDateString() : "",
 					statusAcao			: $scope.statusAcao,
 					acoes				: $scope.acoes,
-					observacao			: "",
+					obsOportunidade		: $scope.obsOportunidade,
+					histOportunidade	: $scope.histOportunidade,
 					
 					//Metodos
 					exportarDoc		: rotina == "FINALIZAR" ? "S" : "N",
 					idDocument		: $rootScope.idDocumento,
+					sincronizado	: "N",		
 					
 					//Produtos
 					produtos		: $rootScope.produtos,
@@ -1145,18 +1143,18 @@ angular
 
 		$scope.aplicarFiltros = (valor) => {
 
-				$scope.filCliente 			= $scope.filCliente; 		
-				$scope.filFornecedores 		= $scope.filFornecedores;	
-				$scope.filBU 				= $scope.filBU;				
-				$scope.filCluster 			= $scope.filCluster; 		
-				$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
-				$scope.filCarteira 			= $scope.filCarteira; 		
-				$scope.filDataEnvio 		= $scope.filDataEnvio; 		
-				$scope.filDataSolicitacao 	= $scope.filDataSolicitacao; 		
-				$scope.filSegmento 			= $scope.filSegmento; 		
-				$scope.filSubSegmento 		= $scope.filSubSegmento; 		
-				$scope.filPrioridade 		= $scope.filPrioridade; 
-				$scope.filProduto 			= $scope.filProduto; 		
+			$scope.filCliente 			= $scope.filCliente; 		
+			$scope.filFornecedores 		= $scope.filFornecedores;	
+			$scope.filBU 				= $scope.filBU;				
+			$scope.filCluster 			= $scope.filCluster; 		
+			$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
+			$scope.filCarteira 			= $scope.filCarteira; 		
+			$scope.filDataEnvio 		= $scope.filDataEnvio; 		
+			$scope.filDataSolicitacao 	= $scope.filDataSolicitacao; 		
+			$scope.filSegmento 			= $scope.filSegmento; 		
+			$scope.filSubSegmento 		= $scope.filSubSegmento; 		
+			$scope.filPrioridade 		= $scope.filPrioridade; 
+			$scope.filProduto 			= $scope.filProduto; 		
 
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
