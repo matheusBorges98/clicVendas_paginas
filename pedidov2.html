@@ -244,11 +244,11 @@
 									</div>
 									<div class="col-sm-3 spacer ">
 										<label for="responsavel">Responsável</label>
-										<input type="text" class="form-control spacer-input" ng-model="responsavel" id="responsavel">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="responsavel" id="responsavel">
 									</div>
 									<div class="col-sm-2 spacer ">
 										<label for="projeto">Projeto</label>
-										<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 									</div>
 								</div>
 							</div>
@@ -256,23 +256,23 @@
 							<div class="form-row " >
 								<div class="form-group col-md-12">
 									
-									<!-- <div class="col-sm-2 spacer">
+									<div class="col-sm-2 spacer">
 										<label for="codigoCliente">Cód. do Cliente</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoCliente" id="codigoCliente">
 									</div>
 									<div class="col-sm-6 spacer">
 										<label for="nomeCliente">Nome do Cliente</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="nomeCliente"  id="nomeCliente">
-									</div> -->
+									</div>
 									<div class="col-sm-1 spacer ">
 										<label for="uf">UF</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="uf" id="uf">
 									</div>
 									
-									<!-- <div class="col-sm-3 spacer ">
+									<div class="col-sm-3 spacer ">
 										<label for="vendedor">Vendedor</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendedor" id="vendedor">
-									</div> -->
+									</div>
 									
 									<div class="col-sm-3 spacer ">
 										<label for="segmento">Segmento</label>
@@ -332,10 +332,10 @@
 										<label for="situacao">Situação Amostra</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="situacao" id="situacao"  uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 									</div>
-									<!-- <div class="col-sm-2 spacer">
+									<div class="col-sm-2 spacer">
 										<label for="consumo">Consumo (Kg/mês)</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoProdutoKgMes" id="consumoProdutoKgMes">
-									</div> -->
+									</div>
 									<div class="col-sm-8 spacer">
 										<label for="justificativa">Justificativa</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="justificativa" id="justificativa">
@@ -429,11 +429,11 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="consumoAg">Consumo Ano Gerencial</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoAg" id="consumoAg">
+										<input type="text" class="form-control spacer-input" ng-model="consumoAg" id="consumoAg">
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="con2021Ident">Consumo 2021 ident</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021Ident" id="con2021Ident">
+										<input type="text" class="form-control spacer-input" ng-model="con2021Ident" id="con2021Ident">
 									</div>	
 									<div class="col-sm-2 spacer">
 										<label for="con2022Local">Consumo 2022 local</label>
@@ -780,27 +780,7 @@ angular
 			};
 		};
 		
-		// $scope.getListaDocumentos = async () =>{
-		// 	let result = await $scope.executaRequisicaoExterna(
-		// 	{
-		// 		idCvtccnpj	: dadosUserLogado.cId,
-		// 		numreg		: 750, 
-		// 		pRotina		: "listarProdutoB2B",
-		// 		pCodCli     : dadosUserLogado.rId,
-		// 		pNomPro     : "",
-		// 		pTipPro     : "",
-		// 	});
-
-		// 	console.log(result, "RESULTADOS LISTA DOCUMENTOS");
-		// 	$scope.listaDocs = result;
-		// 	$scope.$apply();
-		// };
-
-		// $scope.getListaDocumentos();
-
 		$scope.gravaDocumentoERP = async ($item) => {
-
-			console.log($item, "ITEMMMM")
 
 			let result = await $scope.executaRequisicaoExterna(
 				{
@@ -808,20 +788,23 @@ angular
 					numreg	   : 752,
 					pRotina	   : "criarPedidoAmostra",
 					pCodCli    : dadosUserLogado.rId,
-					documento  : $item
+					pDocumento : {documento : $item}
 				}		
 			);
 
 			console.log(result, "gravarDocumentoERP")
-			return result;
+			
+			$scope.geraNotificacao("Enviando pedido para o ERP...", 2000);
 
+			return result;
+			
 		};
 
 		$scope.getProdutos = (val) => {			
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431;//$rootScope.objVenda.listaPreco.id;
+			dados.idCvTolistapreco	= 17431;
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -833,7 +816,7 @@ angular
 		$scope.onSelectProd = ($item, $model, $label) => {
 			
 			$scope.descricaoProd = $item.produto.nome;
-			$scope.codVariacao	 = $item.produto.nomeVariacao;
+			$scope.codVariacao	 = $item.produto.codVariacao;
 			$scope.codExterno	 = $item.produto.codExterno;
 			$scope.codigoProduto = $item.produto.id;
 
@@ -939,15 +922,15 @@ angular
 
 				$scope.frmCliente			= docs.cliente;
 				$scope.codigoCliente		= docs.cliente.codExterno;
+				$scope.nomeCliente			= docs.cliente.nome
 
 				$scope.chave 				= docs.chave;
 				$scope.ano 					= docs.ano;
 				$scope.responsavel			= docs.responsavel;
 				$scope.projeto				= docs.projeto;
 				$scope.codigo				= docs.codigo;
-				$scope.nomeCliente			= docs.nomeCliente;
 				$scope.uf					= docs.uf;
-				$scope.vendedor				= docs.vendedor;
+				$scope.vendedor				= docs.vendedor.nome;
 				$scope.segmento				= docs.segmento;
 				$scope.subsegmento			= docs.subsegmento;
 				$scope.bu					= docs.bu;
@@ -1307,7 +1290,6 @@ angular
 							};
 							d.param = param;
 							d.filter = filter;
-							console.log(JSON.stringify(d), "data")
 							return JSON.stringify(d);
 						},
 				dataSrc: function(json) {
@@ -1316,7 +1298,6 @@ angular
 					for(ped of dadosGrid){
 						ped.jsonDocs = JSON.parse(ped.jsonDocs);
 					}
-					console.log(dadosGrid);
 					return dadosGrid;
 					}
 				})
@@ -1364,53 +1345,53 @@ angular
 				},									
 			]);	
 			
-			defPD = {	'id'										:	{i:0,  vsbl: false,	tlt: '',        				width:''	},
-						'jsonDocs[0].ano'		:	{i:1,  vsbl: true,	tlt: 'Ano',						width:''	},
+			defPD = {	'id'								:	{i:0,  vsbl: false,	tlt: '',        				width:''	},
+						'jsonDocs[0].ano'					:	{i:1,  vsbl: true,	tlt: 'Ano',						width:''	},
 						'jsonDocs[0].responsavel'			:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:''	},
-						'jsonDocs[0].projeto.nome'		:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
+						'jsonDocs[0].projeto.nome'			:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
 						'jsonDocs[0].codigo'				:	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
-						'jsonDocs[0].cliente.nome'		:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
+						'jsonDocs[0].cliente.nome'			:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
 						'jsonDocs[0].uf'					:	{i:7,  vsbl: true,	tlt: 'UF',						width:''	},
-						'jsonDocs[0].vendedor.nome'		:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
-						'jsonDocs[0].segmento'			:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
+						'jsonDocs[0].vendedor.nome'			:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
+						'jsonDocs[0].segmento'				:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
 						'jsonDocs[0].subsegmento'			:	{i:10, vsbl: true,	tlt: 'Sub-Seg.',				width:''	},
 						'jsonDocs[0].bu'					:	{i:11, vsbl: true,	tlt: 'BU',						width:''	},
-						'jsonDocs[0].aplicacao'			:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:''	},
+						'jsonDocs[0].aplicacao'				:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:''	},
 						'jsonDocs[0].pedido'				:	{i:13, vsbl: true,	tlt: 'Pedido',					width:''	},
 						'jsonDocs[0].familia'				:	{i:14, vsbl: true,	tlt: 'Família',					width:''	},
 						'jsonDocs[0].cluster'				:	{i:15, vsbl: true,	tlt: 'Cluster',					width:''	},
-						'jsonDocs[0].descricao'			:	{i:16, vsbl: true,	tlt: 'Descrição',				width:''	},
+						'jsonDocs[0].descricao'				:	{i:16, vsbl: true,	tlt: 'Descrição',				width:''	},
 						'jsonDocs[0].desagr'				:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',		width:''	},
-						'jsonDocs[0].quantidadeKg'		:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:''	},
+						'jsonDocs[0].quantidadeKg'			:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:''	},
 						'jsonDocs[0].dataStatus'			:	{i:19, vsbl: true,	tlt: 'Data Status',				width:''	},
-						'jsonDocs[0].situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
+						'jsonDocs[0].situacao.nome'			:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
 						'jsonDocs[0].consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:''	},
 						'jsonDocs[0].prioridade.nome'		:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:''	},
-						'jsonDocs[0].potencial0XCM'		:	{i:23, vsbl: true,	tlt: 'Potencial',				width:''	},
+						'jsonDocs[0].potencial0XCM'			:	{i:23, vsbl: true,	tlt: 'Potencial',				width:''	},
 						'jsonDocs[0].consumoAg'      		:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:''	},
-						'jsonDocs[0].con2021Ident'     	:	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:''	},
+						'jsonDocs[0].con2021Ident'     		:	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:''	},
 						'jsonDocs[0].con2021n'      		:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:''	},
 						'jsonDocs[0].con2022n'      		:	{i:27, vsbl: true,	tlt: 'Con. 2022(em nº)',		width:''	},
-						'jsonDocs[0].con2022Local'    	:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:''	},
-						'jsonDocs[0].probFechamento'  	:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:''	},
-						'jsonDocs[0].concorrencia'    	:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:''	},
-						'jsonDocs[0].acoes'	      		:	{i:31, vsbl: true,	tlt: 'Ações',					width:''	},
-						'jsonDocs[0].statusAcao'      	:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:''	},
-						'jsonDocs[0].dataAtu'      		:	{i:33, vsbl: true,	tlt: 'Dat. Atu.',				width:''	},
-						'jsonDocs[0].ofertaData'      	:	{i:34, vsbl: true,	tlt: 'Dat. Oferta',				width:''	},
-						'jsonDocs[0].ofertaUnit'      	:	{i:35, vsbl: true,	tlt: 'Oferta Unit. (US$)',		width:''	},
-						'jsonDocs[0].potencial0XCM'   	:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:''	},
-						'jsonDocs[0].chaveCp'      		:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:''	},
-					'	jsonDocs[0].identQtd'      		:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:''	},
-						'jsonDocs[0].venda'	      		:	{i:39, vsbl: true,	tlt: 'Venda',					width:''	},
-						'jsonDocs[0].vendaLocalKg'    	:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:''	},
-						'jsonDocs[0].ultVendaTabdin'  	:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:''	},
-						'jsonDocs[0].primVendaTabdin' 	:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:''	},
-						'jsonDocs[0].anoPrimVenda'     	:	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:''	},
-						'jsonDocs[0].totalFatUSD'      	:	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:''	},
-						'jsonDocs[0].margemR'	      	:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:''	},
-						'jsonDocs[0].preUSD'	      	:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:''	},
-						'jsonDocs[0].potVolAg'	      	:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:''	},
+						'jsonDocs[0].con2022Local'    		:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:''	},
+						'jsonDocs[0].probFechamento'  		:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:''	},
+						'jsonDocs[0].concorrencia'    		:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:''	},
+						'jsonDocs[0].acoes'	      			:	{i:31, vsbl: true,	tlt: 'Ações',					width:''	},
+						'jsonDocs[0].statusAcao'      		:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:''	},
+						'jsonDocs[0].dataAtu'      			:	{i:33, vsbl: true,	tlt: 'Dat. Atu.',				width:''	},
+						'jsonDocs[0].ofertaData'      		:	{i:34, vsbl: true,	tlt: 'Dat. Oferta',				width:''	},
+						'jsonDocs[0].ofertaUnit'      		:	{i:35, vsbl: true,	tlt: 'Oferta Unit. (US$)',		width:''	},
+						'jsonDocs[0].potencial0XCM'   		:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:''	},
+						'jsonDocs[0].chaveCp'      			:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:''	},
+						'jsonDocs[0].identQtd'     			:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:''	},
+						'jsonDocs[0].venda'	      			:	{i:39, vsbl: true,	tlt: 'Venda',					width:''	},
+						'jsonDocs[0].vendaLocalKg'    		:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:''	},
+						'jsonDocs[0].ultVendaTabdin'  		:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:''	},
+						'jsonDocs[0].primVendaTabdin' 		:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:''	},
+						'jsonDocs[0].anoPrimVenda'     		:	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:''	},
+						'jsonDocs[0].totalFatUSD'      		:	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:''	},
+						'jsonDocs[0].margemR'	      		:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:''	},
+						'jsonDocs[0].preUSD'	      		:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:''	},
+						'jsonDocs[0].potVolAg'	      		:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:''	},
 				};
 		
 			
@@ -1516,7 +1497,7 @@ angular
 
 		}
 
-		$scope.geraNotificacao = (message) =>{
+		$scope.geraNotificacao = (message, time = 1200) =>{
 			var dialog = bootbox.dialog({
 				message: "<p style='font-size=1.2em' class='text-center'>"+message+"</p>",
 				closeButton: false
@@ -1524,7 +1505,7 @@ angular
 						
 			setTimeout(() => {
 				dialog.modal('hide');
-			}, 1200);
+			}, time);
 		
 		}
 		
