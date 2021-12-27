@@ -308,14 +308,14 @@
 										<label for="cluster">Cluster</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="cluster" id="cluster">
 									</div>
-									<!-- <div class="col-sm-2 spacer">
+									<div class="col-sm-2 spacer">
 										<label for="codPro">Cód. Produto</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro">
-									</div> -->
-									<!-- <div class="col-sm-4 spacer">
+									</div>
+									<div class="col-sm-4 spacer">
 										<label for="despro">Descrição</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricao" id="despro">
-									</div> -->
+									</div>
 									<div class="col-sm-2 spacer">
 										<label for="desagr">Ag. Comercial</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="desagr" id="desagr">
@@ -513,13 +513,13 @@
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" ng-click="salvarDocumento('FINALIZAR')"> Finalizar </button>
+						<button class="btn btn_grid btn-success" ng-show="pedido == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
 					</div>	
 					<div class="btn-group">
 						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
 					</div>
 					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" ng-click="salvarDocumento('SALVAR')"> Salvar </button>
+						<button class="btn btn_grid btn_cor_padrao" ng-click="salvarDocumento(1)"> Salvar </button>
 					</div>	
 				</div>
 			</div>
@@ -874,7 +874,7 @@ angular
 				$scope.bu					= '';
 				$scope.aplicacao			= '';
 				$scope.emissao				= '';
-				$scope.pedido				= '';
+				$scope.pedido				= 0 ;
 				$scope.familia				= '';
 				$scope.cluster				= '';
 				$scope.desagr				= '';
@@ -911,10 +911,13 @@ angular
 				$scope.acoes				= '';
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= '';
+				$rootScope.hashDoc			= '';
 
 			}else{
 				
 				let docs 					= $dados.jsonDocs[0];
+
+				$rootScope.hashDoc			= docs.docCtrl;
 
 				$rootScope.idDocumento 		= $dados.id;
 				$rootScope.produtos			= docs.produtos;
@@ -923,6 +926,9 @@ angular
 				$scope.frmCliente			= docs.cliente;
 				$scope.codigoCliente		= docs.cliente.codExterno;
 				$scope.nomeCliente			= docs.cliente.nome
+
+				$scope.codigoProduto		= docs.produtos.codigoProduto;
+				$scope.descricao			= docs.produtos.descricao;
 
 				$scope.chave 				= docs.chave;
 				$scope.ano 					= docs.ano;
@@ -988,7 +994,8 @@ angular
 					aplicacao			: $scope.aplicacao,
 					quantidade			: $scope.quantidadeProduto,
 					codVariacao			: $scope.codVariacao,
-					codExterno			: $scope.codExterno
+					codExterno			: $scope.codExterno,
+					hashDoc				: "",
 				}
 			);
 			
@@ -1011,14 +1018,24 @@ angular
 		};
 
 		$scope.salvarDocumento = async (rotina) => {
-
-			let hashDoc 			= '_' + Math.random().toString(36).substr(2, 9);						
+			/*
+			Rotinas:
+				1 - Salvar
+				2 - Finalizar
+			*/
+			
+			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;						
 			let id 					= $rootScope.idDocumento;
 			let jsonDocs			= [];
 			let dados 				= {};
+			$rootScope.documentoERP	= 0;
 			
 			$scope.messageNotific	= '';
 
+			for(i = 0; i < $rootScope.produtos.length; i++){
+				$rootScope.produtos[i].hashDoc = hashDoc;
+			}
+			
 			dados.cnpj 				= {id: dadosUserLogado.cId};
 
 			jsonDocs = [{
@@ -1032,7 +1049,6 @@ angular
 				subsegmento 		: $scope.subsegmento,
 				bu 					: $scope.bu,
 				emissao				: $scope.emissao != "" ? $scope.emissao.toLocaleDateString() : "",
-				pedido				: $scope.pedido,
 				familia				: $scope.familia,
 				cluster				: $scope.cluster,
 				desagr				: $scope.desagr,
@@ -1070,10 +1086,11 @@ angular
 				histOportunidade	: $scope.histOportunidade,
 				
 				//Metodos
-				exportarDoc		: rotina == "FINALIZAR" ? "S" : "N",
+				exportarDoc		: rotina == 2 ? "S" : "N",
 				idDocument		: $rootScope.idDocumento,
 				sincronizado	: "N",
-				docCtrl			: hashDoc,		
+				docCtrl			: hashDoc,
+				pedido			: "",		
 				
 				//Produtos
 				produtos		: $rootScope.produtos,
@@ -1082,32 +1099,48 @@ angular
 				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
 				
 			}];
-
 			dados.jsonDocs 		= JSON.stringify(jsonDocs);
 
-			let sendToERP 		= JSON.parse(dados.jsonDocs);
-			
-			let documentoERP 	= await $scope.gravaDocumentoERP(sendToERP[0]);
-			
-			try{
+			if(rotina === 2){
+				/*Faz o envio dos produtos como um array para o ERP*/
+
+				let sendToERP 			= JSON.parse(dados.jsonDocs);
+
+				console.log(sendToERP, "SENDTOERP")
+
+				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
+
+				console.log($rootScope.documentoERP, "DENTRO DO IF ROTINA")
+			}
+
+					
+			for(i = 0; i < $rootScope.produtos.length; i++){
+				/*Grava no base Clic um item por produto - Ligados por hashCode*/
+
+				let json 			= JSON.parse(dados.jsonDocs)
+
+				console.log($rootScope.documentoERP, "DENTRO DO FOR")
+
+				json[0].pedido		= $rootScope.documentoERP;
+				json[0].produtos 	= $rootScope.produtos[i];
+
+				dados.jsonDocs 		= JSON.stringify(json);
+
 				if(id > 0){
-					$scope.messageNotific = 'Registro alterado com sucesso';
 					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
+					$scope.messageNotific = 'Registro alterado com sucesso';
 				}else{
-					$scope.messageNotific = 'Registro inserido com sucesso';
-					$scope.geraNotificacao($scope.messageNotific)
 					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
+					$scope.messageNotific = 'Registro inserido com sucesso';
 				}
-			}catch(err){
-				console.log(err);
-			};
-			
+			}
+						
 			$scope.geraNotificacao($scope.messageNotific)
 
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
 			
-			$scope.exibeFormulario = false;
+			$scope.exibeFormulario 		= false;
 			$scope.exibeListaDocumentos = true;
 		};
 
@@ -1230,12 +1263,12 @@ angular
 			]);	
 
 
-			defPD = {	'id'							:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						'jsonDocs[0].cliente.nome'		:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs[0].vendedor.nome'		:	{i:2, vsbl: true,	tlt: 'Vendedor',		width:''	},
-						'jsonDocs[0].codigo'			:	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs[0].statusAcao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
-						'jsonDocs[0].prioridade.nome'	:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}
+			defPD = {	'id'								:	{i:0, vsbl: false,	tlt: '',        		width:''	},
+						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
+						'jsonDocs[0].vendedor.nome'			:	{i:2, vsbl: true,	tlt: 'Vendedor',		width:''	},
+						'jsonDocs[0].produtos.codigoProduto':	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
+						'jsonDocs[0].statusAcao'			:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
+						'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}
 						//'jsonDocs.aplicacao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},	
 				};
 
@@ -1349,7 +1382,7 @@ angular
 						'jsonDocs[0].ano'					:	{i:1,  vsbl: true,	tlt: 'Ano',						width:''	},
 						'jsonDocs[0].responsavel'			:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:''	},
 						'jsonDocs[0].projeto.nome'			:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
-						'jsonDocs[0].codigo'				:	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
+						'jsonDocs[0].produtos.codigoProduto':	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
 						'jsonDocs[0].cliente.nome'			:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
 						'jsonDocs[0].uf'					:	{i:7,  vsbl: true,	tlt: 'UF',						width:''	},
 						'jsonDocs[0].vendedor.nome'			:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
