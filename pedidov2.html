@@ -791,13 +791,11 @@ angular
 					pDocumento : {documento : $item}
 				}		
 			);
-
-			console.log(result, "gravarDocumentoERP")
 			
 			$scope.geraNotificacao("Enviando pedido para o ERP...", 2000);
 
-			return result;
-			
+			//return result;
+			return 22;
 		};
 
 		$scope.getProdutos = (val) => {			
@@ -1103,19 +1101,23 @@ angular
 
 			if(rotina === 2){
 				/*Faz o envio dos produtos como um array para o ERP*/
+				let produtos = [];
+
+				/* Lista todos os documentos e aplica o filtro pelo HashDoc, adiciona os produtos ao pedido*/
+				let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc)
+				for(i = 0; i < allDocs.length; i++){
+					produtos.push(allDocs[i].jsonDocs[0].produtos)		
+				}
 
 				let sendToERP 			= JSON.parse(dados.jsonDocs);
-
-				console.log(sendToERP, "SENDTOERP")
-
+				sendToERP[0].produtos 	= produtos; /*Array de produtos*/
+				
 				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
-
-				console.log($rootScope.documentoERP, "DENTRO DO IF ROTINA")
 			}
 
 					
 			for(i = 0; i < $rootScope.produtos.length; i++){
-				/*Grava no base Clic um item por produto - Ligados por hashCode*/
+				/*Grava no base Clic um item por pedido - Ligados por hashCode*/
 
 				let json 			= JSON.parse(dados.jsonDocs)
 
@@ -1209,12 +1211,13 @@ angular
 						},
 				dataSrc: function(json) {
 					let dadosGrid = json.data;
-
+					
 					for(ped of dadosGrid){
 						console.log(ped, "PED")
 						ped.jsonDocs = JSON.parse(ped.jsonDocs);
 					}
-					console.log(dadosGrid);
+
+					$rootScope.listAllDocs = dadosGrid;
 					return dadosGrid;
 					}
 				})
