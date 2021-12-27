@@ -1129,6 +1129,7 @@ angular
 				dados.jsonDocs 		= JSON.stringify(json);
 
 				if(id > 0){
+
 					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
 					$scope.messageNotific = 'Registro alterado com sucesso';
 				}else{
@@ -1213,7 +1214,6 @@ angular
 					let dadosGrid = json.data;
 					
 					for(ped of dadosGrid){
-						console.log(ped, "PED")
 						ped.jsonDocs = JSON.parse(ped.jsonDocs);
 					}
 
