@@ -589,6 +589,19 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
+		$scope.consultaDocumento = async (hash) => {
+			console.log(hash, "code")
+			let result = await $http({
+				method	: 'POST',
+				url		: '/clicVendas/rest/pedidov2/consulta',
+				data	: {param:{idCvTccnpj : dadosUserLogado.cId, id: hash}}	
+			})
+
+			console.log(result)
+
+			return result;
+		};
+
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
 
@@ -917,6 +930,8 @@ angular
 				let docs 					= $dados.jsonDocs[0];
 
 				$rootScope.hashDoc			= docs.docCtrl;
+
+				$scope.consultaDocumento($rootScope.hashDoc)
 
 				$rootScope.idDocumento 		= $dados.id;
 				$rootScope.produtos			= docs.produtos;
