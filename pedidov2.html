@@ -1019,8 +1019,8 @@ angular
 		$scope.salvarDocumento = async (rotina) => {
 			/*
 			Rotinas:
-				1 - Salvar
-				2 - Finalizar
+				1 - Salvar (Mantém apenas no ClicVenda)
+				2 - Finalizar (Envia o pedido para ERP)
 			*/
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;						
@@ -1099,7 +1099,7 @@ angular
 			}];
 			
 			dados.jsonDocs 		= JSON.stringify(jsonDocs);
-			
+			/*Recebe dados e para fazer as alterações necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
 			
 			if(rotina == 2){
