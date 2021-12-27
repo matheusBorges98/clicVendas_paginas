@@ -1097,7 +1097,9 @@ angular
 				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
 				
 			}];
+			
 			dados.jsonDocs 		= JSON.stringify(jsonDocs);
+			
 			var json 			= JSON.parse(dados.jsonDocs);
 			
 			if(rotina == 2){
@@ -1105,6 +1107,7 @@ angular
 				let produtos = [];
 				/* Lista todos os documentos e aplica o filtro pelo HashDoc, adiciona os produtos ao pedido que sejam do mesmo HashDoc*/
 				let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
+				console.log(allDocs, "All")
 
 				for(i = 0; i < allDocs.length; i++){
 					produtos.push(allDocs[i].jsonDocs[0].produtos);		
@@ -1120,9 +1123,18 @@ angular
 			}
 	
 			if(id > 0){
-				dados.jsonDocs 		  = JSON.stringify(json);
-				let response 		  = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
+				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
+
+				for(j = 0; j < $rootScope.docsToEdit.length; j++){
+					
+					json[0].produtos			= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
+					dados.jsonDocs 		  		= JSON.stringify(json); 
+
+					let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
+				};
+
 				$scope.messageNotific = 'Registro alterado com sucesso';
+
 			}else{
 				for(i = 0; i < $rootScope.produtos.length; i++){
 					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
@@ -1214,6 +1226,7 @@ angular
 					}
 
 					$rootScope.listAllDocs = dadosGrid;
+					console.log($rootScope.listAllDocs.length, "TAMANHO")
 					return dadosGrid;
 					}
 				})
