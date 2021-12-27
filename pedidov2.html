@@ -590,16 +590,23 @@ angular
 		$rootScope.cliente			= {};
 
 		$scope.consultaDocumento = async (hash) => {
-			console.log(hash, "code")
+			$rootScope.listAllDocs = [];
+
 			let result = await $http({
 				method	: 'POST',
 				url		: '/clicVendas/rest/pedidov2/consulta',
 				data	: {param:{idCvTccnpj : dadosUserLogado.cId, id: hash}}	
 			})
 
-			console.log(result)
+			let listAllDocs = result.data.parametros.documentos;
 
-			return result;
+			for(doc of listAllDocs){
+				doc.jsonDocs = JSON.parse(doc.jsonDocs);
+			}
+			
+			$rootScope.listAllDocs = listAllDocs;
+
+			return $rootScope.listAllDocs;
 		};
 
 		$rootScope.changeView = ($dados) => {
@@ -925,6 +932,8 @@ angular
 				$scope.histOportunidade		= '';
 				$rootScope.hashDoc			= '';
 
+				$scope.atualizaTabelaProdutos();
+
 			}else{
 				
 				let docs 					= $dados.jsonDocs[0];
@@ -994,8 +1003,7 @@ angular
 			};
 			
 			$rootScope.changeView($dados);
-			$scope.atualizaTabelaProdutos();
-
+			
 		};
 
 		$scope.adicionarProduto = () =>{
@@ -1240,8 +1248,6 @@ angular
 						ped.jsonDocs = JSON.parse(ped.jsonDocs);
 					}
 
-					$rootScope.listAllDocs = dadosGrid;
-					console.log($rootScope.listAllDocs.length, "TAMANHO")
 					return dadosGrid;
 					}
 				})
