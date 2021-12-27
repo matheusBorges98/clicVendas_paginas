@@ -782,6 +782,7 @@ angular
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
+			console.log($item, "sended to erp")
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj : dadosUserLogado.cId,
@@ -1026,8 +1027,7 @@ angular
 			let id 					= $rootScope.idDocumento;
 			let jsonDocs			= [];
 			let dados 				= {};
-			$rootScope.documentoERP	= 0;
-			
+						
 			$scope.messageNotific	= '';
 
 			for(i = 0; i < $rootScope.produtos.length; i++){
@@ -1098,43 +1098,39 @@ angular
 				
 			}];
 			dados.jsonDocs 		= JSON.stringify(jsonDocs);
-
-			if(rotina === 2){
+			var json 			= JSON.parse(dados.jsonDocs);
+			
+			if(rotina == 2){
 				/*Faz o envio dos produtos como um array para o ERP*/
 				let produtos = [];
+				/* Lista todos os documentos e aplica o filtro pelo HashDoc, adiciona os produtos ao pedido que sejam do mesmo HashDoc*/
+				let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
-				/* Lista todos os documentos e aplica o filtro pelo HashDoc, adiciona os produtos ao pedido*/
-				let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc)
 				for(i = 0; i < allDocs.length; i++){
-					produtos.push(allDocs[i].jsonDocs[0].produtos)		
+					produtos.push(allDocs[i].jsonDocs[0].produtos);		
 				}
 
 				let sendToERP 			= JSON.parse(dados.jsonDocs);
 				sendToERP[0].produtos 	= produtos; /*Array de produtos*/
-				
+								
 				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
+				
+				/*Atualiza numero do pedido*/
+				json[0].pedido			= $rootScope.documentoERP;
 			}
+	
+			if(id > 0){
+				dados.jsonDocs 		  = JSON.stringify(json);
+				let response 		  = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
+				$scope.messageNotific = 'Registro alterado com sucesso';
+			}else{
+				for(i = 0; i < $rootScope.produtos.length; i++){
+					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
+					json[0].produtos 		= $rootScope.produtos[i];
+					dados.jsonDocs 			= JSON.stringify(json);
 
-					
-			for(i = 0; i < $rootScope.produtos.length; i++){
-				/*Grava no base Clic um item por pedido - Ligados por hashCode*/
-
-				let json 			= JSON.parse(dados.jsonDocs)
-
-				console.log($rootScope.documentoERP, "DENTRO DO FOR")
-
-				json[0].pedido		= $rootScope.documentoERP;
-				json[0].produtos 	= $rootScope.produtos[i];
-
-				dados.jsonDocs 		= JSON.stringify(json);
-
-				if(id > 0){
-
-					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
-					$scope.messageNotific = 'Registro alterado com sucesso';
-				}else{
-					let response = await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
-					$scope.messageNotific = 'Registro inserido com sucesso';
+					let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
+					$scope.messageNotific 	= 'Registro inserido com sucesso';
 				}
 			}
 						
