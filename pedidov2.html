@@ -590,6 +590,7 @@ angular
 		$rootScope.cliente			= {};
 
 		$scope.consultaDocumento = async (hash) => {
+			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
 
 			let result = await $http({
@@ -597,16 +598,14 @@ angular
 				url		: '/clicVendas/rest/pedidov2/consulta',
 				data	: {param:{idCvTccnpj : dadosUserLogado.cId, id: hash}}	
 			})
-
 			let listAllDocs = result.data.parametros.documentos;
 
 			for(doc of listAllDocs){
 				doc.jsonDocs = JSON.parse(doc.jsonDocs);
 			}
-			
 			$rootScope.listAllDocs = listAllDocs;
 
-			return $rootScope.listAllDocs;
+			return listAllDocs;
 		};
 
 		$rootScope.changeView = ($dados) => {
@@ -624,13 +623,13 @@ angular
 					$scope.$apply();
 
 				}else{
+					console.log($dados.jsonDocs[0].pedido)
+
+					$scope.tipoFormulario = $dados.jsonDocs[0].pedido != '' ? 'Edição pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
 					
-					$scope.tipoFormulario = "Edição";
+					$scope.inputDesabilitado  = true;
+					$scope.permiteEditar	  = false;
 					
-					// if($dados.jsonDocs[0].documento.exportarDoc == "S"){
-						$scope.inputDesabilitado  = true;
-						$scope.permiteEditar	  = false;
-					// }
 				}
 				
 			}else if($scope.exibeFormulario == true){
@@ -642,7 +641,6 @@ angular
 		};
 
 		$scope.getSituacaoAmostra = () => {
-			
 			$scope.listaSituacaoAmostra = [
 				{
 					nome:"SOLICITAÇÃO DE AMOSTRA",
@@ -689,7 +687,6 @@ angular
 					id:11
 				},
 			];
-
 			return $scope.listaSituacaoAmostra;
 		}
 
@@ -698,7 +695,6 @@ angular
 		}
 
 		$scope.getPrioridades = () => {
-			
 			$scope.listaPrioridades = [
 				{
 					nome:"BAIXA",
@@ -713,18 +709,14 @@ angular
 					id:3
 				}
 			];
-
 			return $scope.listaPrioridades;
 		};
 
 		$scope.onSelectPrioridade = ($item, $model, $label) => {
-			
 			$scope.prioridade 		= $item;
-			//$scope.idPrioridade 	= $item.id;
 		};
 
 		$scope.getProjetos = () =>{
-
 			$scope.listaProjetos = [ 
 				{
 					nome: "PROSPECÇÃO",
@@ -747,14 +739,11 @@ angular
 					id: 5
 				}
 			];
-
 			return $scope.listaProjetos;
 		};
 
 		$scope.onSelectProjeto = ($item, $model, $label) => {
-			
 			$scope.projeto 		= $item;
-			//$scope.idProjeto 	= $item.id;
 		};
 
 		$scope.getClientes = function(val) {
@@ -791,6 +780,7 @@ angular
 		};
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
+			console.log($json, "REQ EXT")
 			try{
 				let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
 				
@@ -799,10 +789,81 @@ angular
 				console.log("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
 			};
 		};
+
+		$scope.consultaPedidosERP = async ($item) => {
+
+			let preConsulta = $item.filter(doc => doc.jsonDocs[0].pedido != "")
+
+			let consulta = [];
+
+			for(i = 0; i < preConsulta.length; i++){
+				consulta.push(
+					{
+						numPed: preConsulta[i].jsonDocs[0].pedido,
+						codPro: preConsulta[i].jsonDocs[0].produtos.codExterno,
+						codDer: preConsulta[i].jsonDocs[0].produtos.codVariacao,
+					}
+				)
+			};
+
+			console.log(consulta, "CONSULTA")
+			// let result = await $scope.executaRequisicaoExterna(
+			// 	{
+			// 		idCvtccnpj : dadosUserLogado.cId,
+			// 		numreg	   : 752,
+			// 		pRotina	   : "criarPedidoAmostra",
+			// 		pCodCli    : dadosUserLogado.rId,
+			// 		lista	   : {pedidos : consulta},
+			// 	}
+			// );
+
+			// let result = [
+			// 	{
+			// 		numped: 10,
+			// 		datEmi: "31/12/2021",
+			// 		produto:{
+			// 			codPro: "CMPMS15",
+          	// 			codDer: "1GB",
+			// 		}
+			// 	}
+			// ]
+			
+			for(k = 0; k < preConsulta.length; k++){
+				
+				let dadosAtualizados = result.filter(res => res.numped == preConsulta[k].jsonDocs[0].pedido && res.produto.codPro == preConsulta[k].jsonDocs[0].produtos.codExterno)
+
+				console.log(dadosAtualizados, "DADOS ATT FORA")
+				if(dadosAtualizados && dadosAtualizados.length > 0){
+					console.log(dadosAtualizados[0], "ATT")
+					
+					if(preConsulta[k].jsonDocs[0].pedido == dadosAtualizados[0].numped){
+						
+						console.log("2")
+
+						/*Dados que serão atualizados*/
+						preConsulta[k].jsonDocs[0].emissao = dadosAtualizados[0].datEmi;
+						preConsulta[k].jsonDocs[0].uf	   = "SC";
+
+						preConsulta[k].jsonDocs = JSON.stringify(preConsulta[k].jsonDocs)
+
+						console.log(preConsulta[k], "ITEM ENVIADO PARA SALVAR")
+
+						let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+preConsulta[k].id, preConsulta[k]);
+
+						//preConsulta[k].jsonDocs = JSON.parse(preConsulta[k].jsonDocs)
+					}
+				}
+				
+			}
+						
+		};
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
-			console.log($item, "sended to erp")
+			console.log($item, "Item enviado ao ERP")
+
+			$scope.geraNotificacao("Enviando pedido para o ERP...", 2000);
+			
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj : dadosUserLogado.cId,
@@ -811,19 +872,19 @@ angular
 					pCodCli    : dadosUserLogado.rId,
 					pDocumento : {documento : $item}
 				}		
-			);
-			
-			$scope.geraNotificacao("Enviando pedido para o ERP...", 2000);
+			);						
+			console.log(result, "Retorno ERP")
 
 			//return result;
-			return 22;
+			return 10;
 		};
 
 		$scope.getProdutos = (val) => {			
+			
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431;
+			dados.idCvTolistapreco	= 17431; /*Lista de preço com ID fixo*/
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -939,9 +1000,6 @@ angular
 				let docs 					= $dados.jsonDocs[0];
 
 				$rootScope.hashDoc			= docs.docCtrl;
-
-				$scope.consultaDocumento($rootScope.hashDoc)
-
 				$rootScope.idDocumento 		= $dados.id;
 				$rootScope.produtos			= docs.produtos;
 				$rootScope.cliente			= docs.cliente;
@@ -1000,6 +1058,8 @@ angular
 				$scope.acoes				= docs.acoes;
 				$scope.obsOportunidade		= docs.obsOportunidade;
 				$scope.histOportunidade		= docs.histOportunidade;
+
+				$scope.consultaDocumento($rootScope.hashDoc)
 			};
 			
 			$rootScope.changeView($dados);
@@ -1054,6 +1114,7 @@ angular
 			$scope.messageNotific	= '';
 
 			for(i = 0; i < $rootScope.produtos.length; i++){
+				/*Adiciona o hash gerado para o pedido no array de produtos*/
 				$rootScope.produtos[i].hashDoc = hashDoc;
 			}
 			
@@ -1122,7 +1183,7 @@ angular
 			}];
 			
 			dados.jsonDocs 		= JSON.stringify(jsonDocs);
-			/*Recebe dados e para fazer as alterações necessarias*/
+			/*Recebe dados e para que sejam feitas as alterações necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
 			
 			if(rotina == 2){
@@ -1130,8 +1191,7 @@ angular
 				let produtos = [];
 				/* Lista todos os documentos e aplica o filtro pelo HashDoc, adiciona os produtos ao pedido que sejam do mesmo HashDoc*/
 				let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
-				console.log(allDocs, "All")
-
+			
 				for(i = 0; i < allDocs.length; i++){
 					produtos.push(allDocs[i].jsonDocs[0].produtos);		
 				}
@@ -1143,7 +1203,7 @@ angular
 				
 				/*Atualiza numero do pedido*/
 				json[0].pedido			= $rootScope.documentoERP;
-			}
+			};
 	
 			if(id > 0){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
@@ -1166,8 +1226,8 @@ angular
 
 					let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
 					$scope.messageNotific 	= 'Registro inserido com sucesso';
-				}
-			}
+				};
+			};
 						
 			$scope.geraNotificacao($scope.messageNotific)
 
@@ -1248,6 +1308,9 @@ angular
 						ped.jsonDocs = JSON.parse(ped.jsonDocs);
 					}
 
+					$scope.consultaPedidosERP(dadosGrid);
+
+					console.log(dadosGrid, "DADOS GRID")
 					return dadosGrid;
 					}
 				})
@@ -1489,7 +1552,6 @@ angular
 		};
 
 		/*Tabela de produtos*/
-
 		$scope.atualizaTabelaProdutos = () =>{
 
 			$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
@@ -1568,13 +1630,12 @@ angular
 				message: "<p style='font-size=1.2em' class='text-center'>"+message+"</p>",
 				closeButton: false
 			});
-						
+			
 			setTimeout(() => {
 				dialog.modal('hide');
 			}, time);
-		
-		}
-		
+		};
+			
 		$scope.atualizaTabela();
 		$scope.atualizaTabelaCompleta();
 				
