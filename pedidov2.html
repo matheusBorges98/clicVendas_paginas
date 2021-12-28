@@ -298,7 +298,7 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="emissao">Emissão</label>
-										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="emissao" id="emissao">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="emissao" id="emissao">
 									</div>
 									<div class="col-sm-4 spacer">
 										<label for="familia">Familia</label>
@@ -326,7 +326,7 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="dataStatus">Data Status</label>
-										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="dataStatus" id="dataStatus">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="dataStatus" id="dataStatus">
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="situacao">Situação Amostra</label>
@@ -355,7 +355,7 @@
 								<div class="form-group col-md-12">
 									<div class="col-sm-2 spacer">
 										<label for="ofertaData">OFERTA Data</label>
-										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaData" id="ofertaData">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaData" id="ofertaData">
 									</div>			  
 									<div class="col-sm-2 spacer">
 										<label for="ofertaUnit">OFERTA Unit. (US$)</label>
@@ -384,7 +384,7 @@
 									</div>			  
 									<div class="col-sm-2 spacer">
 										<label for="anoPrimVenda">ANO 1.a VENDA</label>
-										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda">
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="totalFatUSD">Tot. Fat. (USD)</label>
@@ -790,17 +790,18 @@ angular
 			};
 		};
 
-		$scope.consultaPedidosERP = async ($item) => {
+		$scope.consultaPedidosERP = async () => {
+			console.log($rootScope.dadosGrid, "GRID DATA - Consulta")
 
-			let preConsulta = $item.filter(doc => doc.jsonDocs[0].pedido != "")
+			let pedidosGravadosERP = $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != "")
 			let consulta 	= [];
 
-			for(i = 0; i < preConsulta.length; i++){
+			for(i = 0; i < pedidosGravadosERP.length; i++){
 				consulta.push(
 					{
-						numPed: preConsulta[i].jsonDocs[0].pedido,
-						codPro: preConsulta[i].jsonDocs[0].produtos.codExterno,
-						codDer: preConsulta[i].jsonDocs[0].produtos.codVariacao,
+						numPed: pedidosGravadosERP[i].jsonDocs[0].pedido,
+						codPro: pedidosGravadosERP[i].jsonDocs[0].produtos.codExterno,
+						codDer: pedidosGravadosERP[i].jsonDocs[0].produtos.codVariacao,
 					}
 				)
 			};
@@ -827,25 +828,26 @@ angular
 				}
 			]
 			
-			for(k = 0; k < preConsulta.length; k++){
+			
+			for(k = 0; k < pedidosGravadosERP.length; k++){
 				
-				let dadosAtualizados = result.filter(res => res.numped == preConsulta[k].jsonDocs[0].pedido && res.produto.codPro == preConsulta[k].jsonDocs[0].produtos.codExterno)
+				let dadosAtualizados = result.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto.codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
-				console.log(dadosAtualizados, "DADOS ATT FORA")
 				if(dadosAtualizados && dadosAtualizados.length > 0){
 					console.log(dadosAtualizados[0], "ATT")
-					
-					if(preConsulta[k].jsonDocs[0].pedido == dadosAtualizados[0].numped){
-						
-						console.log("2")
 
-						/*Dados que serão atualizados*/
-						preConsulta[k].jsonDocs[0].emissao = dadosAtualizados[0].datEmi;
-						preConsulta[k].jsonDocs[0].uf	   = "SC";
+					pedidosGravadosERP[k].jsonDocs[0].emissao = dadosAtualizados[0].datEmi;	
+					pedidosGravadosERP[k].jsonDocs[0].uf	   = "SC";
+
+					for(l=0; l < $rootScope.dadosGrid.length; l++){
+						if($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido){
+							$rootScope.dadosGrid[l].jsonDocs[0] = pedidosGravadosERP[k].jsonDocs[0];
+						}
 					}
-				}
+
+				};
 				
-			}
+			};
 						
 		};
 		
@@ -1012,12 +1014,12 @@ angular
 				$scope.segmento				= docs.segmento;
 				$scope.subsegmento			= docs.subsegmento;
 				$scope.bu					= docs.bu;
-				$scope.emissao				= docs.emissao != "" ? new Date(moment(docs.emissao).format('DD/MM/YYYY')) : "";
+				$scope.emissao				= docs.emissao;
 				$scope.pedido				= docs.pedido;
 				$scope.familia				= docs.familia;
 				$scope.cluster				= docs.cluster;
 				$scope.desagr				= docs.desagr;
-				$scope.dataStatus			= docs.dataStatus != "" ? new Date(moment(docs.dataStatus).format('DD/MM/YYYY')) : "";
+				$scope.dataStatus			= docs.dataStatus;
 				$scope.quantidadeKg			= docs.quantidadeKg;
 				$scope.situacao				= docs.situacao;
 				$scope.justificativa		= docs.justificativa;
@@ -1030,8 +1032,8 @@ angular
 				$scope.probFechamento		= docs.probFechamento;
 				$scope.concorrencia			= docs.concorrencia;
 				$scope.precoConc			= docs.precoConc;
-				$scope.dataAtu				= docs.dataAtu != "" ? new Date(moment(docs.dataAtu).format('DD/MM/YYYY')) : "";
-				$scope.ofertaData			= docs.ofertaData != "" ? new Date(moment(docs.ofertaData).format('DD/MM/YYYY')) : "";
+				$scope.dataAtu				= docs.dataAtu;
+				$scope.ofertaData			= docs.ofertaData;
 				$scope.ofertaUnit			= docs.ofertaUnit;
 				$scope.potencial0XCM		= docs.potencial0XCM;
 				$scope.chaveCp				= docs.chaveCp;
@@ -1044,7 +1046,7 @@ angular
 				$scope.potVolAg				= docs.potVolAg;
 				$scope.ultVendaTabdin		= docs.ultVendaTabdin;
 				$scope.primVendaTabdin		= docs.primVendaTabdin;
-				$scope.anoPrimVenda			= docs.anoPrimVenda != "" ? new Date(moment(docs.anoPrimVenda).format('DD/MM/YYYY')) : "";
+				$scope.anoPrimVenda			= docs.anoPrimVenda;
 				$scope.statusAcao			= docs.statusAcao;
 				$scope.acoes				= docs.acoes;
 				$scope.obsOportunidade		= docs.obsOportunidade;
@@ -1121,11 +1123,11 @@ angular
 				segmento			: $scope.segmento,
 				subsegmento 		: $scope.subsegmento,
 				bu 					: $scope.bu,
-				emissao				: $scope.emissao != "" ? $scope.emissao.toLocaleDateString() : "",
+				emissao				: $scope.emissao,
 				familia				: $scope.familia,
 				cluster				: $scope.cluster,
 				desagr				: $scope.desagr,
-				dataStatus			: $scope.dataStatus != "" ? $scope.dataStatus.toLocaleDateString(): "",
+				dataStatus			: $scope.dataStatus,
 				quantidadeKg		: $scope.quantidadeKg,
 				situacao			: $scope.situacao,
 				justificativa		: $scope.justificativa,
@@ -1138,8 +1140,8 @@ angular
 				probFechamento		: $scope.probFechamento,
 				concorrencia		: $scope.concorrencia,
 				precoConc			: $scope.precoConc,
-				dataAtu				: $scope.dataAtu != "" ? $scope.dataAtu.toLocaleDateString() 	: "",
-				ofertaData			: $scope.ofertaData != "" ? $scope.ofertaData.toLocaleDateString() 	: "",
+				dataAtu				: $scope.dataAtu,
+				ofertaData			: $scope.ofertaData,
 				ofertaUnit			: $scope.ofertaUnit,
 				potencial0XCM		: $scope.potencial0XCM,
 				chaveCp				: $scope.chaveCp,
@@ -1152,7 +1154,7 @@ angular
 				potVolAg			: $scope.potVolAg,
 				ultVendaTabdin  	: $scope.ultVendaTabdin,
 				primVendaTabdin 	: $scope.primVendaTabdin,
-				anoPrimVenda		: $scope.anoPrimVenda != "" ? $scope.anoPrimVenda.toLocaleDateString() : "",
+				anoPrimVenda		: $scope.anoPrimVenda ,
 				statusAcao			: $scope.statusAcao,
 				acoes				: $scope.acoes,
 				obsOportunidade		: $scope.obsOportunidade,
@@ -1293,16 +1295,16 @@ angular
 							return JSON.stringify(d);
 						},
 				dataSrc: function(json) {
-					let dadosGrid = json.data;
+					$rootScope.dadosGrid = json.data;
 					
-					for(ped of dadosGrid){
+					for(ped of $rootScope.dadosGrid){
 						ped.jsonDocs = JSON.parse(ped.jsonDocs);
 					}
 
-					$scope.consultaPedidosERP(dadosGrid);
+					$scope.consultaPedidosERP($rootScope.dadosGrid);
 
-					console.log(dadosGrid, "DADOS GRID")
-					return dadosGrid;
+					console.log($rootScope.dadosGrid, "DADOS GRID")
+					return $rootScope.dadosGrid;
 					}
 				})
 					.withDataProp('data')
