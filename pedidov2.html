@@ -847,10 +847,14 @@ angular
 					pedidosGravadosERP[k].jsonDocs[0].uf	   = "SC";
 
 					for(l=0; l < $rootScope.dadosGrid.length; l++){
-						if($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido){
+
+						if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
+							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)){
+
+
 							$rootScope.dadosGrid[l].jsonDocs[0] = pedidosGravadosERP[k].jsonDocs[0];
-						}
-					}
+						};
+					};
 
 				};
 				
