@@ -793,8 +793,7 @@ angular
 		$scope.consultaPedidosERP = async ($item) => {
 
 			let preConsulta = $item.filter(doc => doc.jsonDocs[0].pedido != "")
-
-			let consulta = [];
+			let consulta 	= [];
 
 			for(i = 0; i < preConsulta.length; i++){
 				consulta.push(
@@ -817,16 +816,16 @@ angular
 			// 	}
 			// );
 
-			// let result = [
-			// 	{
-			// 		numped: 10,
-			// 		datEmi: "31/12/2021",
-			// 		produto:{
-			// 			codPro: "CMPMS15",
-          	// 			codDer: "1GB",
-			// 		}
-			// 	}
-			// ]
+			let result = [
+				{
+					numped: 10,
+					datEmi: "31/12/2021",
+					produto:{
+						codPro: "CMPMS15",
+          				codDer: "1GB",
+					}
+				}
+			]
 			
 			for(k = 0; k < preConsulta.length; k++){
 				
@@ -843,14 +842,6 @@ angular
 						/*Dados que serão atualizados*/
 						preConsulta[k].jsonDocs[0].emissao = dadosAtualizados[0].datEmi;
 						preConsulta[k].jsonDocs[0].uf	   = "SC";
-
-						preConsulta[k].jsonDocs = JSON.stringify(preConsulta[k].jsonDocs)
-
-						console.log(preConsulta[k], "ITEM ENVIADO PARA SALVAR")
-
-						let response = await $http.post('/clicVendas/rest/pedidov2/salvar/'+preConsulta[k].id, preConsulta[k]);
-
-						//preConsulta[k].jsonDocs = JSON.parse(preConsulta[k].jsonDocs)
 					}
 				}
 				
