@@ -791,10 +791,9 @@ angular
 		};
 
 		$scope.consultaPedidosERP = async () => {
-			console.log($rootScope.dadosGrid, "GRID DATA - Consulta")
-
-			let pedidosGravadosERP = $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != "")
-			let consulta 	= [];
+			
+			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != "")
+			let consulta 			= [];
 
 			for(i = 0; i < pedidosGravadosERP.length; i++){
 				consulta.push(
@@ -821,6 +820,14 @@ angular
 				{
 					numped: 10,
 					datEmi: "31/12/2021",
+					produto:{
+						codPro: "CMPMS15",
+          				codDer: "1GB",
+					}
+				},
+				{
+					numped: 11,
+					datEmi: "29/12/2021",
 					produto:{
 						codPro: "CMPMS15",
           				codDer: "1GB",
@@ -869,7 +876,7 @@ angular
 			console.log(result, "Retorno ERP")
 
 			//return result;
-			return 10;
+			return 11;
 		};
 
 		$scope.getProdutos = (val) => {			
