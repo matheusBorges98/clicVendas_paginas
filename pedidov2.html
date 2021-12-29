@@ -559,7 +559,7 @@
 <!-- Scripts importados -->	
 
 <script>
-var dadosUserLogado = parent.dadosUserLogado();	
+var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
 
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons'])
@@ -1294,7 +1294,7 @@ angular
 							};
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
-						};			
+						}	
 
 						return $rootScope.dadosGrid;				
 					}
@@ -1302,6 +1302,7 @@ angular
 					.withDataProp('data')
 					.withOption('processing', true)
 					.withOption('serverSide', true)
+					.withOption('bFilter', false)
 					.withOption('searchDelay', 1000)
 					.withOption('scrollY', '100%')      
 					.withOption('scrollX', '100%')       
@@ -1424,6 +1425,7 @@ angular
 					.withDataProp('data')
 					.withOption('processing', true)
 					.withOption('serverSide', true)
+					.withOption('bFilter', false)
 					.withOption('searchDelay', 1000)
 					.withOption('scrollY', '100%') 
 					.withOption('scrollX', '100%')            
