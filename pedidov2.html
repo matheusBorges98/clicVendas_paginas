@@ -597,7 +597,8 @@ angular
 				method	: 'POST',
 				url		: '/clicVendas/rest/pedidov2/consulta',
 				data	: {param:{idCvTccnpj : dadosUserLogado.cId, id: hash}}	
-			})
+			});
+
 			let listAllDocs = result.data.parametros.documentos;
 
 			for(doc of listAllDocs){
