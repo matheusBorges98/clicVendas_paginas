@@ -812,22 +812,31 @@ angular
 			);
 			
 			for(k = 0; k < pedidosGravadosERP.length; k++){
+				console.log(pedidosGravadosERP, "PEDIDOS GRAVADOS ERP")
+				console.log(result, "resultado req")
 				
 				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
 				if(dadosAtualizados && dadosAtualizados.length > 0){
+
+					console.log(dadosAtualizados, "DADOS ATUALIZADOS")
 		
 					/*Itens que serão atualizados*/
-					pedidosGravadosERP[k].jsonDocs[0].emissao = dadosAtualizados[0].datEmi;	
-					pedidosGravadosERP[k].jsonDocs[0].uf	  = 'SC';
+					
 
 					for(l=0; l < $rootScope.dadosGrid.length; l++){
-
 						if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
 							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)){
 							
+								console.log( pedidosGravadosERP[k].jsonDocs[0],"AA")
+
+								pedidosGravadosERP[k].jsonDocs[0].emissao 		= dadosAtualizados[0].datEmi;
+								pedidosGravadosERP[k].jsonDocs[0].ofertaUnit 	= dadosAtualizados[0].produto[0].preUni; 	
+								//pedidosGravadosERP[k].jsonDocs[0].uf	  = 'SC';
+
+								continue;
 							/*Atualiza informações da tabela sem salvar no banco de dados*/	
-							$rootScope.dadosGrid[l].jsonDocs[0] = pedidosGravadosERP[k].jsonDocs[0];
+							//$rootScope.dadosGrid[l].jsonDocs[0] = pedidosGravadosERP[k].jsonDocs[0];
 
 						};
 					};
@@ -836,7 +845,7 @@ angular
 				
 			};
 			
-			$scope.atualizaTabela(1);
+			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 			$scope.atualizaTabelaCompleta(1);		
 		};
 		
@@ -855,6 +864,7 @@ angular
 			);						
 
 			return result;
+			//return 344;
 		};
 
 		$scope.getProdutos = (val) => {			
@@ -1620,7 +1630,7 @@ angular
 
 		$scope.geraNotificacao = (message, time = 1200) =>{
 			var dialog = bootbox.dialog({
-				message: '<p style=\"font-size=1.2em\" class=\"text-center\">\"+message+"\</p>',
+				message: '<p style="font-size=1.2em" class="text-center">"+message+"</p>',
 				closeButton: false
 			});
 			
