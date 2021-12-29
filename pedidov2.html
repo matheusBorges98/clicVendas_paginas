@@ -616,7 +616,7 @@ angular
 				$scope.exibeListaDocumentos = false;
 				
 				if($dados == undefined){
-					$scope.tipoFormulario = "Novo";
+					$scope.tipoFormulario = 'Novo';
 
 					$scope.inputDesabilitado  = false;
 					$scope.permiteEditar	  = true;
@@ -641,47 +641,47 @@ angular
 		$scope.getSituacaoAmostra = () => {
 			$scope.listaSituacaoAmostra = [
 				{
-					nome:"SOLICITAÇÃO DE AMOSTRA",
+					nome:'SOLICITAÇÃO DE AMOSTRA',
 					id:1
 				},
 				{
-					nome:"ENVIADA",
+					nome:'ENVIADA',
 					id:2
 				},
 				{
-					nome:"TESTE",
+					nome:'TESTE',
 					id:3
 				},
 				{
-					nome:"TESTE INDUSTRIAL",
+					nome:'TESTE INDUSTRIAL',
 					id:4
 				},
 				{
-					nome:"CATÁLOGO",
+					nome:'CATÁLOGO',
 					id:5
 				},
 				{
-					nome:"REPROVADA TECNICAMENTE",
+					nome:'REPROVADA TECNICAMENTE',
 					id:6
 				},
 				{
-					nome:"APROVADA TECNICAMENTE",
+					nome:'APROVADA TECNICAMENTE',
 					id:7
 				},
 				{
-					nome:"REPROVADA COMERCIALMENTE",
+					nome:'REPROVADA COMERCIALMENTE',
 					id:8
 				},
 				{
-					nome:"APROV. TEC E REP. COMERCIAL",
+					nome:'APROV. TEC E REP. COMERCIAL',
 					id:9
 				},
 				{
-					nome:"STAND BY",
+					nome:'STAND BY',
 					id:10
 				},
 				{
-					nome:"CANCELADA",
+					nome:'CANCELADA',
 					id:11
 				},
 			];
@@ -695,15 +695,15 @@ angular
 		$scope.getPrioridades = () => {
 			$scope.listaPrioridades = [
 				{
-					nome:"BAIXA",
+					nome:'BAIXA',
 					id:1
 				},
 				{
-					nome:"MÉDIA",
+					nome:'MÉDIA',
 					id:2
 				},
 				{
-					nome:"ALTA",
+					nome:'ALTA',
 					id:3
 				}
 			];
@@ -717,23 +717,23 @@ angular
 		$scope.getProjetos = () =>{
 			$scope.listaProjetos = [ 
 				{
-					nome: "PROSPECÇÃO",
+					nome: 'PROSPECÇÃO',
 					id: 1
 				},
 				{
-					nome: "OPORTUNIDADE",
+					nome: 'OPORTUNIDADE',
 					id: 2
 				},
 				{
-					nome: "PROJETO",
+					nome: 'PROJETO',
 					id: 3
 				},
 				{
-					nome: "SUBSTITUIÇÃO",
+					nome: 'SUBSTITUIÇÃO',
 					id: 4
 				},
 				{
-					nome: "CAMPANHA",
+					nome: 'CAMPANHA',
 					id: 5
 				}
 			];
@@ -782,13 +782,13 @@ angular
 				
 				return response.data;
 			}catch(response){
-				console.log("erro", "Não foi possível completar a requisição. Por favor, tente novamente mais tarde.");
+				console.log('erro', 'Não foi possível completar a requisição. Por favor, tente novamente mais tarde.');
 			};
 		};
 
 		$scope.consultaPedidosERP = async () => {
 			
-			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != "")
+			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != '')
 			let consulta 			= [];
 
 			for(i = 0; i < pedidosGravadosERP.length; i++){
@@ -805,13 +805,13 @@ angular
 				{
 					idCvtccnpj 	 : dadosUserLogado.cId,
 					numreg	   	 : 752,
-					pRotina	   	 : "listarPedidosAmostras",
+					pRotina	   	 : 'listarPedidosAmostras',
 					pCodCli    	 : dadosUserLogado.rId,
 					pListaPedido : {lista:{pedidos : consulta}},
 				}
 			);
 			
-			console.log(result, "RESULTADO")
+			console.log(result, 'RESULTADO')
 			
 			for(k = 0; k < pedidosGravadosERP.length; k++){
 				
@@ -821,7 +821,7 @@ angular
 		
 					/*Itens que serão atualizados*/
 					pedidosGravadosERP[k].jsonDocs[0].emissao = dadosAtualizados[0].datEmi;	
-					pedidosGravadosERP[k].jsonDocs[0].uf	  = "SC";
+					pedidosGravadosERP[k].jsonDocs[0].uf	  = 'SC';
 
 					for(l=0; l < $rootScope.dadosGrid.length; l++){
 
@@ -844,20 +844,20 @@ angular
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
-			console.log($item, "Item enviado ao ERP");
+			console.log($item, 'Item enviado ao ERP');
 
-			$scope.geraNotificacao("Enviando pedido para o ERP...", 2000);
+			$scope.geraNotificacao('Enviando pedido para o ERP...', 2000);
 			
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj : dadosUserLogado.cId,
 					numreg	   : 752,
-					pRotina	   : "criarPedidoAmostra",
+					pRotina	   : 'criarPedidoAmostra',
 					pCodCli    : dadosUserLogado.rId,
 					pDocumento : {documento : $item}
 				}		
 			);						
-			console.log(result, "Retorno ERP");
+			console.log(result, 'Retorno ERP');
 
 			return result;
 		};
@@ -893,13 +893,13 @@ angular
 
 		$scope.limpaProduto = (acao) =>{
 			$scope.itemProd 	 		= '';
-			$scope.aplicacao			= "";
-			$scope.consumoProdutoKgMes  = "";
-			$scope.quantidadeProduto 	= "";
-			$scope.descricaoProd 		= "";
-			$scope.codVariacao	 		= "";
-			$scope.codExterno	 		= "";
-			$scope.codigoProduto 		= "";
+			$scope.aplicacao			= '';
+			$scope.consumoProdutoKgMes  = '';
+			$scope.quantidadeProduto 	= '';
+			$scope.descricaoProd 		= '';
+			$scope.codVariacao	 		= '';
+			$scope.codExterno	 		= '';
+			$scope.codigoProduto 		= '';
 			
 			var produto		 = angular.element(document.querySelector('#itemProd'));
 			
@@ -1059,17 +1059,17 @@ angular
 					quantidade			: $scope.quantidadeProduto,
 					codVariacao			: $scope.codVariacao,
 					codExterno			: $scope.codExterno,
-					hashDoc				: "",
+					hashDoc				: '',
 				}
 			);
 			
-			$scope.aplicacao			= "";
-			$scope.consumoProdutoKgMes  = "";
-			$scope.quantidadeProduto 	= "";
-			$scope.descricaoProd 		= "";
-			$scope.codVariacao	 		= "";
-			$scope.codExterno	 		= "";
-			$scope.codigoProduto 		= "";
+			$scope.aplicacao			= '';
+			$scope.consumoProdutoKgMes  = '';
+			$scope.quantidadeProduto 	= '';
+			$scope.descricaoProd 		= '';
+			$scope.codVariacao	 		= '';
+			$scope.codExterno	 		= '';
+			$scope.codigoProduto 		= '';
 			
 			$scope.limpaProduto('noFocus');
 			$scope.atualizaTabelaProdutos();
@@ -1150,7 +1150,7 @@ angular
 				histOportunidade	: $scope.histOportunidade,
 				
 				//Metodos
-				exportarDoc		: rotina == 2 ? "S" : "N",
+				exportarDoc		: rotina == 2 ? 'S' : 'N',
 				idDocument		: $rootScope.idDocumento,
 				docCtrl			: hashDoc,
 				pedido			: $scope.pedido,		
@@ -1227,18 +1227,18 @@ angular
 
 		$scope.limparFiltros = () =>{
 			
-			$scope.filCliente 			= "";
-			$scope.filFornecedores 		= "";
-			$scope.filBU 				= "";
-			$scope.filCluster 			= "";
-			$scope.filStatusAmostra		= "";
-			$scope.filCarteira 			= "";
-			$scope.filDataEnvio 		= "";
-			$scope.filDataSolicitacao	= "";
-			$scope.filSegmento			= "";
-			$scope.filSubSegmento 		= "";
-			$scope.filPrioridade		= "";
-			$scope.filProduto			= "";
+			$scope.filCliente 			= '';
+			$scope.filFornecedores 		= '';
+			$scope.filBU 				= '';
+			$scope.filCluster 			= '';
+			$scope.filStatusAmostra		= '';
+			$scope.filCarteira 			= '';
+			$scope.filDataEnvio 		= '';
+			$scope.filDataSolicitacao	= '';
+			$scope.filSegmento			= '';
+			$scope.filSubSegmento 		= '';
+			$scope.filPrioridade		= '';
+			$scope.filProduto			= '';
 
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
@@ -1310,8 +1310,8 @@ angular
 					.withOption('processing', true)
 					.withOption('serverSide', true)
 					.withOption('searchDelay', 1000)
-					.withOption('scrollY', "100%")      
-					.withOption('scrollX', "100%")       
+					.withOption('scrollY', '100%')      
+					.withOption('scrollX', '100%')       
 					.withPaginationType('full_numbers')            
 					.withDisplayLength(20)
 					.withDOM('ftrip')
@@ -1365,7 +1365,7 @@ angular
 			var montaColunas = [];
 
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-				var btnhtml = "";				
+				var btnhtml = '';				
 				
 				return btnhtml;
 			}));
@@ -1431,8 +1431,8 @@ angular
 					.withOption('processing', true)
 					.withOption('serverSide', true)
 					.withOption('searchDelay', 1000)
-					.withOption('scrollY', "100%") 
-					.withOption('scrollX', "100%")            
+					.withOption('scrollY', '100%') 
+					.withOption('scrollX', '100%')            
 					.withPaginationType('full_numbers')            
 					.withDisplayLength(20)
 					.withDOM('ftrip')
@@ -1525,7 +1525,7 @@ angular
 			var montaColunas = [];
 			
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '65px').renderWith(function(data, type, row) {
-				var btnhtml = "";				
+				var btnhtml = '';				
 				
 				return btnhtml;
 			}));
@@ -1557,17 +1557,17 @@ angular
 				data	: function(d) {   
 							var param = {idCvTccnpj	: dadosUserLogado.cId};
 							var filter = {
-								fil1:  "",
-								fil2:  "",
-								fil3:  "",
-								fil4:  "",
-								fil5:  "",
-								fil6:  "",
-								fil7:  "",
-								fil8:  "",
-								fil9:  "",
-								fil10: "",
-								fil11: ""
+								fil1:  '',
+								fil2:  '',
+								fil3:  '',
+								fil4:  '',
+								fil5:  '',
+								fil6:  '',
+								fil7:  '',
+								fil8:  '',
+								fil9:  '',
+								fil10: '',
+								fil11: ''
 							};
 							d.param = param;
 							d.filter = filter;
@@ -1582,8 +1582,8 @@ angular
 					.withOption('processing', true)
 					.withOption('serverSide', true)
 					.withOption('searchDelay', 1000)
-					.withOption('scrollY', "100%")      
-					.withOption('scrollX', "100%")       
+					.withOption('scrollY', '100%')      
+					.withOption('scrollX', '100%')       
 					.withDisplayLength(20)
 					.withDOM('tr')
 					
@@ -1599,7 +1599,7 @@ angular
 			var montaColunas = [];
 
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-				var btnhtml = "";				
+				var btnhtml = '';				
 			
 				return btnhtml;
 			}));
@@ -1623,7 +1623,7 @@ angular
 
 		$scope.geraNotificacao = (message, time = 1200) =>{
 			var dialog = bootbox.dialog({
-				message: "<p style='font-size=1.2em' class='text-center'>"+message+"</p>",
+				message: '<p style=\"font-size=1.2em\" class=\"text-center\">\"+message+"\</p>',
 				closeButton: false
 			});
 			
