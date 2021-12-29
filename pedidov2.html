@@ -800,61 +800,68 @@ angular
 				)
 			};
 
-			console.log(consulta, "CONSULTA");
-			// let result = await $scope.executaRequisicaoExterna(
-			// 	{
-			// 		idCvtccnpj : dadosUserLogado.cId,
-			// 		numreg	   : 752,
-			// 		pRotina	   : "criarPedidoAmostra",
-			// 		pCodCli    : dadosUserLogado.rId,
-			// 		lista	   : {pedidos : consulta},
-			// 	}
-			// );
-
-			let result = [
+			let result = await $scope.executaRequisicaoExterna(
 				{
-					numped: 10,
-					datEmi: "31/12/2021",
-					produto:{
-						codPro: "CMPMS15",
-          				codDer: "1GB",
-					}
-				},
-				{
-					numped: 11,
-					datEmi: "29/12/2021",
-					produto:{
-						codPro: "CMPMS15",
-          				codDer: "1GB",
-					}
+					idCvtccnpj 	 : dadosUserLogado.cId,
+					numreg	   	 : 752,
+					pRotina	   	 : "listarPedidosAmostras",
+					pCodCli    	 : dadosUserLogado.rId,
+					pListaPedido : {lista:{pedidos : consulta}},
 				}
-			];
+			);
+			
+			console.log(result, "RESULTADO")
+
+			// let result = [
+			// 	{
+			// 		numped: 10,
+			// 		datEmi: "31/12/2021",
+			// 		produto:{
+			// 			codPro: "CMPMS15",
+          	// 			codDer: "1GB",
+			// 		}
+			// 	},
+			// 	{
+			// 		numped: 11,
+			// 		datEmi: "29/12/2021",
+			// 		produto:{
+			// 			codPro: "CMPMS15",
+          	// 			codDer: "1GB",
+			// 		}
+			// 	}
+			// ];
 			
 			
 			for(k = 0; k < pedidosGravadosERP.length; k++){
 				
-				let dadosAtualizados = result.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto.codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
+				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
 				if(dadosAtualizados && dadosAtualizados.length > 0){
 					console.log(dadosAtualizados[0], "ATT");
 
+					/*Itens que serão atualizados*/
 					pedidosGravadosERP[k].jsonDocs[0].emissao = dadosAtualizados[0].datEmi;	
-					pedidosGravadosERP[k].jsonDocs[0].uf	   = "SC";
+					pedidosGravadosERP[k].jsonDocs[0].uf	  = "SC";
 
 					for(l=0; l < $rootScope.dadosGrid.length; l++){
-
+						console.log("A")
 						if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
 							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)){
 
-
+								console.log(pedidosGravadosERP[k].jsonDocs[0], "GRAV")
 							$rootScope.dadosGrid[l].jsonDocs[0] = pedidosGravadosERP[k].jsonDocs[0];
+
+						
+							console.log($rootScope.dadosGrid[l].jsonDocs[0], "ROOT")
 						};
 					};
 
 				};
 				
 			};
-						
+			
+			$scope.atualizaTabela(1);
+			$scope.atualizaTabelaCompleta(1);		
 		};
 		
 		$scope.gravaDocumentoERP = async ($item) => {
@@ -875,7 +882,7 @@ angular
 			console.log(result, "Retorno ERP");
 
 			//return result;
-			return 11;
+			return 344;
 		};
 
 		$scope.getProdutos = (val) => {			
@@ -905,7 +912,7 @@ angular
 				focusBtn.focus();
 			}, 200);
 
-			console.log($rootScope.produto, "produto");
+			console.log($rootScope.produtos, "produto");
 		};
 
 		$scope.limpaProduto = (acao) =>{
@@ -1170,7 +1177,7 @@ angular
 				exportarDoc		: rotina == 2 ? "S" : "N",
 				idDocument		: $rootScope.idDocumento,
 				docCtrl			: hashDoc,
-				pedido			: "",		
+				pedido			: $scope.pedido,		
 				
 				//Produtos
 				produtos		: $rootScope.produtos,
@@ -1274,7 +1281,7 @@ angular
 			$scope.atualizaTabelaCompleta();
 		};
 
-		$scope.atualizaTabela = (modo) =>{
+		$scope.atualizaTabela = async (modo) =>{
 
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1299,16 +1306,22 @@ angular
 							d.filter = filter;
 							return JSON.stringify(d);
 						},
-				dataSrc: function(json) {
-					$rootScope.dadosGrid = json.data;
-					
-					for(ped of $rootScope.dadosGrid){
-						ped.jsonDocs = JSON.parse(ped.jsonDocs);
-					}
+					dataSrc: function(json) {
 
-					$scope.consultaPedidosERP($rootScope.dadosGrid);
+						/*Modo 1 - 
+							Atualiza tabela com valores do ERP quando o pedido há número
+						*/
+						if (modo != 1){
+							$rootScope.dadosGrid = json.data;
 
-					return $rootScope.dadosGrid;
+							for(ped of $rootScope.dadosGrid){
+								ped.jsonDocs = JSON.parse(ped.jsonDocs);
+							}
+
+							$scope.consultaPedidosERP($rootScope.dadosGrid);
+						}			
+
+						return $rootScope.dadosGrid;				
 					}
 				})
 					.withDataProp('data')
@@ -1361,8 +1374,7 @@ angular
 						'jsonDocs[0].vendedor.nome'			:	{i:2, vsbl: true,	tlt: 'Vendedor',		width:''	},
 						'jsonDocs[0].produtos.codigoProduto':	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
 						'jsonDocs[0].statusAcao'			:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
-						'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}
-						//'jsonDocs.aplicacao'		:	{i:4, vsbl: true,	tlt: 'Aplicação',		width:''	},	
+						'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
 				};
 
 
@@ -1393,7 +1405,7 @@ angular
 
 		};
 			
-		$scope.atualizaTabelaCompleta = () =>{
+		$scope.atualizaTabelaCompleta = (modo) =>{
 
 			$scope.dtOptionsFull = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1419,16 +1431,19 @@ angular
 							return JSON.stringify(d);
 						},
 				dataSrc: function(json) {
-					$rootScope.dadosGrid = json.data;
-					
-					for(ped of $rootScope.dadosGrid){
-						ped.jsonDocs = JSON.parse(ped.jsonDocs);
-					}
+						
+						if (modo != 1){
+							$rootScope.dadosGrid = json.data;
 
-					$scope.consultaPedidosERP($rootScope.dadosGrid);
+							for(ped of $rootScope.dadosGrid){
+								ped.jsonDocs = JSON.parse(ped.jsonDocs);
+							}
 
-					return $rootScope.dadosGrid;
-					}
+							$scope.consultaPedidosERP($rootScope.dadosGrid);
+						}			
+						
+						return $rootScope.dadosGrid;	
+					}		
 				})
 					.withDataProp('data')
 					.withOption('processing', true)
