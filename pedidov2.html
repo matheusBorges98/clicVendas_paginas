@@ -623,14 +623,11 @@ angular
 					$scope.$apply();
 
 				}else{
-					console.log($dados.jsonDocs[0].pedido)
-
 					$scope.tipoFormulario = $dados.jsonDocs[0].pedido != '' ? 'Edição pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
 					
 					$scope.inputDesabilitado  = true;
 					$scope.permiteEditar	  = false;
-					
-				}
+				};
 				
 			}else if($scope.exibeFormulario == true){
 
@@ -763,7 +760,6 @@ angular
 		};
 
 		$scope.onSelectCli = ($item, $model, $label) => {
-			console.log($item);
 			$rootScope.cliente = $item;	
 			
 			$scope.codigoCliente = $rootScope.cliente.codExterno
@@ -780,7 +776,6 @@ angular
 		};
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
-			console.log($json, "REQ EXT")
 			try{
 				let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
 				
@@ -805,7 +800,7 @@ angular
 				)
 			};
 
-			console.log(consulta, "CONSULTA")
+			console.log(consulta, "CONSULTA");
 			// let result = await $scope.executaRequisicaoExterna(
 			// 	{
 			// 		idCvtccnpj : dadosUserLogado.cId,
@@ -833,7 +828,7 @@ angular
           				codDer: "1GB",
 					}
 				}
-			]
+			];
 			
 			
 			for(k = 0; k < pedidosGravadosERP.length; k++){
@@ -841,7 +836,7 @@ angular
 				let dadosAtualizados = result.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto.codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
 				if(dadosAtualizados && dadosAtualizados.length > 0){
-					console.log(dadosAtualizados[0], "ATT")
+					console.log(dadosAtualizados[0], "ATT");
 
 					pedidosGravadosERP[k].jsonDocs[0].emissao = dadosAtualizados[0].datEmi;	
 					pedidosGravadosERP[k].jsonDocs[0].uf	   = "SC";
@@ -864,7 +859,7 @@ angular
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
-			console.log($item, "Item enviado ao ERP")
+			console.log($item, "Item enviado ao ERP");
 
 			$scope.geraNotificacao("Enviando pedido para o ERP...", 2000);
 			
@@ -877,7 +872,7 @@ angular
 					pDocumento : {documento : $item}
 				}		
 			);						
-			console.log(result, "Retorno ERP")
+			console.log(result, "Retorno ERP");
 
 			//return result;
 			return 11;
@@ -1130,7 +1125,7 @@ angular
 				responsavel			: $scope.responsavel,
 				projeto     		: $scope.projeto,
 				uf 					: $scope.uf,
-				vendedor			: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},//$scope.vendedor,
+				vendedor			: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
 				segmento			: $scope.segmento,
 				subsegmento 		: $scope.subsegmento,
 				bu 					: $scope.bu,
@@ -1174,7 +1169,6 @@ angular
 				//Metodos
 				exportarDoc		: rotina == 2 ? "S" : "N",
 				idDocument		: $rootScope.idDocumento,
-				sincronizado	: "N",
 				docCtrl			: hashDoc,
 				pedido			: "",		
 				
@@ -1314,7 +1308,6 @@ angular
 
 					$scope.consultaPedidosERP($rootScope.dadosGrid);
 
-					console.log($rootScope.dadosGrid, "DADOS GRID")
 					return $rootScope.dadosGrid;
 					}
 				})
@@ -1398,7 +1391,7 @@ angular
 					$compile(nRow)($scope);
 			});
 
-		}
+		};
 			
 		$scope.atualizaTabelaCompleta = () =>{
 
@@ -1426,12 +1419,15 @@ angular
 							return JSON.stringify(d);
 						},
 				dataSrc: function(json) {
-					let dadosGrid = json.data;
+					$rootScope.dadosGrid = json.data;
 					
-					for(ped of dadosGrid){
+					for(ped of $rootScope.dadosGrid){
 						ped.jsonDocs = JSON.parse(ped.jsonDocs);
 					}
-					return dadosGrid;
+
+					$scope.consultaPedidosERP($rootScope.dadosGrid);
+
+					return $rootScope.dadosGrid;
 					}
 				})
 					.withDataProp('data')
@@ -1627,7 +1623,7 @@ angular
 					$compile(nRow)($scope);
 			});
 
-		}
+		};
 
 		$scope.geraNotificacao = (message, time = 1200) =>{
 			var dialog = bootbox.dialog({
@@ -1677,8 +1673,7 @@ angular
 					confirm: {label: 'Excluir',className:'btn_grid btn_cor_padrao'}
 					
 				}
-			});
-			 
+			}); 
 		};
 			
 	});
