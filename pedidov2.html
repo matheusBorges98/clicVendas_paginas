@@ -788,7 +788,7 @@ angular
 
 		$scope.consultaPedidosERP = async () => {
 			
-			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != '')
+			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != '');
 			let consulta 			= [];
 
 			for(i = 0; i < pedidosGravadosERP.length; i++){
@@ -1034,7 +1034,7 @@ angular
 				$scope.obsOportunidade		= docs.obsOportunidade;
 				$scope.histOportunidade		= docs.histOportunidade;
 
-				$scope.consultaDocumento($rootScope.hashDoc)
+				$scope.consultaDocumento($rootScope.hashDoc);
 			};
 			
 			$rootScope.changeView($dados);
