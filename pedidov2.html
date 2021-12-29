@@ -811,48 +811,25 @@ angular
 			);
 			
 			console.log(result, "RESULTADO")
-
-			// let result = [
-			// 	{
-			// 		numped: 10,
-			// 		datEmi: "31/12/2021",
-			// 		produto:{
-			// 			codPro: "CMPMS15",
-          	// 			codDer: "1GB",
-			// 		}
-			// 	},
-			// 	{
-			// 		numped: 11,
-			// 		datEmi: "29/12/2021",
-			// 		produto:{
-			// 			codPro: "CMPMS15",
-          	// 			codDer: "1GB",
-			// 		}
-			// 	}
-			// ];
-			
 			
 			for(k = 0; k < pedidosGravadosERP.length; k++){
 				
 				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
 				if(dadosAtualizados && dadosAtualizados.length > 0){
-					console.log(dadosAtualizados[0], "ATT");
-
+		
 					/*Itens que serão atualizados*/
 					pedidosGravadosERP[k].jsonDocs[0].emissao = dadosAtualizados[0].datEmi;	
 					pedidosGravadosERP[k].jsonDocs[0].uf	  = "SC";
 
 					for(l=0; l < $rootScope.dadosGrid.length; l++){
-						console.log("A")
+
 						if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
 							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)){
-
-								console.log(pedidosGravadosERP[k].jsonDocs[0], "GRAV")
+							
+							/*Atualiza informações da tabela sem salvar no banco de dados*/	
 							$rootScope.dadosGrid[l].jsonDocs[0] = pedidosGravadosERP[k].jsonDocs[0];
 
-						
-							console.log($rootScope.dadosGrid[l].jsonDocs[0], "ROOT")
 						};
 					};
 
@@ -881,8 +858,7 @@ angular
 			);						
 			console.log(result, "Retorno ERP");
 
-			//return result;
-			return 344;
+			return result;
 		};
 
 		$scope.getProdutos = (val) => {			
@@ -912,7 +888,6 @@ angular
 				focusBtn.focus();
 			}, 200);
 
-			console.log($rootScope.produtos, "produto");
 		};
 
 		$scope.limpaProduto = (acao) =>{
@@ -1194,16 +1169,22 @@ angular
 			if(rotina == 2){
 				/*Faz o envio dos produtos como um array para o ERP*/
 				let produtos = [];
-				/* Lista todos os documentos e aplica o filtro pelo HashDoc, adiciona os produtos ao pedido que sejam do mesmo HashDoc*/
-				let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
-			
-				for(i = 0; i < allDocs.length; i++){
-					produtos.push(allDocs[i].jsonDocs[0].produtos);		
-				}
+				/* Lista todos os documentos e aplica o filtro pelo HashDoc, caso o documento já exista na base Clic, adiciona os produtos ao pedido que sejam do mesmo HashDoc*/
+				
+				if(id > 0){
+					let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
+					for(i = 0; i < allDocs.length; i++){
+						produtos.push(allDocs[i].jsonDocs[0].produtos);		
+					}
+				}
+	
 				let sendToERP 			= JSON.parse(dados.jsonDocs);
-				sendToERP[0].produtos 	= produtos; /*Array de produtos*/
-								
+
+				if(id > 0){
+					sendToERP[0].produtos 	= produtos; /*Array de produtos*/
+				}
+						
 				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
 				
 				/*Atualiza numero do pedido*/
@@ -1234,7 +1215,7 @@ angular
 				};
 			};
 						
-			$scope.geraNotificacao($scope.messageNotific)
+			$scope.geraNotificacao($scope.messageNotific);
 
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
@@ -1260,7 +1241,7 @@ angular
 
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
-		}
+		};
 
 		$scope.aplicarFiltros = (valor) => {
 
@@ -1316,10 +1297,10 @@ angular
 
 							for(ped of $rootScope.dadosGrid){
 								ped.jsonDocs = JSON.parse(ped.jsonDocs);
-							}
+							};
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
-						}			
+						};			
 
 						return $rootScope.dadosGrid;				
 					}
@@ -1437,10 +1418,10 @@ angular
 
 							for(ped of $rootScope.dadosGrid){
 								ped.jsonDocs = JSON.parse(ped.jsonDocs);
-							}
+							};
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
-						}			
+						};			
 						
 						return $rootScope.dadosGrid;	
 					}		
@@ -1680,7 +1661,7 @@ angular
 						setTimeout(() => {
 							$scope.atualizaTabela();
 							$scope.atualizaTabelaCompleta();
-						}, 1000);
+						}, 1500);
 					}
 				},
 				buttons: {
@@ -1707,7 +1688,7 @@ angular
 			document.getElementById("mySidebar").style.width = "250px";
 			document.getElementById("mySidebar").style.height = "100%";
 			document.getElementById("main").style.marginLeft = "250px";
-		  }
+		  };
 		
 	};
 
@@ -1819,7 +1800,6 @@ angular
   
 	}
 
-
 	#mySidebar a, label {
 	  padding: 5px 5px 5px 10px;
 	  text-decoration: none;
@@ -1827,7 +1807,6 @@ angular
 	  color: #000;
 	  display: block;
 	  transition: 0.3s;
-	  
 	}
 	
 	#mySidebar input {
