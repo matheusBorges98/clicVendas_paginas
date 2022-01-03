@@ -833,7 +833,7 @@ angular
 							
 							pedidosGravadosERP[k].jsonDocs[0].emissao 							= dadosAtualizados[0].datEmi;
 							pedidosGravadosERP[k].jsonDocs[0].ofertaUnit 						= dadosAtualizados[0].produto[0].preUni;
-							pedidosGravadorERP[k].jsonDocs[0].produtos[0].consumoProdutoKgMes	= "5"
+							pedidosGravadorERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= "5"
 							//pedidosGravadosERP[k].jsonDocs[0].bu 			= dadosAtualizados[0].produto[0].codPro;
 
 													
@@ -987,15 +987,11 @@ angular
 
 				$rootScope.hashDoc			= docs.docCtrl;
 				$rootScope.idDocumento 		= $dados.id;
-				$rootScope.produtos			= docs.produtos;
 				$rootScope.cliente			= docs.cliente;
 
 				$scope.frmCliente			= docs.cliente;
 				$scope.codigoCliente		= docs.cliente.codExterno;
 				$scope.nomeCliente			= docs.cliente.nome
-
-				$scope.codigoProduto		= docs.produtos.codigoProduto;
-				$scope.descricao			= docs.produtos.descricao;
 
 				$scope.chave 				= docs.chave;
 				$scope.ano 					= docs.ano;
@@ -1046,8 +1042,10 @@ angular
 				$scope.histOportunidade		= docs.histOportunidade;
 
 				/*Informações sobre o produto*/
-
-				$scope.consumoProdutoKgMes = docs.produtos.consumoProdutoKgMes;
+				$rootScope.produtos			= docs.produtos;
+				$scope.codigoProduto		= docs.produtos.codigoProduto;
+				$scope.descricao			= docs.produtos.descricao;
+				$scope.consumoProdutoKgMes  = docs.produtos.consumoProdutoKgMes;
 
 				$scope.consultaDocumento($rootScope.hashDoc);
 			};
