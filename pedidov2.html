@@ -829,7 +829,7 @@ angular
 							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
 							
 							/*Itens que serão atualizados*/
-							console.log(pedidosGravadosERP[k].jsonDocs, "JSONDOCS")
+							console.log(pedidosGravadosERP[k].jsonDocs[0], "JSONDOCS")
 							
 							pedidosGravadosERP[k].jsonDocs[0].emissao 							= dadosAtualizados[0].datEmi;
 							pedidosGravadosERP[k].jsonDocs[0].ofertaUnit 						= dadosAtualizados[0].produto[0].preUni;
