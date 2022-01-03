@@ -1578,7 +1578,7 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("XXXXYZXX")
+			console.log("XXXXYZAXX")
 			/*TO DO
 				Remover retorno do servidor, esta tabela usa variável carregada em tempo de execução
 			*/
@@ -1610,6 +1610,7 @@ angular
 			// 		return $rootScope.produtos;
 			// 		}
 			// 	})
+					
 					.withDataProp('$rootScope.produtos')
 					.withOption('processing', true)
 					.withOption('serverSide', false)
@@ -1619,7 +1620,7 @@ angular
 					.withDisplayLength(20)
 					.withDOM('tr');
 					
-			defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
+			defPD = {	'$rootScope.produtos.descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
 						'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
 						'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
 						'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
