@@ -1663,7 +1663,10 @@ angular
 				
 		$scope.mostraTabelaCompleta = () => {
 			$scope.tabelaCompleta = true;
-			$scope.atualizaTabelaCompleta(); 
+
+			setTimeout(() =>{
+				$scope.atualizaTabelaCompleta(); 
+			}, 1000)
 		};
 
 		$scope.mostraTabelaSimplificada = () =>{
