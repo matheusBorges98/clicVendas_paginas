@@ -107,7 +107,7 @@
 				</div>
 				<!-- Tabela completa -->
 				<div ng-hide="!tabelaCompleta" class="col-sm-12">
-					<table id="listDocumentsFull"  dt-options="dtOptionsFull" dt-columns="dtColumnsFull" dt-instance="dtInstanceFull" class="row-border hover table-striped table-bordered"></table>					
+					<table id="listDocumentsFull"  dt-options="dtOptionsFull" dt-columns="dtColumnsFull" dt-instance="dtInstanceFull" class="row-border responsive hover table-striped table-bordered"></table>					
 				</div>
 			</div>
 			<!-- Tabela -->
@@ -1415,8 +1415,6 @@ angular
 		};
 			
 		$scope.atualizaTabelaCompleta = (modo) =>{
-			console.log("ABC")
-
 			$scope.dtOptionsFull = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
 				url	: '/clicVendas/rest/pedidov2/lista',
@@ -1511,12 +1509,12 @@ angular
 						'jsonDocs[0].segmento'						:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
 						'jsonDocs[0].subsegmento'					:	{i:10, vsbl: true,	tlt: 'Sub-Seg.',				width:''	},
 						'jsonDocs[0].bu'							:	{i:11, vsbl: true,	tlt: 'BU',						width:''	},
-						'jsonDocs[0].aplicacao'						:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:''	},
-						'jsonDocs[0].ano'							:	{i:13,  vsbl: true,	tlt: 'Ano',						width:''	},
-						'jsonDocs[0].familia'						:	{i:14, vsbl: true,	tlt: 'Família',					width:''	},
-						'jsonDocs[0].cluster'						:	{i:15, vsbl: true,	tlt: 'Cluster',					width:''	},
-						'jsonDocs[0].descricao'						:	{i:16, vsbl: true,	tlt: 'Descrição',				width:''	},
-						'jsonDocs[0].desagr'						:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',		width:''	},
+						// 'jsonDocs[0].aplicacao'						:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:''	},
+						// 'jsonDocs[0].ano'							:	{i:13,  vsbl: true,	tlt: 'Ano',						width:''	},
+						// 'jsonDocs[0].familia'						:	{i:14, vsbl: true,	tlt: 'Família',					width:''	},
+						// 'jsonDocs[0].cluster'						:	{i:15, vsbl: true,	tlt: 'Cluster',					width:''	},
+						// 'jsonDocs[0].descricao'						:	{i:16, vsbl: true,	tlt: 'Descrição',				width:''	},
+						// 'jsonDocs[0].desagr'						:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',		width:''	},
 						// 'jsonDocs[0].quantidadeKg'					:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:''	},
 						// 'jsonDocs[0].dataStatus'					:	{i:19, vsbl: true,	tlt: 'Data Status',				width:''	},
 						// 'jsonDocs[0].situacao.nome'					:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
