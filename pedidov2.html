@@ -106,7 +106,7 @@
 					<table id="listDocuments"  dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border responsive hover table-striped table-bordered"></table>					
 				</div>
 				<!-- Tabela completa -->
-				<div ng-show="tabelaCompleta" class="col-sm-12">
+				<div ng-hide="!tabelaCompleta" class="col-sm-12">
 					<table id="listDocumentsFull"  dt-options="dtOptionsFull" dt-columns="dtColumnsFull" dt-instance="dtInstanceFull" class="row-border responsive hover table-striped table-bordered"></table>					
 				</div>
 			</div>
@@ -1663,10 +1663,7 @@ angular
 				
 		$scope.mostraTabelaCompleta = () => {
 			$scope.tabelaCompleta = true;
-
-			setTimeout(() =>{
-				$scope.atualizaTabelaCompleta(); 
-			}, 1000)
+			$scope.atualizaTabelaCompleta(); 
 		};
 
 		$scope.mostraTabelaSimplificada = () =>{
