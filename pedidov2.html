@@ -1085,7 +1085,7 @@ angular
 
 			let strHistorico = [];
 			
-			let date = new Date().getTime();
+			let data = new Date().getTime();
 
 			strHistorico.push({
 				item: $scope.obsOportunidade
@@ -1094,7 +1094,7 @@ angular
 			console.log(strHistorico);
 
 			for(let i = 0; i < strHistorico.length; i++){
-				$scope.histOportunidade += ` Descrição: ${strHistorico[i].item} <br> Data: ${date} <br>`;
+				$scope.histOportunidade += ` Descrição: ${strHistorico[i].item} <br> Data: ${data} <br>`;
 			}
 		
 			$scope.obsOportunidade = "";
