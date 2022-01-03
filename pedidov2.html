@@ -1087,7 +1087,7 @@ angular
 			
 			let data = new Date().getTime();
 
-			data	 = data.toLocaleTimeString('pt-BR');
+			//data	 = data.toLocaleTimeString('pt-BR');
 
 			strHistorico.push({
 				item: $scope.obsOportunidade
@@ -1097,8 +1097,8 @@ angular
 
 			for(let i = 0; i < strHistorico.length; i++){
 				$scope.histOportunidade += ` 
-				Descrição: ${strHistorico[i].item} 
-				Data: ${data}`;
+				Descrição: ${strHistorico[i].item}`
+				//Data: ${data}`;
 			}
 		
 			$scope.obsOportunidade = "";
