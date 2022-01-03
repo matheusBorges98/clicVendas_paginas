@@ -1085,9 +1085,7 @@ angular
 
 			let strHistorico = [];
 			
-			let data = new Date().getTime();
-
-			data	 = data.toLocaleDateString('pt-BR');
+			let data = moment("2019-01-01", "YYYY-MM-DD");
 
 			strHistorico.push({
 				item: $scope.obsOportunidade
@@ -1098,7 +1096,7 @@ angular
 			for(let i = 0; i < strHistorico.length; i++){
 				$scope.histOportunidade += `
 			
-Descrição: ${strHistorico[i].item} - Registrado em: ${data}`
+Descrição: ${strHistorico[i].item} - Registrado em: ${data.fromNow()}`
 			}
 		
 			$scope.obsOportunidade = "";
