@@ -1088,7 +1088,7 @@ angular
 			});
 
 			for(hist of $scope.histOportunidade){
-				$scope.histOportunidade += hist.descricao.toString();
+				$scope.histOportunidade += JSON.stringify(hist.descricao);
 			}
 		
 
