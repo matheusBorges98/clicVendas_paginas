@@ -972,7 +972,7 @@ angular
 				$scope.statusAcao			= '';
 				$scope.acoes				= '';
 				$scope.obsOportunidade		= '';
-				$scope.histOportunidade		= '';
+				$scope.histOportunidade		= [];
 				$rootScope.hashDoc			= '';
 
 				$scope.atualizaTabelaProdutos();
@@ -1081,6 +1081,15 @@ angular
 			$scope.atualizaTabelaProdutos();
 		};
 
+		$scope.addObservacaoHistorico = () => {
+
+			$scope.histOportunidade.push({
+				descricao: $scope.obsOportunidade
+			});
+
+			$scope.obsOportunidade = "";
+		};
+
 		$scope.salvarDocumento = async (rotina) => {
 			/*
 			Rotinas:
@@ -1146,6 +1155,7 @@ angular
 				anoPrimVenda		: $scope.anoPrimVenda ,
 				statusAcao			: $scope.statusAcao,
 				acoes				: $scope.acoes,
+
 				obsOportunidade		: $scope.obsOportunidade,
 				histOportunidade	: $scope.histOportunidade,
 				
