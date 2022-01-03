@@ -1578,7 +1578,7 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("XXXXYZ")
+			console.log("XXXXYZXX")
 			/*TO DO
 				Remover retorno do servidor, esta tabela usa variável carregada em tempo de execução
 			*/
@@ -1610,7 +1610,7 @@ angular
 			// 		return $rootScope.produtos;
 			// 		}
 			// 	})
-					.withDataProp('data', $rootScope.produtos)
+					.withDataProp('$rootScope.produtos')
 					.withOption('processing', true)
 					.withOption('serverSide', false)
 					.withOption('searchDelay', 1000)
@@ -1650,8 +1650,6 @@ angular
 				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 					$compile(nRow)($scope);
 			});
-
-			$scope.$apply();
 
 		};
 
