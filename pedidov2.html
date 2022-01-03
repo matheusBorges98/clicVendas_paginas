@@ -1578,7 +1578,7 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("XXXX")
+			console.log("XXXXY")
 			/*TO DO
 				Remover retorno do servidor, esta tabela usa variável carregada em tempo de execução
 			*/
@@ -1586,25 +1586,25 @@ angular
 			.withOption('ajax', {
 				url	: '/clicVendas/rest/pedidov2/lista',
 				type	: 'POST',
-				data	: function(d) {   
-							var param = {idCvTccnpj	: dadosUserLogado.cId};
-							var filter = {
-								fil1:  '',
-								fil2:  '',
-								fil3:  '',
-								fil4:  '',
-								fil5:  '',
-								fil6:  '',
-								fil7:  '',
-								fil8:  '',
-								fil9:  '',
-								fil10: '',
-								fil11: ''
-							};
-							d.param = param;
-							d.filter = filter;
-							return JSON.stringify(d);
-						},
+				// data	: function(d) {   
+				// 			var param = {idCvTccnpj	: dadosUserLogado.cId};
+				// 			var filter = {
+				// 				fil1:  '',
+				// 				fil2:  '',
+				// 				fil3:  '',
+				// 				fil4:  '',
+				// 				fil5:  '',
+				// 				fil6:  '',
+				// 				fil7:  '',
+				// 				fil8:  '',
+				// 				fil9:  '',
+				// 				fil10: '',
+				// 				fil11: ''
+				// 			};
+				// 			d.param = param;
+				// 			d.filter = filter;
+				// 			return JSON.stringify(d);
+				// 		},
 				dataSrc: function(json) {
 			
 					return $rootScope.produtos;
