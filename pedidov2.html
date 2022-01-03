@@ -207,7 +207,7 @@
 									<div class="col-sm-1 spacer" style="padding-top: 30px;">
 										<label for="aplicacao"> </label>							
 										<div class="btn-group">
-											<button ng-disabled="descricaoProd == '' || consumoProdutoKgMes == ''|| quantidadeProduto == '' || aplicacao  == ''" class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
+											<button ng-disabled="descricaoProd == '' || consumoProdutoKgMes == ''|| quantidadeProduto == '' || aplicacao  == '' " class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
 										</div>
 									</div>
 								</div>
@@ -1085,17 +1085,16 @@ angular
 
 			let strHistorico = [];
 
-			str
-			
-			$scope.histOportunidade.push({
-				descricao: $scope.obsOportunidade
+			str.push({
+				item: $scope.obsOportunidade
 			});
 
-			for(hist of $scope.histOportunidade){
-				$scope.histOportunidade += JSON.stringify(hist.descricao);
+			console.log(str);
+
+			for(let i = 0; i < str.length; i++){
+				$scope.histOportunidade += JSON.stringify(str[i]);
 			}
 		
-
 			$scope.obsOportunidade = "";
 		};
 
