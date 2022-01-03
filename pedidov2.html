@@ -1085,14 +1085,14 @@ angular
 
 			let strHistorico = [];
 
-			str.push({
+			strHistorico.push({
 				item: $scope.obsOportunidade
 			});
 
-			console.log(str);
+			console.log(strHistorico);
 
-			for(let i = 0; i < str.length; i++){
-				$scope.histOportunidade += JSON.stringify(str[i]);
+			for(let i = 0; i < strHistorico.length; i++){
+				$scope.histOportunidade += JSON.stringify(strHistorico[i]);
 			}
 		
 			$scope.obsOportunidade = "";
