@@ -502,7 +502,7 @@
 								<div class="col-sm-1 spacer" style="padding-top: 30px;">
 									<label for="observacao"> </label>							
 									<div class="btn-group">
-										<button class="btn btn_grid btn_cor_padrao" ng-disable="obsOportunidade == '' " ng-click="addObservacaoHistorico()"> Incluir </button>
+										<button class="btn btn_grid btn_cor_padrao" ng-disable="obsOportunidade == undefined || obsOportunidade == '' " ng-click="addObservacaoHistorico()"> Incluir </button>
 									</div>
 								</div>
 							</div>
