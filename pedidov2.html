@@ -1096,8 +1096,9 @@ angular
 
 			for(let i = 0; i < strHistorico.length; i++){
 				$scope.histOportunidade += `
-			
-- Descrição: ${strHistorico[i].item} | Produto: ${$scope.descricao} - ${$scope.codExternoProduto}. 
+				
+- Descrição: ${strHistorico[i].item}
+- Produto:${$scope.descricao} - ${$scope.codExternoProduto}. 
 - Registrado em: ${dataAtual.toLocaleDateString('pt-BR')} às ${horas}:${minutos}`
 			}
 		
