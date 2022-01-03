@@ -975,8 +975,6 @@ angular
 				$scope.histOportunidade		= '';
 				$rootScope.hashDoc			= '';
 
-				$scope.atualizaTabelaProdutos();
-
 			}else{
 				
 				let docs 					= $dados.jsonDocs[0];
@@ -1615,11 +1613,11 @@ angular
 					.withDisplayLength(20)
 					.withDOM('tr');
 					
-			defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''	},
-						'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:'60px'},
-						'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:'60px'	},
-						'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:'60px'	},
-						'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicacação',		width:'60px'	}	
+			defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
+						'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
+						'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
+						'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
+						'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicacação',		width:''}	
 				};
 
 
