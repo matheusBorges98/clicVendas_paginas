@@ -981,8 +981,6 @@ angular
 				
 				let docs 					= $dados.jsonDocs[0];
 
-				console.log(docs, "DOCS OPEN")
-
 				$rootScope.hashDoc			= docs.docCtrl;
 				$rootScope.idDocumento 		= $dados.id;
 				$rootScope.cliente			= docs.cliente;
@@ -1635,7 +1633,7 @@ angular
 			}));
 
 			angular.forEach(defPD, function(value, key) {
-				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sWidth', value.width));
+				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withClass('responsive').withOption('sWidth', value.width));
 			});
 
 			$scope.dtColumnsProd = montaColunas;
