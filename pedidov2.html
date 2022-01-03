@@ -1092,7 +1092,7 @@ angular
 			console.log(strHistorico);
 
 			for(let i = 0; i < strHistorico.length; i++){
-				$scope.histOportunidade += JSON.stringify(strHistorico[i]);
+				$scope.histOportunidade += JSON.stringify(strHistorico[i].item);
 			}
 		
 			$scope.obsOportunidade = "";
