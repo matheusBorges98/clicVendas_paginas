@@ -1551,9 +1551,9 @@ angular
 		
 			
 			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
-			var montaColunas = [];
+			var montaColunasFull = [];
 			
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '65px').renderWith(function(data, type, row) {
+			montaColunasFull.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '65px').renderWith(function(data, type, row) {
 				var btnhtml = '';				
 				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
 				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
@@ -1561,10 +1561,10 @@ angular
 			}));
 			
 			angular.forEach(defPD, function(value, key) {
-				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
+				montaColunasFull.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
 			});
 			
-			$scope.dtColumnsFull = montaColunas;
+			$scope.dtColumnsFull = montaColunasFull;
 											
 			angular.element('#listDocumentsFull').attr('datatable', '');
 			$compile(angular.element('#listDocumentsFull'))($scope);
