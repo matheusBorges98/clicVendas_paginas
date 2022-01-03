@@ -1040,6 +1040,7 @@ angular
 				$scope.codigoProduto		= docs.produtos.codigoProduto;
 				$scope.descricao			= docs.produtos.descricao;
 				$scope.consumoProdutoKgMes  = docs.produtos.consumoProdutoKgMes;
+				$scope.codExternoProduto	= docs.produtos.codExterno
 
 				$scope.consultaDocumento($rootScope.hashDoc);
 			};
@@ -1096,7 +1097,7 @@ angular
 			for(let i = 0; i < strHistorico.length; i++){
 				$scope.histOportunidade += `
 			
-- Descrição: ${strHistorico[i].item} | Produto: ${$scope.descricaoProd} - ${$scope.codExterno}. 
+- Descrição: ${strHistorico[i].item} | Produto: ${$scope.descricao} - ${$scope.codExternoProduto}. 
 - Registrado em: ${dataAtual.toLocaleDateString('pt-BR')} às ${horas}:${minutos}`
 			}
 		
