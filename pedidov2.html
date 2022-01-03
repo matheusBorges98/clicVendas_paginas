@@ -1578,14 +1578,14 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("AGR")
+			console.log("AGR 1")
 			/*TO DO
 				Remover retorno do servidor, esta tabela usa variável carregada em tempo de execução
 			*/
 			$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
 				// url	: '/clicVendas/rest/pedidov2/lista',
-				// type	: 'POST',
+				 type	: 'POST',
 				data	: function(d) {   
 							return $rootScope.produtos;
 						},
