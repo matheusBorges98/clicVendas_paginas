@@ -26,65 +26,12 @@
 			<!-- Sidebar Menu FILTRO -->
 			<div id="mySidebar" class="sidebar">
 				<form>
-					<div class="form-group">
-						<label for="filFornecedores">Fornecedor</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filFornecedores" ng-model="filFornecedores" aria-describedby=" " placeholder=" ">
-					</div>
 					
 					<div class="form-group">
 						<label for="filCliente">Cliente</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCliente" ng-model="filCliente" aria-describedby=" " placeholder=" ">
 					</div>
 					
-					<div class="form-group">
-						<label for="filBU">BU</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filBU" ng-model="filBU" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCluster">Cluster</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCluster" ng-model="filCluster" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filStatusAmostra">Status da Amostra</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filStatusAmostra" ng-model="filStatusAmostra" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Carteira</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filCarteira" ng-model="filCarteira" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Data Envio</label>
-						<input type="date" style="width: 75px;" class="form-control spacer-input" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" " placeholder="In�cio">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Data Solicitação</label>
-						<input type="text" style="width: 75px;" class="form-control spacer-input"  id="filDataSolicitacao" ng-model="filDataSolicitacao" aria-describedby=" " placeholder="Fim">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Segmento</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filSegmento" ng-model="filSegmento" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">SubSegmento</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filSubSegmento" ng-model="filSubSegmento" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Prioridade</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filPrioridade" ng-model="filPrioridade" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Produto</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filProduto" ng-model="filProduto" aria-describedby=" " placeholder=" ">
-					</div>
 				</form>
 
 				<div class="text-center">
@@ -101,13 +48,8 @@
 		
 			<!-- Tabela -->
 			<div id="main">
-				<!-- Tabela Simplificada -->
-				<div ng-hide="tabelaCompleta" class="col-sm-12 ">
+				<div class="col-sm-12 ">
 					<table id="listDocuments"  dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border responsive hover table-striped table-bordered"></table>					
-				</div>
-				<!-- Tabela completa -->
-				<div ng-show="tabelaCompleta" class="col-sm-12">
-					<table id="listDocumentsFull"  dt-options="dtOptionsFull" dt-columns="dtColumnsFull" dt-instance="dtInstanceFull" class="row-border responsive hover table-striped table-bordered"></table>					
 				</div>
 			</div>
 			<!-- Tabela -->
@@ -230,7 +172,6 @@
 					<ul class="nav nav-tabs" role="tablist" id="myTab">
 						<li role="presentation" class="active"><a href="#docEdit-info-projeto" role="tab" data-toggle="tab">Informações do projeto</a></li>
 						<li role="presentation"><a href="#docEdit-manu-projeto" role="tab" data-toggle="tab">Manutenção</a></li>
-						<li role="presentation"><a href="#docEdit-hist-projeto" role="tab" data-toggle="tab">Histórico / Observações</a></li>
 					</ul>
 					
 					<div class="tab-content">
@@ -264,31 +205,9 @@
 										<label for="nomeCliente">Nome do Cliente</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="nomeCliente"  id="nomeCliente">
 									</div>
-									<div class="col-sm-1 spacer ">
-										<label for="uf">UF</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="uf" id="uf">
-									</div>
-									
-									<div class="col-sm-3 spacer ">
-										<label for="vendedor">Vendedor</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendedor" id="vendedor">
-									</div>
-									
-									<div class="col-sm-3 spacer ">
-										<label for="segmento">Segmento</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="segmento" id="segmento">
-									</div>
-									<div class="col-sm-3 spacer ">
-										<label for="subsegmento">Subsegmento</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="subsegmento" id="subsegmento">
-									</div>
-									<div class="col-sm-3 spacer ">
-										<label for="bu">BU</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="bu" id="bu">
-									</div>
+				
 								</div>
 							</div>
-					
 					
 							<div class="form-row ">
 								<div class="form-group col-md-12">
@@ -296,112 +215,18 @@
 										<label for="pedido">Pedido</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedido" id="pedido">
 									</div>
-									<div class="col-sm-2 spacer">
-										<label for="emissao">Emissão</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="emissao" id="emissao">
-									</div>
-									<div class="col-sm-4 spacer">
-										<label for="familia">Familia</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="familia" id="familia">
-									</div>
-									<div class="col-sm-4 spacer">
-										<label for="cluster">Cluster</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="cluster" id="cluster">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="codPro">Cód. Produto</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro">
-									</div>
-									<div class="col-sm-4 spacer">
-										<label for="despro">Descrição</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricao" id="despro">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="desagr">Ag. Comercial</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="desagr" id="desagr">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="quantidadeKg">Qtde (kg)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="quantidadeKg" id="quantidadeKg">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="dataStatus">Data Status</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="dataStatus" id="dataStatus">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="situacao">Situação Amostra</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="situacao" id="situacao"  uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="consumo">Consumo (Kg/mês)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoProdutoKgMes" id="consumoProdutoKgMes">
-									</div>
-									<div class="col-sm-8 spacer">
-										<label for="justificativa">Justificativa</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="justificativa" id="justificativa">
-									</div>				  		  
-									<div class="col-sm-2 spacer">
-										<label for="con2021n">Con. 2021 (em nº)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021n" id="con2021n">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="con2022n">Con. 2022 (em nº)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2022n" id="con2022n">
-									</div>
+									
 								</div>	
 							</div>
 							
 							<div class="form-row ">
 								<div class="form-group col-md-12">
 									<div class="col-sm-2 spacer">
-										<label for="ofertaData">OFERTA Data</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaData" id="ofertaData">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="ofertaUnit">OFERTA Unit. (US$)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaUnit" id="ofertaUnit">
-									</div>			  
 									
-									<div class="col-sm-2 spacer">
-										<label for="venda">INDENT Qtde</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="identQtd" id="identQtd">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="venda">Venda</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="venda" id="venda">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="vendaLocalKg">Venda Local (KG)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendaLocalKg" id="vendaLocalKg">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="ultVendaTabdin">Últ. Venda TABDIN</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ultVendaTabdin" id="ultVendaTabdin">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="primVendaTabdin">1.a Venda TABDIN</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="primVendaTabdin" id="primVendaTabdin">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="anoPrimVenda">ANO 1.a VENDA</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="totalFatUSD">Tot. Fat. (USD)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="totalFatUSD" id="totalFatUSD">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="margemR">Margem (R$)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="margemR" id="margemR"> 
-									</div>			  
 									<div class="col-sm-2 spacer">
 										<label for="preUSD">Pre. USD</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="preUSD" id="preUSD">
 									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="potVolAg">Pot. Vol. AG</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="potVolAg" id="potVolAg">
-									</div>
 								</div>
 							</div>
 
@@ -415,50 +240,6 @@
 										<label for="projeto">Projeto</label>
 										<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 									</div>
-									<div class="col-sm-2 spacer ">
-										<label for="responsavel">Responsável</label>
-										<input type="text" class="form-control spacer-input" ng-model="responsavel" id="responsavel" >
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="prioridade">Prioridade</label>
-										<input type="text" class="form-control spacer-input" ng-model="prioridade" id="prioridade" uib-typeahead="(prioridades.nome) for prioridades in getPrioridades($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectPrioridade($item, $model, $label)">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="potencial">Potencial</label>
-										<input type="text" class="form-control spacer-input" ng-model="potencial" id="potencial" >
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="consumoAg">Consumo Ano Gerencial</label>
-										<input type="text" class="form-control spacer-input" ng-model="consumoAg" id="consumoAg">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="con2021Ident">Consumo 2021 ident</label>
-										<input type="text" class="form-control spacer-input" ng-model="con2021Ident" id="con2021Ident">
-									</div>	
-									<div class="col-sm-2 spacer">
-										<label for="con2022Local">Consumo 2022 local</label>
-										<input type="text" class="form-control spacer-input" ng-model="con2022Local" id="con2022Local" >
-									</div>		
-									<div class="col-sm-2 spacer">
-										<label for="mesIniConsumo">Mes Início Consumo</label>
-										<input type="text" class="form-control spacer-input" ng-model="mesIniConsumo" id="mesIniConsumo" >
-									</div>											
-									<div class="col-sm-2 spacer">
-										<label for="probFechamento">% Prob. Fec.</label>
-										<input type="text" class="form-control spacer-input" ng-model="probFechamento" id="probFechamento" >
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="concorrencia">Concorrência</label>
-										<input type="text" class="form-control spacer-input" ng-model="concorrencia" id="concorrencia" >
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="precoConc">Preço Conc. US$</label>
-										<input type="text" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
-									</div>
-									<div class="col-sm-2 spacer hidden">
-										<label for="dataAtu">Data Atualização</label>
-										<input type="date" class="form-control spacer-input" ng-model="dataAtu" id="dataAtu" >
-									</div>
 								</div>
 							</div>
 							
@@ -471,42 +252,12 @@
 									<div class="col-sm-10 spacer">
 										<label for="acoes">Ações</label>
 										<textarea class="form-control spacer-input" ng-model="acoes" id="acoes" rows="3"></textarea>
-									</div>	
-									<div class="col-sm-2 spacer">
-										<label for="statusAcao">Status da Ação</label>
-										<input type="text" class="form-control spacer-input" ng-model="statusAcao" id="statusAcao" >
-									</div>		
+									</div>			
 								</div>
 							</div>
 							
 						</div>
 					
-						
-						<div role="tabpanel" class="tab-pane" id="docEdit-hist-projeto">
-							<div class="form-row">
-								<div class="col-sm-12 spacer">
-										<label for="histOportunidade">Histórico</label>
-										<textarea class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="col-sm-12 spacer">
-									<hr class="divider">
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="col-sm-11 spacer">
-									<label for="obsOportunidade">Observação</label>
-									<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
-								</div>
-								<div class="col-sm-1 spacer" style="padding-top: 30px;">
-									<label for="observacao"> </label>							
-									<div class="btn-group">
-										<button class="btn btn_grid btn_cor_padrao" ng-click="addObservacaoHistorico()"> Incluir </button>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 					
 				</div>	
@@ -650,46 +401,7 @@ angular
 					nome:'SOLICITAÇÃO DE AMOSTRA',
 					id:1
 				},
-				{
-					nome:'ENVIADA',
-					id:2
-				},
-				{
-					nome:'TESTE',
-					id:3
-				},
-				{
-					nome:'TESTE INDUSTRIAL',
-					id:4
-				},
-				{
-					nome:'CATÁLOGO',
-					id:5
-				},
-				{
-					nome:'REPROVADA TECNICAMENTE',
-					id:6
-				},
-				{
-					nome:'APROVADA TECNICAMENTE',
-					id:7
-				},
-				{
-					nome:'REPROVADA COMERCIALMENTE',
-					id:8
-				},
-				{
-					nome:'APROV. TEC E REP. COMERCIAL',
-					id:9
-				},
-				{
-					nome:'STAND BY',
-					id:10
-				},
-				{
-					nome:'CANCELADA',
-					id:11
-				},
+
 			];
 			return $scope.listaSituacaoAmostra;
 		};
@@ -704,14 +416,6 @@ angular
 					nome:'BAIXA',
 					id:1
 				},
-				{
-					nome:'MÉDIA',
-					id:2
-				},
-				{
-					nome:'ALTA',
-					id:3
-				}
 			];
 			return $scope.listaPrioridades;
 		};
@@ -726,22 +430,6 @@ angular
 					nome: 'PROSPECÇÃO',
 					id: 1
 				},
-				{
-					nome: 'OPORTUNIDADE',
-					id: 2
-				},
-				{
-					nome: 'PROJETO',
-					id: 3
-				},
-				{
-					nome: 'SUBSTITUIÇÃO',
-					id: 4
-				},
-				{
-					nome: 'CAMPANHA',
-					id: 5
-				}
 			];
 			return $scope.listaProjetos;
 		};
@@ -1407,169 +1095,6 @@ angular
 			});
 
 		};
-			
-		$scope.atualizaTabelaCompleta = (modo) =>{
-
-			$scope.dtOptionsFull = DTOptionsBuilder.newOptions()            
-			.withOption('ajax', {
-				url	: '/clicVendas/rest/pedidov2/lista',
-				type	: 'POST',
-				data	: function(d) {   
-							var param = {idCvTccnpj	: dadosUserLogado.cId};
-							var filter = {
-								fil1: $scope.filCliente,
-								fil2: $scope.filFornecedores,
-								fil3: $scope.filBU,
-								fil4: $scope.filCluster,
-								fil5: $scope.filStatusAmostra,
-								fil6: $scope.filDataEnvio,
-								fil7: $scope.filDataSolicitacao,
-								fil8: $scope.filSegmento,
-								fil9: $scope.filSubSegmento,
-								fil10: $scope.filPrioridade,
-								fil11: $scope.filProduto
-							};
-							d.param = param;
-							d.filter = filter;
-							return JSON.stringify(d);
-						},
-				dataSrc: function(json) {
-						
-						if (modo != 1){
-							$rootScope.dadosGrid = json.data;
-
-							for(ped of $rootScope.dadosGrid){
-								ped.jsonDocs = JSON.parse(ped.jsonDocs);
-							};
-
-							$scope.consultaPedidosERP($rootScope.dadosGrid);
-						};			
-						
-						return $rootScope.dadosGrid;	
-					}		
-				})
-					.withDataProp('data')
-					.withOption('processing', true)
-					.withOption('serverSide', true)
-					.withOption('bFilter', false)
-					.withOption('responsive', true)
-					.withOption('searchDelay', 1000)
-					.withOption('scrollY', '100%') 
-					.withOption('scrollX', '100%')            
-					.withPaginationType('full_numbers')            
-					.withDisplayLength(20)
-					.withDOM('ftrip')
-					.withButtons([
-				{
-					text: 'Novo',
-					key: '1',
-					className: 'btn_grid btn_cor_padrao',
-					action: function (e, dt, node, config) {									
-						$scope.abreFormulario();					
-					}
-				},		
-				{
-					text: 'Filtrar',
-					key: '2',
-					className: 'btn_grid btn_cor_padrao',
-					action: function (e, dt, node, config) {									
-						openNav();					
-					}
-				},		
-				{
-					text: 'Tabela Simplificada',
-					key: '3',
-					className: 'btn_grid btn_cor_padrao',
-					action: function () {									
-						$scope.mostraTabelaSimplificada();					
-					}
-				},	
-				{
-					text: 'Atualizar',
-					key: '4',
-					className: 'btn_grid btn_cor_padrao',
-					action: function () {									
-						$scope.atualizaTabelaCompleta();					
-					}
-				},									
-			]);
-			
-			defPD = {	'id'								:	{i:0,  vsbl: false,	tlt: '',        				width:''	},
-						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Pedido',					width:''	},
-						'jsonDocs[0].responsavel'			:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:''	},
-						'jsonDocs[0].projeto.nome'			:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:''	},
-						'jsonDocs[0].produtos.codigoProduto':	{i:5,  vsbl: true,	tlt: 'Código',					width:''	},
-						'jsonDocs[0].cliente.nome'			:	{i:6,  vsbl: true,	tlt: 'Nome',					width:''	},
-						'jsonDocs[0].uf'					:	{i:7,  vsbl: true,	tlt: 'UF',						width:''	},
-						'jsonDocs[0].vendedor.nome'			:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:''	},
-						'jsonDocs[0].segmento'				:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:''	},
-						'jsonDocs[0].subsegmento'			:	{i:10, vsbl: true,	tlt: 'Sub-Seg.',				width:''	},
-						'jsonDocs[0].bu'					:	{i:11, vsbl: true,	tlt: 'BU',						width:''	},
-						'jsonDocs[0].aplicacao'				:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:''	},
-						'jsonDocs[0].ano'					:	{i:13,  vsbl: true,	tlt: 'Ano',						width:''	},
-						'jsonDocs[0].familia'				:	{i:14, vsbl: true,	tlt: 'Família',					width:''	},
-						'jsonDocs[0].cluster'				:	{i:15, vsbl: true,	tlt: 'Cluster',					width:''	},
-						'jsonDocs[0].descricao'				:	{i:16, vsbl: true,	tlt: 'Descrição',				width:''	},
-						'jsonDocs[0].desagr'				:	{i:17, vsbl: true,	tlt: 'Agrup. Comercial',		width:''	},
-						'jsonDocs[0].quantidadeKg'			:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:''	},
-						'jsonDocs[0].dataStatus'			:	{i:19, vsbl: true,	tlt: 'Data Status',				width:''	},
-						'jsonDocs[0].situacao.nome'			:	{i:20, vsbl: true,	tlt: 'Situação',				width:''	},
-						'jsonDocs[0].consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:''	},
-						'jsonDocs[0].prioridade.nome'		:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:''	},
-						'jsonDocs[0].potencial0XCM'			:	{i:23, vsbl: true,	tlt: 'Potencial',				width:''	},
-						'jsonDocs[0].consumoAg'      		:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:''	},
-						'jsonDocs[0].con2021Ident'     		:	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:''	},
-						'jsonDocs[0].con2021n'      		:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:''	},
-						'jsonDocs[0].con2022n'      		:	{i:27, vsbl: true,	tlt: 'Con. 2022(em nº)',		width:''	},
-						'jsonDocs[0].con2022Local'    		:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:''	},
-						'jsonDocs[0].probFechamento'  		:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:''	},
-						'jsonDocs[0].concorrencia'    		:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:''	},
-						'jsonDocs[0].acoes'	      			:	{i:31, vsbl: true,	tlt: 'Ações',					width:''	},
-						'jsonDocs[0].statusAcao'      		:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:''	},
-						'jsonDocs[0].dataAtu'      			:	{i:33, vsbl: true,	tlt: 'Dat. Atu.',				width:''	},
-						'jsonDocs[0].ofertaData'      		:	{i:34, vsbl: true,	tlt: 'Dat. Oferta',				width:''	},
-						'jsonDocs[0].ofertaUnit'      		:	{i:35, vsbl: true,	tlt: 'Oferta Unit. (US$)',		width:''	},
-						'jsonDocs[0].potencial0XCM'   		:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:''	},
-						'jsonDocs[0].chaveCp'      			:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:''	},
-						'jsonDocs[0].identQtd'     			:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:''	},
-						'jsonDocs[0].venda'	      			:	{i:39, vsbl: true,	tlt: 'Venda',					width:''	},
-						'jsonDocs[0].vendaLocalKg'    		:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:''	},
-						'jsonDocs[0].ultVendaTabdin'  		:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:''	},
-						'jsonDocs[0].primVendaTabdin' 		:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:''	},
-						'jsonDocs[0].anoPrimVenda'     		:	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:''	},
-						'jsonDocs[0].totalFatUSD'      		:	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:''	},
-						'jsonDocs[0].margemR'	      		:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:''	},
-						'jsonDocs[0].preUSD'	      		:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:''	},
-						'jsonDocs[0].potVolAg'	      		:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:''	},
-				};
-		
-			
-			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
-			var montaColunas = [];
-			
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '65px').renderWith(function(data, type, row) {
-				var btnhtml = '';				
-				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
-				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
-				return btnhtml;
-			}));
-			
-			angular.forEach(defPD, function(value, key) {
-				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sWidth', value.width));
-			});
-			
-			$scope.dtColumnsFull = montaColunas;
-											
-			angular.element('#listDocumentsFull').attr('datatable', '');
-			$compile(angular.element('#listDocumentsFull'))($scope);
-
-			$scope.dtOptionsFull.withOption('fnRowCallback',
-				
-				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-					$compile(nRow)($scope);
-			});
-
-		};
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
@@ -1659,13 +1184,7 @@ angular
 		};
 			
 		$scope.atualizaTabela();
-		$scope.atualizaTabelaCompleta();
-				
-		$scope.mostraTabelaCompleta = () => {
-			$scope.tabelaCompleta = true;
-			$scope.atualizaTabelaCompleta(); 
-		};
-
+	
 		$scope.mostraTabelaSimplificada = () =>{
 			$scope.tabelaCompleta = false;
 			$scope.atualizaTabela();
