@@ -913,8 +913,6 @@ angular
 
 		$scope.abreFormulario = ($dados) =>{
 
-			console.log($scope.obsOportunidade, "HIST")
-
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
 
@@ -1563,7 +1561,7 @@ angular
 			}));
 			
 			angular.forEach(defPD, function(value, key) {
-				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sWidth', value.width));
+				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
 			});
 			
 			$scope.dtColumnsFull = montaColunas;
