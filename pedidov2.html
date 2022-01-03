@@ -1578,6 +1578,7 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
+			console.log("XXXX")
 			/*TO DO
 				Remover retorno do servidor, esta tabela usa variável carregada em tempo de execução
 			*/
@@ -1611,7 +1612,7 @@ angular
 				})
 					.withDataProp('data')
 					.withOption('processing', true)
-					.withOption('serverSide', true)
+					.withOption('serverSide', false)
 					.withOption('searchDelay', 1000)
 					.withOption('scrollY', '100%')      
 					.withOption('scrollX', '100%')       
