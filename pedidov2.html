@@ -1084,9 +1084,6 @@ angular
 		$scope.addObservacaoHistorico = () => {
 			/*Data*/
 			var dataAtual 	= new Date();
-			
-			
-
 			var horas 		= dataAtual.getHours();
 			var minutos 	= dataAtual.getMinutes();
 
@@ -1099,7 +1096,7 @@ angular
 			for(let i = 0; i < strHistorico.length; i++){
 				$scope.histOportunidade += `
 			
-- Descrição: ${strHistorico[i].item} 
+- Descrição: ${strHistorico[i].item} | Produto: ${$scope.descricaoProd} - ${$scope.codExterno}. 
 - Registrado em: ${dataAtual.toLocaleDateString('pt-BR')} às ${horas}:${minutos}`
 			}
 		
