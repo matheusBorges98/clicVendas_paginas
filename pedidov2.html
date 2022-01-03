@@ -828,15 +828,13 @@ angular
 							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
 							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
 							
-							/*Itens que serão atualizados*/
-							console.log(pedidosGravadosERP[k].jsonDocs[0], "JSONDOCS")
-							
+							/*Itens que serão atualizados*/							
 							pedidosGravadosERP[k].jsonDocs[0].emissao 							= dadosAtualizados[0].datEmi;
 							pedidosGravadosERP[k].jsonDocs[0].ofertaUnit 						= dadosAtualizados[0].produto[0].preUni;
-							pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= "5"
-							//pedidosGravadosERP[k].jsonDocs[0].bu 			= dadosAtualizados[0].produto[0].codPro;
 
-							console.log(pedidosGravadosERP[k].jsonDocs[0], "JSONDOCS AFTER LOOP")
+							/*Atualiza informações do produto vinculado ao pedido*/
+							//pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= "5"
+
 							continue;
 						};
 					};
