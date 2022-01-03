@@ -1082,28 +1082,24 @@ angular
 		};
 
 		$scope.addObservacaoHistorico = () => {
-
-			let strHistorico = [];
-
 			/*Data*/
 			var dataAtual 	= new Date();
-			var dia 		= dataAtual.getDate();
-			var mes 		= (dataAtual.getMonth() + 1);
+			
+			
+
 			var horas 		= dataAtual.getHours();
 			var minutos 	= dataAtual.getMinutes();
-			
-			let currentDate = moment().toISOString();
+
+			let strHistorico = [];
 
 			strHistorico.push({
 				item: $scope.obsOportunidade
 			});
 
-			console.log(strHistorico);
-
 			for(let i = 0; i < strHistorico.length; i++){
 				$scope.histOportunidade += `
 			
-Descrição: ${strHistorico[i].item} - Registrado em: ${dia}/${mes} às ${horas}:${minutos}`
+Descrição: ${strHistorico[i].item} - Registrado em: ${dataAtual.toLocaleDateString('pt-BR')} às ${horas}:${minutos}`
 			}
 		
 			$scope.obsOportunidade = "";
