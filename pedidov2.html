@@ -1591,7 +1591,7 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("teste111")
+			console.log("teste1121")
 			/*TO DO - Será atualizado para funcionar desta forma | Ajustar botão e atualização a cada mudança*/
 			// $(document).ready(function(){
 			//     $('#listDocumentsProdutos').DataTable({
@@ -1615,16 +1615,16 @@ angular
 			// 	});
 			// });
 
-			$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
-					.fromSource('[{"id": 1}]')
-					.withDataProp('data')
-					.withOption('processing', true)
-					.withOption('serverSide', false)
-					.withOption('searchDelay', 1000)
-					.withOption('scrollY', '100%')      
-					.withOption('scrollX', '100%')       
-					.withDisplayLength(20)
-					.withDOM('tr');
+			$scope.dtOptionsProd = DTOptionsBuilder            
+					.fromSource('[{"id": 1}]');
+					// .withDataProp('data')
+					// .withOption('processing', true)
+					// .withOption('serverSide', false)
+					// .withOption('searchDelay', 1000)
+					// .withOption('scrollY', '100%')      
+					// .withOption('scrollX', '100%')       
+					// .withDisplayLength(20)
+					// .withDOM('tr');
 					
 			// defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
 			// 			'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
