@@ -1591,7 +1591,7 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("teste45", $rootScope.produtos)
+			/*TO DO - Será atualizado para funcionar desta forma | Ajustar botão e atualização a cada mudança*/
 			$(document).ready(function(){
 			    $('#listDocumentsProdutos').DataTable({
 					data			:$rootScope.produtos,
@@ -1614,14 +1614,9 @@ angular
 				});
 			});
 
-			$('#listDocumentsProdutos').DataTable().clear();
-			$('#listDocumentsProdutos').DataTable().draw();
+			$('#listDocumentsProdutos').DataTable().row().invalidate().render()();
+	
 
-
-		
-			/*TO DO
-				Ajustar botão na tabela
-			*/
 			// $scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
 			// .withOption('ajax', {
 			// 	url	: '/clicVendas/rest/pedidov2/lista',
