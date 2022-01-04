@@ -1594,9 +1594,9 @@ angular
 		$scope.atualizaTabelaProdutos = () =>{
 			console.log("teste2", $rootScope.produtos)
 			$(document).ready(function(){
-				let table =	$('#listDocumentsProdutos').DataTable({
+				$('#listDocumentsProdutos').DataTable({
 					data			:$rootScope.produtos,
-					defaultContent	: "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(table.row)+")' ></div>",
+					defaultContent	: "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(this.row)+")' ></div>",
 					deferRender		: true,
 					scrollY			: 200,
 					scrollCollapse	: true,
