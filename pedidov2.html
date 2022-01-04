@@ -213,8 +213,21 @@
 								</div>
 								
 								<div class="form-group col-md-12">
-									<div class="col-sm-12 spacer">
+									<!-- <div class="col-sm-12 spacer">
 										<table id="listDocumentsProdutos" dt-options="dtOptionsProd" dt-columns="dtColumnsProd" dt-instance="dtInstanceProd" class="row-border responsive hover table-striped table-bordered"></table>
+									</div> -->
+									<div class="col-sm-12 spacer">
+										<table id="listDocumentsProdutos" class="row-border responsive hover table-striped table-bordered">
+											<thead>
+												<tr>
+													<th>Produto</th>
+													<th>Cód. Produto</th>
+													<th>Quantidade</th>
+													<th>Consumo Kg/Mês</th>
+													<th>Aplicação</th>
+												</tr>
+											</thead>
+										</table>
 									</div>
 								</div>
 							</div>
@@ -1578,79 +1591,86 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("Yz")
+			console.log("YzXXX")
+			$('listDocumentsProdutos').DataTable({
+				data			:$rootScope.produtos,
+				deferRender		: true,
+				scrollY			: 200,
+				scrollCollapse	: true,
+				scroller		: true
+			})
 			/*TO DO
 				Remover retorno do servidor, esta tabela usa variável carregada em tempo de execução
 			*/
-			$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
-			.withOption('ajax', {
-				url	: '/clicVendas/rest/pedidov2/lista',
-				type	: 'POST',
-				data	: function(d) {   
-							var param = {idCvTccnpj	: dadosUserLogado.cId};
-							var filter = {
-								fil1:  '',
-								fil2:  '',
-								fil3:  '',
-								fil4:  '',
-								fil5:  '',
-								fil6:  '',
-								fil7:  '',
-								fil8:  '',
-								fil9:  '',
-								fil10: '',
-								fil11: ''
-							};
-							d.param = param;
-							d.filter = filter;
-							return JSON.stringify(d);
-						},
-				dataSrc: function(json) {
+			// $scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
+			// .withOption('ajax', {
+			// 	url	: '/clicVendas/rest/pedidov2/lista',
+			// 	type	: 'POST',
+			// 	data	: function(d) {   
+			// 				var param = {idCvTccnpj	: dadosUserLogado.cId};
+			// 				var filter = {
+			// 					fil1:  '',
+			// 					fil2:  '',
+			// 					fil3:  '',
+			// 					fil4:  '',
+			// 					fil5:  '',
+			// 					fil6:  '',
+			// 					fil7:  '',
+			// 					fil8:  '',
+			// 					fil9:  '',
+			// 					fil10: '',
+			// 					fil11: ''
+			// 				};
+			// 				d.param = param;
+			// 				d.filter = filter;
+			// 				return JSON.stringify(d);
+			// 			},
+			// 	dataSrc: function(json) {
 			
-					return $rootScope.produtos;
-					}
-				})
+			// 		return $rootScope.produtos;
+			// 		}
+			// 	})
 					
-					.withDataProp('data')
-					.withOption('processing', true)
-					.withOption('serverSide', false)
-					.withOption('searchDelay', 1000)
-					.withOption('scrollY', '100%')      
-					.withOption('scrollX', '100%')       
-					.withDisplayLength(20)
-					.withDOM('tr');
+			// 		.withDataProp('data')
+			// 		.withOption('processing', true)
+			// 		.withOption('serverSide', false)
+			// 		.withOption('searchDelay', 1000)
+			// 		.withOption('scrollY', '100%')      
+			// 		.withOption('scrollX', '100%')       
+			// 		.withDisplayLength(20)
+			// 		.withDOM('tr');
 					
-			defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
-						'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
-						'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
-						'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
-						'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicacação',		width:''}	
-				};
+			// defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
+			// 			'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
+			// 			'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
+			// 			'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
+			// 			'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicação',		width:''}	
+			// 	};
 
 
-			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
-			var montaColunas = [];
+			// DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
+			// var montaColunas = [];
 
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-				var btnhtml = '';				
-				btnhtml += "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(row)+")' ></div>";
-				return btnhtml;
-			}));
+			// montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+			// 	var btnhtml = '';				
+			// 	btnhtml += "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(row)+")' ></div>";
+			// 	return btnhtml;
+			// }));
 
-			angular.forEach(defPD, function(value, key) {
-				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withClass('responsive').withOption('sWidth', value.width));
-			});
+			// angular.forEach(defPD, function(value, key) {
+			// 	montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withClass('responsive').withOption('sWidth', value.width));
+			// });
 
-			$scope.dtColumnsProd = montaColunas;
+			// $scope.dtColumnsProd = montaColunas;
 											
-			angular.element('#listDocumentsProdutos').attr('datatable', '');
-			$compile(angular.element('#listDocumentsProdutos'))($scope);
+			// angular.element('#listDocumentsProdutos').attr('datatable', '');
+			// $compile(angular.element('#listDocumentsProdutos'))($scope);
 
-			$scope.dtOptionsProd.withOption('fnRowCallback',
+			// $scope.dtOptionsProd.withOption('fnRowCallback',
 				
-				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-					$compile(nRow)($scope);
-			});
+			// 	function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+			// 		$compile(nRow)($scope);
+			// });
 
 		};
 
