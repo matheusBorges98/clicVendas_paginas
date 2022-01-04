@@ -1592,11 +1592,10 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("teste2", $rootScope.produtos)
+			console.log("teste3", $rootScope.produtos)
 			$(document).ready(function(){
 				$('#listDocumentsProdutos').DataTable({
 					data			:$rootScope.produtos,
-					defaultContent	: "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(this.row)+")' ></div>",
 					deferRender		: true,
 					scrollY			: 200,
 					scrollCollapse	: true,
@@ -1604,6 +1603,7 @@ angular
 					bFilter			: false,
 					bPaginate		: false,
 					columns:[
+						{defaultContent	: "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(this.row)+")' ></div>"},
 						{data : 'descricao'				},
 						{data : 'codigoProduto'			},
 						{data : 'quantidade'			},
@@ -1615,7 +1615,7 @@ angular
 			});
 		
 			/*TO DO
-				Remover retorno do servidor, esta tabela usa variável carregada em tempo de execução
+				Ajustar botão na tabela
 			*/
 			// $scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
 			// .withOption('ajax', {
