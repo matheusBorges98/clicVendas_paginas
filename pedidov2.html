@@ -156,7 +156,7 @@
 									<div class="col-sm-7 spacer">
 										<label for="nomeCliente">Nome Cliente</label>
 										<div class="input-group spacer">
-											<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control spacer-input" required="true" autocomplete="off" typeahead-min-length="0" >
+											<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
 											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 										</div>
 									</div>
@@ -164,7 +164,7 @@
 									<div class="col-sm-2 spacer">
 										<div class="input-group spacer">
 											<label for="codigoCliente">Cód. do Cliente</label>
-											<input type="text" readonly class="form-control spacer-input" ng-model="codigoCliente" id="codigoCliente">
+											<input type="text" readonly class="form-control" ng-model="codigoCliente" id="codigoCliente">
 										</div>
 									</div>
 
@@ -172,7 +172,7 @@
 									<div class="col-sm-3 spacer ">
 										<div class="input-group spacer">
 											<label for="vendedor">Vendedor</label>
-											<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendedor" id="vendedor">
+											<input type="text" ng-disabled="inputDesabilitado" class="form-control" ng-model="vendedor" id="vendedor">
 										</div>
 									</div>
 								</div>
