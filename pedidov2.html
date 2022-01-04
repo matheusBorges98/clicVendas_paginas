@@ -1591,7 +1591,7 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("teste1", $rootScope.produtos)
+			console.log("teste2", $rootScope.produtos)
 			$(document).ready(function(){
 				$('#listDocumentsProdutos').DataTable({
 					data			:$rootScope.produtos,
@@ -1600,11 +1600,11 @@ angular
 					scrollCollapse	: true,
 					scroller		: true,
 					columns:[
-						{data : descricao			},
-						{data : codigoProduto		},
-						{data : quantidade			},
-						{data : consumoProdutoKgMes	},
-						{data : aplicacao			}
+						{data : 'descricao'				},
+						{data : 'codigoProduto'			},
+						{data : 'quantidade'			},
+						{data : 'consumoProdutoKgMes'	},
+						{data : 'aplicacao'				}
 
 					]
 				});
