@@ -57,13 +57,13 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="filCarteira">Data Envio</label>
-						<input type="date" style="width: 75px;" class="form-control spacer-input" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" " placeholder="In�cio">
+						<label for="filCarteira">Data Emissão</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" " placeholder="Ex: 01/12/2021">
 					</div>
 					
 					<div class="form-group">
 						<label for="filCarteira">Data Solicitação</label>
-						<input type="text" style="width: 75px;" class="form-control spacer-input"  id="filDataSolicitacao" ng-model="filDataSolicitacao" aria-describedby=" " placeholder="Fim">
+						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filDataSolicitacao" ng-model="filDataSolicitacao" aria-describedby=" " placeholder="Ex: 01/12/2021">
 					</div>
 					
 					<div class="form-group">
@@ -1565,7 +1565,7 @@ angular
 			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
 			var montaColunasFull = [];
 			
-			montaColunasFull.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '125px').renderWith(function(data, type, row) {
+			montaColunasFull.push(DTColumnBuilder.newColumn(null).withTitle('Editar/Exluir').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '125px').renderWith(function(data, type, row) {
 				var btnhtml = '';				
 				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
 				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
