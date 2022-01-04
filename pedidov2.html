@@ -1591,6 +1591,7 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
+			console.log("teste111")
 			/*TO DO - Será atualizado para funcionar desta forma | Ajustar botão e atualização a cada mudança*/
 			// $(document).ready(function(){
 			//     $('#listDocumentsProdutos').DataTable({
@@ -1615,34 +1616,7 @@ angular
 			// });
 
 			$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
-			.withOption('ajax', {
-				url	: '/clicVendas/rest/pedidov2/lista',
-				type	: 'POST',
-				data	: function(d) {   
-							var param = {idCvTccnpj	: dadosUserLogado.cId};
-							var filter = {
-								fil1:  '',
-								fil2:  '',
-								fil3:  '',
-								fil4:  '',
-								fil5:  '',
-								fil6:  '',
-								fil7:  '',
-								fil8:  '',
-								fil9:  '',
-								fil10: '',
-								fil11: ''
-							};
-							d.param = param;
-							d.filter = filter;
-							return JSON.stringify(d);
-						},
-				dataSrc: function(json) {
-			
-					return $rootScope.produtos;
-					}
-				})
-					
+					.fromSource('[{"id": 1}]')
 					.withDataProp('data')
 					.withOption('processing', true)
 					.withOption('serverSide', false)
@@ -1652,11 +1626,14 @@ angular
 					.withDisplayLength(20)
 					.withDOM('tr');
 					
-			defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
-						'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
-						'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
-						'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
-						'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicação',		width:''}	
+			// defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
+			// 			'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
+			// 			'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
+			// 			'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
+			// 			'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicação',		width:''}	
+			// 	};
+
+			defPD = {	'id' 								:	{i:1, vsbl: true,	tlt: 'id',			width:''},
 				};
 
 
