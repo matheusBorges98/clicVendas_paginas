@@ -1652,27 +1652,31 @@ angular
 
 			var id = $dados.id;
 
-			bootbox.confirm({
-				message:'Confirma a exclusão do registro?',
-				onHidden: function(e) {
-					$scope.atualizaTabela();
-					$scope.atualizaTabelaCompleta();
-				},
-				callback: function(confirmacao){
+			if($dados.jsonDocs[0].pedido != 0){
+				$scope.geraNotificacao("Este pedido já está no ERP. Não é possível exclui-lo.");
+			}else{
+				bootbox.confirm({
+					message:'Confirma a exclusão do registro?',
+					onHidden: function(e) {
+						$scope.atualizaTabela();
+						$scope.atualizaTabelaCompleta();
+					},
+					callback: function(confirmacao){
 
-					if (confirmacao){
-						$http.delete('/clicVendas/rest/pedidov2/deleta/'+id); 
-						setTimeout(() => {
-							$scope.atualizaTabela();
-							$scope.atualizaTabelaCompleta();
-						}, 1500);
-					}
-				},
-				buttons: {
-					cancel: {label: 'Cancelar',className:'btn-default'},
-					confirm: {label: 'Excluir',className:'btn_grid btn_cor_padrao'},
-				},
-			}); 
+						if (confirmacao){
+							$http.delete('/clicVendas/rest/pedidov2/deleta/'+id); 
+							setTimeout(() => {
+								$scope.atualizaTabela();
+								$scope.atualizaTabelaCompleta();
+							}, 1500);
+						}
+					},
+					buttons: {
+						cancel: {label: 'Cancelar',className:'btn-default'},
+						confirm: {label: 'Excluir',className:'btn_grid btn_cor_padrao'},
+					},
+				}); 
+			};
 		};
 			
 	});
