@@ -146,8 +146,8 @@
 								<div class="form-group col-md-12">
 									
 									<div class="col-sm-7 spacer">
-										<label for="nomeCliente">Nomey Cliente</label>
-										<div class="input-group spacer">
+										<label for="nomeCliente">Nome Cliente</label>
+										<div class="input-group">
 											<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
 											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 										</div>
