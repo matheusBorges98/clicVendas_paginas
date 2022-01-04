@@ -1429,7 +1429,6 @@ angular
 		};
 			
 		$scope.atualizaTabelaCompleta = (modo) =>{
-			console.log("X")
 			$scope.dtOptionsFull = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
 				url	: '/clicVendas/rest/pedidov2/lista',
@@ -1592,7 +1591,7 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("teste4", $rootScope.produtos)
+			console.log("teste45", $rootScope.produtos)
 			$(document).ready(function(){
 			    $('#listDocumentsProdutos').DataTable({
 					data			:$rootScope.produtos,
