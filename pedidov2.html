@@ -1594,7 +1594,7 @@ angular
 		$scope.atualizaTabelaProdutos = () =>{
 			console.log("teste3", $rootScope.produtos)
 			$(document).ready(function(){
-				$('#listDocumentsProdutos').DataTable({
+			    var table =	$('#listDocumentsProdutos').DataTable({
 					data			:$rootScope.produtos,
 					deferRender		: true,
 					scrollY			: 200,
@@ -1613,7 +1613,11 @@ angular
 
 					]
 				});
+
+				table.reload();
 			});
+
+
 		
 			/*TO DO
 				Ajustar botão na tabela
