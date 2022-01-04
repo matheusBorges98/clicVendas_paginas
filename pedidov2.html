@@ -220,6 +220,7 @@
 										<table id="listDocumentsProdutos" class="row-border responsive hover table-striped table-bordered">
 											<thead>
 												<tr>
+													<th></th>
 													<th>Produto</th>
 													<th>Cód. Produto</th>
 													<th>Quantidade</th>
@@ -1593,8 +1594,9 @@ angular
 		$scope.atualizaTabelaProdutos = () =>{
 			console.log("teste2", $rootScope.produtos)
 			$(document).ready(function(){
-				$('#listDocumentsProdutos').DataTable({
+				let table =	$('#listDocumentsProdutos').DataTable({
 					data			:$rootScope.produtos,
+					defaultContent	: "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(table.row)+")' ></div>",
 					deferRender		: true,
 					scrollY			: 200,
 					scrollCollapse	: true,
