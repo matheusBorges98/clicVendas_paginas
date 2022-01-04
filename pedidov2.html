@@ -1591,14 +1591,17 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("YzXXX")
-			$('listDocumentsProdutos').DataTable({
-				data			:$rootScope.produtos,
-				deferRender		: true,
-				scrollY			: 200,
-				scrollCollapse	: true,
-				scroller		: true
-			})
+			console.log("teste1")
+			$(document).ready(function(){
+				$('#listDocumentsProdutos').DataTable({
+					data			:$rootScope.produtos,
+					deferRender		: true,
+					scrollY			: 200,
+					scrollCollapse	: true,
+					scroller		: true
+				});
+			});
+		
 			/*TO DO
 				Remover retorno do servidor, esta tabela usa variável carregada em tempo de execução
 			*/
