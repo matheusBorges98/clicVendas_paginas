@@ -216,20 +216,6 @@
 									<div class="col-sm-12 spacer">
 										<table id="listDocumentsProdutos" dt-options="dtOptionsProd" dt-columns="dtColumnsProd" dt-instance="dtInstanceProd" class="row-border responsive hover table-striped table-bordered"></table>
 									</div>
-									<!-- <div class="col-sm-12 spacer">
-										<table id="listDocumentsProdutos" class="row-border responsive hover table-striped table-bordered">
-											<thead>
-												<tr>
-													<th>Excluir</th>
-													<th>Produto</th>
-													<th>Cód. Produto</th>
-													<th>Quantidade</th>
-													<th>Consumo Kg/Mês</th>
-													<th>Aplicação</th>
-												</tr>
-											</thead>
-										</table>
-									</div> -->
 								</div>
 							</div>
 						</div>
@@ -1591,50 +1577,50 @@ angular
 
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("tt33322")
-			/*TO DO - Será atualizado para funcionar desta forma | Ajustar botão e atualização a cada mudança*/
-			// $(document).ready(function(){
-			//     $('#listDocumentsProdutos').DataTable({
-			// 		data			:$rootScope.produtos,
-			// 		deferRender		: true,
-			// 		scrollY			: 200,
-			// 		scrollCollapse	: true,
-			// 		scroller		: true,
-			// 		bFilter			: false,
-			// 		bPaginate		: false,
-			// 		retrieve		: true,
-			// 		columns:[
-			// 			{defaultContent	: "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(this.row)+")' ></div>"},
-			// 			{data : 'descricao'				},
-			// 			{data : 'codigoProduto'			},
-			// 			{data : 'quantidade'			},
-			// 			{data : 'consumoProdutoKgMes'	},
-			// 			{data : 'aplicacao'				}
-
-			// 		]
-			// 	});
-			// });
-
-			$scope.dtOptionsProd = DTOptionsBuilder.fromSource([{"id": 1}])
-        .withDataProp('data')
-        .withPaginationType('full_numbers');
-					// .withDataProp('data')
-					// .withOption('processing', true)
-					// .withOption('serverSide', false)
-					// .withOption('searchDelay', 1000)
-					// .withOption('scrollY', '100%')      
-					// .withOption('scrollX', '100%')       
-					// .withDisplayLength(20)
-					// .withDOM('tr');
+		
+			$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
+			.withOption('ajax', {
+				url	: '/clicVendas/rest/pedidov2/lista',
+				type	: 'POST',
+				data	: function(d) {   
+							var param = {idCvTccnpj	: dadosUserLogado.cId};
+							var filter = {
+								fil1:  '',
+								fil2:  '',
+								fil3:  '',
+								fil4:  '',
+								fil5:  '',
+								fil6:  '',
+								fil7:  '',
+								fil8:  '',
+								fil9:  '',
+								fil10: '',
+								fil11: ''
+							};
+							d.param = param;
+							d.filter = filter;
+							return JSON.stringify(d);
+						},
+				dataSrc: function(json) {
+			
+					return $rootScope.produtos;
+					}
+				})
 					
-			// defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
-			// 			'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
-			// 			'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
-			// 			'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
-			// 			'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicação',		width:''}	
-			// 	};
-
-			defPD = {	'id' 								:	{i:1, vsbl: true,	tlt: 'id',			width:''},
+					.withDataProp('data')
+					.withOption('processing', true)
+					.withOption('serverSide', false)
+					.withOption('searchDelay', 1000)
+					.withOption('scrollY', '100%')      
+					.withOption('scrollX', '100%')       
+					.withDisplayLength(20)
+					.withDOM('tr');
+					
+			defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
+						'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
+						'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
+						'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
+						'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicação',		width:''}	
 				};
 
 
