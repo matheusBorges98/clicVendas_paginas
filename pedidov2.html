@@ -1653,7 +1653,7 @@ angular
 			var id = $dados.id;
 
 			if($dados.jsonDocs[0].pedido != 0){
-				$scope.geraNotificacao("Este pedido já está no ERP. Não é possível exclui-lo.");
+				$scope.geraNotificacao("Este pedido já está no ERP. Não é possível exclui-lo.", 2500);
 			}else{
 				bootbox.confirm({
 					message:'Confirma a exclusão do registro?',
