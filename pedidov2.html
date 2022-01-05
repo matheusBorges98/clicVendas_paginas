@@ -1248,25 +1248,9 @@ angular
 			/*Recebe dados e para que sejam feitas as alterações necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
 			
-			if(rotina == 2){
-				/*Faz o envio dos produtos como um array para o ERP*/
-				let produtos = [];
-				/* Lista todos os documentos e aplica o filtro pelo HashDoc, caso o documento já exista na base Clic, adiciona os produtos ao pedido que sejam do mesmo HashDoc*/
-				
-				if(id > 0){
-					let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
-
-					for(i = 0; i < allDocs.length; i++){
-						produtos.push(allDocs[i].jsonDocs[0].produtos);		
-					}
-				}
-	
+			if(rotina == 2){					
 				let sendToERP 			= JSON.parse(dados.jsonDocs);
 
-				if(id > 0){
-					sendToERP[0].produtos 	= produtos; /*Array de produtos*/
-				}
-						
 				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
 				
 				/*Atualiza numero do pedido*/
@@ -1278,7 +1262,7 @@ angular
 
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){
 					
-					json[0].produtos			= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
+					//json[0].produtos			= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 					dados.jsonDocs 		  		= JSON.stringify(json); 
 
 					let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
