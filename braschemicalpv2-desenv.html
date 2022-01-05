@@ -1,18 +1,21 @@
 <!DOCTYPE html>  
 <html ng-app="appV2">  
+<meta charset="UTF-8"/>
 <head> 
-	<meta charset="utf-8"/>
+	<meta charset="UTF-8"/>
 	<!-- Imports CSS-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.tableTools.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
+	
+	<!--<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/bootstrap.min.css">-->
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.tableTools.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
 	<!-- Imports CSS-->
 
 <!-- View --> 
@@ -64,7 +67,7 @@
 					<div class="form-group">
 						<label for="filCarteira">Data Solicitação</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filDataSolicitacao" ng-model="filDataSolicitacao" aria-describedby=" " placeholder="Ex: 01/12/2021">
-					</div>
+				</div>
 					
 					<div class="form-group">
 						<label for="filCarteira">Segmento</label>
@@ -152,7 +155,7 @@
 											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 										</div>
 									</div>
-
+									
 									<div class="col-sm-2 spacer">
 										<label for="codigoCliente">Cód. do Cliente</label>
 										<div class="input-group spacer">
@@ -195,7 +198,7 @@
 									</div>
 
 									<div class="col-sm-2 spacer">
-										<label for="consumo">Quantidade</label>
+										<label for="quantidadeProduto">Quantidade</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="quantidadeProduto" id="quantidadeProduto">
 									</div>
 
@@ -238,9 +241,9 @@
 
 							<div class="form-row ">
 								<div class="form-group col-md-12" >
-									<div class="col-sm-2 spacer ">
+									<div class="col-sm-2 spacer hidden">
 										<label for="anoFat">Ano Faturamento</label>
-										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoFat" id="anoFat">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoFat" id="anoFat" >
 									</div>
 									<div class="col-sm-3 spacer ">
 										<label for="responsavel">Responsável</label>
@@ -321,8 +324,8 @@
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="desagr" id="desagr">
 									</div>
 									<div class="col-sm-2 spacer">
-										<label for="quantidadeKg">Qtde (kg)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="quantidadeKg" id="quantidadeKg">
+										<label for="quantidade">Qtde (kg)</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="quantidade" id="quantidade">
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="dataStatus">Data Status</label>
@@ -363,10 +366,10 @@
 									</div>			  
 									
 									<div class="col-sm-2 spacer">
-										<label for="venda">INDENT Qtde</label>
+										<label for="identQtd">INDENT Qtde</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="identQtd" id="identQtd">
 									</div>			  
-									<div class="col-sm-2 spacer">
+									<div class="col-sm-2 spacer hidden">
 										<label for="venda">Venda</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="venda" id="venda">
 									</div>			  
@@ -428,7 +431,7 @@
 										<input type="text" class="form-control spacer-input" ng-model="potencial" id="potencial" >
 									</div>
 									<div class="col-sm-2 spacer">
-										<label for="consumoAg">Consumo Ano Gerencial</label>
+										<label for="consumoAg">Consumo Ano Ger.</label>
 										<input type="text" class="form-control spacer-input" ng-model="consumoAg" id="consumoAg">
 									</div>
 									<div class="col-sm-2 spacer">
@@ -487,7 +490,7 @@
 								<div class="col-sm-12 spacer">
 										<label for="histOportunidade">Histórico</label>
 										<textarea class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
-								</div>
+									</div>
 							</div>
 							<div class="form-row">
 								<div class="col-sm-12 spacer">
@@ -538,30 +541,30 @@
 	<!-- View --> 
 
 <!-- Scripts importados -->
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/jquery-3.1.1.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/easytimer.min.js"></script>	
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-route.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-ui-router.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-cookies.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angular-ui-notification/angular-ui-notification.min.js"></script>  
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/ui-bootstrap-tpls-2.5.0.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/dist/jquery.dataTables.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/dist/angular-datatables.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/bootstrap.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.bootstrap.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.factory.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.options.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/dataTables.buttons.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.colVis.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.flash.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.html5.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.print.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.buttons.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/jquery-3.1.1.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/easytimer.min.js"></script>	
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-route.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-ui-router.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-cookies.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angular-ui-notification/angular-ui-notification.min.js"></script>  
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/ui-bootstrap-tpls-2.5.0.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/dist/jquery.dataTables.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/dist/angular-datatables.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/bootstrap.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.bootstrap.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.factory.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.options.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/dataTables.buttons.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.colVis.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.flash.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.html5.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.print.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.buttons.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/fullcalendar-3.10.0/lib/moment.min.js"></script>	
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/fullcalendar-3.10.0/lib/moment.min.js"></script>	
 <!-- Scripts importados -->	
 
 <script>
@@ -794,7 +797,7 @@ angular
 
 		$scope.consultaPedidosERP = async () => {
 			
-			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != '');
+			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != '' &&  parseInt(doc.jsonDocs[0].pedido) > 0);
 			let consulta 			= [];
 
 			for(i = 0; i < pedidosGravadosERP.length; i++){
@@ -817,23 +820,45 @@ angular
 				}
 			);
 			
+			console.log(result)
+			
 			for(k = 0; k < pedidosGravadosERP.length; k++){				
 				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
 				if(dadosAtualizados && dadosAtualizados.length > 0){
 					for(l=0; l < $rootScope.dadosGrid.length; l++){
+
 						/*Verifica -
 							Codigo externo - Codigo variacao - Numero pedido ERP*/
 						if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
 							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
 							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
 							
-							/*Itens que serão atualizados*/							
+							/*Itens que serão atualizados*/
+							
+							/*pedidosGravadosERP[k].jsonDocs[0].anoFat		= dadosAtualizados[0].ano;*/
 							pedidosGravadosERP[k].jsonDocs[0].emissao 							= dadosAtualizados[0].datEmi;
+							pedidosGravadosERP[k].jsonDocs[0].responsavel 						= dadosAtualizados[0].respFor;
+							pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].sigufs;
+							pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].bu;
+							pedidosGravadosERP[k].jsonDocs[0].subsegmento						= dadosAtualizados[0].subseg;
+							pedidosGravadosERP[k].jsonDocs[0].segmento							= dadosAtualizados[0].segmento;
+							
+							pedidosGravadosERP[k].jsonDocs[0].familia 							= dadosAtualizados[0].produto[0].familia;
+							pedidosGravadosERP[k].jsonDocs[0].cluster 							= dadosAtualizados[0].produto[0].cluster;
+							pedidosGravadosERP[k].jsonDocs[0].desagr 							= dadosAtualizados[0].produto[0].agrCom;
+							
+							pedidosGravadosERP[k].jsonDocs[0].situacao	 						= dadosAtualizados[0].produto[0].sitAmostra;
+							pedidosGravadosERP[k].jsonDocs[0].justificativa						= dadosAtualizados[0].produto[0].justificativa;
+							//pedidosGravadosERP[k].jsonDocs[0].consumoProdutoKgMes	= dadosAtualizados[0].produto[0].consumo;
+							pedidosGravadosERP[k].jsonDocs[0].quantidade 						= dadosAtualizados[0].produto[0].qtdPed;
+							pedidosGravadosERP[k].jsonDocs[0].identQtd	 						= dadosAtualizados[0].produto[0].identQtd;
+							pedidosGravadosERP[k].jsonDocs[0].ofertaData 						= dadosAtualizados[0].produto[0].ofertaData;
+							pedidosGravadosERP[k].jsonDocs[0].vendaLocalKg 						= dadosAtualizados[0].produto[0].vendaLocal;
 							pedidosGravadosERP[k].jsonDocs[0].ofertaUnit 						= dadosAtualizados[0].produto[0].preUni;
-
+								
 							/*Atualiza informações do produto vinculado ao pedido*/
-							//pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= "5"
+							pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= dadosAtualizados[0].produto[0].consumoCliente;
 
 							continue;
 						};
@@ -847,8 +872,11 @@ angular
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
-			$scope.geraNotificacao('Enviando pedido para o ERP...', 2000);
-			
+			let dialog = bootbox.dialog({
+				message: "<p style='font-size=1.2em' class='text-center'> O pedido está sendo enviado ao ERP...</p>",
+				closeButton: false
+			});
+
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj : dadosUserLogado.cId,
@@ -858,8 +886,16 @@ angular
 					pDocumento : {documento : $item}
 				}		
 			);
-			
-			return result;
+
+			if(!isNaN(parseInt(result))){
+				dialog.modal('hide');
+				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP', 2000)
+			}else{
+				dialog.modal('hide');
+				$scope.geraNotificacao('Houve uma falha na gravação do pedido: ' + result, 2500);
+			};
+			//return result;
+			return 63182;
 		};
 
 		$scope.getProdutos = (val) => {			
@@ -867,7 +903,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431; /*Lista de preço com ID fixo*/
+			dados.idCvTolistapreco	= 41943; /*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -922,7 +958,7 @@ angular
 				$scope.codigoCliente		= '';
 				
 				$scope.chave 				= '';
-				$scope.ano 					= '';
+				$scope.anoFat 		    	= '';
 				$scope.responsavel			= '';
 				$scope.projeto				= '';
 				
@@ -941,7 +977,7 @@ angular
 				$scope.cluster				= '';
 				$scope.desagr				= '';
 				$scope.dataStatus			= '';
-				$scope.quantidadeKg			= '';
+				$scope.quantidade			= '';
 				$scope.situacao				= '';
 				$scope.justificativa		= '';
 				$scope.consumoProdutoKgMes	= '';
@@ -986,9 +1022,8 @@ angular
 				$scope.frmCliente			= docs.cliente;
 				$scope.codigoCliente		= docs.cliente.codExterno;
 				$scope.nomeCliente			= docs.cliente.nome
-
 				$scope.chave 				= docs.chave;
-				$scope.ano 					= docs.ano;
+				$scope.anoFat				= docs.ano;
 				$scope.responsavel			= docs.responsavel;
 				$scope.projeto				= docs.projeto;
 				$scope.codigo				= docs.codigo;
@@ -1003,7 +1038,7 @@ angular
 				$scope.cluster				= docs.cluster;
 				$scope.desagr				= docs.desagr;
 				$scope.dataStatus			= docs.dataStatus;
-				$scope.quantidadeKg			= docs.quantidadeKg;
+				$scope.quantidade			= docs.quantidade;
 				$scope.situacao				= docs.situacao;
 				$scope.justificativa		= docs.justificativa;
 				$scope.prioridade			= docs.prioridade;
@@ -1046,6 +1081,10 @@ angular
 			};
 			
 			$rootScope.changeView($dados);
+
+			setTimeout(() => {
+				$scope.atualizaTabelaProdutos();
+			}, 1000);
 			
 		};
 
@@ -1081,7 +1120,7 @@ angular
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
 			$scope.atualizaTabelaProdutos();
 		};
-
+		
 		$scope.addObservacaoHistorico = () => {
 			/*Data*/
 			var dataAtual 	= new Date();
@@ -1128,7 +1167,7 @@ angular
 
 			jsonDocs = [{
 				chave 				: $scope.chave,
-				ano	  				: $scope.ano,
+				anoFat	  			: $scope.anoFat,
 				responsavel			: $scope.responsavel,
 				projeto     		: $scope.projeto,
 				uf 					: $scope.uf,
@@ -1141,7 +1180,7 @@ angular
 				cluster				: $scope.cluster,
 				desagr				: $scope.desagr,
 				dataStatus			: $scope.dataStatus,
-				quantidadeKg		: $scope.quantidadeKg,
+				quantidade			: $scope.quantidade,
 				situacao			: $scope.situacao,
 				justificativa		: $scope.justificativa,
 				prioridade			: $scope.prioridade,
@@ -1170,7 +1209,6 @@ angular
 				anoPrimVenda		: $scope.anoPrimVenda ,
 				statusAcao			: $scope.statusAcao,
 				acoes				: $scope.acoes,
-
 				obsOportunidade		: $scope.obsOportunidade,
 				histOportunidade	: $scope.histOportunidade,
 				
@@ -1229,6 +1267,7 @@ angular
 				};
 
 				$scope.messageNotific = 'Registro alterado com sucesso';
+				$scope.geraNotificacao($scope.messageNotific);
 
 			}else{
 				for(i = 0; i < $rootScope.produtos.length; i++){
@@ -1237,12 +1276,13 @@ angular
 					dados.jsonDocs 			= JSON.stringify(json);
 
 					let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
-					$scope.messageNotific 	= 'Registro inserido com sucesso';
+					if(rotina == 1){
+						$scope.messageNotific 	= 'Registro inserido com sucesso';
+						$scope.geraNotificacao($scope.messageNotific);
+					}
 				};
 			};
 						
-			$scope.geraNotificacao($scope.messageNotific);
-
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
 			
@@ -1415,6 +1455,7 @@ angular
 		};
 			
 		$scope.atualizaTabelaCompleta = (modo) =>{
+
 			$scope.dtOptionsFull = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
 				url	: '/clicVendas/rest/pedidov2/lista',
@@ -1459,7 +1500,7 @@ angular
 					.withOption('bFilter', false)
 					.withOption('searchDelay', 1000)
 					.withOption('scrollY', '100%') 
-					.withOption('scrollX', true)            
+					.withOption('scrollX', '100%')            
 					.withPaginationType('full_numbers')            
 					.withDisplayLength(20)
 					.withDOM('ftrip')
@@ -1547,7 +1588,6 @@ angular
 						'jsonDocs[0].potVolAg'	      				:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:'130px'	},
 				};
 		
-			
 			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
 			var montaColunasFull = [];
 			
@@ -1649,7 +1689,7 @@ angular
 		$scope.removerDocumento = ($dados) =>{	
 			var id = $dados.id;
 
-			if($dados.jsonDocs[0].pedido != 0){
+			if($dados.jsonDocs[0].pedido != 0 &&  !isNaN(parseInt($dados.jsonDocs[0].pedido))){
 				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500);
 			}else{
 				bootbox.confirm({

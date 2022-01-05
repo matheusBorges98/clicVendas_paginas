@@ -645,7 +645,6 @@ angular
 		};
 
 		$scope.getListasGenericas = (lista) =>{
-			console.log(lista, "2")
 			let resultado = [];
 
 			switch(lista){
@@ -727,7 +726,6 @@ angular
 		};
 
 		$scope.onSelectListaGenerica = ($item, lista) => {
-			console.log(lista)
 			switch(lista){
 				
 				case 'situacao':
@@ -739,7 +737,6 @@ angular
 					break;
 			}
 		
-			console.log($scope.projeto, "PROJETO", $scope.situacao)
 		};
 
 		$scope.onSelectSituacaoAmostra = ($item, $model, $label) => {
