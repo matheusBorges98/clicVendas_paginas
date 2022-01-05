@@ -1272,18 +1272,15 @@ angular
 				$scope.geraNotificacao($scope.messageNotific);
 
 			}else{
-				for(i = 0; i < $rootScope.produtos.length; i++){
-					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
-					json[0].produtos 		= $rootScope.produtos[i];
-					dados.jsonDocs 			= JSON.stringify(json);
+				dados.jsonDocs 			= JSON.stringify(json);
 
-					let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
+				let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
 
-					if(rotina == 1){
-						$scope.messageNotific 	= 'Registro inserido com sucesso';
-						$scope.geraNotificacao($scope.messageNotific);
-					}
-				};
+				if(rotina == 1){
+					$scope.messageNotific 	= 'Registro inserido com sucesso';
+					$scope.geraNotificacao($scope.messageNotific);
+				}
+				
 			};
 			
 			$scope.atualizaTabela();
