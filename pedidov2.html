@@ -330,7 +330,7 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="situacao">Situação Amostra</label>
-										<input type="text" class="form-control spacer-input" ng-model="situacao" id="situacao"  uib-typeahead="situacao.nome for situacao in getListasGenericas('projetos')" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<input type="text" class="form-control spacer-input" ng-model="situacao" id="situacao"  uib-typeahead="situacao.nome for situacao in getListasGenericas('projetos')" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectListaGenerica($item, 'situacao')" class="form-control" autocomplete="off" typeahead-min-length="0">
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="consumo">Consumo (Kg/mês)</label>
@@ -724,6 +724,22 @@ angular
 				},
 			];
 			return $scope.listaSituacaoAmostra;
+		};
+
+		$scope.onSelectListaGenerica = ($item, lista) => {
+
+			switch(lista){
+				
+				case 'situacao':
+					$scope.situacao = $item;
+					break;
+				
+				case 'projetos':
+					$scope.projeto = $item;
+					break;
+			}
+		
+			console.log($scope.projeto, "PROJETO", $scope.situacao)
 		};
 
 		$scope.onSelectSituacaoAmostra = ($item, $model, $label) => {
