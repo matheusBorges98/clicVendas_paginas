@@ -330,7 +330,7 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="situacao">Situação Amostra</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="situacao" id="situacao"  uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="situacao" id="situacao"  uib-typeahead="situacao.nome for situacao in getListasGenericas('situacao')" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="consumo">Consumo (Kg/mês)</label>
@@ -643,6 +643,36 @@ angular
 			};
 
 		};
+
+		$scope.getListasGenericas = (lista) =>{
+			console.log(lista)
+			let resultado = [];
+
+			switch(lista){
+				case 'situacao':
+					let listaSituacaoAmostra = [
+						{
+							nome:'SOLICITAÇÃO DE AMOSTRA',
+							id:1
+						}
+					];
+
+					resultado = listaSituacaoAmostra;
+				
+				case 'projetos':
+					let listaProjetos = [ 
+						{
+							nome: 'PROSPECÇÃO',
+							id: 1
+						}
+					];
+
+					resultado = listaProjetos; 
+			}
+			
+			return resultado;
+
+		}
 
 		$scope.getSituacaoAmostra = () => {
 			$scope.listaSituacaoAmostra = [
