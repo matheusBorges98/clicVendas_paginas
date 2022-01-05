@@ -892,7 +892,7 @@ angular
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 			$scope.atualizaTabelaCompleta(1);		
 		};
-		
+		console.log("RTE")
 		$scope.gravaDocumentoERP = async ($item) => {
 
 			let dialog = bootbox.dialog({
@@ -910,7 +910,7 @@ angular
 				}		
 			);
 			
-			if(parseInt(result) > 0){
+			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP')
 			}else{
