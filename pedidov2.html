@@ -575,6 +575,7 @@ angular
 		$scope.exibeFormulario 		= false; 
 		$scope.exibeListaDocumentos = true;
 		
+		console.log("referesh")
 		/* Inicializa filtros */
 		$scope.filCliente 			= "";
 		$scope.filFornecedores 		= "";
@@ -842,7 +843,7 @@ angular
 
 		$scope.consultaPedidosERP = async () => {
 			
-			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != '' &&  isNaN(doc.jsonDocs[0].pedido));
+			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != '' &&  parseInt(doc.jsonDocs[0].pedido) > 0);
 			let consulta 			= [];
 
 			for(i = 0; i < pedidosGravadosERP.length; i++){
