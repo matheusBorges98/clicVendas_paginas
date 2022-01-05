@@ -913,7 +913,7 @@ angular
 				}		
 			);
 			
-			if(Number(result) != NaN){
+			if(parseInt(result) > 0){
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido '+ result+' foi gravado com sucesso no ERP')
 			}else{
