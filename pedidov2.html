@@ -895,7 +895,12 @@ angular
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
-			$scope.geraNotificacao('Enviando pedido para o ERP...', 2000);
+			//$scope.geraNotificacao('Enviando pedido para o ERP...', 2000);
+
+			var dialog = bootbox.dialog({
+				message: "<p style='font-size=1.2em' class='text-center'> O pedido está sendo enviado ao ERP...</p>",
+				closeButton: false
+			});
 			
 			let result = await $scope.executaRequisicaoExterna(
 				{
@@ -906,6 +911,12 @@ angular
 					pDocumento : {documento : $item}
 				}		
 			);
+
+				console.log(result)
+			
+			
+				dialog.modal('hide');
+			
 			
 			return result;
 		};
