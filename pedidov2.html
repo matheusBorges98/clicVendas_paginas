@@ -1034,8 +1034,6 @@ angular
 				$scope.histOportunidade		= '';
 				$rootScope.hashDoc			= '';
 
-				$scope.atualizaTabelaProdutos();
-
 			}else{
 				
 				let docs 					= $dados.jsonDocs[0];
@@ -1107,7 +1105,10 @@ angular
 			};
 			
 			$rootScope.changeView($dados);
-			$scope.atualizaTabelaProdutos();
+
+			setTimeout(() => {
+				$scope.atualizaTabelaProdutos();
+			}, 1000);
 			
 		};
 
