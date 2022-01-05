@@ -897,7 +897,7 @@ angular
 
 			//$scope.geraNotificacao('Enviando pedido para o ERP...', 2000);
 
-			var dialog = bootbox.dialog({
+			let dialog = bootbox.dialog({
 				message: "<p style='font-size=1.2em' class='text-center'> O pedido está sendo enviado ao ERP...</p>",
 				closeButton: false
 			});
@@ -911,13 +911,15 @@ angular
 					pDocumento : {documento : $item}
 				}		
 			);
-
-				console.log(result)
 			
-			
+			if(parseInt(result) > 0){
 				dialog.modal('hide');
-			
-			
+				$scope.geraNotificacao('O pedido '+ result+' foi gravado com sucesso no ERP')
+			}else{
+				dialog.modal('hide');
+				$scope.geraNotificacao('Houve uma falha na gravação do pedido:' + result);
+			};
+							
 			return result;
 		};
 
