@@ -644,36 +644,36 @@ angular
 
 		};
 
-		$scope.getListasGenericas = (lista) =>{
-			let resultado = [];
+		// $scope.getListasGenericas = (lista) =>{
+		// 	let resultado = [];
 
-			switch(lista){
-				case 'situacao':
-					let listaSituacaoAmostra = [
-						{
-							nome:'SOLICITAÇÃO DE AMOSTRA',
-							id:1
-						}
-					];
+		// 	switch(lista){
+		// 		case 'situacao':
+		// 			let listaSituacaoAmostra = [
+		// 				{
+		// 					nome:'SOLICITAÇÃO DE AMOSTRA',
+		// 					id:1
+		// 				}
+		// 			];
 
-					resultado = listaSituacaoAmostra;
-					break;
+		// 			resultado = listaSituacaoAmostra;
+		// 			break;
 
-				case 'projetos':
-					let listaProjetos = [ 
-						{
-							nome: 'PROSPECÇÃO',
-							id: 1
-						}
-					];
+		// 		case 'projetos':
+		// 			let listaProjetos = [ 
+		// 				{
+		// 					nome: 'PROSPECÇÃO',
+		// 					id: 1
+		// 				}
+		// 			];
 
-					resultado = listaProjetos;
-					break; 
-			}
+		// 			resultado = listaProjetos;
+		// 			break; 
+		// 	}
 			
-			return resultado;
+		// 	return resultado;
 
-		}
+		// }
 
 		$scope.getSituacaoAmostra = () => {
 			$scope.listaSituacaoAmostra = [
@@ -725,19 +725,19 @@ angular
 			return $scope.listaSituacaoAmostra;
 		};
 
-		$scope.onSelectListaGenerica = ($item, lista) => {
-			switch(lista){
+		// $scope.onSelectListaGenerica = ($item, lista) => {
+		// 	switch(lista){
 				
-				case 'situacao':
-					$scope.situacao = $item;
-					break;
+		// 		case 'situacao':
+		// 			$scope.situacao = $item;
+		// 			break;
 				
-				case 'projetos':
-					$scope.projeto = $item;
-					break;
-			}
+		// 		case 'projetos':
+		// 			$scope.projeto = $item;
+		// 			break;
+		// 	}
 		
-		};
+		// };
 
 		$scope.onSelectSituacaoAmostra = ($item, $model, $label) => {
 			$scope.situacao 	= $item;
