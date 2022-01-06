@@ -155,16 +155,16 @@
 								</div>
 							</div>
 
-							<div class="col-sm-12 spacer">
+							<div class="col-sm-10 spacer">
 								<label for="codPro">Localizar Produto</label>
 								<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 								<div class="input-group spacer">
-									<input type="text" ng-disabled="inputDesabilitado" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+									<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
 
-							<div class="col-sm-5 spacer">
+							<!-- <div class="col-sm-5 spacer">
 								<label for="despro">Descrição</label>
 								<input type="text" readonly ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricaoProd" id="descricaoProd">
 							</div>
@@ -181,12 +181,12 @@
 							<div class="col-sm-2 spacer ">
 								<label for="aplicacao">Aplicação</label>
 								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="aplicacao" id="aplicacao">
-							</div>
+							</div> -->
 							
-							<div class="col-sm-1 spacer" style="padding-top: 30px;">
+							<div class="col-sm-2 spacer" style="padding-top: 30px;">
 								<label for="aplicacao"> </label>							
 								<div class="btn-group">
-									<button ng-disabled="descricaoProd == '' || consumoProdutoKgMes == ''|| quantidadeProduto == '' || aplicacao  == '' " class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
+									<button class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
 								</div>
 							</div>
 						</div>
