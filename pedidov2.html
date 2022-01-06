@@ -1402,12 +1402,12 @@ angular
 
 
 			defPD = {	'id'								:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Pedido',			width:''	},
+						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido',		width:''	},
 						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs[0].vendedor.nome'			:	{i:2, vsbl: true,	tlt: 'Vendedor',		width:''	},
-						'jsonDocs[0].produtos.codigoProduto':	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs[0].statusAcao'			:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
-						'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
+						'jsonDocs[0].vendedor.nome'			:	{i:2, vsbl: true,	tlt: 'Data',			width:''	},
+						'jsonDocs[0].produtos.codigoProduto':	{i:3, vsbl: true,	tlt: 'Valor',			width:''	},
+						'jsonDocs[0].statusAcao'			:	{i:5, vsbl: true,	tlt: 'Situacao',		width:''	},
+						//'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
 				};
 
 
@@ -1440,8 +1440,7 @@ angular
 			
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
-			console.log("teste")
-			
+					
 			setTimeout(()=>{
 				$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
 					.withOption('data', $rootScope.produtos)	
