@@ -133,7 +133,7 @@
 					
 					<ul class="nav nav-tabs" role="tablist" id="myTab">
 					  <li role="presentation" class="active"><a href="#docAdd-cliente-tab" role="tab" data-toggle="tab">Informações</a></li>
-					  <li role="presentation"><a href="#docAdd-produto-tab" role="tab" data-toggle="tab">Produtos</a></li>
+					  <li role="presentation"><a href="#docAdd-produto-tab" role="tab" ng-click="atualizaTabelaProdutos()" data-toggle="tab">Produtos</a></li>
 					</ul>
 
 					<div class="tab-content">
@@ -1097,10 +1097,6 @@ angular
 			};
 			
 			$rootScope.changeView($dados);
-
-			setTimeout(() => {
-				$scope.atualizaTabelaProdutos();
-			}, 1000);
 			
 		};
 
