@@ -824,8 +824,8 @@ angular
 			$rootScope.produtos.push(
 				{ 
 					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
-					descricao			: $scope.descricaoProd,
-					codigoProduto		: $scope.codigoProduto,
+					descricao			: $item.produto.nome,
+					codigoProduto		: $item.produto.id,
 					aplicacao			: $scope.aplicacao,
 					quantidade			: $scope.quantidadeProduto,
 					codVariacao			: $scope.codVariacao,
