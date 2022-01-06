@@ -159,7 +159,7 @@
 								<label for="codPro">Localizar Produto</label>
 								<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 								<div class="input-group spacer">
-									<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+									<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
@@ -183,12 +183,12 @@
 								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="aplicacao" id="aplicacao">
 							</div> -->
 							
-							<div class="col-sm-2 spacer" style="padding-top: 30px;">
+							<!-- <div class="col-sm-2 spacer" style="padding-top: 30px;">
 								<label for="aplicacao"> </label>							
 								<div class="btn-group">
 									<button class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
 								</div>
-							</div>
+							</div> -->
 						</div>
 						
 						<div class="form-group col-md-12">
@@ -817,8 +817,10 @@ angular
 			
 		};
 
-		$scope.adicionarProduto = () =>{
+		$scope.adicionarProduto = ($item) =>{
 			
+			console.log($item, "item adicionado")
+
 			$rootScope.produtos.push(
 				{ 
 					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
