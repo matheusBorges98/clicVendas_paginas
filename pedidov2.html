@@ -125,391 +125,81 @@
 			<!-- Header formulario -->
 			
 			<!-- Capa do pedido -->
-			<div id="docAdd" class="row spacer " ng-show="permiteEditar">
+			<div class="row spacer ">
 				
 				<div class="col-sm-12 spacer">
 
-					<!-- Body formulario -->
-					
-					<!-- <ul class="nav nav-tabs" role="tablist" id="myTab">
-					  <li role="presentation" class="active"><a href="#docAdd-cliente-tab" role="tab" data-toggle="tab">Informações</a></li>
-					  <li role="presentation"><a href="#docAdd-produto-tab" role="tab" ng-click="atualizaTabelaProdutos()" data-toggle="tab">Produtos</a></li>
-					</ul> -->
-
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="docAdd-cliente-tab">
-							<div id="docAdd-cliente" class="form-row">
-								<div class="form-group col-md-12">
-									
-									<div class="col-sm-7 spacer">
-										<label for="nomeCliente">Nome Cliente</label>
-										<div class="input-group spacer">
-											<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
-											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
-										</div>
-									</div>
-
-									<div class="col-sm-2 spacer">
-										<label for="codigoCliente">Cód. do Cliente</label>
-										<div class="input-group spacer">
-											<input type="text" readonly class="form-control" ng-model="codigoCliente" id="codigoCliente">
-										</div>
-									</div>
-
-
-									<div class="col-sm-3 spacer ">
-										<label for="vendedor">Vendedor</label>
-										<div class="input-group spacer">
-											<input type="text" ng-disabled="inputDesabilitado" class="form-control" ng-model="vendedor" id="vendedor">
-										</div>
-									</div>
-
-									<div class="col-sm-12 spacer">
-										<label for="codPro">Localizar Produto</label>
-										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
-										<div class="input-group spacer">
-											<input type="text" ng-disabled="inputDesabilitado" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
-											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
-										</div>
-									</div>
-
-									<div class="col-sm-5 spacer">
-										<label for="despro">Descrição</label>
-										<input type="text" readonly ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricaoProd" id="descricaoProd">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="consumo">Consumo (Kg/mês)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoProdutoKgMes" id="consumoProdutoKgMes">
-									</div>
-
-									<div class="col-sm-2 spacer">
-										<label for="consumo">Quantidade</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="quantidadeProduto" id="quantidadeProduto">
-									</div>
-
-									<div class="col-sm-2 spacer ">
-										<label for="aplicacao">Aplicação</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="aplicacao" id="aplicacao">
-									</div>
-									
-									<div class="col-sm-1 spacer" style="padding-top: 30px;">
-										<label for="aplicacao"> </label>							
-										<div class="btn-group">
-											<button ng-disabled="descricaoProd == '' || consumoProdutoKgMes == ''|| quantidadeProduto == '' || aplicacao  == '' " class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
-										</div>
-									</div>
+					<div class="row">
+						<div class="form-group col-md-12">
+							
+							<div class="col-sm-7 spacer">
+								<label for="nomeCliente">Nome Cliente</label>
+								<div class="input-group spacer">
+									<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
+									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
-								
-								<div class="form-group col-md-12">
-									<div class="col-sm-12 spacer">
-										<table id="listDocumentsProdutos" dt-options="dtOptionsProd" dt-columns="dtColumnsProd" dt-instance="dtInstanceProd" class="row-border responsive hover"></table>
-									</div>
+							</div>
+
+							<div class="col-sm-2 spacer">
+								<label for="codigoCliente">Cód. do Cliente</label>
+								<div class="input-group spacer">
+									<input type="text" readonly class="form-control" ng-model="codigoCliente" id="codigoCliente">
 								</div>
-								
+							</div>
+
+
+							<div class="col-sm-3 spacer ">
+								<label for="vendedor">Vendedor</label>
+								<div class="input-group spacer">
+									<input type="text" ng-disabled="inputDesabilitado" class="form-control" ng-model="vendedor" id="vendedor">
+								</div>
+							</div>
+
+							<div class="col-sm-12 spacer">
+								<label for="codPro">Localizar Produto</label>
+								<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
+								<div class="input-group spacer">
+									<input type="text" ng-disabled="inputDesabilitado" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
+								</div>
+							</div>
+
+							<div class="col-sm-5 spacer">
+								<label for="despro">Descrição</label>
+								<input type="text" readonly ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricaoProd" id="descricaoProd">
+							</div>
+							<div class="col-sm-2 spacer">
+								<label for="consumo">Consumo (Kg/mês)</label>
+								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoProdutoKgMes" id="consumoProdutoKgMes">
+							</div>
+
+							<div class="col-sm-2 spacer">
+								<label for="consumo">Quantidade</label>
+								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="quantidadeProduto" id="quantidadeProduto">
+							</div>
+
+							<div class="col-sm-2 spacer ">
+								<label for="aplicacao">Aplicação</label>
+								<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="aplicacao" id="aplicacao">
+							</div>
+							
+							<div class="col-sm-1 spacer" style="padding-top: 30px;">
+								<label for="aplicacao"> </label>							
+								<div class="btn-group">
+									<button ng-disabled="descricaoProd == '' || consumoProdutoKgMes == ''|| quantidadeProduto == '' || aplicacao  == '' " class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
+								</div>
 							</div>
 						</div>
 						
-						<div role="tabpanel" class="tab-pane" id="docAdd-produto-tab">
-							<div id="docAdd-produto" class="form-row">
-								
-								<div class="form-group col-md-12">
-									
-									
+						<div class="form-group col-md-12">
+							<div class="col-sm-12 spacer">
+								<table id="listDocumentsProdutos" dt-options="dtOptionsProd" dt-columns="dtColumnsProd" dt-instance="dtInstanceProd" class="row-border responsive hover"></table>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>	
-
-			<div id="docEdit" class="row spacer" ng-show="!permiteEditar">
-				
-				<div class="col-sm-12 spacer">	
-				
-					<ul class="nav nav-tabs" role="tablist" id="myTab">
-						<li role="presentation" class="active"><a href="#docEdit-info-projeto" role="tab" data-toggle="tab">Informações do projeto</a></li>
-						<li role="presentation"><a href="#docEdit-manu-projeto" role="tab" data-toggle="tab">Manutenção</a></li>
-						<li role="presentation"><a href="#docEdit-hist-projeto" role="tab" data-toggle="tab">Histórico / Observações</a></li>
-					</ul>
-					
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="docEdit-info-projeto">
-
-							<div class="form-row ">
-								<div class="form-group col-md-12" >
-									<div class="col-sm-2 spacer ">
-										<label for="anoFat">Ano Faturamento</label>
-										<input type="date" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoFat" id="anoFat">
-									</div>
-									<div class="col-sm-3 spacer ">
-										<label for="responsavel">Responsável</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="responsavel" id="responsavel">
-									</div>
-									<div class="col-sm-2 spacer ">
-										<label for="projeto">Projeto</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
-									</div>
-								</div>
-							</div>
-				
-							<div class="form-row " >
-								<div class="form-group col-md-12">
-									
-									<div class="col-sm-2 spacer">
-										<label for="codigoCliente">Cód. do Cliente</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoCliente" id="codigoCliente">
-									</div>
-									<div class="col-sm-6 spacer">
-										<label for="nomeCliente">Nome do Cliente</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="nomeCliente"  id="nomeCliente">
-									</div>
-									<div class="col-sm-1 spacer ">
-										<label for="uf">UF</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="uf" id="uf">
-									</div>
-									
-									<div class="col-sm-3 spacer ">
-										<label for="vendedor">Vendedor</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendedor" id="vendedor">
-									</div>
-									
-									<div class="col-sm-3 spacer ">
-										<label for="segmento">Segmento</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="segmento" id="segmento">
-									</div>
-									<div class="col-sm-3 spacer ">
-										<label for="subsegmento">Subsegmento</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="subsegmento" id="subsegmento">
-									</div>
-									<div class="col-sm-3 spacer ">
-										<label for="bu">BU</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="bu" id="bu">
-									</div>
-								</div>
-							</div>
-					
-					
-							<div class="form-row ">
-								<div class="form-group col-md-12">
-									<div class="col-sm-2 spacer">
-										<label for="pedido">Pedido</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedido" id="pedido">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="emissao">Emissão</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="emissao" id="emissao">
-									</div>
-									<div class="col-sm-4 spacer">
-										<label for="familia">Familia</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="familia" id="familia">
-									</div>
-									<div class="col-sm-4 spacer">
-										<label for="cluster">Cluster</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="cluster" id="cluster">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="codPro">Cód. Produto</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro">
-									</div>
-									<div class="col-sm-4 spacer">
-										<label for="despro">Descrição</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricao" id="despro">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="desagr">Ag. Comercial</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="desagr" id="desagr">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="quantidadeKg">Qtde (kg)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="quantidadeKg" id="quantidadeKg">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="dataStatus">Data Status</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="dataStatus" id="dataStatus">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="situacao">Situação Amostra</label>
-										<input type="text" class="form-control spacer-input" ng-model="situacao" id="situacao"  uib-typeahead="situacao.nome for situacao in getListasGenericas('projetos')" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectListaGenerica($item, 'situacao')" class="form-control" autocomplete="off" typeahead-min-length="0">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="consumo">Consumo (Kg/mês)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoProdutoKgMes" id="consumoProdutoKgMes">
-									</div>
-									<div class="col-sm-8 spacer">
-										<label for="justificativa">Justificativa</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="justificativa" id="justificativa">
-									</div>				  		  
-									<div class="col-sm-2 spacer">
-										<label for="con2021n">Con. 2021 (em nº)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021n" id="con2021n">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="con2022n">Con. 2022 (em nº)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2022n" id="con2022n">
-									</div>
-								</div>	
-							</div>
-							
-							<div class="form-row ">
-								<div class="form-group col-md-12">
-									<div class="col-sm-2 spacer">
-										<label for="ofertaData">OFERTA Data</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaData" id="ofertaData">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="ofertaUnit">OFERTA Unit. (US$)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaUnit" id="ofertaUnit">
-									</div>			  
-									
-									<div class="col-sm-2 spacer">
-										<label for="venda">INDENT Qtde</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="identQtd" id="identQtd">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="venda">Venda</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="venda" id="venda">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="vendaLocalKg">Venda Local (KG)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendaLocalKg" id="vendaLocalKg">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="ultVendaTabdin">Últ. Venda TABDIN</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ultVendaTabdin" id="ultVendaTabdin">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="primVendaTabdin">1.a Venda TABDIN</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="primVendaTabdin" id="primVendaTabdin">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="anoPrimVenda">ANO 1.a VENDA</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="totalFatUSD">Tot. Fat. (USD)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="totalFatUSD" id="totalFatUSD">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="margemR">Margem (R$)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="margemR" id="margemR"> 
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="preUSD">Pre. USD</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="preUSD" id="preUSD">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="potVolAg">Pot. Vol. AG</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="potVolAg" id="potVolAg">
-									</div>
-								</div>
-							</div>
-
-						</div>
-					
-						<div role="tabpanel" class="tab-pane" id="docEdit-manu-projeto">
-					
-							<div class="form-row ">
-								<div class="form-group col-md-12">
-									<div class="col-sm-2 spacer ">
-										<label for="projeto">Projeto</label>
-										<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
-									</div>
-									<div class="col-sm-2 spacer ">
-										<label for="responsavel">Responsável</label>
-										<input type="text" class="form-control spacer-input" ng-model="responsavel" id="responsavel" >
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="prioridade">Prioridade</label>
-										<input type="text" class="form-control spacer-input" ng-model="prioridade" id="prioridade" uib-typeahead="(prioridades.nome) for prioridades in getPrioridades($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectPrioridade($item, $model, $label)">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="potencial">Potencial</label>
-										<input type="text" class="form-control spacer-input" ng-model="potencial" id="potencial" >
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="consumoAg">Consumo Ano Gerencial</label>
-										<input type="text" class="form-control spacer-input" ng-model="consumoAg" id="consumoAg">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="con2021Ident">Consumo 2021 ident</label>
-										<input type="text" class="form-control spacer-input" ng-model="con2021Ident" id="con2021Ident">
-									</div>	
-									<div class="col-sm-2 spacer">
-										<label for="con2022Local">Consumo 2022 local</label>
-										<input type="text" class="form-control spacer-input" ng-model="con2022Local" id="con2022Local" >
-									</div>		
-									<div class="col-sm-2 spacer">
-										<label for="mesIniConsumo">Mes Início Consumo</label>
-										<input type="text" class="form-control spacer-input" ng-model="mesIniConsumo" id="mesIniConsumo" >
-									</div>											
-									<div class="col-sm-2 spacer">
-										<label for="probFechamento">% Prob. Fec.</label>
-										<input type="text" class="form-control spacer-input" ng-model="probFechamento" id="probFechamento" >
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="concorrencia">Concorrência</label>
-										<input type="text" class="form-control spacer-input" ng-model="concorrencia" id="concorrencia" >
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="precoConc">Preço Conc. US$</label>
-										<input type="text" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
-									</div>
-									<div class="col-sm-2 spacer hidden">
-										<label for="dataAtu">Data Atualização</label>
-										<input type="date" class="form-control spacer-input" ng-model="dataAtu" id="dataAtu" >
-									</div>
-								</div>
-							</div>
-							
-							<div class="form-row col-md-12 spacer">
-									<hr class="divider"> 
-							</div>
-								
-							<div class="form-row ">
-								<div class="form-group col-md-12">		  	   
-									<div class="col-sm-10 spacer">
-										<label for="acoes">Ações</label>
-										<textarea class="form-control spacer-input" ng-model="acoes" id="acoes" rows="3"></textarea>
-									</div>	
-									<div class="col-sm-2 spacer">
-										<label for="statusAcao">Status da Ação</label>
-										<input type="text" class="form-control spacer-input" ng-model="statusAcao" id="statusAcao" >
-									</div>		
-								</div>
-							</div>
-							
-						</div>
-					
-						
-						<div role="tabpanel" class="tab-pane" id="docEdit-hist-projeto">
-							<div class="form-row">
-								<div class="col-sm-12 spacer">
-										<label for="histOportunidade">Histórico</label>
-										<textarea class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="col-sm-12 spacer">
-									<hr class="divider">
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="col-sm-11 spacer">
-									<label for="obsOportunidade">Observação</label>
-									<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
-								</div>
-								<div class="col-sm-1 spacer" style="padding-top: 30px;">
-									<label for="obsOportunidade"> </label>							
-									<div class="btn-group">
-										<button class="btn btn_grid btn_cor_padrao" ng-disabled="obsOportunidade=='' || obsOportunidade==undefined " ng-click="addObservacaoHistorico()"> Incluir </button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-				</div>	
-					
-			</div>
 			<!-- Capa do pedido -->
 						
 			<hr class="divider">
