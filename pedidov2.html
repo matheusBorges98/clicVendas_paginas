@@ -193,7 +193,17 @@
 						
 						<div class="form-group col-md-12">
 							<div class="col-sm-12 spacer">
-								<table id="listDocumentsProdutos" dt-options="dtOptionsProd" dt-columns="dtColumnsProd" dt-instance="dtInstanceProd" class="row-border responsive hover"></table>
+								<table class="row-border responsive hover">
+									<tr>
+										<th>Produto</th>
+										<th>Quantidade</th>
+									 </tr>
+									 
+									 <tr ng-repeat = "produto in produtos">
+										<td>{{produto.descricao}}</td>
+										<td>{{produto.quantidade}}</td>
+									 </tr>
+								</table>
 							</div>
 						</div>
 						
