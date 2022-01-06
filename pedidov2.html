@@ -198,14 +198,18 @@
 								<table>
 									<thead>
 										<tr>
-											<th>Produto</th>
+											<th>ProdutXo</th>
 											<th>Quantidade</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr ng-repeat = "produto in produtos">
 											<td>{{produto.descricao}}</td>
-											<td><div>{{produto.quantidade}} </div></td>
+											<td>
+												<div>
+													<input ng-value="produto.quantidade">
+												</div>
+											</td>
 										</tr>
 									</tbody>
 								</table>
