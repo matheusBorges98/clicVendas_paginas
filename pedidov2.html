@@ -193,17 +193,22 @@
 						
 						<div class="form-group col-md-12">
 							<div class="col-sm-12 spacer">
+								
 								<table>
-									<tr>
-										<th>Produto</th>
-										<th>Quantidade</th>
-									 </tr>
-									 
-									 <tr ng-repeat = "produto in produtos">
-										<td>{{produto.descricao}}</td>
-										<input ng-model="produtos.quantidade">
-									 </tr>
+									<thead>
+										<tr>
+											<th>Produto</th>
+											<th>Quantidade</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat = "produto in produtos">
+											<td>{{produto.descricao}}</td>
+											<input ng-model="produtos.quantidade">
+										</tr>
+									</tbody>
 								</table>
+							
 							</div>
 						</div>
 						
