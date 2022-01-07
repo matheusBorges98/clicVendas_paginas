@@ -796,7 +796,7 @@ angular
 
 		$scope.adicionarProduto = ($item) =>{
 			
-			console.log($item, "item ")
+			console.log($item, "items ")
 
 			$rootScope.produtos.unshift(
 				{ 
@@ -807,8 +807,9 @@ angular
 					hashDoc				: '',
 				}
 			);
+
+			$scope.itemProd 	 		= '';
 			
-			$scope.limpaProduto();
 		};
 
 		$scope.removerProduto = ($item) => {
