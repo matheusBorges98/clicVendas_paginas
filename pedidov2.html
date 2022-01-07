@@ -210,7 +210,7 @@
 												{{produto.descricao}}
 											</td>
 											<td>
-												{{produto.precoTabela | currency:"R$"}}
+												{{produto.precoTabela | | currency:'R$ '}}
 											</td>
 											<td>
 												<div>
@@ -223,7 +223,7 @@
 												</div>
 											</td>
 											<td>
-												{{produto.valorTotal | currency:"R$"}}
+												{{produto.valorTotal | currency:'R$ '}}
 											</td>
 											<td>
 												<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto(produto)'></div>
