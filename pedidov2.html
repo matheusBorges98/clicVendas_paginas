@@ -702,7 +702,7 @@ angular
 		};
 
 		$scope.adicionarProduto = ($item) =>{
-			console.log('txes')
+			console.log('11')
 			$rootScope.produtos.push(
 				{ 
 					descricao			: $item.produto.nome,
@@ -713,13 +713,13 @@ angular
 				}
 			);
 
-			//$scope.itemProd = '';
-
-			// var produto		= angular.element(document.querySelector('#itemProd'));
+			var produto		= angular.element(document.querySelector('#itemProd'));
 			
-			// $timeout(function () {
-			// 	produto.blur();
-			// }, 200);
+			$timeout(function () {
+				produto.blur();
+			}, 200);
+
+			$scope.itemProd = '';
 			
 		};
 
