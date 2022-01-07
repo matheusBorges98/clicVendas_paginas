@@ -182,14 +182,14 @@
 									<tbody>
 										<tr ng-repeat = "produto in produtos">
 											<td>
-												<input type="text" ng-model="produto.descricao" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+												{{produto.descricao}}
 											</td>
 											<td>
 												{{produto.precoTabela | currency:'R$ '}}
 											</td>
 											<td>
 												<div>
-													<input type="number" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade+produto.id" ng-model="produto.quantidade">
+													<input type="number" ng-focus="produto.descricao" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade+produto.id" ng-model="produto.quantidade">
 												</div>
 											</td>
 											<td>
@@ -634,15 +634,6 @@ angular
 			});
 		};
 
-		// $scope.onSelectProd = ($item, $model, $label) => {
-			
-		// 	$scope.descricaoProd = $item.produto.nome;
-		// 	$scope.codVariacao	 = $item.produto.codVariacao;
-		// 	$scope.codExterno	 = $item.produto.codExterno;
-		// 	$scope.codigoProduto = $item.produto.id;
-
-		// };
-
 		$scope.limpaProduto = (acao) =>{
 			$scope.itemProd = '';
 			
@@ -659,15 +650,16 @@ angular
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
 
-				$rootScope.produtos			= [
-					{
-						descricao			: '',
-						codigoProduto		: '',
-						codVariacao			: '',
-						codExterno			: '',
-						hashDoc				: '',
-					}
-				];
+				// $rootScope.produtos			= [
+				// 	{
+				// 		descricao			: '',
+				// 		codigoProduto		: '',
+				// 		codVariacao			: '',
+				// 		codExterno			: '',
+				// 		hashDoc				: '',
+				// 	}
+				// ];
+				rootScope.produtos 			= [];
 
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
@@ -721,18 +713,17 @@ angular
 				}
 			);
 
-			var produto		= angular.element(document.querySelector('#produto.quantidade'));
+			// var produto		= angular.element(document.querySelector('#produto.quantidade'));
 			
-			var searchItem  = angular.element(document.querySelector('#itemProd'));
+			// var searchItem  = angular.element(document.querySelector('#itemProd'));
 			
-			console.log(produto, "input")
-			$timeout(function () {
-				produto.focus();
-				searchItem.val(''); 
-			}, 200);
+			// console.log(produto, "input")
+			// $timeout(function () {
+			// 	produto.focus();
+			// 	searchItem.val(''); 
+			// }, 200);
 
 
-			$scope.produto.descricao 	 		= '';
 			
 		};
 
