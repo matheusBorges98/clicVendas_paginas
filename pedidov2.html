@@ -649,9 +649,9 @@ angular
 			// var produto		 = angular.element(document.querySelector('#itemProd'));
 			
 			// if(acao == undefined){
-			// 	$timeout(function () {
-			// 		produto.blur();
-			// 	}, 200);
+				$timeout(function () {
+					produto.blur();
+				}, 200);
 			// };
 
 		};
@@ -798,7 +798,7 @@ angular
 			
 			console.log($item, "item ")
 
-			$rootScope.produtos.push(
+			$rootScope.produtos.unshift(
 				{ 
 					descricao			: $item.produto.nome,
 					codigoProduto		: $item.produto.id,
