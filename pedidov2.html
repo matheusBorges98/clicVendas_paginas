@@ -155,14 +155,13 @@
 								</div>
 							</div>
 
-							<div class="col-sm-6 spacer">
+							<!-- <div class="col-sm-6 spacer">
 								<label for="codPro">Localizar Produto</label>
-								<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 								<div class="input-group spacer">
 									<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
-							</div>
+							</div> -->
 
 						</div>
 						
@@ -182,7 +181,7 @@
 									<tbody>
 										<tr ng-repeat = "produto in produtos">
 											<td>
-												{{produto.descricao}}
+												<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 											</td>
 											<td>
 												{{produto.precoTabela | currency:'R$ '}}
