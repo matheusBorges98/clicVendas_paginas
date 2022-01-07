@@ -191,12 +191,12 @@
 											</td>
 											<td>
 												<div>
-													<input type="number" class="inputTable" ng-value="produto.quantidade" ng-blur="teste(produto.quantidade)" id="produto.quantidade" ng-model="produto.quantidade">
+													<input type="number" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
 												</div>
 											</td>
 											<td>
 												<div>
-													<input type="number" class="inputTable" ng-value="teste(produto.quantidade)" ng-model="produto.valorNegociado">
+													<input type="number" class="inputTable" ng-value="produto.quantidade != undefined ? teste(produto.quantidade) : 0" ng-model="produto.valorNegociado">
 												</div>
 											</td>
 											<td>
