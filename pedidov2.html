@@ -634,20 +634,14 @@ angular
 			});
 		};
 
-		$scope.onSelectProd = ($item, $model, $label) => {
+		// $scope.onSelectProd = ($item, $model, $label) => {
 			
-			$scope.descricaoProd = $item.produto.nome;
-			$scope.codVariacao	 = $item.produto.codVariacao;
-			$scope.codExterno	 = $item.produto.codExterno;
-			$scope.codigoProduto = $item.produto.id;
+		// 	$scope.descricaoProd = $item.produto.nome;
+		// 	$scope.codVariacao	 = $item.produto.codVariacao;
+		// 	$scope.codExterno	 = $item.produto.codExterno;
+		// 	$scope.codigoProduto = $item.produto.id;
 
-			var focusBtn		 = angular.element(document.querySelector('#consumoProdutoKgMes'));
-						
-			$timeout(function () {
-				focusBtn.focus();
-			}, 200);
-
-		};
+		// };
 
 		$scope.limpaProduto = (acao) =>{
 			$scope.itemProd 	 		= '';
@@ -802,30 +796,19 @@ angular
 
 		$scope.adicionarProduto = ($item) =>{
 			
-			console.log($item, "item adicionado")
+			console.log($item, "item ")
 
 			$rootScope.produtos.push(
 				{ 
-					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
 					descricao			: $item.produto.nome,
 					codigoProduto		: $item.produto.id,
-					aplicacao			: $scope.aplicacao,
-					quantidade			: $scope.quantidadeProduto,
-					codVariacao			: $scope.codVariacao,
-					codExterno			: $scope.codExterno,
+					codVariacao			: $item.produto.codVariacao,
+					codExterno			: $item.produto.codExterno,
 					hashDoc				: '',
 				}
 			);
 			
-			$scope.aplicacao			= '';
-			$scope.consumoProdutoKgMes  = '';
-			$scope.quantidadeProduto 	= '';
-			$scope.descricaoProd 		= '';
-			$scope.codVariacao	 		= '';
-			$scope.codExterno	 		= '';
-			$scope.codigoProduto 		= '';
-			
-			$scope.limpaProduto('noFocus');
+			$scope.limpaProduto();
 		};
 
 		$scope.removerProduto = ($item) => {
