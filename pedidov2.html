@@ -155,13 +155,13 @@
 								</div>
 							</div>
 
-							<!-- <div class="col-sm-6 spacer">
+							<div class="col-sm-6 spacer">
 								<label for="codPro">Localizar Produto</label>
 								<div class="input-group spacer">
 									<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
-							</div> -->
+							</div>
 
 						</div>
 						
@@ -181,7 +181,9 @@
 									<tbody>
 										<tr ng-repeat = "produto in produtos">
 											<td>
-												<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+												<!-- <input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+												 -->
+												 {{produto.descricao}} - {{produto.codExterno}}
 											</td>
 											<td>
 												{{produto.precoTabela | currency:'R$ '}}
@@ -649,16 +651,17 @@ angular
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
 
-				$rootScope.produtos			= [
-					{
-						descricao			: '',
-						codigoProduto		: '',
-						codVariacao			: '',
-						codExterno			: '',
-						hashDoc				: '',
-					}
-				];
-				//$rootScope.produtos 			= [];
+				// $rootScope.produtos			= [
+				// 	{
+				// 		descricao			: '',
+				// 		codigoProduto		: '',
+				// 		codVariacao			: '',
+				// 		codExterno			: '',
+				// 		hashDoc				: '',
+				// 	}
+				// ];
+				
+				$rootScope.produtos 			= [];
 
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
