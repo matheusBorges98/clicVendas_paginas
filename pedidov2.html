@@ -189,7 +189,7 @@
 											</td>
 											<td>
 												<div>
-													<input type="number" ng-focus="itemAdded" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
+													<input type="number" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
 												</div>
 											</td>
 											<td>
@@ -702,7 +702,7 @@ angular
 		};
 
 		$scope.adicionarProduto = ($item) =>{
-			console.log('1231')
+			console.log('1x231')
 			$rootScope.produtos.push(
 				{ 
 					descricao			: $item.produto.nome,
@@ -720,8 +720,6 @@ angular
 			}, 200);
 
 			$scope.itemProd = '';
-
-			$scope.itemAdded = true;
 			
 		};
 
