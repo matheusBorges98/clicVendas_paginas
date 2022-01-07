@@ -649,16 +649,16 @@ angular
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
 
-				// $rootScope.produtos			= [
-				// 	{
-				// 		descricao			: '',
-				// 		codigoProduto		: '',
-				// 		codVariacao			: '',
-				// 		codExterno			: '',
-				// 		hashDoc				: '',
-				// 	}
-				// ];
-				$rootScope.produtos 			= [];
+				$rootScope.produtos			= [
+					{
+						descricao			: '',
+						codigoProduto		: '',
+						codVariacao			: '',
+						codExterno			: '',
+						hashDoc				: '',
+					}
+				];
+				//$rootScope.produtos 			= [];
 
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
