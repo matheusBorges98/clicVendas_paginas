@@ -160,7 +160,7 @@
 								<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 								<div class="input-group spacer">
 									<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
-									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
+									<!-- <span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span> -->
 								</div>
 							</div>
 
@@ -644,15 +644,13 @@ angular
 		// };
 
 		$scope.limpaProduto = (acao) =>{
-			$scope.itemProd 	 		= '';
+			$scope.itemProd = '';
 			
-			 var produto		 = angular.element(document.querySelector('#itemProd'));
+			var produto		= angular.element(document.querySelector('#itemProd'));
 			
-			// if(acao == undefined){
-				$timeout(function () {
-					produto.blur();
-				}, 200);
-			// };
+			$timeout(function () {
+				produto.focus();
+			}, 200);
 
 		};
 
