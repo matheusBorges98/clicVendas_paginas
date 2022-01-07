@@ -659,7 +659,15 @@ angular
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
 
-				$rootScope.produtos			= [];
+				$rootScope.produtos			= [
+					{
+						descricao			: '',
+						codigoProduto		: '',
+						codVariacao			: '',
+						codExterno			: '',
+						hashDoc				: '',
+					}
+				];
 
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
