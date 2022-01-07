@@ -182,14 +182,14 @@
 									<tbody>
 										<tr ng-repeat = "produto in produtos">
 											<td>
-												<input type="text" ng-model="produto.descricao" ng-value="produto.descricao" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+												<input type="text" ng-model="produto.descricao" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 											</td>
 											<td>
 												{{produto.precoTabela | currency:'R$ '}}
 											</td>
 											<td>
 												<div>
-													<input type="number" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
+													<input type="number" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade" name="produto.quantidade" ng-model="produto.quantidade">
 												</div>
 											</td>
 											<td>
