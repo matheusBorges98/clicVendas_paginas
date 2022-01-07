@@ -149,9 +149,9 @@
 
 
 							<div class="col-sm-3 spacer ">
-								<label for="vendedor">Vendedor</label>
+								<label for="representante">Representante</label>
 								<div class="input-group spacer">
-									<input type="text" ng-disabled="inputDesabilitado" class="form-control" ng-model="vendedor" id="vendedor">
+									<input type="text" readonly class="form-control" ng-model="representante" id="representante">
 								</div>
 							</div>
 
@@ -647,28 +647,20 @@ angular
 		};
 
 		$scope.abreFormulario = ($dados) =>{
-			console.log("aba")
-			if($dados == undefined){
-				$rootScope.idDocumento 		= 0;
 
-				// $rootScope.produtos			= [
-				// 	{
-				// 		descricao			: '',
-				// 		codigoProduto		: '',
-				// 		codVariacao			: '',
-				// 		codExterno			: '',
-				// 		hashDoc				: '',
-				// 	}
-				// ];
+			if($dados == undefined){
 				
-				$rootScope.produtos 			= [];
+				$rootScope.idDocumento 		= 0;
+				$scope.pedido			 	= 0,
+			
+				$rootScope.produtos 		= [];
 
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
 				
 				$scope.codigoProduto		= '';
 				
-				$scope.vendedor				= dadosUserLogado.rNome;
+				$scope.representante		= dadosUserLogado.rNome;
 				
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= '';
@@ -689,11 +681,12 @@ angular
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
 
+				$scope.pedido				= docs.pedido;
+
 				/*Informações sobre o produto*/
 				$rootScope.produtos			= docs.produtos;
 				$scope.codigoProduto		= docs.produtos.codigoProduto;
 				$scope.descricao			= docs.produtos.descricao;
-				$scope.consumoProdutoKgMes  = docs.produtos.consumoProdutoKgMes;
 				$scope.codExternoProduto	= docs.produtos.codExterno
 
 				$scope.consultaDocumento($rootScope.hashDoc);
@@ -704,7 +697,6 @@ angular
 		};
 
 		$scope.adicionarProduto = ($item) =>{
-			console.log('1')
 			$rootScope.produtos.push(
 				{ 
 					descricao			: $item.produto.nome,
@@ -725,7 +717,6 @@ angular
 		};
 
 		$scope.removerProduto = ($item) => {
-			
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
 		};
 
@@ -765,17 +756,13 @@ angular
 			let dados 				= {};
 						
 			$scope.messageNotific	= '';
-
-			for(i = 0; i < $rootScope.produtos.length; i++){
-				/*Adiciona o hash gerado para o pedido no array de produtos*/
-				$rootScope.produtos[i].hashDoc = hashDoc;
-			}
 			
 			dados.cnpj 				= {id: dadosUserLogado.cId};
 
 			jsonDocs = [{
-				vendedor			: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
-			
+				representante		: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
+
+				/*Historico*/
 				obsOportunidade		: $scope.obsOportunidade,
 				histOportunidade	: $scope.histOportunidade,
 				
@@ -806,16 +793,11 @@ angular
 			};
 	
 			if(id > 0){
-				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
+			
+				dados.jsonDocs 		  		= JSON.stringify(json); 
 
-				for(j = 0; j < $rootScope.docsToEdit.length; j++){
-					
-					//json[0].produtos			= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
-					dados.jsonDocs 		  		= JSON.stringify(json); 
-
-					let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
-				};
-
+				let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
+				
 				$scope.messageNotific = 'Registro alterado com sucesso';
 				$scope.geraNotificacao($scope.messageNotific);
 
@@ -990,6 +972,8 @@ angular
 			});
 
 		};
+
+		$scope.atualizaTabela();
 			
 		$scope.geraNotificacao = (message, time = 1200) =>{
 			var dialog = bootbox.dialog({
@@ -1000,15 +984,8 @@ angular
 			setTimeout(() => {
 				dialog.modal('hide');
 			}, time);
-		};
-			
-		$scope.atualizaTabela();
+		};	
 		
-		$scope.mostraTabelaSimplificada = () =>{
-
-			$scope.atualizaTabela();
-		};
-
 		$scope.removerDocumento = ($dados) =>{	
 			var id = $dados.id;
 
