@@ -115,6 +115,7 @@
 
 		<div ng-show="exibeFormulario">
 			<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button>
+			<button class="btn btn_acao_header btn_cor_padrao" ng-click="abreHistoricos('abre')"> Históricos </button>
 
 			<!-- Header formulario -->
 			<div class="divider-titulo col-sm-12">
@@ -127,7 +128,7 @@
 			<!-- Capa do pedido -->
 			<div class="row spacer ">
 				
-				<div class="col-sm-12 spacer">
+				<div ng-hide="exibeHistoricos" class="col-sm-12 spacer">
 
 					<div class="row">
 						<div class="form-group col-md-12">
@@ -211,30 +212,32 @@
 							</div>
 						</div>
 
-						<div class="form-row">
-							<div class="col-sm-12 spacer">
-									<label for="histOportunidade">Histórico</label>
-									<textarea class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
-								</div>
+					</div>
+				</div>
+
+				<div ng-show="exibeHistoricos" class="col-sm-12">
+					<div class="form-row">
+						<div class="col-sm-12 spacer">
+								<label for="histOportunidade">Histórico</label>
+								<textarea class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
+							</div>
+					</div>
+					<div class="form-row">
+						<div class="col-sm-12 spacer">
+							<hr class="divider">
 						</div>
-						<div class="form-row">
-							<div class="col-sm-12 spacer">
-								<hr class="divider">
+					</div>
+					<div class="form-row">
+						<div class="col-sm-11 spacer">
+							<label for="obsOportunidade">Observação</label>
+							<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
+						</div>
+						<div class="col-sm-1 spacer" style="padding-top: 30px;">
+							<label for="obsOportunidade"> </label>							
+							<div class="btn-group">
+								<button class="btn btn_grid btn_cor_padrao" ng-disabled="obsOportunidade=='' || obsOportunidade==undefined " ng-click="addObservacaoHistorico()"> Incluir </button>
 							</div>
 						</div>
-						<div class="form-row">
-							<div class="col-sm-11 spacer">
-								<label for="obsOportunidade">Observação</label>
-								<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
-							</div>
-							<div class="col-sm-1 spacer" style="padding-top: 30px;">
-								<label for="obsOportunidade"> </label>							
-								<div class="btn-group">
-									<button class="btn btn_grid btn_cor_padrao" ng-disabled="obsOportunidade=='' || obsOportunidade==undefined " ng-click="addObservacaoHistorico()"> Incluir </button>
-								</div>
-							</div>
-						</div>
-						
 					</div>
 				</div>
 				
@@ -370,6 +373,19 @@ angular
 				$scope.exibeListaDocumentos = true;
 			};
 
+		};
+
+		$scope.abreHistoricos = (acao) => {
+			switch(acao){
+				case'abre':
+					$scope.exibeHistoricos = true;
+					break;
+
+				case'fecha':
+					$scope.exibeHistoricos = false;
+					break;
+			};
+			
 		};
 
 		$scope.getListasGenericas = (lista) =>{
