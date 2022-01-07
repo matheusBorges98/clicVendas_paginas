@@ -1401,8 +1401,13 @@ angular
 	}
 
 	.inputTable{
-		border: 0;
-		border-bottom: 0.5px;
+		outline: 0;
+		border-width: 0 0 2px;
+		border-color: black;
+	}
+
+	.inputTable:focus{
+		border-color: blue;
 	}
 
 	.openbtn:hover {
