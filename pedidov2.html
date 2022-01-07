@@ -802,9 +802,9 @@ angular
 
 		$scope.adicionarProduto = ($item) =>{
 			
-			console.log($item, "items ")
+			console.log($item, "itexms ")
 
-			$rootScope.produtos.unshift(
+			$rootScope.produtos.push(
 				{ 
 					descricao			: $item.produto.nome,
 					codigoProduto		: $item.produto.id,
