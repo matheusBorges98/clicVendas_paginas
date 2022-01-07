@@ -189,7 +189,7 @@
 											</td>
 											<td>
 												<div>
-													<input type="number" ng-focus="produto.descricao" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade+produto.id" ng-model="produto.quantidade">
+													<input type="number" ng-focus="produto.descricao != undefined" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade+produto.id" ng-model="produto.quantidade">
 												</div>
 											</td>
 											<td>
@@ -717,13 +717,12 @@ angular
 
 			// var produto		= angular.element(document.querySelector('#produto.quantidade'));
 			
-			// var searchItem  = angular.element(document.querySelector('#itemProd'));
+			 var searchItem  = angular.element(document.querySelector('#itemProd'));
 			
-			// console.log(produto, "input")
-			// $timeout(function () {
-			// 	produto.focus();
-			// 	searchItem.val(''); 
-			// }, 200);
+			 console.log(searchItem, "input")
+			$timeout(function () {
+				searchItem.blur();
+			}, 400);
 
 
 			
