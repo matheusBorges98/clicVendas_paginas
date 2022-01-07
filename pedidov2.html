@@ -198,7 +198,7 @@
 								<table>
 									<thead>
 										<tr>
-											<th>Produto</th>
+											<th>Produtox</th>
 											<th>Quantidade</th>
 										</tr>
 									</thead>
@@ -207,7 +207,7 @@
 											<td>{{produto.descricao}}</td>
 											<td>
 												<div>
-													<input ng-value="produto.quantidade" ng-model="produto.quantidade">
+													<input class="inputTable" ng-value="produto.quantidade" ng-model="produto.quantidade">
 												</div>
 											</td>
 											<td>
@@ -1398,6 +1398,11 @@ angular
 	  color: white;
 	  padding: 10px 15px;
 	  border: none;
+	}
+
+	.inputTable{
+		border: 0;
+
 	}
 
 	.openbtn:hover {
