@@ -172,7 +172,7 @@
 								<table class="table">
 									<thead>
 										<tr>
-											<th>Produtox</th>
+											<th>Produto</th>
 											<th>Preço Tab.(R$)</th>
 											<th>Quantidade</th>
 											<th>Vlr Negoc. (R$)</th>
@@ -651,19 +651,12 @@ angular
 
 		$scope.limpaProduto = (acao) =>{
 			$scope.itemProd 	 		= '';
-			$scope.aplicacao			= '';
-			$scope.consumoProdutoKgMes  = '';
-			$scope.quantidadeProduto 	= '';
-			$scope.descricaoProd 		= '';
-			$scope.codVariacao	 		= '';
-			$scope.codExterno	 		= '';
-			$scope.codigoProduto 		= '';
 			
 			var produto		 = angular.element(document.querySelector('#itemProd'));
 			
 			if(acao == undefined){
 				$timeout(function () {
-					produto.focus();
+					produto.blur();
 				}, 200);
 			};
 
