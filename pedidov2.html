@@ -210,6 +210,30 @@
 
 							</div>
 						</div>
+
+						<div class="form-row">
+							<div class="col-sm-12 spacer">
+									<label for="histOportunidade">Histórico</label>
+									<textarea class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
+								</div>
+						</div>
+						<div class="form-row">
+							<div class="col-sm-12 spacer">
+								<hr class="divider">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-sm-11 spacer">
+								<label for="obsOportunidade">Observação</label>
+								<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
+							</div>
+							<div class="col-sm-1 spacer" style="padding-top: 30px;">
+								<label for="obsOportunidade"> </label>							
+								<div class="btn-group">
+									<button class="btn btn_grid btn_cor_padrao" ng-disabled="obsOportunidade=='' || obsOportunidade==undefined " ng-click="addObservacaoHistorico()"> Incluir </button>
+								</div>
+							</div>
+						</div>
 						
 					</div>
 				</div>
@@ -379,56 +403,6 @@ angular
 
 		}
 
-		$scope.getSituacaoAmostra = () => {
-			$scope.listaSituacaoAmostra = [
-				{
-					nome:'SOLICITAÇÃO DE AMOSTRA',
-					id:1
-				},
-				{
-					nome:'ENVIADA',
-					id:2
-				},
-				{
-					nome:'TESTE',
-					id:3
-				},
-				{
-					nome:'TESTE INDUSTRIAL',
-					id:4
-				},
-				{
-					nome:'CATÁLOGO',
-					id:5
-				},
-				{
-					nome:'REPROVADA TECNICAMENTE',
-					id:6
-				},
-				{
-					nome:'APROVADA TECNICAMENTE',
-					id:7
-				},
-				{
-					nome:'REPROVADA COMERCIALMENTE',
-					id:8
-				},
-				{
-					nome:'APROV. TEC E REP. COMERCIAL',
-					id:9
-				},
-				{
-					nome:'STAND BY',
-					id:10
-				},
-				{
-					nome:'CANCELADA',
-					id:11
-				},
-			];
-			return $scope.listaSituacaoAmostra;
-		};
-
 		$scope.onSelectListaGenerica = ($item, lista) => {
 			switch(lista){
 				
@@ -441,62 +415,6 @@ angular
 					break;
 			}
 		
-		};
-
-		$scope.onSelectSituacaoAmostra = ($item, $model, $label) => {
-			$scope.situacao 	= $item;
-		};
-
-		$scope.getPrioridades = () => {
-			$scope.listaPrioridades = [
-				{
-					nome:'BAIXA',
-					id:1
-				},
-				{
-					nome:'MÉDIA',
-					id:2
-				},
-				{
-					nome:'ALTA',
-					id:3
-				}
-			];
-			return $scope.listaPrioridades;
-		};
-
-		$scope.onSelectPrioridade = ($item, $model, $label) => {
-			$scope.prioridade 		= $item;
-		};
-
-		$scope.getProjetos = () =>{
-			$scope.listaProjetos = [ 
-				{
-					nome: 'PROSPECÇÃO',
-					id: 1
-				},
-				{
-					nome: 'OPORTUNIDADE',
-					id: 2
-				},
-				{
-					nome: 'PROJETO',
-					id: 3
-				},
-				{
-					nome: 'SUBSTITUIÇÃO',
-					id: 4
-				},
-				{
-					nome: 'CAMPANHA',
-					id: 5
-				}
-			];
-			return $scope.listaProjetos;
-		};
-
-		$scope.onSelectProjeto = ($item, $model, $label) => {
-			$scope.projeto 		= $item;
 		};
 
 		$scope.getClientes = function(val) {
