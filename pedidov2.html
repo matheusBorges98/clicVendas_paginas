@@ -115,7 +115,7 @@
 
 		<div ng-show="exibeFormulario">
 			<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button>
-			<button class="btn btn_acao_header btn_cor_padrao" ng-click="abreHistoricos('abre')"> Históricos </button>
+			<button class="btn btn_acao_header btn_cor_padrao" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"> Históricos </button>
 
 			<!-- Header formulario -->
 			<div class="divider-titulo col-sm-12">
@@ -305,6 +305,7 @@ angular
 		
 		$scope.exibeFormulario 		= false; 
 		$scope.exibeListaDocumentos = true;
+		$scope.exibeHistoricos		= false;
 		
 		/* Inicializa filtros */
 		$scope.filCliente 			= "";
@@ -367,25 +368,18 @@ angular
 					$scope.permiteEditar	  = false;
 				};
 				
-			}else if($scope.exibeFormulario == true){
-
+			}else if($scope.exibeFormulario == true && !$scope.exibeHistoricos){
 				$scope.exibeFormulario = false;
 				$scope.exibeListaDocumentos = true;
-			};
+
+			}else if($scope.exibeFormulario == true && $scope.exibeHistoricos){
+				$scope.exibeHistoricos = false;
+			}
 
 		};
 
 		$scope.abreHistoricos = (acao) => {
-			switch(acao){
-				case'abre':
-					$scope.exibeHistoricos = true;
-					break;
-
-				case'fecha':
-					$scope.exibeHistoricos = false;
-					break;
-			};
-			
+			$scope.exibeHistoricos = true;
 		};
 
 		$scope.getListasGenericas = (lista) =>{
