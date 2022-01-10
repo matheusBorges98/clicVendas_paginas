@@ -981,7 +981,7 @@ angular
 				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
 			});
 			
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Status').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml1 = '';				
 				if(row.sincronizado == "N"){
 					btnhtml1 += "<img src='images/icon/ballYellow.png' title='Pendente' width='19px'>";
