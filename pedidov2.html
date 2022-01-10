@@ -146,7 +146,7 @@
 								<label for="nomeCliente">Endereço de entrega</label>
 								<div class="input-group spacer">
 									<input type="text" ng-model="frmEndEntrega" name="frmEndEntrega" placeholder="Informe o endereço de entrega" uib-typeahead="ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + ee.complemento for ee in getEndEntrega($viewValue)" typeahead-loading="loadingEE" typeahead-no-results="noResultsEE"  typeahead-on-select="onSelectEE($item, $model, $label)" class="form-control"  autocomplete="off" typeahead-min-length="0">
-									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
+									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaEndEntrega()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
 
@@ -163,14 +163,14 @@
 								<label for="condPagamento">Condição de pagamento</label>
 								<div class="input-group spacer">
 									<input type="text" ng-model="condPagamento" name="condPagamento" id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
+									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCondicaoPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
 							<div class="col-sm-6 spacer">
 								<label for="nomeCliente">Forma de pagamento</label>
 								<div class="input-group spacer">
 									<input type="text" ng-model="formaPagamento" name="formaPagamento" id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
+									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaFormaPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
 
@@ -428,6 +428,15 @@ angular
 			}
 		};
 
+		$scope.onSelectEE = function ($item, $model, $label) {			
+			$scope.endEntrega = $item;			
+		};
+
+		$scope.limpaEndEntrega = function(){
+			$scope.frmEndEntrega = "";
+			$scope.endEntrega	 = {};
+		};
+
 		$scope.getCondicoesP = function(val) {
 			return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
 			params: {
@@ -446,6 +455,10 @@ angular
 
 			console.log($scope.condPagamento)
 		};
+
+		$scope.limpaCondicaoPagamento = function(){
+			$scope.condPagamento = "";
+		}
 
 		$scope.getFormasP = function(val) {			
 			if	($scope.condPagamento != null){
@@ -466,7 +479,11 @@ angular
 
 		$scope.onSelectForma = function ($item, $model, $label) {						
 			$scope.formaPagamento = $item;			
-		};    
+		};
+		
+		$scope.limpaFormaPagamento = function(){
+			$scope.formaPagamento = "";
+		}
 
 		$scope.getClientes = function(val) {
 			
