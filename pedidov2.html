@@ -648,6 +648,8 @@ angular
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
 				$scope.frmEndEntrega		= '';
+
+				$scope.prevEntrega			= '';
 				
 				$scope.codigoProduto		= '';
 				
@@ -673,6 +675,8 @@ angular
 				$scope.nomeCliente			= docs.cliente.nome
 
 				$scope.representante		= docs.representante.nome;
+
+				$scope.prevEntrega			= docs.prevEntrega;
 
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
@@ -702,7 +706,7 @@ angular
 		}
 
 		$scope.adicionarProduto = ($item) =>{
-			$rootScope.produtos.push(
+			$rootScope.produtos.unshift(
 				{ 
 					descricao			: $item.produto.nome,
 					codigoProduto		: $item.produto.id,
@@ -778,6 +782,7 @@ angular
 				formaPagamento	: $scope.formaPagamento,
 
 				endEntrega		: $scope.frmEndEntrega,
+				prevEntrega		: $scope.prevEntrega,
 				
 				//Metodos
 				//idDocument		: $rootScope.idDocumento,
