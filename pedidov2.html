@@ -172,14 +172,14 @@
 							<div class="col-sm-6 spacer">
 								<label for="condPagamento">Condição de pagamento</label>
 								<div class="input-group spacer">
-									<input type="text" ng-model="condPagamento" name="condPagamento" id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectListaGenerica($item, 'condPagamento')" class="form-control" autocomplete="off" typeahead-min-length="0">
+									<input type="text" ng-model="condPagamento" name="condPagamento" id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectListaGenerica($item, $model, $label, 'condPagamento')" class="form-control" autocomplete="off" typeahead-min-length="0">
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
 							<div class="col-sm-6 spacer">
 								<label for="nomeCliente">Forma de pagamento</label>
 								<div class="input-group spacer">
-									<input type="text" ng-model="formaPagamento" name="formaPagamento" id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectListaGenerica($item, 'formaPagamento')" class="form-control" autocomplete="off" typeahead-min-length="0">
+									<input type="text" ng-model="formaPagamento" name="formaPagamento" id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectListaGenerica($item, $model, $label, 'formaPagamento')" class="form-control" autocomplete="off" typeahead-min-length="0">
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
@@ -441,8 +441,7 @@ angular
 
 		}
 
-		$scope.onSelectListaGenerica = ($item, lista) => {
-			console.log($item, lista)
+		$scope.onSelectListaGenerica = ($item, $model, $label, lista) => {
 			switch(lista){
 				
 				case 'situacao':
