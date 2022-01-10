@@ -130,6 +130,8 @@
 				
 				<div ng-hide="exibeHistoricos" class="col-sm-12 spacer">
 
+					<!-- Informações resumidas do pedido -->
+
 					<div class="row">
 						<div class="form-group col-md-12">
 							
@@ -140,19 +142,42 @@
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
-
 							<div class="col-sm-2 spacer">
 								<label for="codigoCliente">Cód. do Cliente</label>
 								<div class="input-group spacer">
 									<input type="text" readonly class="form-control" ng-model="codigoCliente" id="codigoCliente">
 								</div>
 							</div>
-
-
 							<div class="col-sm-3 spacer ">
 								<label for="representante">Representante</label>
 								<div class="input-group spacer">
 									<input type="text" readonly class="form-control" ng-model="representante" id="representante">
+								</div>
+							</div>
+
+							<div class="col-sm-4 spacer ">
+								<label for="prevEntrega">Previsão de entrega</label>
+								<div class="input-group spacer">
+									<input type="date" class="form-control" ng-model="prevEntrega" id="prevEntrega">
+								</div>
+							</div>
+							<div class="col-sm-8 spacer ">
+								<label for="endEntrega">Endereço da entrega</label>
+								<div class="input-group spacer">
+									<input type="text" class="form-control" ng-model="endEntrega" id="endEntrega">
+								</div>
+							</div>
+
+							<div class="col-sm-6 spacer ">
+								<label for="condPagamento">Condição de pagamento</label>
+								<div class="input-group spacer">
+									<input type="text" class="form-control" ng-model="condPagamento" id="condPagamento">
+								</div>
+							</div>
+							<div class="col-sm-6 spacer ">
+								<label for="formaPagamento">Forma de pagamento</label>
+								<div class="input-group spacer">
+									<input type="text" class="form-control" ng-model="formaPagamento" id="formaPagamento">
 								</div>
 							</div>
 
