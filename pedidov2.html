@@ -780,7 +780,7 @@ angular
 				endEntrega		: $scope.frmEndEntrega,
 				
 				//Metodos
-				idDocument		: $rootScope.idDocumento,
+				//idDocument		: $rootScope.idDocumento,
 				docCtrl			: hashDoc,
 				pedido			: $scope.pedido,
 				
@@ -811,7 +811,7 @@ angular
 			
 				dados.jsonDocs 		  		= JSON.stringify(json); 
 
-				let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
+				let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
 				
 				$scope.messageNotific = 'Registro alterado com sucesso';
 				$scope.geraNotificacao($scope.messageNotific);
