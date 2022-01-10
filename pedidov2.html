@@ -647,6 +647,7 @@ angular
 
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
+				$scope.frmEndEntrega		= '';
 				
 				$scope.codigoProduto		= '';
 				
@@ -671,8 +672,12 @@ angular
 				$scope.codigoCliente		= docs.cliente.codExterno;
 				$scope.nomeCliente			= docs.cliente.nome
 
+				$scope.representante		= docs.representante.nome;
+
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
+
+				$scope.frmEndEntrega		= docs.endEntrega;
 
 				$scope.pedido				= docs.pedido;
 
@@ -742,7 +747,7 @@ angular
 			$scope.obsOportunidade = "";
 		};
 
-		console.log("teste5")
+		console.log("teste6")
 
 		$scope.salvarDocumento = async (rotina) => {
 			/*
@@ -766,16 +771,20 @@ angular
 				representante		: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
 
 				/*Historico*/
-				obsOportunidade		: $scope.obsOportunidade,
-				histOportunidade	: $scope.histOportunidade,
+				obsOportunidade	: $scope.obsOportunidade,
+				histOportunidade: $scope.histOportunidade,
 
-				condPagamento		: $scope.condPagamento,
-				formaPagamento		: $scope.formaPagamento,
+				condPagamento	: $scope.condPagamento,
+				formaPagamento	: $scope.formaPagamento,
+
+				endEntrega		: $scope.frmEndEntrega,
 				
 				//Metodos
 				idDocument		: $rootScope.idDocumento,
 				docCtrl			: hashDoc,
-				pedido			: $scope.pedido,		
+				pedido			: $scope.pedido,
+				
+				representante	: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
 				
 				//Produtos
 				produtos		: $rootScope.produtos,
