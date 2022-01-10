@@ -663,6 +663,7 @@ angular
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= '';
 				$rootScope.hashDoc			= '';
+				$scope.sincronizado			= 'N';
 
 			}else{
 				
@@ -689,12 +690,13 @@ angular
 				$scope.frmEndEntrega		= docs.endEntrega;
 
 				$scope.pedido				= docs.pedido;
+				$scope.sincronizado			= docs.sincronizado;
 
 				/*Informações sobre o produto*/
 				$rootScope.produtos			= docs.produtos;
 				$scope.codigoProduto		= docs.produtos.codigoProduto;
 				$scope.descricao			= docs.produtos.descricao;
-				$scope.codExternoProduto	= docs.produtos.codExterno
+				$scope.codExternoProduto	= docs.produtos.codExterno;
 
 				$scope.consultaDocumento($rootScope.hashDoc);
 			};
@@ -756,7 +758,7 @@ angular
 			$scope.obsOportunidade = "";
 		};
 
-		console.log("tes")
+		console.log("tesiiiiii")
 
 		$scope.salvarDocumento = async (rotina) => {
 			/*
@@ -790,9 +792,9 @@ angular
 				prevEntrega		: $scope.prevEntrega,
 				
 				//Metodos
-				//idDocument		: $rootScope.idDocumento,
 				docCtrl			: hashDoc,
 				pedido			: $scope.pedido,
+				sincronizado	: $scope.sincronizado == "S" ? $scope.sincronizado : "N",
 				
 				representante	: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
 				
@@ -814,6 +816,7 @@ angular
 				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
 				
 				/*Atualiza numero do pedido*/
+				json[0].sincronizado	= "S";
 				json[0].pedido			= $rootScope.documentoERP;
 			};
 	
