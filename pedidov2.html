@@ -982,7 +982,8 @@ angular
 			});
 			
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Status').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-				var btnhtml1 = '';				
+				var btnhtml1 = '';
+				console.log(row)				
 				if(row.sincronizado == "N"){
 					btnhtml1 += "<img src='images/icon/ballYellow.png' title='Pendente' width='19px'>";
 				}else if(row.sincronizado == "S"){
