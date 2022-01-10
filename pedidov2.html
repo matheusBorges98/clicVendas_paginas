@@ -172,14 +172,14 @@
 							<div class="col-sm-6 spacer">
 								<label for="condPagamento">Condição de pagamento</label>
 								<div class="input-group spacer">
-									<input type="text" ng-model="condPagamento" name="condPagamento" id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+									<input type="text" ng-model="condPagamento" name="condPagamento" id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectListaGenerica($item, 'condPagamento')" class="form-control" autocomplete="off" typeahead-min-length="0">
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
 							<div class="col-sm-6 spacer">
 								<label for="nomeCliente">Forma de pagamento</label>
 								<div class="input-group spacer">
-									<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
+									<input type="text" ng-model="formaPagamento" name="formaPagamento" id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectListaGenerica($item, 'formaPagamento')" class="form-control" autocomplete="off" typeahead-min-length="0">
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
@@ -451,6 +451,14 @@ angular
 				case 'projetos':
 					$scope.projeto = $item;
 					break;
+
+				case 'condicaoPagamento':
+					$scope.condPagamento = $item;
+					break;
+
+				case 'formaPagamento':
+					$scope.formaPagamento = $item;
+					break;
 			}
 		
 		};
@@ -466,6 +474,23 @@ angular
 					return item;
 				});
 			});
+		};
+
+		$scope.getFormasP = function(val) {			
+			if	($scope.condPagamento != null){
+				return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, {
+					params: {
+						filtro: val || '',
+						idCvTccnpj	: dadosUserLogado.cId
+					}
+				}).then(function(response){
+					return response.data.map(function(item){
+						return item;
+					});
+				});
+			} else {
+				return "";
+			}			
 		};
 
 		$scope.getClientes = function(val) {
