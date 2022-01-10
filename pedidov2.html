@@ -985,9 +985,9 @@ angular
 				var btnhtml1 = '';
 				console.log(row)				
 				if(row.sincronizado == "N"){
-					btnhtml1 += "<img src='images/icon/ballYellow.png' title='Pendente' width='19px'>";
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.sincronizado == "S"){
-					btnhtml1 += "<img src='images/icon/ballGreen.png' title='ok' width='19px'>";
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}
 				
 				return btnhtml1;
