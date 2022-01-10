@@ -996,7 +996,7 @@ angular
 				}else if(row.jsonDocs[0].sincronizado  == "S"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado != "N" && row.jsonDocs[0].sincronizado != "S") {
-					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:yellow;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}
 				
 				return btnhtml1;
