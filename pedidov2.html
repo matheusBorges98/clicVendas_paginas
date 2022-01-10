@@ -136,13 +136,17 @@
 						
 						<div ng-show="sincronizado === 'S' && sincronizado.length == 1" class="form-group col-md-12">
 							<div>
-								<div class="col-sm-6">
+								<div class="col-sm-5">
 									<h5>Cliente</h5>
 									{{frmCliente.nome}}
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-5">
 									<h5>Endereço de entrega</h5>
 									{{frmEndEntrega}}
+								</div>
+								<div class="col-sm-2">
+									<h5>Data de emissão</h5>
+									{{datEmiERP}}
 								</div>
 
 								<div class="col-sm-2 spacer">
@@ -718,6 +722,8 @@ angular
 				$scope.codigoProduto		= '';
 				
 				$scope.representante		= dadosUserLogado.rNome;
+
+				$scope.datEmiERP			= '';
 				
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= '';
@@ -742,6 +748,8 @@ angular
 				$scope.representante		= docs.representante.nome;
 
 				$scope.prevEntrega			= docs.prevEntrega;
+
+				$scope.datEmiERP			= docs.datEmiERP;
 
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
@@ -877,6 +885,7 @@ angular
 				/*Atualiza numero do pedido*/
 				if(!isNaN(parseInt($rootScope.documentoERP))){
 					json[0].sincronizado	= "S";
+					json[0].datEmiERP		= new Date();
 					json[0].pedido			= $rootScope.documentoERP;
 				}else{
 					json[0].sincronizado = $rootScope.documentoERP;
