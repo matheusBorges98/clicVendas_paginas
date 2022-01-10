@@ -145,7 +145,7 @@
 							<div class="col-sm-6 spacer">
 								<label for="nomeCliente">Endereço de entrega</label>
 								<div class="input-group spacer">
-									<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
+									<input type="text" ng-model="frmEndEntrega" name="frmEndEntrega" placeholder="Informe o endereço de entrega" uib-typeahead="ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + ee.complemento for ee in getEndEntrega($viewValue)" typeahead-loading="loadingEE" typeahead-no-results="noResultsEE"  typeahead-on-select="onSelectEE($item, $model, $label)" class="form-control"  autocomplete="off" typeahead-min-length="0">
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
@@ -408,14 +408,14 @@ angular
 				
 				return $http({
 					method	: 'GET',
-					url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.objVenda.cliente.id,
+					url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.cliente.id,
 					params 	: {filtro : val || ''}
 				}).then(	
 				function(response) {    
 					//Sucesso
 					if(response.data.length == 1){				
 						var ee = response.data[0];		
-						$rootScope.objVenda.endEntrega = ee;
+						$scope.endEntrega = ee;
 						$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
 					}
 
@@ -486,8 +486,9 @@ angular
 
 		$scope.onSelectCli = ($item, $model, $label) => {
 			$rootScope.cliente = $item;	
-			
 			$scope.codigoCliente = $rootScope.cliente.codExterno
+
+			$scope.getEndEntrega();
 		};
 
 		$scope.limpaCliente = () =>{
