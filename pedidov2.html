@@ -172,14 +172,14 @@
 							<div class="col-sm-6 spacer">
 								<label for="condPagamento">Condição de pagamento</label>
 								<div class="input-group spacer">
-									<input type="text" ng-model="condPagamento" name="condPagamento" id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectListaGenerica($item, $model, $label, 'condPagamento')" class="form-control" autocomplete="off" typeahead-min-length="0">
+									<input type="text" ng-model="condPagamento" name="condPagamento" id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
 							<div class="col-sm-6 spacer">
 								<label for="nomeCliente">Forma de pagamento</label>
 								<div class="input-group spacer">
-									<input type="text" ng-model="formaPagamento" name="formaPagamento" id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectListaGenerica($item, $model, $label, 'formaPagamento')" class="form-control" autocomplete="off" typeahead-min-length="0">
+									<input type="text" ng-model="formaPagamento" name="formaPagamento" id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
@@ -409,63 +409,7 @@ angular
 		$scope.abreHistoricos = (acao) => {
 			$scope.exibeHistoricos = true;
 		};
-
-		$scope.getListasGenericas = (lista) =>{
-			let resultado = [];
-
-			switch(lista){
-				case 'situacao':
-					let listaSituacaoAmostra = [
-						{
-							nome:'SOLICITAÇÃO DE AMOSTRA',
-							id:1
-						}
-					];
-
-					resultado = listaSituacaoAmostra;
-					break;
-
-				case 'projetos':
-					let listaProjetos = [ 
-						{
-							nome: 'PROSPECÇÃO',
-							id: 1
-						}
-					];
-
-					resultado = listaProjetos;
-					break;					
-			}
-			
-			return resultado;
-
-		}
-
-		$scope.onSelectListaGenerica = ($item, $model, $label, lista) => {
-			console.log($item)
-			console.log($model)
-			switch(lista){
-				
-				case 'situacao':
-					$scope.situacao = $item;
-					break;
-				
-				case 'projetos':
-					$scope.projeto = $item;
-					break;
-
-				case 'condicaoPagamento':
-					$scope.condPagamento = $model;
-					break;
-
-				case 'formaPagamento':
-					$scope.formaPagamento = $item;
-					break;
-			}
 		
-			console.log($scope.condPagamento, "cond")
-		};
-
 		$scope.getEndEntrega = function(val) {
 			if(angular.isUndefined($scope.frmCliente) || $scope.frmCliente == ""){
 				$scope.critInfClienteEe = true;
@@ -473,24 +417,24 @@ angular
 				$scope.critInfClienteEe = false;
 				
 				return $http({
-							method	: 'GET',
-							url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.objVenda.cliente.id,
-							params 	: {filtro : val || ''}
-						}).then(	
-						function(response) {    
-							//Sucesso
-							if(response.data.length == 1){				
-								var ee = response.data[0];		
-								$rootScope.objVenda.endEntrega = ee;
-								$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
-							}
+					method	: 'GET',
+					url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.objVenda.cliente.id,
+					params 	: {filtro : val || ''}
+				}).then(	
+				function(response) {    
+					//Sucesso
+					if(response.data.length == 1){				
+						var ee = response.data[0];		
+						$rootScope.objVenda.endEntrega = ee;
+						$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
+					}
 
-							return response.data.map(function(item){
-								return item;
-							});
-						}, 
-						function(response) {					
-						});
+					return response.data.map(function(item){
+						return item;
+					});
+				}, 
+				function(response) {					
+				});
 			}
 		};
 
@@ -505,6 +449,12 @@ angular
 					return item;
 				});
 			});
+		};
+
+		$scope.onSelectCond = function ($item, $model, $label) {			
+			$scope.condPagamento = $item;
+
+			console.log($scope.condPagamento)
 		};
 
 		$scope.getFormasP = function(val) {			
@@ -523,6 +473,10 @@ angular
 				return "";
 			}			
 		};
+
+		$scope.onSelectForma = function ($item, $model, $label) {						
+			$scope.formaPagamento = $item;			
+		};    
 
 		$scope.getClientes = function(val) {
 			
