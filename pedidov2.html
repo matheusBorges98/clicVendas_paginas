@@ -592,16 +592,18 @@ angular
 				closeButton: false
 			});
 			
-			let result = await $scope.executaRequisicaoExterna(
-				{
-					idCvtccnpj : dadosUserLogado.cId,
-					numreg	   : 752,
-					pRotina	   : 'criarPedidoAmostra',
-					pCodCli    : dadosUserLogado.rId,
-					pDocumento : {documento : $item}
-				}		
-			);
+			// let result = await $scope.executaRequisicaoExterna(
+			// 	{
+			// 		idCvtccnpj : dadosUserLogado.cId,
+			// 		numreg	   : 752,
+			// 		pRotina	   : 'criarPedidoAmostra',
+			// 		pCodCli    : dadosUserLogado.rId,
+			// 		pDocumento : {documento : $item}
+			// 	}		
+			// );
 			
+			result = "Houve um erro ao processar o pedido"
+
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP', 2000)
@@ -758,7 +760,7 @@ angular
 			$scope.obsOportunidade = "";
 		};
 
-		console.log("tesiiixxiii")
+		console.log("a")
 
 		$scope.salvarDocumento = async (rotina) => {
 			/*
@@ -816,8 +818,13 @@ angular
 				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
 				
 				/*Atualiza numero do pedido*/
-				json[0].sincronizado	= "S";
-				json[0].pedido			= $rootScope.documentoERP;
+				if(!isNaN(parseInt($rootScope.documentoERP))){
+					json[0].sincronizado	= "S";
+					json[0].pedido			= $rootScope.documentoERP;
+				}else{
+					json[0].sincronizado = $rootScope.documentoERP;
+					json[0].pedido		 = 0;
+				}
 			};
 	
 			if(id > 0){
@@ -988,8 +995,8 @@ angular
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado  == "S"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
-				}else if(row.jsonDocs[0].sincronizado == "E"){
-					
+				}else if(row.jsonDocs[0].sincronizado != "N" && row.jsonDocs[0].sincronizado != "S") {
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}
 				
 				return btnhtml1;
