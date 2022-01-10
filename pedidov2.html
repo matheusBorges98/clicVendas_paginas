@@ -642,6 +642,9 @@ angular
 			
 				$rootScope.produtos 		= [];
 
+				$scope.condPagamento		= '';
+				$scope.formaPagamento		= '';
+
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
 				
@@ -660,6 +663,9 @@ angular
 				$rootScope.hashDoc			= docs.docCtrl;
 				$rootScope.idDocumento 		= $dados.id;
 				$rootScope.cliente			= docs.cliente;
+
+				$scope.condPagamento		= docs.condPagamento;
+				$scope.formaPagamento		= docs.formaPagamento;
 
 				$scope.frmCliente			= docs.cliente;
 				$scope.codigoCliente		= docs.cliente.codExterno;
@@ -762,6 +768,9 @@ angular
 				/*Historico*/
 				obsOportunidade		: $scope.obsOportunidade,
 				histOportunidade	: $scope.histOportunidade,
+
+				condPagamento		: $scope.condPagamento,
+				formaPagamento		: $scope.formaPagamento,
 				
 				//Metodos
 				idDocument		: $rootScope.idDocumento,
