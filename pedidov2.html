@@ -677,12 +677,16 @@ angular
 			$scope.obsOportunidade = "";
 		};
 
+		console.log("teste")
+
 		$scope.salvarDocumento = async (rotina) => {
 			/*
 			Rotinas:
 				1 - Salvar (Mantém apenas no ClicVenda)
 				2 - Finalizar (Envia o pedido para ERP)
 			*/
+
+			console.log($rootScope.produtos)
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;						
 			let id 					= $rootScope.idDocumento;
