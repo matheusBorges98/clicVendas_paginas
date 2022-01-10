@@ -983,8 +983,8 @@ angular
 			
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Status').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml1 = '';
-				console.log(row)				
-				if(row.sincronizado == "N"){
+				console.log(row.jsonDocs)				
+				if(row.jsonDocs[0].sincronizado == "N"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.sincronizado == "S"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
