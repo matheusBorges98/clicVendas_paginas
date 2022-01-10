@@ -132,8 +132,13 @@
 
 					<!-- Informações resumidas do pedido -->
 
-					<div class="row">
+					<div ng-show="pedido != 0 " class="row">
+						
 						<div class="form-group col-md-12">
+							{{frmCliente.nome}}
+						</div>
+
+						<div ng-show="pedido == 0"  class="form-group col-md-12">
 							
 							<div class="col-sm-6 spacer">
 								<label for="nomeCliente">Nome Cliente</label>
