@@ -157,20 +157,17 @@
 
 							<div class="col-sm-4 spacer ">
 								<label for="prevEntrega">Previsão de entrega</label>
-								<div class="input-group spacer">
-									<input type="date" class="form-control" ng-model="prevEntrega" id="prevEntrega">
-								</div>
+								<input type="date" class="form-control" ng-model="prevEntrega" id="prevEntrega">
 							</div>
 							<div class="col-sm-8 spacer ">
 								<label for="endEntrega">Endereço da entrega</label>
-								<div class="input-group spacer">
-									<input type="text" class="form-control" ng-model="endEntrega" id="endEntrega">
-								</div>
+								<input type="text" class="form-control" ng-model="endEntrega" id="endEntrega">
 							</div>
 
 							<div class="col-sm-6 spacer ">
 								<label for="condPagamento">Condição de pagamento</label>
 								<div class="input-group spacer">
+									<!-- <input type="text" ng-model="condPagamento" name="condPagamento" id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" > -->
 									<input type="text" class="form-control" ng-model="condPagamento" id="condPagamento">
 								</div>
 							</div>
