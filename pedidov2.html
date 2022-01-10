@@ -135,7 +135,38 @@
 					<div class="row">
 						
 						<div ng-show="sincronizado === 'S' && sincronizado.length == 1" class="form-group col-md-12">
-							{{frmCliente.nome}}
+							<div class="col-sm-6">{{frmCliente.nome}}</div>
+							<div class="col-sm-6">{{frmEndEntrega}}</div>
+
+							<div class="col-sm-2">{{prevEntrega}}</div>
+							<div class="col-sm-4">{{representante}}</div>
+							<div class="col-sm-3">{{condPagamento}}</div>
+							<div class="col-sm-3">{{formaPagamento}}</div>
+							
+							<div class="col-sm-12 spacer">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Produto</th>
+											<th>Quantidade</th>
+											<th>Vlr Negoc. (R$)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat = "produto in produtos">
+											<td>
+												{{produto.descricao}} - {{produto.codExterno}}
+											</td>
+											<td>
+												{{produto.quantidade}}
+											</td>
+											<td>
+												{{produto.valorNegociado | currency:'R$ '}}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 
 						<div ng-show="sincronizado != 'S' "  class="form-group col-md-12">
