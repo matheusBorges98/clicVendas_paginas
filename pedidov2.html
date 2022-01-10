@@ -137,8 +137,29 @@
 						<div ng-show="sincronizado === 'S' && sincronizado.length == 1" class="form-group col-md-12">
 							<div>
 								<div class="col-sm-6">
-									<h4>Cliente:</h4>
+									<h5>Cliente</h5>
 									{{frmCliente.nome}}
+								</div>
+								<div class="col-sm-6">
+									<h5>Endereço de entrega</h5>
+									{{prevEntrega}}
+								</div>
+
+								<div class="col-sm-2">
+									<h5>Previsão de entrega</h5>
+									{{prevEntrega}}
+								</div>
+								<div class="col-sm-4">
+									<h5>Representante</h5>
+									{{representante}}
+								</div>
+								<div class="col-sm-3">
+									<h5>Condição de pagamento</h5>
+									{{condPagamento.nome}}
+								</div>
+								<div class="col-sm-3">
+									<h5>Forma de pagamento</h5>
+									{{formaPagamento.nome}}
 								</div>
 								<!-- <div class="col-sm-6">Endereço de entrega: {{frmEndEntrega}}</div>
 
