@@ -442,7 +442,7 @@ angular
 					$scope.$apply();
 
 				}else{
-					$scope.tipoFormulario = $dados.jsonDocs[0].pedido != '' ? 'Edição pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
+					$scope.tipoFormulario = $dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
 					
 					$scope.inputDesabilitado  = true;
 					$scope.permiteEditar	  = false;
