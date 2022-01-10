@@ -158,7 +158,7 @@
 							<div class="col-sm-4 spacer ">
 								<label for="prevEntrega">Previsão de entrega</label>
 								<div class="input-group spacer">
-									<input type="text" class="form-control" ng-model="prevEntrega" id="prevEntrega">
+									<input type="date" class="form-control" ng-model="prevEntrega" id="prevEntrega">
 								</div>
 							</div>
 							<div class="col-sm-8 spacer">
@@ -170,9 +170,9 @@
 							</div>
 
 							<div class="col-sm-6 spacer">
-								<label for="nomeCliente">Condição de pagamento</label>
+								<label for="condPagamento">Condição de pagamento</label>
 								<div class="input-group spacer">
-									<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
+									<input type="text" ng-model="condPagamento" name="condPagamento" id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
@@ -434,7 +434,7 @@ angular
 					];
 
 					resultado = listaProjetos;
-					break; 
+					break;					
 			}
 			
 			return resultado;
@@ -453,6 +453,19 @@ angular
 					break;
 			}
 		
+		};
+
+		$scope.getCondicoesP = function(val) {
+			return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
+			params: {
+				filtro		: val || '',
+				idCvTccnpj	: dadosUserLogado.cId 
+			}
+			}).then(function(response){              
+				return response.data.map(function(item){
+					return item;
+				});
+			});
 		};
 
 		$scope.getClientes = function(val) {
