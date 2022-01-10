@@ -442,6 +442,8 @@ angular
 		}
 
 		$scope.onSelectListaGenerica = ($item, $model, $label, lista) => {
+			console.log($item)
+			console.log($model)
 			switch(lista){
 				
 				case 'situacao':
@@ -453,7 +455,7 @@ angular
 					break;
 
 				case 'condicaoPagamento':
-					$scope.condPagamento = $item;
+					$scope.condPagamento = $model;
 					break;
 
 				case 'formaPagamento':
