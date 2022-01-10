@@ -985,9 +985,11 @@ angular
 				var btnhtml1 = '';
 				console.log(row.jsonDocs)				
 				if(row.jsonDocs[0].sincronizado == "N"){
-					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
-				}else if(row.sincronizado == "S"){
-					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado  == "S"){
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado == "E"){
+					
 				}
 				
 				return btnhtml1;
