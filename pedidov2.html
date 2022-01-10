@@ -461,6 +461,35 @@ angular
 					break;
 			}
 		
+			console.log($scope.condPagamento, "cond")
+		};
+
+		$scope.getEndEntrega = function(val) {
+			if(angular.isUndefined($scope.frmCliente) || $scope.frmCliente == ""){
+				$scope.critInfClienteEe = true;
+			}else{
+				$scope.critInfClienteEe = false;
+				
+				return $http({
+							method	: 'GET',
+							url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.objVenda.cliente.id,
+							params 	: {filtro : val || ''}
+						}).then(	
+						function(response) {    
+							//Sucesso
+							if(response.data.length == 1){				
+								var ee = response.data[0];		
+								$rootScope.objVenda.endEntrega = ee;
+								$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
+							}
+
+							return response.data.map(function(item){
+								return item;
+							});
+						}, 
+						function(response) {					
+						});
+			}
 		};
 
 		$scope.getCondicoesP = function(val) {
