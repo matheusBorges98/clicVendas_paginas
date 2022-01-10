@@ -588,9 +588,11 @@ angular
 			};
 		};
 
+		console.log("s")
+
 		$scope.consultaPedidosERP = async () => {
 			
-			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => parseInt(doc.jsonDocs[0].pedido) > 0);
+			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => Number(doc.jsonDocs[0].pedido) > 0);
 			let consulta 			= [];
 
 			for(i = 0; i < pedidosGravadosERP.length; i++){
