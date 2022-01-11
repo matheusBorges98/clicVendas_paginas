@@ -780,7 +780,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("16")
+		console.log("116")
 
 		$scope.teste = (valor) =>{
 
@@ -791,7 +791,7 @@ angular
 			console.log(parseFloat(valor.valorNegociado), parseFloat(valor.quantidade), $scope.valorTotal)
 
 			calc			= parseFloat(valor.valorNegociado) * parseFloat(valor.quantidade);
-			newValorTotal 	= parseFloat(oldValorTotal)+ parseFloat(calc);
+			newValorTotal 	= +oldValorTotal + (calc);
 
 			console.log(newValorTotal, "new")
 
