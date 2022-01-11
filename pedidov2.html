@@ -1067,8 +1067,7 @@ angular
 			}));
 			
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Status').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-				var btnhtml1 = '';
-				console.log(row.jsonDocs)				
+				var btnhtml1 = '';				
 				if(row.jsonDocs[0].sincronizado == "N"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado  == "S"){
