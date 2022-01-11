@@ -267,12 +267,12 @@
 												</td>
 												<td>
 													<div>
-														<input type="number" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
+														<input type="number" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade" ng-blur="teste(produto)" ng-model="produto.quantidade">
 													</div>
 												</td>
 												<td>
 													<div>
-														<input type="number" class="inputTable" ng-value="produto.quantidade != undefined ? teste(produto.quantidade) : 0" ng-model="produto.valorNegociado">
+														<input type="number" class="inputTable" ng-blur="teste(produto)" ng-model="produto.valorNegociado">
 													</div>
 												</td>
 												<td>
@@ -287,6 +287,12 @@
 	
 								</div>
 							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<h5>Total: </h5>{{valorTotal | currency:'R$ '}}
+								</div>	
+							<div>
 
 						</div>
 
@@ -726,6 +732,8 @@ angular
 				$rootScope.hashDoc			= '';
 				$scope.sincronizado			= 'N';
 
+				$scope.valorTotal			= "";
+
 			}else{
 				
 				let docs 					= $dados.jsonDocs[0];
@@ -755,6 +763,8 @@ angular
 				$scope.pedido				= docs.pedido;
 				$scope.sincronizado			= docs.sincronizado;
 
+				$scope.valorTotal			= docs.valorTotal;
+
 				/*Informações sobre o produto*/
 				$rootScope.produtos			= docs.produtos;
 				$scope.codigoProduto		= docs.produtos.codigoProduto;
@@ -770,7 +780,9 @@ angular
 
 		$scope.teste = (valor) =>{
 
-			console.log(valor, "x")
+			console.log(valor)
+
+			$scope.valorTotal += valor.valorNegociado * valor.quantidade;
 
 			return valor + 5
 		}
@@ -858,6 +870,8 @@ angular
 				sincronizado	: $scope.sincronizado == "S" ? $scope.sincronizado : "N",
 				
 				representante	: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
+
+				datEmiERP		: "",
 				
 				//Produtos
 				produtos		: $rootScope.produtos,
