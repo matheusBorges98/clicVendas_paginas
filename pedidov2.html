@@ -1090,8 +1090,8 @@ angular
 
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtmlValor = '';
-				
-				let formatedValue = parseFloat(row.jsonDocs[0].valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
+				console.log(row.jsonDocs[0].valorTotal)
+				let formatedValue = row.jsonDocs[0].valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
 
 				btnhtmlValor += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValue+"</div>";
 							
