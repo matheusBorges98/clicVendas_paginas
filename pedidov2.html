@@ -592,8 +592,6 @@ angular
 			};
 		};
 
-		console.log("ss")
-
 		$scope.consultaPedidosERP = async () => {
 			
 			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc && Number(doc.jsonDocs[0].pedido) > 0);
