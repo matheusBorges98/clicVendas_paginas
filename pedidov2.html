@@ -1052,7 +1052,7 @@ angular
 				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
 			});
 
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data Emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data Emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '80px').renderWith(function(data, type, row) {
 				var btnhtmlData = '';
 				
 				let formatedValueData = "11/07/2021"
@@ -1068,7 +1068,7 @@ angular
 				
 				let formatedValue = row.jsonDocs[0].produtos[0].valorNegociado.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
 
-				btnhtmlValor += "<div style='font-size:1.0em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValue+"</div>";
+				btnhtmlValor += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValue+"</div>";
 							
 				return btnhtmlValor;
 			}));
