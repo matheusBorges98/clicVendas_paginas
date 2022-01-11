@@ -778,7 +778,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("5555")
+		console.log("4")
 
 		$scope.calcularProdutos = () =>{
 
@@ -886,7 +886,7 @@ angular
 				
 				//Produtos
 				produtos		: $rootScope.produtos,
-				valorTotal		: $scope.valorTotal,
+				valorTotal		: parseFloat($scope.valorTotal),
 
 				//Cliente
 				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
