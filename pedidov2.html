@@ -257,6 +257,7 @@
 												<th>Preço Tab.(R$)</th>
 												<th>Quantidade</th>
 												<th>Vlr Negoc. (R$)</th>
+												<th>Desc/Acresc(%)</th>
 												<th>Valor total (R$)</th>
 											</tr>
 										</thead>
@@ -278,6 +279,11 @@
 												<td>
 													<div>
 														<input type="number" class="inputTable" ng-model="produto.valorNegociado">
+													</div>
+												</td>
+												<td>
+													<div>
+														<input type="number" class="inputTable" ng-model="produto.descAcresc">
 													</div>
 												</td>
 												<td>
@@ -790,14 +796,21 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		
+		console.log("SS")
 		$scope.calcularProdutos = () =>{
 
-			let valorTotalCalc = 0;
-			let valorTotalItem = 0;
+			let valorTotalCalc 	= 0;
+			let valorTotalItem 	= 0;
+			let desconto	   	= 0;
+			let calcDesc		= 0;
 
 			for(let i=0; i < $rootScope.produtos.length; i++){
-				valorTotalItem = parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
+				console.log($rootScope.produtos[i])
+				valorTotalItem 	= parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
+				desconto		= parseFloat($rootScope.produtos[i].descAcresc)	/ 100;
+				calcDesc		= valorTotalItem * desconto;
+
+				valorTotalItem 	= valorTotalItem - calcDesc;
 				
 				/*Grava o valor total do item*/
 				$rootScope.produtos[i].valorTotalItem = valorTotalItem;
