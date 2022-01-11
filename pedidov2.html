@@ -796,7 +796,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("SSE")
+		console.log("SSQE")
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
@@ -811,7 +811,7 @@ angular
 				if($rootScope.produtos[i].descAcresc != ""){
 					descontoAcresc	= parseFloat($rootScope.produtos[i].descAcresc)	/ 100;
 					calcDescAcresc	= valorTotalItem * descontoAcresc;
-					valorTotalItem 	= valorTotalItem - calcDesc;
+					valorTotalItem 	= valorTotalItem - calcDescAcresc;
 				}
 				
 				/*Grava o valor total do item*/
