@@ -1055,7 +1055,8 @@ angular
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data Emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtmlData = '';
 				
-				let formatedValueData = row.jsonDocs[0].prevEntrega.toLocaleDateString('pt-br',{ year: 'numeric', month: '2-digit', day: '2-digit' })
+				let formatedValueData = "11/07/2021"
+				//row.jsonDocs[0].prevEntrega.toLocaleDateString('pt-br',{ year: 'numeric', month: '2-digit', day: '2-digit' })
 
 				btnhtmlData += "<div style='font-size:1.0em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValueData+"</div>";
 							
