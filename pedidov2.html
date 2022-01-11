@@ -777,12 +777,15 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("123")
+		console.log("1223")
 		$scope.teste = (valor) =>{
 
 			console.log(valor)
+			let calc = valor.valorNegociado * valor.quantidade;
 
-			$scope.valorTotal += valor.valorNegociado * valor.quantidade;
+			$scope.valorTotal += calc;
+
+			console.log($scope.valorTotal)
 
 			return valor + 5
 		}
@@ -875,6 +878,7 @@ angular
 				
 				//Produtos
 				produtos		: $rootScope.produtos,
+				valorTotal		: $scope.valorTotal,
 
 				//Cliente
 				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
