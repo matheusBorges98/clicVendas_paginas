@@ -276,12 +276,12 @@
 													</div>
 												</td>
 												<td>
-													{{produto.quantidade * produto.valorNegociado | currency:'R$ '}}
+													{{produto.valorTotalItem | currency:'R$ '}}
 												</td>
 												<td>
 													<div class="col-sm-12">
 														<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto(produto)'></div>
-														<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='teste(produto)'></div>
+														<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='calcularProdutos()'></div>
 													</div>		
 												</td>
 											</tr>
@@ -782,46 +782,20 @@ angular
 		};
 		console.log("44")
 
-		$scope.teste = (valor) =>{
+		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc = 0;
 			let valorTotalItem = 0;
 
 			for(let i=0; i < $rootScope.produtos.length; i++){
-				
 				valorTotalItem = parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
-				
-				console.log(valorTotalItem, "item")
-				
+								
 				$rootScope.produtos[i].valorTotalItem = valorTotalItem;
-
-
-				valorTotalCalc += $rootScope.produtos[i].valorTotalItem
-				console.log(valorTotalCalc, "calc")
-				
+				valorTotalCalc += $rootScope.produtos[i].valorTotalItem				
 			}
-
-			$scope.valorTotal = valorTotalCalc;
 			
-			console.log($scope.valorTotal, "total")
-
-			// let oldValorTotal 	= parseFloat($scope.valorTotal);
-			// let calc 			= 0;
-			// let newValorTotal	= 0;
-
-			// console.log(parseFloat(valor.valorNegociado), parseFloat(valor.quantidade), $scope.valorTotal)
-
-			// calc			= parseFloat(valor.valorNegociado) * parseFloat(valor.quantidade);
-			// newValorTotal 	= +oldValorTotal + (calc);
-
-			// console.log(newValorTotal, "new")
-
-			// $scope.valorTotal = 0	
-			// $scope.valorTotal = newValorTotal;
-
-			// console.log($scope.valorTotal)
-
-			return valor + 5
+			$scope.valorTotal = valorTotalCalc;
+		
 		}
 
 		$scope.adicionarProduto = ($item) =>{
@@ -847,7 +821,7 @@ angular
 		$scope.removerProduto = ($item) => {
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
 
-			$scope.teste();
+			$scope.calcularProdutos();
 		};
 
 		$scope.addObservacaoHistorico = () => {
