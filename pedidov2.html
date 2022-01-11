@@ -735,7 +735,7 @@ angular
 				$rootScope.hashDoc			= '';
 				$scope.sincronizado			= 'N';
 
-				$scope.valorTotal			= "";
+				$scope.valorTotal			= 0;
 
 			}else{
 				
@@ -780,11 +780,11 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("21126")
+		console.log("3331126")
 
 		$scope.teste = (valor) =>{
 
-			let oldValorTotal 	= $scope.valorTotal != '' ? parseFloat($scope.valorTotal) : 0;
+			let oldValorTotal 	= parseFloat($scope.valorTotal);
 			let calc 			= 0;
 			let newValorTotal	= 0;
 
