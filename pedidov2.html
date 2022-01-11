@@ -1075,10 +1075,14 @@ angular
 			});
 
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '80px').renderWith(function(data, type, row) {
-				var btnhtmlData = '';
-				
-				let formatedValueData = row.jsonDocs[0].datEmiERP !="" ? row.jsonDocs[0].datEmiERP.toLocaleDateString('pt-br') : ""
+				var btnhtmlData 	  = '';
+				let formatedValueData = "";
+				let toFormatValueData = "";
 
+				if(row.jsonDocs[0].datEmiERP !=""){
+					toFormatValueData = new Date(row.jsonDocs[0].datEmiERP);
+					formatedValueData = toFormatValue.toLocaleDateString('pt-br')
+				}
 				btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValueData+"</div>";
 							
 				return btnhtmlData;
