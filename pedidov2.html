@@ -577,6 +577,10 @@ angular
 				cCliente.focus();
 			}, 200);
 		};
+
+		$scope.calcularPedido = () => {
+
+		}
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
 			try{
@@ -1038,8 +1042,8 @@ angular
 			defPD = {	'id'								:	{i:0, vsbl: false,	tlt: '',        		width:''	},
 						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido',		width:''	},
 						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs[0].vendedor.nome'			:	{i:2, vsbl: true,	tlt: 'Data',			width:''	},
-						'jsonDocs[0].produtos.codigoProduto':	{i:3, vsbl: true,	tlt: 'Valor',			width:''	},
+						'jsonDocs[0].datEmi'				:	{i:2, vsbl: true,	tlt: 'Data Emissão',	width:''	},
+						//'jsonDocs[0].produto[0].valorNegociado'			:	{i:3, vsbl: true,	tlt: 'Valor',			width:''	},
 						//'jsonDocs[0].sincronizado'			:	{i:5, vsbl: true,	tlt: 'Sincronizado',	width:''	},
 						//'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
 				};
@@ -1051,6 +1055,16 @@ angular
 			angular.forEach(defPD, function(value, key) {
 				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
 			});
+
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+				var btnhtmlValor = '';
+				
+				let formatedValue = row.jsonDocs[0].produto[0].valorNegociado.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+
+				btnhtmlValor += "<div style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValue+"</div>";
+							
+				return btnhtmlValor;
+			}));
 			
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Status').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml1 = '';
