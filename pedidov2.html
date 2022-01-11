@@ -267,12 +267,12 @@
 												</td>
 												<td>
 													<div>
-														<input type="number" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade" ng-blur="teste(produto)" ng-model="produto.quantidade">
+														<input type="number" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
 													</div>
 												</td>
 												<td>
 													<div>
-														<input type="number" class="inputTable" ng-blur="teste(produto)" ng-model="produto.valorNegociado">
+														<input type="number" class="inputTable" ng-model="produto.valorNegociado">
 													</div>
 												</td>
 												<td>
@@ -280,6 +280,7 @@
 												</td>
 												<td>
 													<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto(produto)'></div>
+													<div class='glyphicon glyphicon-floppy-saved' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='teste(produto)'></div>
 												</td>
 											</tr>
 										</tbody>
@@ -777,7 +778,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("1223")
+		console.log("14523")
 		$scope.teste = (valor) =>{
 
 			console.log(valor)
