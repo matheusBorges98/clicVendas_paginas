@@ -781,7 +781,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("4544")
+		console.log("4")
 
 		$scope.calcularProdutos = () =>{
 
@@ -862,6 +862,10 @@ angular
 			let id 					= $rootScope.idDocumento;
 			let jsonDocs			= [];
 			let dados 				= {};
+
+			/*Tratamento datas*/
+			$scope.prevEntrega 	= new Date($scope.prevEntrega);
+			$scope.datEmiERP	= new Date($scope.datEmiERP);
 						
 			$scope.messageNotific	= '';
 			
@@ -878,7 +882,7 @@ angular
 				formaPagamento	: $scope.formaPagamento,
 
 				endEntrega		: $scope.frmEndEntrega,
-				prevEntrega		: $scope.prevEntrega,
+				prevEntrega		: $scope.prevEntrega.toLocaleDateString('pt-br'),
 				
 				//Metodos
 				docCtrl			: hashDoc,
@@ -887,7 +891,7 @@ angular
 				
 				representante	: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
 
-				datEmiERP		: $scope.datEmiERP,
+				datEmiERP		: $scope.datEmiERP.toLocaleDateString('pt-br'),
 				
 				//Produtos
 				produtos		: $rootScope.produtos,
