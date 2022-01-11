@@ -778,7 +778,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("4")
+		console.log("45")
 
 		$scope.calcularProdutos = () =>{
 
@@ -1074,7 +1074,7 @@ angular
 				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
 			});
 
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '80px').renderWith(function(data, type, row) {
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
 				var btnhtmlData 	  = '';
 				let formatedValueData = "";
 				let toFormatValueData = "";
@@ -1088,7 +1088,7 @@ angular
 				return btnhtmlData;
 			}));
 
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
 				var btnhtmlValor = '';
 				console.log(row.jsonDocs[0].valorTotal)
 				let formatedValue = row.jsonDocs[0].valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
