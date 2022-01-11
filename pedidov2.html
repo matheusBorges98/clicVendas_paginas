@@ -780,7 +780,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("4")
+		console.log("44")
 
 		$scope.teste = (valor) =>{
 
@@ -846,6 +846,8 @@ angular
 
 		$scope.removerProduto = ($item) => {
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
+
+			$scope.teste();
 		};
 
 		$scope.addObservacaoHistorico = () => {
