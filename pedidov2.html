@@ -1059,7 +1059,7 @@ angular
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtmlValor = '';
 				
-				let formatedValue = row.jsonDocs[0].produto[0].valorNegociado.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+				let formatedValue = row.jsonDocs[0].produtos[0].valorNegociado.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
 
 				btnhtmlValor += "<div style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValue+"</div>";
 							
