@@ -1060,10 +1060,6 @@ angular
 			defPD = {	'id'								:	{i:0, vsbl: false,	tlt: '',        		width:''	},
 						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido',		width:''	},
 						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						//'jsonDocs[0].prevEntrega'			:	{i:2, vsbl: true,	tlt: 'Data Emissão',	width:''	},
-						//'jsonDocs[0].produto[0].valorNegociado'			:	{i:3, vsbl: true,	tlt: 'Valor',			width:''	},
-						//'jsonDocs[0].sincronizado'			:	{i:5, vsbl: true,	tlt: 'Sincronizado',	width:''	},
-						//'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
 				};
 
 
@@ -1074,7 +1070,7 @@ angular
 				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
 			});
 
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
 				var btnhtmlData 	  = '';
 				let formatedValueData = "";
 				let toFormatValueData = "";
