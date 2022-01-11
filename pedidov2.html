@@ -521,8 +521,6 @@ angular
 
 		$scope.onSelectCond = function ($item, $model, $label) {			
 			$scope.condPagamento = $item;
-
-			console.log($scope.condPagamento)
 		};
 
 		$scope.limpaCondicaoPagamento = function(){
@@ -780,7 +778,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("44")
+		console.log("1144")
 
 		$scope.calcularProdutos = () =>{
 
@@ -794,7 +792,7 @@ angular
 				valorTotalCalc += $rootScope.produtos[i].valorTotalItem				
 			}
 			
-			$scope.valorTotal = valorTotalCalc;
+			$scope.valorTotal = valorTotalCalc.toFixed(2);
 		
 		}
 
@@ -1079,8 +1077,7 @@ angular
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '80px').renderWith(function(data, type, row) {
 				var btnhtmlData = '';
 				
-				let formatedValueData = "11/07/2021"
-				//row.jsonDocs[0].prevEntrega.toLocaleDateString('pt-br',{ year: 'numeric', month: '2-digit', day: '2-digit' })
+				let formatedValueData = row.jsonDocs[0].datEmiERP !="" ? row.jsonDocs[0].datEmiERP.toLocaleDateString('pt-br') : ""
 
 				btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValueData+"</div>";
 							
@@ -1090,7 +1087,7 @@ angular
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtmlValor = '';
 				
-				let formatedValue = row.jsonDocs[0].produtos[0].valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+				let formatedValue = parseFloat(row.jsonDocs[0].produtos[0].valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}))
 
 				btnhtmlValor += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValue+"</div>";
 							
