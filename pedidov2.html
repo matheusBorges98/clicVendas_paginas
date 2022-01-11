@@ -1052,13 +1052,13 @@ angular
 				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
 			});
 
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data Emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '80px').renderWith(function(data, type, row) {
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '80px').renderWith(function(data, type, row) {
 				var btnhtmlData = '';
 				
 				let formatedValueData = "11/07/2021"
 				//row.jsonDocs[0].prevEntrega.toLocaleDateString('pt-br',{ year: 'numeric', month: '2-digit', day: '2-digit' })
 
-				btnhtmlData += "<div style='font-size:1.0em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValueData+"</div>";
+				btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValueData+"</div>";
 							
 				return btnhtmlData;
 			}));
