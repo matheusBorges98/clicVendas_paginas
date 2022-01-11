@@ -758,7 +758,7 @@ angular
 
 				$scope.representante		= docs.representante.nome;
 
-				$scope.prevEntrega			= docs.prevEntrega;
+				$scope.prevEntrega			= new Date(docs.prevEntrega);
 
 				$scope.datEmiERP			= docs.datEmiERP;
 
@@ -791,7 +791,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("16")
+		console.log("20")
 
 		$scope.calcularProdutos = () =>{
 
