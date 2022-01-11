@@ -752,9 +752,9 @@ angular
 
 				$scope.representante		= docs.representante.nome;
 
-				$scope.prevEntrega			= docs.prevEntrega;
+				$scope.prevEntrega			= docs.prevEntrega != "" ? new Date(docs.prevEntrega.toLocaleDateString('pt-br')) : docs.prevEntrega;
 
-				$scope.datEmiERP			= docs.datEmiERP;
+				$scope.datEmiERP			= docs.datEmiERP != "" ? new Date(docs.datEmiERP.toLocaleDateString('pt-br')) : docs.datEmiERP;
 
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
@@ -778,7 +778,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("45")
+		console.log("4544")
 
 		$scope.calcularProdutos = () =>{
 
@@ -787,8 +787,10 @@ angular
 
 			for(let i=0; i < $rootScope.produtos.length; i++){
 				valorTotalItem = parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
-								
+				
+				/*Grava o valor total do item*/
 				$rootScope.produtos[i].valorTotalItem = valorTotalItem;
+
 				valorTotalCalc += $rootScope.produtos[i].valorTotalItem				
 			}
 			
