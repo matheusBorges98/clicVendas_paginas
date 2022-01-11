@@ -808,7 +808,7 @@ angular
 
 				valorTotalItem 	= parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
 				console.log($rootScope.produtos[i].descAcresc, "desc")
-				if($rootScope.produtos[i].descAcresc != ""){
+				if($rootScope.produtos[i].descAcresc != undefined || $rootScope.produtos[i].descAcresc != null){
 					descontoAcresc	= parseFloat($rootScope.produtos[i].descAcresc)	/ 100;
 					calcDescAcresc	= valorTotalItem * descontoAcresc;
 					valorTotalItem 	= valorTotalItem - calcDescAcresc;
