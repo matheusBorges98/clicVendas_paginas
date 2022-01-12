@@ -944,18 +944,18 @@ angular
 			$scope.atualizaTabela();
 		};
 
-		console.log(`1`)
+		console.log(`ppp`)
 
 		$scope.aplicarFiltros = (valor) => {
 			console.log($scope.filDataEnvio)
 
 			$scope.filDataEnvio		= new Date($scope.filDataEnvio)
 
-			console.log($scope.filDataEnvio.toISOString())
+			console.log($scope.filDataEnvio.toISOString().split('T')[0])
 
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;		
-			$scope.filDataEnvio 		= $scope.filDataEnvio.toISOString(); 			
+			$scope.filDataEnvio 		= $scope.filDataEnvio.toISOString().split('T')[0]; 			
 
 			$scope.atualizaTabela();
 		};
