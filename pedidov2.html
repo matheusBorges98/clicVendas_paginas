@@ -257,8 +257,8 @@
 												<th>Preço Tab.(R$)</th>
 												<th>Quantidade</th>
 												<th>Vlr Negoc. (R$)</th>
-												<th>Desc/Acresc(%)</th>
-												<th>Valor total (R$)</th>
+												<th>Desc./Acrésc. %</th>
+												<th>Valor total</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -282,12 +282,16 @@
 													</div>
 												</td>
 												<td>
-													<div>
-														<button type='button' class='btn btn-default btn-number' ng-click='produto.opcaoDescAcresc === "DESCONTO" ? produto.opcaoDescAcresc = "ACRESCIMO" : produto.opcaoDescAcresc = "DESCONTO" '>																																								
-															<span ng-show="produto.opcaoDescAcresc === 'DESCONTO' " class="glyphicon glyphicon-minus"></span>	
-															<span ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' " class="glyphicon glyphicon-plus"></span>																								
-														</button>		
-														<input type="number" class="inputTable" ng-model="produto.descAcresc">
+													<div class="col-sm-12">
+														<div class="col-sm-3">
+															<button type='button' class='btn btn-default btn-number' ng-click='produto.opcaoDescAcresc === "DESCONTO" ? produto.opcaoDescAcresc = "ACRESCIMO" : produto.opcaoDescAcresc = "DESCONTO" '>																																								
+																<span ng-show="produto.opcaoDescAcresc === 'DESCONTO' " class="glyphicon glyphicon-minus"></span>	
+																<span ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' " class="glyphicon glyphicon-plus"></span>																								
+															</button>		
+														</div>
+														<div class="col-sm-9">
+															<input type="number" class="inputTable" ng-model="produto.descAcresc">
+														</div>
 													</div>
 												</td>
 												<td>
@@ -800,7 +804,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("133x")
+		console.log("222")
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
