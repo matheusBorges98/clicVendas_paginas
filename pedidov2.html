@@ -283,6 +283,9 @@
 												</td>
 												<td>
 													<div>
+														<button type='button' class='btn btn-default btn-number' ng-click='calcularProdutos(produto)'>																																								
+														<span class="glyphicon glyphicon-minus"></span>																								
+														</button>		
 														<input type="number" class="inputTable" ng-model="produto.descAcresc">
 													</div>
 												</td>
@@ -832,6 +835,7 @@ angular
 					codigoProduto		: $item.produto.id,
 					codVariacao			: $item.produto.codVariacao,
 					codExterno			: $item.produto.codExterno,
+					opcaoDescAcresc		: 'DESCONTO',
 					hashDoc				: '',
 				}
 			);
