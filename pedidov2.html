@@ -35,12 +35,7 @@
 						<label for="filCliente">Cliente</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCliente" ng-model="filCliente" aria-describedby=" " placeholder=" ">
 					</div>
-					
-					<div class="form-group">
-						<label for="filBU">BU</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filBU" ng-model="filBU" aria-describedby=" " placeholder=" ">
-					</div>
-					
+										
 					<div class="form-group">
 						<label for="filCluster">Cluster</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCluster" ng-model="filCluster" aria-describedby=" " placeholder=" ">
@@ -58,7 +53,7 @@
 					
 					<div class="form-group">
 						<label for="filCarteira">Data Emissão</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" " placeholder="Ex: 01/12/2021">
+						<input type="date" style="width: 220px;" class="form-control spacer-input" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" " placeholder="Ex: 01/12/2021">
 					</div>
 					
 					<div class="form-group">
@@ -422,7 +417,6 @@ angular
 		/* Inicializa filtros */
 		$scope.filCliente 			= "";
 		$scope.filFornecedores 		= "";
-		$scope.filBU 				= "";
 		$scope.filCluster 			= "";
 		$scope.filStatusAmostra		= "";
 		$scope.filCarteira 			= "";
@@ -992,7 +986,6 @@ angular
 			
 			$scope.filCliente 			= '';
 			$scope.filFornecedores 		= '';
-			$scope.filBU 				= '';
 			$scope.filCluster 			= '';
 			$scope.filStatusAmostra		= '';
 			$scope.filCarteira 			= '';
@@ -1010,7 +1003,6 @@ angular
 
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filFornecedores 		= $scope.filFornecedores;	
-			$scope.filBU 				= $scope.filBU;				
 			$scope.filCluster 			= $scope.filCluster; 		
 			$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
 			$scope.filCarteira 			= $scope.filCarteira; 		
@@ -1035,7 +1027,7 @@ angular
 							var filter = {
 								fil1:  $scope.filCliente,
 								fil2:  $scope.filFornecedores,
-								fil3:  $scope.filBU,
+								fil3:  "",
 								fil4:  $scope.filCluster,
 								fil5:  $scope.filStatusAmostra,
 								fil6:  $scope.filDataEnvio,
