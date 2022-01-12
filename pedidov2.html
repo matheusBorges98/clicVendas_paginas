@@ -629,6 +629,8 @@ angular
 			
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		};
+
+		console.log("A")
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
@@ -646,14 +648,13 @@ angular
 					pDocumento : {documento : $item}
 				}		
 			);
-			result = result.toString();
-
+		
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
-				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP', 2000)
+				$scope.geraNotificacao('O pedido '+JSON.stringify(result)+' foi gravado com sucesso no ERP', 2000)
 			}else{
 				dialog.modal('hide');
-				$scope.geraNotificacao('Houve uma falha na gravação do pedido: ' + result, 2500);
+				$scope.geraNotificacao('Houve uma falha na gravação do pedido: ' + JSON.stringify(result), 2500);
 			};
 							
 			return result
