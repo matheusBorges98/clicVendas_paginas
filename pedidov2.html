@@ -630,7 +630,7 @@ angular
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		};
 
-		console.log("AAAA")
+		console.log("X")
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
@@ -922,7 +922,7 @@ angular
 					json[0].datEmiERP		= new Date();
 					json[0].pedido			= $rootScope.documentoERP;
 				}else{
-					json[0].sincronizado = $rootScope.documentoERP;
+					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
 					json[0].pedido		 = 0;
 				}
 			};
