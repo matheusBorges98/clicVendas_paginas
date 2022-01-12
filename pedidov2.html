@@ -630,12 +630,12 @@ angular
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		};
 
-		console.log("CAA")
+		console.log("X")
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
 			let dialog = bootbox.dialog({
-				message: "<p style='font-size=1.2em' class='text-center'> O pedido está sendo enviado ao ERP...</p>",
+				message: '<div class="alert alert-light popup"role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">Enviando pedido para o ERP...</p></div>',
 				closeButton: false
 			});
 			
