@@ -258,8 +258,9 @@
 													<td>
 														<div class="col-sm-12">
 															<button type='button' class='btn btn-default btn-number' ng-click='produto.opcaoDescAcresc === "DESCONTO" ? produto.opcaoDescAcresc = "ACRESCIMO" : produto.opcaoDescAcresc = "DESCONTO" '>																																								
-																<span ng-show="produto.opcaoDescAcresc === 'DESCONTO' " class="glyphicon glyphicon-minus"></span>	
-																<span ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' " class="glyphicon glyphicon-plus"></span>																								
+																<!-- <span ng-show="produto.opcaoDescAcresc === 'DESCONTO' " class="glyphicon glyphicon-minus"></span>	
+																<span ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' " class="glyphicon glyphicon-plus"></span>	 -->
+																<span ng-class="produto.opcaoDescAcresc === 'DESCONTO' ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus' "></span>																								
 															</button>		
 																<input style="margin-left:1px; width: 30%;" type="number" class="inputTable" ng-model="produto.descAcresc">
 														</div>
@@ -767,7 +768,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("54")
+		console.log("aaaaa")
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
