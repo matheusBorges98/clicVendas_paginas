@@ -1144,9 +1144,9 @@ angular
 				closeButton: false
 			});
 			
-			setTimeout(() => {
-				dialog.modal('hide');
-			}, time);
+			// setTimeout(() => {
+			// 	dialog.modal('hide');
+			// }, time);
 		};	
 		
 		$scope.removerDocumento = ($dados) =>{	
@@ -1288,14 +1288,6 @@ angular
 		align-items: center;
 	}
 
-	.bootbox-body{
-		height: 50px;
-		font-size: 1.1em;
-		text-align: center;
-		padding: 10px;
-		font-weight: 400;
-	}
-
 	#mySidebar {
 	  height: 100%; /* 100% Full-height */
 	  width: 0; /* 0 width - change this with JavaScript */
@@ -1370,11 +1362,24 @@ angular
 
 	.modal-body{
 		padding:0;
-		margin-top:45%;
+		margin-top:38%;
 	}
 
 	.modal-content{
 		border:0;
+	}
+
+	.bootbox-body{
+		height: 50px;
+		font-size: 1.1em;
+		text-align: center;
+		padding: 10px;
+		font-weight: 400;
+	}
+
+	.popup{
+		height: 100px;
+		width: 350px;
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
