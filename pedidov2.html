@@ -194,11 +194,11 @@
 											<td>
 												{{produto.valorNegociado | currency:'R$ '}}
 											</td>
-											<td ng-show="produto.opcaoDescAcresc === 'DESCONTO' ">
-												- {{produto.descAcresc}}%
-											</td>
-											<td ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' ">
-												+ {{produto.descAcresc}}%
+											<td>
+												<p ng-show="produto.opcaoDescAcresc === 'DESCONTO' && produto.descAcresc != undefined ">- {{produto.descAcresc}}%</p>
+												<p ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' && produto.descAcresc != undefined">- {{produto.descAcresc}}%</p>
+												<p ng-show="produto.descAcresc == undefined"></p>
+												
 											</td>
 											<td>
 												{{produto.valorTotalItem | currency:'R$ '}}
