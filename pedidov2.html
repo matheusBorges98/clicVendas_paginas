@@ -944,18 +944,18 @@ angular
 			$scope.atualizaTabela();
 		};
 
-		console.log(`aa`)
+		console.log(`l`)
 
 		$scope.aplicarFiltros = (valor) => {
 			console.log($scope.filDataEnvio)
 
 			$scope.filDataEnvio		= new Date($scope.filDataEnvio)
 
-			console.log($scope.filDataEnvio.toLocaleDateString('pt-br'))
+			console.log($scope.filDataEnvio)
 
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;		
-			$scope.filDataEnvio 		= $scope.filDataEnvio.toLocaleDateString('pt-br'); 			
+			$scope.filDataEnvio 		= $scope.filDataEnvio; 			
 
 			$scope.atualizaTabela();
 		};
