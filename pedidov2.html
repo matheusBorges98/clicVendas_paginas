@@ -796,9 +796,9 @@ angular
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
 		
 		}
-
+		console.log("A")
 		$scope.adicionarProduto = ($item) =>{
-			console.log($item)
+			
 			$rootScope.produtos.unshift(
 				{ 
 					descricao			: $item.produto.nome,
@@ -819,6 +819,8 @@ angular
 				buscaProduto.blur();
 				$scope.itemProd = '';
 			}, 200);
+
+			$scope.calcularProdutos();
 			
 		};
 
