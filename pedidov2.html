@@ -178,6 +178,7 @@
 										<tr>
 											<th>Produto</th>
 											<th>Quantidade</th>
+											<th>Desc. / Acrésc.</th>
 											<th>Valor und.</th>
 										</tr>
 									</thead>
@@ -188,6 +189,12 @@
 											</td>
 											<td>
 												{{produto.quantidade}}
+											</td>
+											<td ng-show="produto.opcaoDescAcresc === 'DESCONTO' ">
+												- {{produto.descAcresc}}%
+											</td>
+											<td ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' ">
+												+ {{produto.descAcresc}}%
 											</td>
 											<td>
 												{{produto.valorNegociado | currency:'R$ '}}
@@ -801,7 +808,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("5")
+		console.log("15")
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
