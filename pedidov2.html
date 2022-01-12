@@ -946,17 +946,18 @@ angular
 
 		console.log(`zzzl`)
 		console.log(`2`)
+		console.log(`1`)
 
 		$scope.aplicarFiltros = (valor) => {
 			console.log($scope.filDataEnvio)
 
 			$scope.filDataEnvio		= new Date($scope.filDataEnvio)
 
-			console.log($scope.filDataEnvio)
+			console.log($scope.filDataEnvio.toISOString())
 
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;		
-			$scope.filDataEnvio 		= $scope.filDataEnvio; 			
+			$scope.filDataEnvio 		= $scope.filDataEnvio.toISOString(); 			
 
 			$scope.atualizaTabela();
 		};
