@@ -630,7 +630,7 @@ angular
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		};
 
-		console.log("A")
+		console.log("AB")
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
@@ -768,7 +768,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("raaa")
+
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
@@ -796,7 +796,7 @@ angular
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
 		
 		}
-		console.log("A")
+	
 		$scope.adicionarProduto = ($item) =>{
 			
 			$rootScope.produtos.unshift(
@@ -858,8 +858,6 @@ angular
 				1 - Salvar (Mantém apenas no ClicVenda)
 				2 - Finalizar (Envia o pedido para ERP)
 			*/
-
-			console.log($rootScope.produtos)
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;						
 			let id 					= $rootScope.idDocumento;
@@ -1084,7 +1082,6 @@ angular
 
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
 				var btnhtmlValor = '';
-				console.log(row.jsonDocs[0].valorTotal)
 				let formatedValue = row.jsonDocs[0].valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
 
 				btnhtmlValor += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValue+"</div>";
