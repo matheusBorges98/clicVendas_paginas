@@ -247,7 +247,7 @@
 													</td>
 													<td>
 														<div>
-															<input type="number" name="quantidadeProduto" class="inputTable" required ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
+															<input type="number" name="quantidadeProduto" id="quantidadeProduto" class="inputTable" required ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
 														</div>
 													</td>
 													<td>
@@ -271,7 +271,7 @@
 													<td>
 														<div class="col-sm-12">
 															<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
-															<div class='glyphicon glyphicon-floppy-saved col-sm-6' ng-disabled="!produto.quantidade || !produto.valorNegociado" style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
+															<div class='glyphicon glyphicon-floppy-saved col-sm-6' ng-disabled="cadastroPedido.quantidadeProduto.$error.required" style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
 														</div>		
 													</td>
 												</tr>
