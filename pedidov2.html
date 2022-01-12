@@ -630,12 +630,12 @@ angular
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		};
 
-		console.log("X")
+		console.log("XC")
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
 			let dialog = bootbox.dialog({
-				message: '<div class="alert alert-light popup"role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">Enviando pedido para o ERP...</p></div>',
+				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Enviando pedido para o ERP...</p></div>',
 				closeButton: false
 			});
 			
@@ -650,10 +650,10 @@ angular
 			);
 		
 			if(!isNaN(parseInt(result))){
-				//dialog.modal('hide');
+				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP', 2000, 'success')
 			}else{
-				//dialog.modal('hide');
+				dialog.modal('hide');
 				$scope.geraNotificacao('Houve uma falha na gravação do pedido: ',2000, 'danger');
 			};
 							
