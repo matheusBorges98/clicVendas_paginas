@@ -630,7 +630,7 @@ angular
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		};
 
-		console.log("XC")
+		console.log("XCCCC")
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
@@ -651,10 +651,10 @@ angular
 		
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
-				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP', 2000, 'success')
+				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
 			}else{
 				dialog.modal('hide');
-				$scope.geraNotificacao('Houve uma falha na gravação do pedido: ',2000, 'danger');
+				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
 			};
 							
 			return result
@@ -1019,6 +1019,7 @@ angular
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						}	
 
+						$rootScope.dadosGrid.sort((a,b) => (a.jsonDocs[0].sincronizado != 'N' && a.jsonDocs[0].sincronizado != 'S') ? 1 : ((b.jsonDocs[0].sincronizado === 'N' && b.jsonDocs[0].sincronizado === 'S') ? -1 : 0))
 						// $rootScope.dadosGrid.sort($scope.ordenaListagemTabela())
 
 						return $rootScope.dadosGrid;				
