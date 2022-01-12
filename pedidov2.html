@@ -27,7 +27,7 @@
 			<div id="mySidebar" class="sidebar">
 				<form>
 					<div class="form-group">
-						<label for="filFornecedores">Fornecedor</label>
+						<label for="filFornecedores">Representante</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filFornecedores" ng-model="filFornecedores" aria-describedby=" " placeholder=" ">
 					</div>
 					
@@ -35,51 +35,12 @@
 						<label for="filCliente">Cliente</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCliente" ng-model="filCliente" aria-describedby=" " placeholder=" ">
 					</div>
-										
-					<div class="form-group">
-						<label for="filCluster">Cluster</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCluster" ng-model="filCluster" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filStatusAmostra">Status da Amostra</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filStatusAmostra" ng-model="filStatusAmostra" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Carteira</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filCarteira" ng-model="filCarteira" aria-describedby=" " placeholder=" ">
-					</div>
-					
+																			
 					<div class="form-group">
 						<label for="filCarteira">Data Emissão</label>
-						<input type="date" style="width: 220px;" class="form-control spacer-input" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" " placeholder="Ex: 01/12/2021">
+						<input type="date" style="width: 220px;" class="form-control spacer-input" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" ">
 					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Data Solicitação</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filDataSolicitacao" ng-model="filDataSolicitacao" aria-describedby=" " placeholder="Ex: 01/12/2021">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Segmento</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filSegmento" ng-model="filSegmento" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Subsegmento</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filSubSegmento" ng-model="filSubSegmento" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Prioridade</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filPrioridade" ng-model="filPrioridade" aria-describedby=" " placeholder=" ">
-					</div>
-					
-					<div class="form-group">
-						<label for="filCarteira">Produto</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filProduto" ng-model="filProduto" aria-describedby=" " placeholder=" ">
-					</div>
+									
 				</form>
 
 				<div class="text-center" style="height: 50px;">
@@ -416,10 +377,7 @@ angular
 		
 		/* Inicializa filtros */
 		$scope.filCliente 			= "";
-		$scope.filFornecedores 		= "";
-		$scope.filCluster 			= "";
-		$scope.filStatusAmostra		= "";
-		$scope.filCarteira 			= "";
+		$scope.filRepresentante		= "";
 		$scope.filDataEnvio 		= "";
 		$scope.filDataSolicitacao	= "";
 		$scope.filSegmento			= "";
@@ -985,33 +943,17 @@ angular
 		$scope.limparFiltros = () =>{
 			
 			$scope.filCliente 			= '';
-			$scope.filFornecedores 		= '';
-			$scope.filCluster 			= '';
-			$scope.filStatusAmostra		= '';
-			$scope.filCarteira 			= '';
+			$scope.filRepresentante		= '';
 			$scope.filDataEnvio 		= '';
-			$scope.filDataSolicitacao	= '';
-			$scope.filSegmento			= '';
-			$scope.filSubSegmento 		= '';
-			$scope.filPrioridade		= '';
-			$scope.filProduto			= '';
-
+			
 			$scope.atualizaTabela();
 		};
 
 		$scope.aplicarFiltros = (valor) => {
-
+			console.log($scope.filDataEnvio)
 			$scope.filCliente 			= $scope.filCliente; 		
-			$scope.filFornecedores 		= $scope.filFornecedores;	
-			$scope.filCluster 			= $scope.filCluster; 		
-			$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
-			$scope.filCarteira 			= $scope.filCarteira; 		
-			$scope.filDataEnvio 		= $scope.filDataEnvio; 		
-			$scope.filDataSolicitacao 	= $scope.filDataSolicitacao; 		
-			$scope.filSegmento 			= $scope.filSegmento; 		
-			$scope.filSubSegmento 		= $scope.filSubSegmento; 		
-			$scope.filPrioridade 		= $scope.filPrioridade; 
-			$scope.filProduto 			= $scope.filProduto; 		
+			$scope.filRepresentante		= $scope.filRepresentante;		
+			$scope.filDataEnvio 		= $scope.filDataEnvio; 			
 
 			$scope.atualizaTabela();
 		};
@@ -1025,17 +967,17 @@ angular
 				data	: function(d) {   
 							var param = {idCvTccnpj	: dadosUserLogado.cId};
 							var filter = {
-								fil1:  $scope.filCliente,
-								fil2:  $scope.filFornecedores,
+								fil1:  $scope.filCliente.toUpperCase(),
+								fil2:  $scope.filRepresentante,
 								fil3:  "",
-								fil4:  $scope.filCluster,
-								fil5:  $scope.filStatusAmostra,
+								fil4:  "",
+								fil5:  "",
 								fil6:  $scope.filDataEnvio,
-								fil7:  $scope.filDataSolicitacao,
-								fil8:  $scope.filSegmento,
-								fil9:  $scope.filSubSegmento,
-								fil10: $scope.filPrioridade,
-								fil11: $scope.filProduto
+								fil7:  "",
+								fil8:  "",
+								fil9:  "",
+								fil10: "",
+								fil11: ""
 							};
 							d.param = param;
 							d.filter = filter;
