@@ -800,7 +800,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("1x")
+		console.log("133x")
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
@@ -816,7 +816,7 @@ angular
 				if($rootScope.produtos[i].descAcresc != undefined || $rootScope.produtos[i].descAcresc != null){
 					descontoAcresc	= parseFloat($rootScope.produtos[i].descAcresc)	/ 100;
 					calcDescAcresc	= valorTotalItem * descontoAcresc;
-					valorTotalItem 	= valorTotalItem - calcDescAcresc;
+					valorTotalItem 	= $rootScope.produtos[i].opcaoDescAcresc === 'DESCONTO' ? valorTotalItem - calcDescAcresc : valorTotalItem + calcDescAcresc;
 				}
 				
 				/*Grava o valor total do item*/
