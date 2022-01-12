@@ -258,8 +258,6 @@
 													<td>
 														<div class="col-sm-12">
 															<button type='button' class='btn btn-default btn-number' ng-click='produto.opcaoDescAcresc === "DESCONTO" ? produto.opcaoDescAcresc = "ACRESCIMO" : produto.opcaoDescAcresc = "DESCONTO" '>																																								
-																<!-- <span ng-show="produto.opcaoDescAcresc === 'DESCONTO' " class="glyphicon glyphicon-minus"></span>	
-																<span ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' " class="glyphicon glyphicon-plus"></span>	 -->
 																<span ng-class="produto.opcaoDescAcresc === 'DESCONTO' ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus' "></span>																								
 															</button>		
 																<input style="margin-left:1px; width: 30%;" type="number" class="inputTable" ng-model="produto.descAcresc">
@@ -1339,11 +1337,6 @@ angular
 	.inputTable:focus{
 		border-color: rgb(0, 0, 0);
 		border-style: solid;
-	}
-
-	.inputTable:required:invalid {
-		border-color: rgb(247, 20, 20);
-		border-style: dashed;
 	}
 
 	.openbtn:hover {
