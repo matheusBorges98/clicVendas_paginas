@@ -189,9 +189,8 @@
 								</div>
 
 								<div class="col-sm-6 spacer ">
-									<label for="prevEntrega">PrevisãoX de entrega</label>
+									<label for="prevEntrega">Previsão de entrega <span style="color: red;" ng-show="cadastroPedido.prevEntrega.$error.required">*</span></label>
 									<input type="date" class="form-control" name="prevEntrega" required ng-model="prevEntrega" id="prevEntrega">
-									<span ng-show="cadastroPedido.prevEntrega.$error.required">required</span>
 								</div>
 								<div class="col-sm-6 spacer ">
 									<label for="representante">Representante</label>
