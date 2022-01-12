@@ -283,15 +283,11 @@
 												</td>
 												<td>
 													<div class="col-sm-12">
-														<div class="col-sm-3">
-															<button type='button' class='btn btn-default btn-number' ng-click='produto.opcaoDescAcresc === "DESCONTO" ? produto.opcaoDescAcresc = "ACRESCIMO" : produto.opcaoDescAcresc = "DESCONTO" '>																																								
-																<span ng-show="produto.opcaoDescAcresc === 'DESCONTO' " class="glyphicon glyphicon-minus"></span>	
-																<span ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' " class="glyphicon glyphicon-plus"></span>																								
-															</button>		
-														</div>
-														<div class="col-sm-9">
-															<input type="number" class="inputTable" ng-model="produto.descAcresc">
-														</div>
+														<button type='button' class='btn btn-default btn-number' ng-click='produto.opcaoDescAcresc === "DESCONTO" ? produto.opcaoDescAcresc = "ACRESCIMO" : produto.opcaoDescAcresc = "DESCONTO" '>																																								
+															<span ng-show="produto.opcaoDescAcresc === 'DESCONTO' " class="glyphicon glyphicon-minus"></span>	
+															<span ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' " class="glyphicon glyphicon-plus"></span>																								
+														</button>		
+															<input style="margin-left:1px" type="number" class="inputTable" ng-model="produto.descAcresc">
 													</div>
 												</td>
 												<td>
@@ -804,7 +800,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("222")
+		console.log("4")
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
