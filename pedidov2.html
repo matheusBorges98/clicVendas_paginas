@@ -646,7 +646,7 @@ angular
 					pDocumento : {documento : $item}
 				}		
 			);
-			result = JSON.stringify(result);
+			result = result.toString();
 
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
@@ -767,7 +767,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("r")
+		console.log("raaa")
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
