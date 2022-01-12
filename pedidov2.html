@@ -270,7 +270,7 @@
 													<td>
 														<div class="col-sm-12">
 															<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
-															<div class='glyphicon glyphicon-floppy-saved col-sm-6' ng-disabled="produto.quantidade == undefined || produto.valorNegociado == undefined" style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
+															<div class='glyphicon glyphicon-floppy-saved col-sm-6' ng-disabled="produto.quantidade == null || produto.valorNegociado == '' " style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
 														</div>		
 													</td>
 												</tr>
@@ -767,7 +767,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-		console.log("5")
+		console.log("54")
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
