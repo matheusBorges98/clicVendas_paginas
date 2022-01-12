@@ -956,9 +956,8 @@ angular
 			console.log($scope.filDataEnvio)
 
 			if($scope.filDataEnvio != ""){
-				$scope.filDataEnvio		= new Date($scope.filDataEnvio)
-				$scope.filDataEnvio 	= $scope.filDataEnvio.toISOString().split('T')[0]; 			
-
+				let format				= new Date($scope.filDataEnvio) 
+				$scope.filDataEnvio 	= format.toISOString().split('T')[0]; 			
 			}
 
 			$scope.filCliente 			= $scope.filCliente; 		
