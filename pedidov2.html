@@ -931,9 +931,10 @@ angular
 
 				let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
 				
-				$scope.messageNotific = 'Registro alterado com sucesso';
-				$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
-
+				if(rotina == 1){
+					$scope.messageNotific = 'Registro alterado com sucesso';
+					$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
+				}
 			}else{
 				dados.jsonDocs 			= JSON.stringify(json);
 
