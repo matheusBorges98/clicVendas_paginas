@@ -651,10 +651,10 @@ angular
 		
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
-				$scope.geraNotificacao('O pedido '+JSON.stringify(result)+' foi gravado com sucesso no ERP', 2000)
+				$scope.geraNotificacao('O pedido '+JSON.stringify(result)+' foi gravado com sucesso no ERP', 2000, 'success')
 			}else{
 				dialog.modal('hide');
-				$scope.geraNotificacao('Houve uma falha na gravação do pedido: ' + JSON.stringify(result), 2500);
+				$scope.geraNotificacao('Houve uma falha na gravação do pedido: ' + JSON.stringify(result), 2500, 'danger');
 			};
 							
 			return result
@@ -793,7 +793,7 @@ angular
 
 					valorTotalCalc += $rootScope.produtos[i].valorTotalItem		
 				}else{
-					$scope.geraNotificacao('Informe o valor e quantidade do produto.')
+					$scope.geraNotificacao('Informe o valor e quantidade do produto.', 2000, 'warning')
 					valorTotalCalc = parseFloat($scope.valorTotal);
 				}
 						
@@ -932,7 +932,7 @@ angular
 				let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
 				
 				$scope.messageNotific = 'Registro alterado com sucesso';
-				$scope.geraNotificacao($scope.messageNotific);
+				$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
 
 			}else{
 				dados.jsonDocs 			= JSON.stringify(json);
@@ -941,7 +941,7 @@ angular
 
 				if(rotina == 1){
 					$scope.messageNotific 	= 'Registro inserido com sucesso';
-					$scope.geraNotificacao($scope.messageNotific);
+					$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
 				}
 				
 			};
@@ -1136,12 +1136,12 @@ angular
 
 		// }
 			
-		$scope.geraNotificacao = (message, time = 1200) =>{
+		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
 			var dialog = bootbox.dialog({
 
 			
 				
-				message: '<div class="alert alert-light" style="text-center; font-size:1.0em; font-weight:bold;" role="alert">'+message+'</div>',
+				message: '<div class="alert alert-'+tipo+'+" style="text-center; font-size:1.0em; font-weight:bold;" role="alert">'+message+'</div>',
 				closeButton: false
 			});
 			
@@ -1154,7 +1154,7 @@ angular
 			var id = $dados.id;
 
 			if($dados.jsonDocs[0].pedido != 0 &&  !isNaN(parseInt($dados.jsonDocs[0].pedido))){
-				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500);
+				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500, 'warning');
 			}else{
 				bootbox.confirm({
 					message:'Confirma a exclusão do registro?',
