@@ -178,8 +178,8 @@
 										<tr>
 											<th>Produto</th>
 											<th>Quantidade</th>
-											<th>Desc. / Acrésc.</th>
 											<th>Valor und.</th>
+											<th>Desc. / Acrésc.</th>
 											<th>Total item</th>
 										</tr>
 									</thead>
@@ -191,14 +191,14 @@
 											<td>
 												{{produto.quantidade}}
 											</td>
+											<td>
+												{{produto.valorNegociado | currency:'R$ '}}
+											</td>
 											<td ng-show="produto.opcaoDescAcresc === 'DESCONTO' ">
 												- {{produto.descAcresc}}%
 											</td>
 											<td ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' ">
 												+ {{produto.descAcresc}}%
-											</td>
-											<td>
-												{{produto.valorNegociado | currency:'R$ '}}
 											</td>
 											<td>
 												{{produto.valorTotalItem | currency:'R$ '}}
