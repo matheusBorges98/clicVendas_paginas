@@ -630,7 +630,7 @@ angular
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		};
 
-		console.log("AB")
+		console.log("ABBBB")
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
@@ -778,19 +778,25 @@ angular
 
 			for(let i=0; i < $rootScope.produtos.length; i++){
 
-				valorTotalItem 	= parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
+				if(($rootScope.produtos[i].quantidade != null && $rootScope.produtos[i].quantidade > 0) && $rootScope.produtos[i].valorNegociado != null){
+					valorTotalItem 	= parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
 				
-				/*Verifica se há desconto*/
-				if($rootScope.produtos[i].descAcresc != undefined || $rootScope.produtos[i].descAcresc != null){
-					descontoAcresc	= parseFloat($rootScope.produtos[i].descAcresc)	/ 100;
-					calcDescAcresc	= valorTotalItem * descontoAcresc;
-					valorTotalItem 	= $rootScope.produtos[i].opcaoDescAcresc === 'DESCONTO' ? valorTotalItem - calcDescAcresc : valorTotalItem + calcDescAcresc;
-				}
-				
-				/*Grava o valor total do item*/
-				$rootScope.produtos[i].valorTotalItem = valorTotalItem;
+					/*Verifica se há desconto*/
+					if($rootScope.produtos[i].descAcresc != undefined || $rootScope.produtos[i].descAcresc != null){
+						descontoAcresc	= parseFloat($rootScope.produtos[i].descAcresc)	/ 100;
+						calcDescAcresc	= valorTotalItem * descontoAcresc;
+						valorTotalItem 	= $rootScope.produtos[i].opcaoDescAcresc === 'DESCONTO' ? valorTotalItem - calcDescAcresc : valorTotalItem + calcDescAcresc;
+					}
+					
+					/*Grava o valor total do item*/
+					$rootScope.produtos[i].valorTotalItem = valorTotalItem;
 
-				valorTotalCalc += $rootScope.produtos[i].valorTotalItem				
+					valorTotalCalc += $rootScope.produtos[i].valorTotalItem		
+				}else{
+					$scope.geraNotificacao('Informe a quantidade e o valor do produto')
+					valorTotalCalc = $scope.valorTotal;
+				}
+						
 			}
 			
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
