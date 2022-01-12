@@ -247,12 +247,12 @@
 													</td>
 													<td>
 														<div>
-															<input type="number" class="inputTable" ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
+															<input type="number" name="quantidadeProduto" class="inputTable" required ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
 														</div>
 													</td>
 													<td>
 														<div>
-															<input type="number" class="inputTable" ng-model="produto.valorNegociado">
+															<input type="number" name="valorNegociado" class="inputTable" required ng-model="produto.valorNegociado">
 														</div>
 													</td>
 													<td>
@@ -269,8 +269,8 @@
 													</td>
 													<td>
 														<div class="col-sm-12">
-															<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto(produto)'></div>
-															<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='calcularProdutos()'></div>
+															<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
+															<div class='glyphicon glyphicon-floppy-saved col-sm-6' ng-disabled="cadastroPedido.quantidadeProduto.$error.required || cadastroPedido.valorNegociado.$error.required" style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
 														</div>		
 													</td>
 												</tr>
@@ -331,7 +331,7 @@
 						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
 					</div>
 					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0" ng-click="salvarDocumento(1)"> Salvar </button>
+						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required" ng-click="salvarDocumento(1)"> Salvar </button>
 					</div>	
 				</div>
 			</div>
