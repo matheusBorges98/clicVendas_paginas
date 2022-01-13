@@ -39,6 +39,11 @@
 						<label for="filCliente">Cliente</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCliente" ng-model="filCliente" aria-describedby=" " placeholder=" ">
 					</div>
+
+					<div class="form-group">
+						<label for="projeto">Sincronização</label>
+						<input type="checkbox" class="form-control spacer-input" ng-model="filSincronizado" id="filSincronizado">
+					</div>
 																			
 					<div class="form-group">
 						<label for="filCarteira">Data Emissão</label>
@@ -386,6 +391,7 @@ angular
 		$scope.filRepresentante		= "";
 		$scope.filDataEmissao 		= "";
 		$scope.filPesquisaGeral		= "";
+		$scope.filSincronizado		= "";
 
 		/*Incializa produtos*/
 		$rootScope.produtos 		= [];
@@ -648,7 +654,7 @@ angular
 					pDocumento : {documento : $item}
 				}		
 			);
-		
+					
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
@@ -961,6 +967,7 @@ angular
 			$scope.filRepresentante		= '';
 			$scope.filDataEmissao 		= '';
 			$scope.filPesquisaGeral		= '';
+			$scope.filSincronizado		= '';
 			
 			$scope.atualizaTabela();
 		};
@@ -974,12 +981,14 @@ angular
 
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;
-			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;		
+			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
+			$scope.filSincronizado		= $scope.filSincronizado;	
 			
 			$scope.atualizaTabela();
 		};
 
 		$scope.atualizaTabela = async (modo) =>{
+			console.log($scope.filSincronizado)
 
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -991,7 +1000,7 @@ angular
 								fil1:  $scope.filCliente.toUpperCase(),
 								fil2:  $scope.filRepresentante,
 								fil3:  $scope.filPesquisaGeral,
-								fil4:  "",
+								fil4:  $scope.filSincronizado ? "ERRO:" : "",
 								fil5:  "",
 								fil6:  $scope.filDataEmissao,
 								fil7:  "",
