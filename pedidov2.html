@@ -1011,9 +1011,8 @@ angular
 			$scope.atualizaTabela();
 		};
 
+		console.log("ss")
 		$scope.atualizaTabela = async (modo) =>{
-			console.log($scope.filSincronizado)
-
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
 				url	: '/clicVendas/rest/pedidov2/lista',
@@ -1056,7 +1055,7 @@ angular
 						// $rootScope.dadosGrid =	$rootScope.dadosGrid.sort((a,b) => (a.jsonDocs[0].sincronizado != 'N' && a.jsonDocs[0].sincronizado != 'S') ? 1 : ((b.jsonDocs[0].sincronizado === 'N' && b.jsonDocs[0].sincronizado === 'S') ? -1 : 0))
 						// // $rootScope.dadosGrid.sort($scope.ordenaListagemTabela())
 
-						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? 1 : -1);				
+						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
 					}
 				})
 					.withDataProp('data')
