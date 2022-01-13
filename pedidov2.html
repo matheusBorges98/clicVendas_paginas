@@ -788,8 +788,8 @@ angular
 				$scope.codExternoProduto	= docs.produtos.codExterno;
 
 				/*Valores formatados*/
-				$scope.dataEmissaoErpFormatada 	= new Date($scope.datEmiERP);
-				$scope.dataEmissaoErpFormatada	= $scope.dataEmissaoErpFormatada.toLocaleDateString('pt-br');
+				// $scope.dataEmissaoErpFormatada 	= new Date($scope.datEmiERP);
+				// $scope.dataEmissaoErpFormatada	= $scope.dataEmissaoErpFormatada.toLocaleDateString('pt-br');
 
 				$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
 				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br');
@@ -1110,14 +1110,8 @@ angular
 
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
 				var btnhtmlData 	  = '';
-				let formatedValueData = "";
-				let toFormatValueData = "";
 
-				if(row.jsonDocs[0].datEmiERP !=""){
-					toFormatValueData = new Date(row.jsonDocs[0].datEmiERP);
-					formatedValueData = toFormatValueData.toLocaleDateString('pt-br')
-				}
-				btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValueData+"</div>";
+				btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+row.jsonDocs[0].datEmiERP+"</div>";
 							
 				return btnhtmlData;
 			}));
