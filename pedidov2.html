@@ -42,7 +42,7 @@
 																			
 					<div class="form-group">
 						<label for="filCarteira">Data Emissão</label>
-						<input type="date" style="width: 220px;" class="form-control spacer-input" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
+						<input type="text" style="width: 220px;" ui-mask="99/99/9999" ng-pattern="/^[0-9]{1,7}[-\.\/]?+$/" class="form-control spacer-input" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
 					</div>
 
 					<div class="form-group">
