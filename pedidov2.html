@@ -1012,7 +1012,7 @@ angular
 		};
 
 		$scope.atualizaTabela = async (modo) =>{
-			console.log("EE")
+			console.log("F")
 
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1052,7 +1052,7 @@ angular
 									console.log(filDataEmi)
 									console.log(filDataEmi.filter(doc => doc && doc.datEmiERP == $scope.filDataEmissao), "A")
 
-									filter = filDataEmi.filter(doc => doc && doc.datEmiERP == $scope.filDataEmissao)
+									filter = filDataEmi.filter(doc => doc && doc.datEmiERP !="" && doc.datEmiERP == $scope.filDataEmissao)
 									
 
 									ped.jsonDocs = filter !="" ? filter : filDataEmi;
