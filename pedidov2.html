@@ -1168,7 +1168,7 @@ angular
 			});
 			
 			setTimeout(() => {
-			//	dialog.modal('hide');
+				dialog.modal('hide');
 			}, time);
 		};	
 		
@@ -1180,6 +1180,7 @@ angular
 			}else{
 				bootbox.confirm({
 					message:'Confirma a exclusão do registro?',
+					closeButton: false,
 					onHidden: function(e) {
 						$scope.atualizaTabela();
 					},
@@ -1194,7 +1195,7 @@ angular
 					},
 					buttons: {
 						cancel: {label: 'Cancelar',className:'btn-default'},
-						confirm: {label: 'Excluir',className:'btn_grid btn_cor_padrao'},
+						confirm: {label: 'Confirmar',className:'btn_grid btn_cor_padrao'},
 					},
 				}); 
 			};
@@ -1382,13 +1383,11 @@ angular
 	.modal-body{
 		padding:0;
 		margin-top:15%;
-		border: 1px solid silver;
-		border-radius:5px
 	}
 
 	.modal-content{
 		margin-top:20%;
-		background-color: rgb(236, 236, 236);
+		background-color: rgb(241, 241, 241);
 		border:0;
 	}
 
