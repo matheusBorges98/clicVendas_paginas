@@ -590,7 +590,8 @@ angular
 		};
 
 		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
-			$scope.filSincronizado	= $item;
+			console.log($item)
+			$scope.filSincronizado	= $item[0].send;
 		};
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
@@ -1023,7 +1024,7 @@ angular
 								fil1:  $scope.filCliente.toUpperCase(),
 								fil2:  $scope.filRepresentante,
 								fil3:  $scope.filPesquisaGeral,
-								fil4:  $scope.filSincronizado.send,
+								fil4:  $scope.filSincronizado,
 								fil5:  "",
 								fil6:  $scope.filDataEmissao,
 								fil7:  "",
