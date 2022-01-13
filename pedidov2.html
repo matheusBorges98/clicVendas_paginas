@@ -1000,12 +1000,8 @@ angular
 		};
 
 		$scope.aplicarFiltros = (valor) => {
-			// if($scope.filDataEmissao != ""){
-			// 	let format				= new Date($scope.filDataEmissao) 
-				
-			// 	$scope.filDataEmissao 	= format.toISOString().split('T')[0]; 			
-			// }
-
+			
+			console.log($scope.filDataEmissao)
 			$scope.filDataEmissao		= $scope.filDataEmissao;
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;
@@ -1015,7 +1011,7 @@ angular
 			$scope.atualizaTabela();
 		};
 
-		console.log("B")
+		console.log("C")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
