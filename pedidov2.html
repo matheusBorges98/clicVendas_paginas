@@ -1156,8 +1156,13 @@ angular
 		$scope.atualizaTabela();
 			
 		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
+			/* Utiliza o Alert Bootstrap
+				light   - padrao
+				warning - aviso erro
+				danger	- aviso informativo 
+				success - sucesso
+			*/
 			var dialog = bootbox.dialog({
-				
 				message: '<div class="alert alert-'+tipo+' popup"role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">'+message+'</p></div>',
 				closeButton: false
 			});
@@ -1392,6 +1397,10 @@ angular
 
 	.popup{
 		height: 100px;
+	}
+
+	.modal-backdrop{
+		display: none;
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
