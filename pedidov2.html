@@ -632,33 +632,33 @@ angular
 
 			// erro na regra - ERRO: Regra 752: Função de programador ListaRegraCarregarJson: TJSONObject["codPro"] not found.
 
-			console.log(result, "A")
-			
-			for(k = 0; k < pedidosGravadosERP.length; k++){				
+			if(result !=""){
+				for(k = 0; k < pedidosGravadosERP.length; k++){				
 				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
-				if(dadosAtualizados && dadosAtualizados.length > 0){
-					for(l=0; l < $rootScope.dadosGrid.length; l++){
-						/*Verifica -
-							Codigo externo - Codigo variacao - Numero pedido ERP*/
-						if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
-							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
-							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
-							
-							/*Itens que serão atualizados*/							
-							/*Atualiza informações do produto vinculado ao pedido*/
-							//pedidosGravadosERP[k].jsonDocs[0].produtos.		= "5"
+					if(dadosAtualizados && dadosAtualizados.length > 0){
+						for(l=0; l < $rootScope.dadosGrid.length; l++){
+							/*Verifica -
+								Codigo externo - Codigo variacao - Numero pedido ERP*/
+							if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
+								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
+								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
+								
+								/*Itens que serão atualizados*/							
+								/*Atualiza informações do produto vinculado ao pedido*/
+								//pedidosGravadosERP[k].jsonDocs[0].produtos.		= "5"
 
-							continue;
+								continue;
+							};
 						};
 					};
 				};
-			};
-			
+			}
+						
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		};
 
-		console.log("A")
+		console.log("B")
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
