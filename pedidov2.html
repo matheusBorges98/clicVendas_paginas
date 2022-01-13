@@ -996,15 +996,14 @@ angular
 			
 			$scope.atualizaTabela();
 		};
+		console.log("sss")
 		$scope.aplicarFiltros = (valor) => {
 
-			$scope.filDataEmissao		= $scope.filDataEmissao != "" ? $scope.filDataEmissao : $scope.filDataEmissao.substring(0,1) + "/" + $scope.filDataEmissao.substring(2,3)+ "/" + $scope.filDataEmissao.substring(4,7);
+			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(0,2);
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;
 			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
 			$scope.filSincronizado		= $scope.filSincronizado;	
-
-			console.log($scope.filDataEmissao)
 			
 			$scope.atualizaTabela();
 		};
