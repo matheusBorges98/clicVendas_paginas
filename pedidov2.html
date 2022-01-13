@@ -1046,7 +1046,10 @@ angular
 							$rootScope.dadosGrid = json.data;
 
 							for(ped of $rootScope.dadosGrid){
-								ped.jsonDocs = JSON.parse(ped.jsonDocs);
+								let order = JSON.parse(ped.jsonDocs);
+								let toOrder = order.sort((a) => (a.sincronizado !="DOCUMENTO_SINCRONIZADO" && a.sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? 1 : -1)
+								console.log(toOrder)
+								ped.jsonDocs = toOrder;
 							};
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
