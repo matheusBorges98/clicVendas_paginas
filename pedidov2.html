@@ -1000,12 +1000,13 @@ angular
 		};
 
 		$scope.aplicarFiltros = (valor) => {
-			if($scope.filDataEmissao != ""){
-				let format				= new Date($scope.filDataEmissao) 
+			// if($scope.filDataEmissao != ""){
+			// 	let format				= new Date($scope.filDataEmissao) 
 				
-				$scope.filDataEmissao 	= format.toISOString().split('T')[0]; 			
-			}
+			// 	$scope.filDataEmissao 	= format.toISOString().split('T')[0]; 			
+			// }
 
+			$scope.filDataEmissao		= $scope.filDataEmissao;
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;
 			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
