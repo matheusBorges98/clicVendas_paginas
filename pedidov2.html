@@ -45,9 +45,9 @@
 						<input type="date" style="width: 220px;" class="form-control spacer-input" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
 					</div>
 
-					<div class="form-group">
-						<input type="checkbox" ng-model="filSincronizado" id="filSincronizado">
-						<label for="filSincronizado">Falha sincronização</label>
+					<div class="col-sm-2 spacer ">
+						<label for="projeto">Status Sincronização</label>
+						<input type="text" class="form-control spacer-input" ng-model="filSincronizado" id="filSincronizado" uib-typeahead="(sincronizado.nome) for sincronizado in getFilScinronizacao($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectFilSincronizacao($item, $model, $label)">
 					</div>
 									
 				</form>
@@ -569,6 +569,28 @@ angular
 			$timeout(function () {
 				cCliente.focus();
 			}, 200);
+		};
+
+		$scope.getFilScinronizacao = () =>{
+			$scope.listaFilSincronizacao = [ 
+				{
+					nome: 'Não sincronizados',
+					send: "DOCUMENTO_NAO_SINCRONIZADO"
+				},
+				{
+					nome: 'Sincronizados',
+					send: "DOCUMENTO_SINCRONIZADO"
+				},
+				{
+					nome: 'Falha na sincronização',
+					send: 'ERRO: '
+				},
+			];
+			return $scope.listaFilSincronizacao;
+		};
+
+		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
+			$scope.filSincronizado	= $item;
 		};
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
