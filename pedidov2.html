@@ -1012,7 +1012,7 @@ angular
 		};
 
 		$scope.atualizaTabela = async (modo) =>{
-			console.log($scope.filSincronizado)
+			console.log("aaa")
 
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1046,14 +1046,25 @@ angular
 							$rootScope.dadosGrid = json.data;
 
 							for(ped of $rootScope.dadosGrid){
-								ped.jsonDocs = JSON.parse(ped.jsonDocs);
+								if($scope.filDataEmissao != ""){
+									let filDataEmi = JSON.parse(ped.jsonDocs)
+
+									let filter = filDataEmi.filter(doc => doc && doc.jsonDocs[0].datEmiERP == $scope.filDataEmissao)
+									
+
+									ped.jsonDocs = filter;
+								}else{
+									ped.jsonDocs = JSON.parse(ped.jsonDocs);
+								}
+								
 							};
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						}	
 
-						$rootScope.dadosGrid =	$rootScope.dadosGrid.sort((a,b) => (a.jsonDocs[0].sincronizado != 'N' && a.jsonDocs[0].sincronizado != 'S') ? 1 : ((b.jsonDocs[0].sincronizado === 'N' && b.jsonDocs[0].sincronizado === 'S') ? -1 : 0))
-						// $rootScope.dadosGrid.sort($scope.ordenaListagemTabela())
+
+						// $rootScope.dadosGrid =	$rootScope.dadosGrid.sort((a,b) => (a.jsonDocs[0].sincronizado != 'N' && a.jsonDocs[0].sincronizado != 'S') ? 1 : ((b.jsonDocs[0].sincronizado === 'N' && b.jsonDocs[0].sincronizado === 'S') ? -1 : 0))
+						// // $rootScope.dadosGrid.sort($scope.ordenaListagemTabela())
 
 						return $rootScope.dadosGrid;				
 					}
