@@ -719,7 +719,7 @@ angular
 				$scope.obsOportunidade			= '';
 				$scope.histOportunidade			= '';
 				$rootScope.hashDoc				= '';
-				$scope.sincronizado				= 'N';
+				$scope.sincronizado				= 'DOCUMENTO_NAO_SINCRONIZADO';
 
 				$scope.dataPrevEntregaFormatada	= "";
 				$scope.dataEmissaoErpFormatada	= "";
@@ -899,7 +899,7 @@ angular
 				//Metodos
 				docCtrl			: hashDoc,
 				pedido			: $scope.pedido,
-				sincronizado	: $scope.sincronizado == "S" ? $scope.sincronizado : "N",
+				sincronizado	: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
 				
 				representante	: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
 
@@ -925,7 +925,7 @@ angular
 				
 				/*Atualiza numero do pedido*/
 				if(!isNaN(parseInt($rootScope.documentoERP))){
-					json[0].sincronizado	= "S";
+					json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
 					json[0].datEmiERP		= new Date();
 					json[0].pedido			= $rootScope.documentoERP;
 				}else{
@@ -1111,11 +1111,11 @@ angular
 			
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Status').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml1 = '';				
-				if(row.jsonDocs[0].sincronizado == "N"){
+				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
-				}else if(row.jsonDocs[0].sincronizado  == "S"){
+				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
-				}else if(row.jsonDocs[0].sincronizado != "N" && row.jsonDocs[0].sincronizado != "S") {
+				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
 					btnhtml1 += "<div class='glyphicon glyphicon-exclamation-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}
 				
