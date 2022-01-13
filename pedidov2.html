@@ -889,7 +889,7 @@ angular
 			$scope.obsOportunidade = "";
 		};
 
-		console.log(dadosUserLogado)
+		console.log(dadosUserLogado, "a")
 		$scope.salvarDocumento = async (rotina) => {
 			/*
 			Rotinas:
@@ -1026,8 +1026,8 @@ angular
 								fil4:  $scope.filSincronizado.send,
 								fil5:  "",
 								fil6:  $scope.filDataEmissao,
-								fil7:  "",
-								fil8:  "",
+								fil7:  dadosUserLogado.rId,
+								fil8:  dadosUserLogado.rNome,
 								fil9:  "",
 								fil10: "",
 								fil11: ""
