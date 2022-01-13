@@ -1046,11 +1046,7 @@ angular
 							$rootScope.dadosGrid = json.data;
 
 							for(ped of $rootScope.dadosGrid){
-								let order = JSON.parse(ped.jsonDocs);
-								
-								ped.jsonDocs =  order.sort((a) => (a.sincronizado !="DOCUMENTO_SINCRONIZADO" && a.sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? 1 : -1);
-
-								console.log(ped.jsonDocs, "sss")
+								ped.jsonDocs  = JSON.parse(ped.jsonDocs);
 							};
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
@@ -1060,7 +1056,7 @@ angular
 						// $rootScope.dadosGrid =	$rootScope.dadosGrid.sort((a,b) => (a.jsonDocs[0].sincronizado != 'N' && a.jsonDocs[0].sincronizado != 'S') ? 1 : ((b.jsonDocs[0].sincronizado === 'N' && b.jsonDocs[0].sincronizado === 'S') ? -1 : 0))
 						// // $rootScope.dadosGrid.sort($scope.ordenaListagemTabela())
 
-						return $rootScope.dadosGrid;				
+						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? 1 : -1);				
 					}
 				})
 					.withDataProp('data')
