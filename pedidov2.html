@@ -101,7 +101,7 @@
 
 						<div class="row">
 							
-							<div ng-show="sincronizado === 'S' && sincronizado.length == 1" class="form-group col-md-12">
+							<div ng-show="sincronizado === 'DOCUMENTO_SINCRONIZADO' && sincronizado.length == 1" class="form-group col-md-12">
 								<div style="background-color: #FBFBFB">
 									<div class="col-sm-6">
 										<h5>Cliente</h5>
@@ -176,7 +176,7 @@
 								</div>
 							</div>
 
-							<div ng-show="sincronizado != 'S' "  class="form-group col-md-12">
+							<div ng-show="sincronizado != 'DOCUMENTO_SINCRONIZADO' "  class="form-group col-md-12">
 								
 								<div class="col-sm-6 spacer">
 									<label for="nomeCliente">Cliente <span style="color: red;" ng-show="cadastroPedido.frmCliente.$error.required">*</span></label>
