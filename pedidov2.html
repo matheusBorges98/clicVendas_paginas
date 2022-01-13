@@ -42,7 +42,7 @@
 																			
 					<div class="form-group">
 						<label for="filCarteira">Data Emissão</label>
-						<input type="text" style="width: 220px;" ui-mask="99/99/9999" ng-pattern="/^[0-9]{1,7}[-\.\/]?+$/" class="form-control spacer-input" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
+						<input type="text" style="width: 220px;" ui-mask="99/99/9999" class="form-control spacer-input" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
 					</div>
 
 					<div class="form-group">
@@ -379,7 +379,7 @@
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
 
 angular
-	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons'])
+	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
 	.controller("MainController",
 	function(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
 		
