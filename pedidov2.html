@@ -245,7 +245,8 @@
 														<!-- <input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 														-->
 														<p> {{produto.descricao}} - {{produto.codExterno}}<p>
-														<p><b>Estoque:</b>{{produto.estoque}}</p>
+														<p style="font-size: 0.8em;"><b>Estoque: </b>{{produto.estoque}}</p>
+														<p style="font-size: 0.8em;"><b>Un. medida: </b>{{produto.unidMedida}}</p>
 													</td>
 													<td>
 														{{produto.precoTabela | currency:'R$ '}}
@@ -821,6 +822,8 @@ angular
 					quantidade			: 1,
 					valorNegociado		: $item.preco,
 					precoTabela			: $item.preco,
+					unidMedida			: $item.produto.unimed,
+					estoque				: $item.produto.qtdeEstoque,
 					hashDoc				: '',
 				}
 			);
