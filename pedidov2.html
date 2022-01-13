@@ -30,10 +30,10 @@
 						<label for="filFornecedores">Pesquisar</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filPesquisaGeral" ng-model="filPesquisaGeral" aria-describedby=" " placeholder="Digite a palavra chave. Ex: '123'">
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="filFornecedores">Representante</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filRepresentante" ng-model="filRepresentante" aria-describedby=" " placeholder=" ">
-					</div>
+					</div> -->
 					
 					<div class="form-group">
 						<label for="filCliente">Cliente</label>
@@ -1026,8 +1026,8 @@ angular
 								fil4:  $scope.filSincronizado.send,
 								fil5:  "",
 								fil6:  $scope.filDataEmissao,
-								fil7:  dadosUserLogado.rId,
-								fil8:  dadosUserLogado.rNome,
+								fil7:  dadosUserLogado.rId, /*Lista pedidos apenas do representante que o fez*/
+								fil8:  dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
 								fil9:  "",
 								fil10: "",
 								fil11: ""
@@ -1050,10 +1050,6 @@ angular
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						}	
-
-
-						// $rootScope.dadosGrid =	$rootScope.dadosGrid.sort((a,b) => (a.jsonDocs[0].sincronizado != 'N' && a.jsonDocs[0].sincronizado != 'S') ? 1 : ((b.jsonDocs[0].sincronizado === 'N' && b.jsonDocs[0].sincronizado === 'S') ? -1 : 0))
-						// // $rootScope.dadosGrid.sort($scope.ordenaListagemTabela())
 
 						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
 					}
@@ -1166,12 +1162,6 @@ angular
 		};
 
 		$scope.atualizaTabela();
-
-		// $scope.ordenaListagemTabela = (item) =>{
-			
-						
-
-		// }
 			
 		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
 			var dialog = bootbox.dialog({
