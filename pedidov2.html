@@ -591,7 +591,7 @@ angular
 
 		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
 			console.log($item)
-			$scope.filSincronizado	= $item[0].send;
+			$scope.filSincronizado	= $item.send;
 		};
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
