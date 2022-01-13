@@ -996,8 +996,9 @@ angular
 			
 			$scope.atualizaTabela();
 		};
-		console.log("sss")
+		console.log("SSSSSSS")
 		$scope.aplicarFiltros = (valor) => {
+			console.log($scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(0,2))
 
 			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(0,2);
 			$scope.filCliente 			= $scope.filCliente; 		
