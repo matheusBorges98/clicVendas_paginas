@@ -686,7 +686,8 @@ angular
 				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
 			};
 							
-			return result
+			//return result
+			return 123
 		};
 
 		$scope.getProdutos = (val) => {			
@@ -948,8 +949,9 @@ angular
 				
 				/*Atualiza numero do pedido*/
 				if(!isNaN(parseInt($rootScope.documentoERP))){
+					let dataFormat			= new Date();
 					json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
-					json[0].datEmiERP		= new Date();
+					json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR");
 					json[0].pedido			= $rootScope.documentoERP;
 				}else{
 					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
@@ -1011,7 +1013,7 @@ angular
 			$scope.atualizaTabela();
 		};
 
-		console.log("sAs")
+		console.log("A")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
