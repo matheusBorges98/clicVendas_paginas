@@ -660,7 +660,7 @@ angular
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		};
 
-		console.log("XA")
+		console.log("A")
 		
 		$scope.gravaDocumentoERP = async ($item) => {
 
@@ -678,6 +678,8 @@ angular
 					pDocumento : {documento : $item}
 				}		
 			);
+
+			console.log(result, "envio ERP")
 					
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
