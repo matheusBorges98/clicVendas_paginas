@@ -619,43 +619,40 @@ angular
 				)
 			};
 
-			// let result = await $scope.executaRequisicaoExterna(
-			// 	{
-			// 		idCvtccnpj 	 : dadosUserLogado.cId,
-			// 		numreg	   	 : 752,
-			// 		pRotina	   	 : 'listarPedidosAmostras',
-			// 		pCodCli    	 : dadosUserLogado.rId,
-			// 		pListaPedido : {lista:{pedidos : consulta}},
-			// 	}
-			// );
+			let result = await $scope.executaRequisicaoExterna(
+				{
+					idCvtccnpj 	 : dadosUserLogado.cId,
+					numreg	   	 : 752,
+					pRotina	   	 : 'listarPedidosAmostras',
+					pCodCli    	 : dadosUserLogado.rId,
+					pListaPedido : {lista:{pedidos : consulta}},
+				}
+			);
 
-			//erro na regra - ERRO: Regra 752: Função de programador ListaRegraCarregarJson: TJSONObject["codPro"] not found.
+			// erro na regra - ERRO: Regra 752: Função de programador ListaRegraCarregarJson: TJSONObject["codPro"] not found.
 
-			// console.log(result, "resultado")
+			console.log(result, "resultado")
 			
-			// for(k = 0; k < pedidosGravadosERP.length; k++){				
-			// 	let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
+			for(k = 0; k < pedidosGravadosERP.length; k++){				
+				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
-			// 	if(dadosAtualizados && dadosAtualizados.length > 0){
-			// 		for(l=0; l < $rootScope.dadosGrid.length; l++){
-			// 			/*Verifica -
-			// 				Codigo externo - Codigo variacao - Numero pedido ERP*/
-			// 			if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
-			// 				($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
-			// 				($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
+				if(dadosAtualizados && dadosAtualizados.length > 0){
+					for(l=0; l < $rootScope.dadosGrid.length; l++){
+						/*Verifica -
+							Codigo externo - Codigo variacao - Numero pedido ERP*/
+						if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
+							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
+							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
 							
-			// 				/*Itens que serão atualizados*/							
-			// 				pedidosGravadosERP[k].jsonDocs[0].emissao 							= dadosAtualizados[0].datEmi;
-			// 				pedidosGravadosERP[k].jsonDocs[0].ofertaUnit 						= dadosAtualizados[0].produto[0].preUni;
+							/*Itens que serão atualizados*/							
+							/*Atualiza informações do produto vinculado ao pedido*/
+							//pedidosGravadosERP[k].jsonDocs[0].produtos.		= "5"
 
-			// 				/*Atualiza informações do produto vinculado ao pedido*/
-			// 				//pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= "5"
-
-			// 				continue;
-			// 			};
-			// 		};
-			// 	};
-			// };
+							continue;
+						};
+					};
+				};
+			};
 			
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		};
@@ -892,6 +889,7 @@ angular
 			$scope.obsOportunidade = "";
 		};
 
+		console.log(dadosUserLogado)
 		$scope.salvarDocumento = async (rotina) => {
 			/*
 			Rotinas:
