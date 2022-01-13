@@ -827,11 +827,9 @@ angular
 					$scope.geraNotificacao('Informe o valor e quantidade do produto.', 2000, 'warning')
 					valorTotalCalc = parseFloat($scope.valorTotal);
 				}
-						
 			}
 			
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
-		
 		}
 	
 		$scope.adicionarProduto = ($item) =>{
@@ -998,7 +996,6 @@ angular
 			
 			$scope.atualizaTabela();
 		};
-		console.log($scope.filDataEmissao)
 		$scope.aplicarFiltros = (valor) => {
 
 			$scope.filDataEmissao		= $scope.filDataEmissao != "" ? $scope.filDataEmissao : $scope.filDataEmissao.substring(0,1) + "/" + $scope.filDataEmissao.substring(2,3)+ "/" + $scope.filDataEmissao.substring(4,7);
@@ -1006,6 +1003,8 @@ angular
 			$scope.filRepresentante		= $scope.filRepresentante;
 			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
 			$scope.filSincronizado		= $scope.filSincronizado;	
+
+			console.log($scope.filDataEmissao)
 			
 			$scope.atualizaTabela();
 		};
