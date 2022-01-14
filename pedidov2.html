@@ -873,7 +873,7 @@ angular
 		$scope.gravaDocumentoERP = async ($item) => {
 
 			let dialog = bootbox.dialog({
-				message: "<p style='font-size=1.2em' class='text-center'> O pedido está sendo enviado ao ERP...</p>",
+				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Enviando pedido para o ERP...</p></div>',
 				closeButton: false
 			});
 
@@ -887,12 +887,14 @@ angular
 				}		
 			);
 
+			console.log(result, "Retorno pedido enviado ao ERP")
+
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
-				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP', 2000)
+				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
 			}else{
 				dialog.modal('hide');
-				$scope.geraNotificacao('Houve uma falha na gravação do pedido: ' + result, 2500);
+				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
 			};
 			//return result;
 			return 63182;
@@ -1263,7 +1265,7 @@ angular
 				};
 
 				$scope.messageNotific = 'Registro alterado com sucesso';
-				$scope.geraNotificacao($scope.messageNotific);
+				$scope.geraNotificacao($scope.messageNotific, 1200, "success");
 
 			}else{
 				for(i = 0; i < $rootScope.produtos.length; i++){
@@ -1274,7 +1276,7 @@ angular
 					let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
 					if(rotina == 1){
 						$scope.messageNotific 	= 'Registro inserido com sucesso';
-						$scope.geraNotificacao($scope.messageNotific);
+						$scope.geraNotificacao($scope.messageNotific, 1200, "success");
 					}
 				};
 			};
@@ -1663,16 +1665,22 @@ angular
 			
 		};
 
-		$scope.geraNotificacao = (message, time = 1200) =>{
+		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
+			/* Utiliza o Alert Bootstrap
+				light   - padrao
+				danger 	- aviso erro
+				warning	- aviso informativo 
+				success - sucesso
+			*/
 			var dialog = bootbox.dialog({
-				message: "<p style='font-size=1.2em' class='text-center'>"+message+"</p>",
+				message: '<div class="alert alert-'+tipo+' popup"role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">'+message+'</p></div>',
 				closeButton: false
 			});
 			
 			setTimeout(() => {
 				dialog.modal('hide');
 			}, time);
-		};
+		};	
 			
 		$scope.atualizaTabela();
 						
@@ -1690,10 +1698,11 @@ angular
 			var id = $dados.id;
 
 			if($dados.jsonDocs[0].pedido != 0 &&  !isNaN(parseInt($dados.jsonDocs[0].pedido))){
-				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500);
+				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500, "warning");
 			}else{
 				bootbox.confirm({
 					message:'Confirma a exclusão do registro?',
+					closeButton: false,
 					onHidden: function(e) {
 						$scope.atualizaTabela();
 						$scope.atualizaTabelaCompleta();
@@ -1746,22 +1755,7 @@ angular
 		target: '#leftCol',
 		offset: navHeight
 	});
-	
-	function mostraCompleta() {
-	  document.getElementById("tbSimplificada").style.visibility = "hidden";
-	  document.getElementById("tbSimplificada").style.display = "none";
-	  document.getElementById("tbCompleta").style.visibility = "visible";
-	  document.getElementById("btnMostraTabela").setAttribute('onclick', "mostraSimplificada()");
-	  document.getElementById("btnMostraTabela").innerText = 'Simplificada';
-	};
-	
-	function mostraSimplificada() {
-	  document.getElementById("tbSimplificada").style.visibility = "visible";
-	  document.getElementById("tbSimplificada").style.display = "block";
-	  document.getElementById("tbCompleta").style.visibility = "hidden";
-	  document.getElementById("btnMostraTabela").setAttribute('onclick', "mostraCompleta()");
-	  document.getElementById("btnMostraTabela").innerText = 'Completa';  
-	};
+
 	</script>
 <!-- Regra de negócio -->
 </body>
@@ -1772,6 +1766,15 @@ angular
 
 :root {
 		--cor_principal: #047cca;
+	}
+
+	h5{
+		font-weight: bold;
+		font-size: 1.0em;
+	}
+
+	tr{
+		height: 55px;
 	}
 				
 	.btn_grid{
@@ -1844,7 +1847,7 @@ angular
   
 	}
 
-	#mySidebar a, label {
+	#mySidebar label {
 	  padding: 5px 5px 5px 10px;
 	  text-decoration: none;
 	  font-size: 14px;
@@ -1864,7 +1867,7 @@ angular
 	
 	/* When you mouse over the navigation links, change their color */
 	#mySidebar a:hover {
-	  color: #000;
+	  color: rgb(216, 216, 216);
 	}
 
 	/* The button used to open the sidebar */
@@ -1877,6 +1880,20 @@ angular
 	  border: none;
 	}
 
+	.inputTable{
+		outline: 0;
+		border-width: 0 0 0.5px;
+		border-color: rgb(184, 184, 184);
+		width: 50%;
+		height: 35px;
+		border-style: dashed;
+	}
+
+	.inputTable:focus{
+		border-color: rgb(0, 0, 0);
+		border-style: solid;
+	}
+
 	.openbtn:hover {
 	  background-color: #444;
 	}
@@ -1885,6 +1902,36 @@ angular
 	#main {
 	  transition: margin-left .5s; /* If you want a transition effect */
 	  padding: 0px;
+	}
+
+	.modal-body{
+		padding:0;
+		margin-top:15%;
+	}
+
+	.modal-content{
+		margin-top:20%;
+		background-color: rgb(247, 247, 247);
+		border:0;
+	}
+
+	.modal{
+		margin-left:5%;
+	}
+
+	.bootbox-body{
+		height: 50px;
+		font-size: 1.1em;
+		text-align: center;
+		font-weight: 500;
+	}
+
+	.popup{
+		height: 100px;
+	}
+
+	.modal-backdrop{
+		display: none;
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
