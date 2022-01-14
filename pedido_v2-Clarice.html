@@ -1,0 +1,1431 @@
+<!DOCTYPE html>  
+<html ng-app="appV2">  
+<head> 
+	<meta charset="utf-8"/>
+	<!-- Imports CSS-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.tableTools.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
+	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
+	<!-- Imports CSS-->
+
+<!-- View --> 
+</head>  
+<body>
+	<div class="container" ng-controller="MainController">
+		
+		<!--Primeira página-->
+		<div ng-show="exibeListaDocumentos">
+		
+			<!-- Sidebar Menu FILTRO -->
+			<div id="mySidebar" class="sidebar">
+				<form>
+					<div class="form-group">
+						<label for="filFornecedores">Pesquisar</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filPesquisaGeral" ng-model="filPesquisaGeral" autocomplete="off" aria-describedby=" " placeholder="Digite a palavra chave. Ex: '123'">
+					</div>
+					<!-- <div class="form-group">
+						<label for="filFornecedores">Representante</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filRepresentante" ng-model="filRepresentante" aria-describedby=" " placeholder=" ">
+					</div> -->
+					
+					<div class="form-group">
+						<label for="filCliente">Cliente</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCliente" autocomplete="off" ng-model="filCliente" aria-describedby=" " placeholder=" ">
+					</div>
+																			
+					<div class="form-group">
+						<label for="filCarteira">Data Emissão</label>
+						<input type="text" style="width: 220px;" ui-mask="99/99/9999" class="form-control spacer-input" autocomplete="off" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
+					</div>
+
+					<div class="form-group">
+						<label for="projeto">Sincronização</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input" ng-value="filSincronizado.nome" ng-model="filSincronizado" id="filSincronizado" uib-typeahead="(sincronizado.nome) for sincronizado in getFilScinronizacao($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectFilSincronizacao($item, $model, $label)">
+					</div>
+									
+				</form>
+
+				<div class="text-center" style="height: 50px;">
+					<div class="btn-group">
+						<button class="btn btn_grid btn_cor_padrao" ng-click="aplicarFiltros()"> Buscar </button>
+					</div>
+					<div class="btn-group">
+						<button class="btn btn_grid btn_cor_padrao" ng-click="limparFiltros();"> Limpar </button>
+					</div>
+				</div>
+
+			</div>
+			<!--Sidebar Menu FILTRO-->
+		
+			<!-- Tabela -->
+			<div id="main">
+				<!-- Tabela Simplificada -->
+				<div class="col-sm-12 ">
+					<table id="listDocuments"  dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border responsive hover"></table>					
+				</div>
+			</div>
+			<!-- Tabela -->
+		
+		</div>
+		<!--Primeira página-->
+
+		<!-- FORM NOVO DOCUMENTO -->
+
+		<div ng-show="exibeFormulario">
+			<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button>
+			<button class="btn btn_acao_header btn_cor_padrao text-center" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"> Histórico </button>
+
+			<!-- Header formulario -->
+			<div class="divider-titulo col-sm-12">
+				<div class="spacer titulo vcenter">
+					<h4 style="margin-top: 0;">{{tipoFormulario}}</h4>
+				</div>			
+			</div>
+			<!-- Header formulario -->
+			
+			<!-- Capa do pedido -->
+			<div class="row spacer ">
+
+				<form name="cadastroPedido">
+				
+					<div ng-hide="exibeHistoricos" class="col-sm-12 spacer">
+
+						<!-- Informações resumidas do pedido -->
+
+						<div class="row">
+							
+							<div ng-show="sincronizado === 'DOCUMENTO_SINCRONIZADO'" class="form-group col-md-12">
+								<div style="background-color: #FBFBFB">
+									<div class="col-sm-6">
+										<h5>Cliente</h5>
+										{{frmCliente.nome}}
+									</div>
+									<div class="col-sm-6">
+										<h5>Endereço de entrega</h5>
+										{{frmEndEntrega}}
+									</div>
+
+									<div class="col-sm-2 spacer">
+										<h5>Data de emissão</h5>
+										{{dataEmissaoErpFormatada}}
+									</div>
+									<div class="col-sm-2 spacer">
+										<h5>Previsão de entrega</h5>
+										{{dataPrevEntregaFormatada}}
+									</div>
+									<div class="col-sm-2 spacer">
+										<h5>Condição de pagamento</h5>
+										{{condPagamento.nome}}
+									</div>
+									<div class="col-sm-2 spacer">
+										<h5>Forma de pagamento</h5>
+										{{formaPagamento.nome}}
+									</div>
+									<div class="col-sm-2 spacer">
+										<h5>Total</h5>
+										{{valorTotal | currency:'R$ '}}
+									</div>	
+									<div class="col-sm-2 spacer">
+										<h5>Representante</h5>
+										{{representante}}
+									</div>
+									
+								</div>
+								
+								<div style="margin-top: 2%;" class="col-sm-12 spacer divider">
+									<table style="margin-top: 1%;" class="table">
+										<thead>
+											<tr>
+												<th>Produto</th>
+												<th>Quantidade</th>
+												<th>Valor und.</th>
+												<th>Desc. / Acrésc.</th>
+												<th>Total item</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat = "produto in produtos">
+												<td>
+													{{produto.descricao}} - {{produto.codExterno}}
+												</td>
+												<td>
+													{{produto.quantidade}}
+												</td>
+												<td>
+													{{produto.valorNegociado | currency:'R$ '}}
+												</td>
+												<td>
+													<p ng-show="produto.opcaoDescAcresc === 'DESCONTO' && produto.descAcresc != undefined ">- {{produto.descAcresc}}%</p>
+													<p ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' && produto.descAcresc != undefined">+ {{produto.descAcresc}}%</p>
+													<p ng-show="produto.descAcresc == undefined"></p>
+													
+												</td>
+												<td>
+													{{produto.valorTotalItem | currency:'R$ '}}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div ng-show="sincronizado != 'DOCUMENTO_SINCRONIZADO' "  class="form-group col-md-12">
+								
+								<div class="col-sm-6 spacer">
+									<label for="nomeCliente">Cliente <span style="color: red;" ng-show="cadastroPedido.frmCliente.$error.required">*</span></label>
+									<div class="input-group spacer">
+										<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" required id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+								<div class="col-sm-6 spacer">
+									<label for="nomeCliente">Endereço de entrega</label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="frmEndEntrega" name="frmEndEntrega" placeholder="Informe o endereço de entrega" uib-typeahead="ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + ee.complemento for ee in getEndEntrega($viewValue)" typeahead-loading="loadingEE" typeahead-no-results="noResultsEE"  typeahead-on-select="onSelectEE($item, $model, $label)" class="form-control"  autocomplete="off" typeahead-min-length="0">
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaEndEntrega()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+
+								<div class="col-sm-6 spacer ">
+									<label for="prevEntrega">Previsão de entrega </label>
+									<input type="date" class="form-control" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
+								</div>
+								<div class="col-sm-6 spacer ">
+									<label for="representante">Representante</label>
+									<input type="text" readonly class="form-control" ng-model="representante" id="representante">
+								</div>
+							
+								<div class="col-sm-6 spacer">
+									<label for="condPagamento">Condição de pagamento <span style="color: red;" ng-show="cadastroPedido.condPagamento.$error.required">*</span></label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCondicaoPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+								<div class="col-sm-6 spacer">
+									<label for="nomeCliente">Forma de pagamento  <span style="color: red;" ng-show="cadastroPedido.formaPagamento.$error.required">*</span></label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaFormaPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+
+								<div style="margin-top:3%" class="col-sm-12">
+									<label class="spacer" for="codPro">Adicionar Produto</label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+
+								<div style="margin-top:5px" class="form-group col-md-12">
+									<div class="col-sm-12 spacer">
+									
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Produto</th>
+													<th>Preço Tab.</th>
+													<th>Quantidade</th>
+													<th>Vlr Negoc. (R$)</th>
+													<th>Desc./Acrésc. %</th>
+													<th>Valor total</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat = "produto in produtos">
+													<td>
+														<!-- <input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+														-->
+														<p> {{produto.descricao}} - {{produto.codExterno}}<p>
+														<p style="font-size: 0.8em;"><b>Estoque: </b>{{produto.estoque}}</p>
+														<p style="font-size: 0.8em;"><b>Un. medida: </b>{{produto.unidMedida}}</p>
+													</td>
+													<td>
+														{{produto.precoTabela | currency:'R$ '}}
+													</td>
+													<td>
+														<div>
+															<input type="number" name="quantidadeProduto" min="1" id="quantidadeProduto" class="inputTable" required ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
+														</div>
+													</td>
+													<td>
+														<div>
+															<input type="number" name="valorNegociado" class="inputTable" ng-model="produto.valorNegociado">
+														</div>
+													</td>
+													<td>
+														<div class="col-sm-12">
+															<button type='button' class='btn btn-default btn-number' ng-click='produto.opcaoDescAcresc === "DESCONTO" ? produto.opcaoDescAcresc = "ACRESCIMO" : produto.opcaoDescAcresc = "DESCONTO" '>																																								
+																<span ng-class="produto.opcaoDescAcresc === 'DESCONTO' ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus' "></span>																								
+															</button>		
+																<input style="margin-left:1px; width: 30%;" type="number" class="inputTable" ng-model="produto.descAcresc">
+														</div>
+													</td>
+													<td>
+														{{produto.valorTotalItem | currency:'R$ '}}
+													</td>
+													<td>
+														<div class="col-sm-12">
+															<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
+															<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
+														</div>		
+													</td>
+												</tr>
+											</tbody>
+										</table>
+		
+									</div>
+
+									<div class="col-sm-12 spacer">
+										<h5>Total: </h5>{{valorTotal | currency:'R$ '}}
+									</div>	
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+					<div ng-show="exibeHistoricos" class="col-sm-12">
+						<div class="form-row">
+							<div class="col-sm-12 spacer">
+									<label for="histOportunidade">Histórico</label>
+									<textarea readonly class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-sm-12 spacer">
+								<hr class="divider">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-sm-11 spacer">
+								<label for="obsOportunidade">Observação</label>
+								<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
+							</div>
+							<div class="col-sm-1 spacer" style="padding-top: 30px;">
+								<label for="obsOportunidade"> </label>							
+								<div class="btn-group">
+									<button class="btn btn_grid btn_cor_padrao" ng-disabled="obsOportunidade=='' || obsOportunidade==undefined " ng-click="addObservacaoHistorico()"> Incluir </button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				
+			</div>	
+
+			<!-- Capa do pedido -->
+						
+			<hr class="divider">
+			<!-- Ações sob o formulario -->
+			<div class="row spacer">
+				<div class="pull-right" style="padding-right: 10px;">
+					<div class="btn-group">
+						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required" ng-show="pedido == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
+					</div>	
+					<div class="btn-group">
+						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
+					</div>
+					<div class="btn-group">
+						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required" ng-click="salvarDocumento(1)"> Salvar </button>
+					</div>	
+				</div>
+			</div>
+			<!-- Ações sob o formulario -->
+			<hr class="divider">	
+
+		</div>
+	
+	</div>
+	<!-- View --> 
+
+<!-- Scripts importados -->
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/jquery-3.1.1.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/easytimer.min.js"></script>	
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-route.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-ui-router.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-cookies.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angular-ui-notification/angular-ui-notification.min.js"></script>  
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/ui-bootstrap-tpls-2.5.0.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/dist/jquery.dataTables.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/dist/angular-datatables.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/bootstrap.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.bootstrap.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.factory.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.options.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/dataTables.buttons.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.colVis.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.flash.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.html5.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.print.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.buttons.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/fullcalendar-3.10.0/lib/moment.min.js"></script>	
+	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/ui-mask-master/dist/mask.min.js"></script>
+<!-- Scripts importados -->	
+
+<script>
+var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
+
+angular
+	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
+	.controller("MainController",
+	function(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
+		
+		$scope.exibeFormulario 		= false; 
+		$scope.exibeListaDocumentos = true;
+		$scope.exibeHistoricos		= false;
+		
+		/* Inicializa filtros */
+		$scope.filCliente 			= "";
+		$scope.filRepresentante		= "";
+		$scope.filDataEmissao 		= "";
+		$scope.filPesquisaGeral		= "";
+		$scope.filSincronizado		= {nome:"", send:""};
+
+		/*Incializa produtos*/
+		$rootScope.produtos 		= [];
+		
+		/*Incializa cliente*/
+		$rootScope.cliente			= {};
+
+		$scope.consultaDocumento = async (hash) => {
+			/*Consulta na base ClicVenda - pedidov2*/
+			$rootScope.listAllDocs = [];
+
+			let result = await $http({
+				method	: 'POST',
+				url		: '/clicVendas/rest/pedidov2/consulta',
+				data	: {param:{idCvTccnpj : dadosUserLogado.cId, id: hash}}	
+			});
+
+			let listAllDocs = result.data.parametros.documentos;
+
+			for(doc of listAllDocs){
+				doc.jsonDocs = JSON.parse(doc.jsonDocs);
+			}
+			$rootScope.listAllDocs = listAllDocs;
+
+			return listAllDocs;
+		};
+
+		$rootScope.changeView = ($dados) => {
+			if($scope.exibeFormulario == false){
+
+				$scope.exibeFormulario = true;
+				$scope.exibeListaDocumentos = false;
+				
+				if($dados == undefined){
+					$scope.tipoFormulario = 'Novo';
+
+					$scope.inputDesabilitado  = false;
+					$scope.permiteEditar	  = true;
+					
+					$scope.$apply();
+
+				}else{
+					$scope.tipoFormulario = $dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
+					
+					$scope.inputDesabilitado  = true;
+					$scope.permiteEditar	  = false;
+				};
+				
+			}else if($scope.exibeFormulario == true && !$scope.exibeHistoricos){
+				$scope.exibeFormulario = false;
+				$scope.exibeListaDocumentos = true;
+
+			}else if($scope.exibeFormulario == true && $scope.exibeHistoricos){
+				$scope.exibeHistoricos = false;
+			}
+
+		};
+
+		$scope.abreHistoricos = (acao) => {
+			$scope.exibeHistoricos = true;
+		};
+		
+		$scope.getEndEntrega = function(val) {
+			if(angular.isUndefined($scope.frmCliente) || $scope.frmCliente == ""){
+				$scope.critInfClienteEe = true;
+			}else{
+				$scope.critInfClienteEe = false;
+				
+				return $http({
+					method	: 'GET',
+					url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.cliente.id,
+					params 	: {filtro : val || ''}
+				}).then(	
+				function(response) {    
+					//Sucesso
+					if(response.data.length == 1){				
+						var ee = response.data[0];		
+						$scope.endEntrega = ee;
+						$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
+					}
+
+					return response.data.map(function(item){
+						return item;
+					});
+				}, 
+				function(response) {					
+				});
+			}
+		};
+
+		$scope.onSelectEE = function ($item, $model, $label) {			
+			$scope.endEntrega = $item;			
+		};
+
+		$scope.limpaEndEntrega = function(){
+			$scope.frmEndEntrega = "";
+			$scope.endEntrega	 = {};
+		};
+
+		$scope.getCondicoesP = function(val) {
+			return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
+			params: {
+				filtro		: val || '',
+				idCvTccnpj	: dadosUserLogado.cId 
+			}
+			}).then(function(response){              
+				return response.data.map(function(item){
+					return item;
+				});
+			});
+		};
+
+		$scope.onSelectCond = function ($item, $model, $label) {			
+			$scope.condPagamento = $item;
+		};
+
+		$scope.limpaCondicaoPagamento = function(){
+			$scope.condPagamento = "";
+		}
+
+		$scope.getFormasP = function(val) {			
+			if	($scope.condPagamento != null){
+				return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, {
+					params: {
+						filtro: val || '',
+						idCvTccnpj	: dadosUserLogado.cId
+					}
+				}).then(function(response){
+					return response.data.map(function(item){
+						return item;
+					});
+				});
+			} else {
+				return "";
+			}			
+		};
+
+		$scope.onSelectForma = function ($item, $model, $label) {						
+			$scope.formaPagamento = $item;			
+		};
+		
+		$scope.limpaFormaPagamento = function(){
+			$scope.formaPagamento = "";
+		}
+
+		$scope.getClientes = function(val) {
+			
+			var idRep = dadosUserLogado.rId;
+
+			return $http.post('/clicVendas/rest/Listas/cliente', {
+				params: {
+					filtro: val,
+					rId: idRep
+				}
+			}).then(function(response){
+				return response.data.map(function(item){
+					return item;
+				});
+			});
+		};
+
+		$scope.onSelectCli = ($item, $model, $label) => {
+			$rootScope.cliente = $item;	
+			$scope.codigoCliente = $rootScope.cliente.codExterno
+
+			$scope.getEndEntrega();
+		};
+
+		$scope.limpaCliente = () =>{
+			$scope.frmCliente 	 = '';
+			$scope.codigoCliente = '';
+			var cCliente		 = angular.element(document.querySelector('#frmCliente'));
+			
+			$timeout(function () {
+				cCliente.focus();
+			}, 200);
+		};
+
+		$scope.getFilScinronizacao = () =>{
+			$scope.listaFilSincronizacao = [ 
+				{
+					nome: 'Não sincronizados',
+					send: "DOCUMENTO_NAO_SINCRONIZADO"
+				},
+				{
+					nome: 'Sincronizados',
+					send: "DOCUMENTO_SINCRONIZADO"
+				},
+				{
+					nome: 'Falha na sincronização',
+					send: 'ERRO: '
+				},
+			];
+			return $scope.listaFilSincronizacao;
+		};
+
+		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
+			console.log($item)
+			$scope.filSincronizado	= $item;
+		};
+						
+		$scope.executaRequisicaoExterna = async ($json) => {
+			try{
+				let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+				
+				return response.data;
+			}catch(response){
+				console.log('erro', 'Não foi possível completar a requisição. Por favor, tente novamente mais tarde.');
+			};
+		};
+
+		$scope.consultaPedidosERP = async () => {
+			
+			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc && Number(doc.jsonDocs[0].pedido) > 0);
+			let consulta 			= [];
+
+			for(i = 0; i < pedidosGravadosERP.length; i++){
+				consulta.push(
+					{
+						numPed: pedidosGravadosERP[i].jsonDocs[0].pedido,
+						codPro: pedidosGravadosERP[i].jsonDocs[0].produtos.codExterno,
+						codDer: pedidosGravadosERP[i].jsonDocs[0].produtos.codVariacao,
+					}
+				)
+			};
+
+			let result = await $scope.executaRequisicaoExterna(
+				{
+					idCvtccnpj 	 : dadosUserLogado.cId,
+					numreg	   	 : 752,
+					pRotina	   	 : 'listarPedidosAmostras',
+					pCodCli    	 : dadosUserLogado.rId,
+					pListaPedido : {lista:{pedidos : consulta}},
+				}
+			);
+
+			console.log(result, "Sinc itens gravados no ERP")
+
+			// erro na regra - ERRO: Regra 752: Função de programador ListaRegraCarregarJson: TJSONObject["codPro"] not found.
+
+			if(result !=""){
+				for(k = 0; k < pedidosGravadosERP.length; k++){				
+				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
+
+					if(dadosAtualizados && dadosAtualizados.length > 0){
+						for(l=0; l < $rootScope.dadosGrid.length; l++){
+							/*Verifica -
+								Codigo externo - Codigo variacao - Numero pedido ERP*/
+							if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
+								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
+								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
+								
+								/*Itens que serão atualizados*/							
+								/*Atualiza informações do produto vinculado ao pedido*/
+								//pedidosGravadosERP[k].jsonDocs[0].produtos.		= "5"
+
+								continue;
+							};
+						};
+					};
+				};
+			}
+						
+			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
+		};
+		
+		$scope.gravaDocumentoERP = async ($item) => {
+
+			let dialog = bootbox.dialog({
+				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Enviando pedido para o ERP...</p></div>',
+				closeButton: false
+			});
+			
+			let result = await $scope.executaRequisicaoExterna(
+				{
+					idCvtccnpj : dadosUserLogado.cId,
+					numreg	   : 752,
+					pRotina	   : 'criarPedidoAmostra',
+					pCodCli    : dadosUserLogado.rId,
+					pDocumento : {documento : $item}
+				}		
+			);
+
+			console.log(result, "Retorno pedido enviado ao ERP")
+					
+			if(!isNaN(parseInt(result))){
+				dialog.modal('hide');
+				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
+			}else{
+				dialog.modal('hide');
+				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
+			};
+							
+			return result
+		};
+
+		$scope.getProdutosERP = async (val) => {
+
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 752,
+						pRotina	   : 'getProdutos',
+						pCodCli    : dadosUserLogado.rId,
+						filter 	   : {filtroProd : val}
+					}
+				);
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+
+			return result;
+		}
+
+		$scope.getProdutos = (val) => {			
+			
+			var dados = {};
+			dados.filtro			= val|| '';
+			dados.idCvTccnpj		= dadosUserLogado.cId;
+			dados.idCvTolistapreco	= 17431; /*Lista de preço com ID fixo*/
+			
+			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
+				return response.data.map(function(item){
+					return item;
+				});
+			});
+		};
+
+		$scope.limpaProduto = (acao) =>{
+			$scope.itemProd = '';
+			
+			var produto		= angular.element(document.querySelector('#itemProd'));
+			
+			$timeout(function () {
+				produto.focus();
+			}, 200);
+
+		};
+
+		$scope.abreFormulario = ($dados) =>{
+
+			if($dados == undefined){
+				
+				$rootScope.idDocumento 			= 0;
+				$scope.pedido			 		= 0,
+			
+				$rootScope.produtos 			= [];
+
+				$scope.condPagamento			= '';
+				$scope.formaPagamento			= '';
+
+				$scope.frmCliente				= '';
+				$scope.codigoCliente			= '';
+				$scope.frmEndEntrega			= '';
+
+				$scope.prevEntrega				= '';
+				
+				$scope.codigoProduto			= '';
+				
+				$scope.representante			= dadosUserLogado.rNome;
+
+				$scope.datEmiERP				= '';
+				
+				$scope.obsOportunidade			= '';
+				$scope.histOportunidade			= '';
+				$rootScope.hashDoc				= '';
+				$scope.sincronizado				= 'DOCUMENTO_NAO_SINCRONIZADO';
+
+				$scope.dataPrevEntregaFormatada	= "";
+				$scope.dataEmissaoErpFormatada	= "";
+
+				$scope.valorTotal				= 0;
+
+			}else{
+				
+				let docs 					= $dados.jsonDocs[0];
+
+				$rootScope.hashDoc			= docs.docCtrl;
+				$rootScope.idDocumento 		= $dados.id;
+				$rootScope.cliente			= docs.cliente;
+
+				$scope.condPagamento		= docs.condPagamento;
+				$scope.formaPagamento		= docs.formaPagamento;
+
+				$scope.frmCliente			= docs.cliente;
+				$scope.codigoCliente		= docs.cliente.codExterno;
+				$scope.nomeCliente			= docs.cliente.nome
+
+				$scope.representante		= docs.representante.nome;
+
+				$scope.prevEntrega			= new Date(docs.prevEntrega);
+
+				$scope.datEmiERP			= docs.datEmiERP;
+
+				$scope.obsOportunidade		= '';
+				$scope.histOportunidade		= docs.histOportunidade;
+
+				$scope.frmEndEntrega		= docs.endEntrega;
+
+				$scope.pedido				= docs.pedido;
+				$scope.sincronizado			= docs.sincronizado;
+
+				$scope.valorTotal			= docs.valorTotal;
+
+				/*Informações sobre o produto*/
+				$rootScope.produtos			= docs.produtos;
+				$scope.codigoProduto		= docs.produtos.codigoProduto;
+				$scope.descricao			= docs.produtos.descricao;
+				$scope.codExternoProduto	= docs.produtos.codExterno;
+
+				/*Valores formatados*/
+				// $scope.dataEmissaoErpFormatada 	= new Date($scope.datEmiERP);
+				// $scope.dataEmissaoErpFormatada	= $scope.dataEmissaoErpFormatada.toLocaleDateString('pt-br');
+
+				$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
+				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br');
+
+			};
+			
+			$rootScope.changeView($dados);
+			
+		};
+
+		$scope.calcularProdutos = () =>{
+
+			let valorTotalCalc 	= 0;
+			let valorTotalItem 	= 0;
+			let descontoAcresc 	= 0;
+			let calcDescAcresc	= 0;
+
+			for(let i=0; i < $rootScope.produtos.length; i++){
+
+				if(($rootScope.produtos[i].quantidade != null && $rootScope.produtos[i].quantidade > 0) && $rootScope.produtos[i].valorNegociado != null){
+					valorTotalItem 	= parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
+				
+					/*Verifica se há desconto*/
+					if($rootScope.produtos[i].descAcresc != undefined || $rootScope.produtos[i].descAcresc != null){
+						descontoAcresc	= parseFloat($rootScope.produtos[i].descAcresc)	/ 100;
+						calcDescAcresc	= valorTotalItem * descontoAcresc;
+						valorTotalItem 	= $rootScope.produtos[i].opcaoDescAcresc === 'DESCONTO' ? valorTotalItem - calcDescAcresc : valorTotalItem + calcDescAcresc;
+					}
+					
+					/*Grava o valor total do item*/
+					$rootScope.produtos[i].valorTotalItem = valorTotalItem;
+
+					valorTotalCalc += $rootScope.produtos[i].valorTotalItem		
+				}else{
+					$scope.geraNotificacao('Informe o valor e quantidade do produto.', 2000, 'warning')
+					valorTotalCalc = parseFloat($scope.valorTotal);
+				}
+			}
+			
+			$scope.valorTotal = valorTotalCalc.toFixed(2);
+		}
+	
+		$scope.adicionarProduto = ($item) =>{
+			console.log($item)
+			$rootScope.produtos.unshift(
+				{ 
+					descricao			: $item.produto.nome,
+					codigoProduto		: $item.produto.id,
+					codVariacao			: $item.produto.codVariacao,
+					codExterno			: $item.produto.codExterno,
+					opcaoDescAcresc		: 'DESCONTO',
+					quantidade			: 1,
+					valorNegociado		: $item.preco,
+					precoTabela			: $item.preco,
+					unidMedida			: $item.produto.unimed,
+					estoque				: $item.produto.qtdeEstoque,
+					hashDoc				: '',
+				}
+			);
+
+			var buscaProduto		= angular.element(document.querySelector('#itemProd'));
+			
+			$timeout(function () {
+				buscaProduto.blur();
+				$scope.itemProd = '';
+			}, 200);
+
+			$scope.calcularProdutos();
+			
+		};
+
+		$scope.removerProduto = ($item) => {
+			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
+
+			$scope.calcularProdutos();
+		};
+
+		$scope.addObservacaoHistorico = () => {
+			/*Data*/
+			var dataAtual 	= new Date();
+			var horas 		= dataAtual.getHours();
+			var minutos 	= dataAtual.getMinutes();
+
+			let strHistorico = [];
+
+			strHistorico.push({
+				item: $scope.obsOportunidade
+			});
+
+			for(let i = 0; i < strHistorico.length; i++){
+				$scope.histOportunidade += `
+				
+- Descrição: ${strHistorico[i].item}
+- Registrado em: ${dataAtual.toLocaleDateString('pt-BR')} às ${horas}:${minutos}`
+			}
+		
+			$scope.obsOportunidade = "";
+		};
+
+		$scope.salvarDocumento = async (rotina) => {
+			/*
+			Rotinas:
+				1 - Salvar (Mantém apenas no ClicVenda)
+				2 - Finalizar (Envia o pedido para ERP)
+			*/
+			
+			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;						
+			let id 					= $rootScope.idDocumento;
+			let jsonDocs			= [];
+			let dados 				= {};
+
+			$scope.messageNotific	= '';
+			
+			dados.cnpj 				= {id: dadosUserLogado.cId};
+
+			jsonDocs = [{
+				representante		: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
+
+				/*Historico*/
+				obsOportunidade	: $scope.obsOportunidade,
+				histOportunidade: $scope.histOportunidade,
+
+				condPagamento	: $scope.condPagamento,
+				formaPagamento	: $scope.formaPagamento,
+
+				endEntrega		: $scope.frmEndEntrega,
+				prevEntrega		: $scope.prevEntrega,
+				
+				//Metodos
+				docCtrl			: hashDoc,
+				pedido			: $scope.pedido,
+				sincronizado	: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
+				
+				representante	: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
+
+				datEmiERP		: $scope.datEmiERP,
+				
+				//Produtos
+				produtos		: $rootScope.produtos,
+				valorTotal		: parseFloat($scope.valorTotal),
+
+				//Cliente
+				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
+				
+			}];
+			
+			dados.jsonDocs 		= JSON.stringify(jsonDocs);
+			/*Recebe dados e para que sejam feitas as alterações necessarias*/
+			var json 			= JSON.parse(dados.jsonDocs);
+			
+			if(rotina == 2){					
+				let sendToERP 			= JSON.parse(dados.jsonDocs);
+
+				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
+				
+				/*Atualiza numero do pedido*/
+				if(!isNaN(parseInt($rootScope.documentoERP))){
+					let dataFormat			= new Date();
+					json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
+					json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR");
+					json[0].pedido			= $rootScope.documentoERP;
+				}else{
+					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
+					json[0].pedido		 = 0;
+				}
+			};
+	
+			if(id > 0){
+			
+				dados.jsonDocs 		  		= JSON.stringify(json); 
+
+				let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
+				
+				if(rotina == 1){
+					$scope.messageNotific = 'Registro alterado com sucesso';
+					$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
+				}
+			}else{
+				dados.jsonDocs 			= JSON.stringify(json);
+
+				let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
+
+				if(rotina == 1){
+					$scope.messageNotific 	= 'Registro inserido com sucesso';
+					$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
+				}
+				
+			};
+			
+			$scope.atualizaTabela();
+						
+			$scope.exibeFormulario 		= false;
+			$scope.exibeListaDocumentos = true;
+		};
+
+		$scope.limparFiltros = () =>{
+			
+			$scope.filCliente 			= '';
+			$scope.filRepresentante		= '';
+			$scope.filDataEmissao 		= '';
+			$scope.filPesquisaGeral		= '';
+			$scope.filSincronizado		= {nome:"", send:""};
+			
+			$scope.atualizaTabela();
+		};
+
+		$scope.aplicarFiltros = (valor) => {
+			
+			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7);
+			$scope.filCliente 			= $scope.filCliente; 		
+			$scope.filRepresentante		= $scope.filRepresentante;
+			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
+			$scope.filSincronizado		= $scope.filSincronizado;	
+			
+			$scope.atualizaTabela();
+		};
+
+		$scope.atualizaTabela = async (modo) =>{
+			$scope.dtOptions = DTOptionsBuilder.newOptions()            
+			.withOption('ajax', {
+				url	: '/clicVendas/rest/pedidov2/lista',
+				type	: 'POST',
+				data	: function(d) {   
+							var param = {idCvTccnpj	: dadosUserLogado.cId};
+							var filter = {
+								fil1:  $scope.filCliente.toUpperCase(),
+								fil2:  $scope.filRepresentante,
+								fil3:  $scope.filPesquisaGeral,
+								fil4:  $scope.filSincronizado.send,
+								fil5:  "",
+								fil6:  $scope.filDataEmissao,
+								fil7:  dadosUserLogado.rId, /*Lista pedidos apenas do representante que o fez*/
+								fil8:  dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
+								fil9:  "",
+								fil10: "",
+								fil11: ""
+							};
+							d.param = param;
+							d.filter = filter;
+							return JSON.stringify(d);
+						},
+					dataSrc: function(json) {
+
+						/*Modo 1 - 
+							Atualiza tabela com valores do ERP quando o pedido há número
+						*/
+						if (modo != 1){
+							$rootScope.dadosGrid = json.data;
+
+							for(ped of $rootScope.dadosGrid){
+								ped.jsonDocs  = JSON.parse(ped.jsonDocs);
+							};
+
+							$scope.consultaPedidosERP($rootScope.dadosGrid);
+						}	
+
+						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
+					}
+				})
+					.withDataProp('data')
+					.withOption('processing', true)
+					.withOption('serverSide', true)
+					.withOption('bFilter', false)
+					.withOption('searchDelay', 1000)
+					.withOption('scrollY', '100%')      
+					.withOption('scrollX', '100%')       
+					.withPaginationType('full_numbers')            
+					.withDisplayLength(20)
+					.withDOM('ftrip')
+					.withButtons([
+				{
+					text: 'Novo',
+					key: '1',
+					className: 'btn_grid btn_cor_padrao',
+					action: function (e, dt, node, config) {									
+						$scope.abreFormulario();					
+					}
+				},		
+				{
+					text: 'Filtrar',
+					key: '2',
+					className: 'btn_grid btn_cor_padrao',
+					action: function (e, dt, node, config) {									
+						openNav();					
+					}
+				},			
+				{
+					text: 'Atualizar',
+					key: '4',
+					className: 'btn_grid btn_cor_padrao',
+					action: function () {									
+						$scope.atualizaTabela();					
+					}
+				},								
+			]);	
+
+
+			defPD = {	'id'								:	{i:0, vsbl: false,	tlt: '',        		width:''	},
+						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido',		width:''	},
+						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
+				};
+
+
+			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
+			var montaColunas = [];
+
+			angular.forEach(defPD, function(value, key) {
+				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
+			});
+
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
+				var btnhtmlData 	  = '';
+
+				btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+row.jsonDocs[0].datEmiERP+"</div>";
+							
+				return btnhtmlData;
+			}));
+
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
+				var btnhtmlValor = '';
+				let formatedValue = row.jsonDocs[0].valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+
+				btnhtmlValor += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValue+"</div>";
+							
+				return btnhtmlValor;
+			}));
+			
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Status').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+				var btnhtml1 = '';				
+				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+row.jsonDocs[0].pedido+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
+					btnhtml1 += "<div class='glyphicon glyphicon-exclamation-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}
+				
+				return btnhtml1;
+			}));
+
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+				var btnhtml = '';				
+				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
+				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
+				return btnhtml;
+			}));
+
+			$scope.dtColumns = montaColunas;
+											
+			angular.element('#listDocuments').attr('datatable', '');
+			$compile(angular.element('#listDocuments'))($scope);
+
+			$scope.dtOptions.withOption('fnRowCallback',
+				
+				function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+					$compile(nRow)($scope);
+			});
+
+		};
+
+		$scope.atualizaTabela();
+
+		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
+			/* Utiliza o Alert Bootstrap
+				light   - padrao
+				danger 	- aviso erro
+				warning	- aviso informativo 
+				success - sucesso
+			*/
+			var dialog = bootbox.dialog({
+				message: '<div class="alert alert-'+tipo+' popup"role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">'+message+'</p></div>',
+				closeButton: false
+			});
+			
+			setTimeout(() => {
+				dialog.modal('hide');
+			}, time);
+		};	
+		
+		$scope.removerDocumento = ($dados) =>{	
+			var id = $dados.id;
+
+			if($dados.jsonDocs[0].pedido != 0 &&  !isNaN(parseInt($dados.jsonDocs[0].pedido))){
+				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500, 'warning');
+			}else{
+				bootbox.confirm({
+					message:'Confirma a exclusão do registro?',
+					closeButton: false,
+					onHidden: function(e) {
+						$scope.atualizaTabela();
+					},
+					callback: function(confirmacao){
+
+						if (confirmacao){
+							$http.delete('/clicVendas/rest/pedidov2/deleta/'+id); 
+							setTimeout(() => {
+								$scope.atualizaTabela();
+							}, 1500);
+						}
+					},
+					buttons: {
+						cancel: {label: 'Cancelar',className:'btn-default'},
+						confirm: {label: 'Confirmar',className:'btn_grid btn_cor_padrao'},
+					},
+				}); 
+			};
+		};
+			
+	});
+</script> 
+<!-- Regra de negócio -->
+<script>
+	/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+	function openNav() {
+		if(document.getElementById("mySidebar").style.width =="250px"){
+			document.getElementById("mySidebar").style.width = "0";
+			document.getElementById("mySidebar").style.height = "0";
+			document.getElementById("main").style.marginLeft = "0";
+		  }else{
+			document.getElementById("mySidebar").style.width = "250px";
+			document.getElementById("mySidebar").style.height = "500px";
+			document.getElementById("main").style.marginLeft = "250px";
+		  };
+		
+	};
+
+	/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+	
+	/* activate scrollspy menu */
+	var $body   = $(document.body);
+	var navHeight = $('#mySideBar').outerHeight(true) + 10;
+
+	$body.scrollspy({
+		target: '#leftCol',
+		offset: navHeight
+	});
+	
+	</script>
+<!-- Regra de negócio -->
+</body>
+
+</html>
+
+<style>
+
+:root {
+		--cor_principal: #047cca;
+	}
+
+	h5{
+		font-weight: bold;
+		font-size: 1.0em;
+	}
+
+	tr{
+		height: 55px;
+	}
+				
+	.btn_grid{
+		background-image: none !important;
+		color: #fff !important;
+		font-weight: 600;
+	}
+
+	.btn_acao_header{
+		background-image: none !important;
+		color: #fff !important;
+		font-weight: 600;
+		width: 80px;
+		height: 35px;
+		font-size: 0.88em;
+	}
+
+	.btn_cor_padrao {
+		background-color: var(--cor_principal) !important;
+		border-color: var(--cor_principal) !important; 
+	}
+
+	.container{
+		flex:1;
+		width: -webkit-fill-available;
+	}
+
+	.divider{
+		border-top: 1px solid rgb(230, 230, 230);
+	}
+	
+	.divider-titulo{
+		border-top: 0.8px solid rgb(230, 230, 230);
+		border-bottom: 0.8px solid rgb(230, 230, 230);
+		height: 50px;
+		margin-top: 5px;
+	}
+
+	.spacer{
+		margin-top:20px;
+	}
+
+	.spacer-input{
+		margin-top:10px;
+		margin-left:8px;
+	}
+
+	.titulo{
+		font-size: 15px;
+		font-weight: 900;
+	}
+
+	.vcenter {
+		display: flex;
+		align-items: center;
+	}
+
+	#mySidebar {
+	  height: 100%; /* 100% Full-height */
+	  width: 0; /* 0 width - change this with JavaScript */
+	  position: absolute; /* Stay in place */
+	  z-index: 1; /* Stay on top */
+	  top: 50;
+	  left: 50;
+	  background-color: rgba(255, 255, 255, 1); 
+	  overflow-x: hidden; /* Disable horizontal scroll */
+	  padding-top: 60px; /* Place content 60px from the top */
+	  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */ 
+	  box-shadow: 0 5px 5px 0 rgba(0,0,0,0.50);
+  
+	}
+
+	#mySidebar label {
+	  padding: 5px 5px 5px 10px;
+	  text-decoration: none;
+	  font-size: 14px;
+	  color: #000;
+	  display: block;
+	  transition: 0.3s;
+	}
+	
+	#mySidebar input {
+	  padding: 5px 5px 5px 10px;
+	  margin-left: 10px;
+	}
+
+	.navbar-header, label {
+	  display: inline !important
+	}
+	
+	/* When you mouse over the navigation links, change their color */
+	#mySidebar a:hover {
+	  color: rgb(216, 216, 216);
+	}
+
+	/* The button used to open the sidebar */
+	.openbtn {
+	  font-size: 20px;
+	  cursor: pointer;
+	  background-color: #111;
+	  color: white;
+	  padding: 10px 15px;
+	  border: none;
+	}
+
+	.inputTable{
+		outline: 0;
+		border-width: 0 0 0.5px;
+		border-color: rgb(184, 184, 184);
+		width: 50%;
+		height: 35px;
+		border-style: dashed;
+	}
+
+	.inputTable:focus{
+		border-color: rgb(0, 0, 0);
+		border-style: solid;
+	}
+
+	.openbtn:hover {
+	  background-color: #444;
+	}
+
+	/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+	#main {
+	  transition: margin-left .5s; /* If you want a transition effect */
+	  padding: 0px;
+	}
+
+	.modal-body{
+		padding:0;
+		margin-top:15%;
+	}
+
+	.modal-content{
+		margin-top:20%;
+		background-color: rgb(247, 247, 247);
+		border:0;
+	}
+
+	.modal{
+		margin-left:5%;
+	}
+
+	.bootbox-body{
+		height: 50px;
+		font-size: 1.1em;
+		text-align: center;
+		font-weight: 500;
+	}
+
+	.popup{
+		height: 100px;
+	}
+
+	.modal-backdrop{
+		display: none;
+	}
+
+	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+	@media screen and (max-height: 450px) {
+	  .sidebar {padding-top: 15px;}
+	  .sidebar a {font-size: 18px;}
+	}
+	</style>
