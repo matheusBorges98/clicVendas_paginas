@@ -690,6 +690,25 @@ angular
 			return result
 		};
 
+		$scope.getProdutosERP = async (val) => {
+
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 752,
+						pRotina	   : 'getProdutos',
+						pCodCli    : dadosUserLogado.rId,
+						filter 	   : {filtroProd : val}
+					}
+				);
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+
+			return result;
+		}
+
 		$scope.getProdutos = (val) => {			
 			
 			var dados = {};
