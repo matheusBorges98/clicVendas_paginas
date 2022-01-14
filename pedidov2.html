@@ -30,8 +30,8 @@
 			<div id="mySidebar" class="sidebar">
 				<form>
 					<div class="form-group">
-						<label for="filFornecedores">Fornecedor</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filFornecedores" ng-model="filFornecedores" aria-describedby=" " placeholder=" ">
+						<label for="filFornecedores">Pesquisar</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filPesquisaGeral" ng-model="filPesquisaGeral" autocomplete="off" aria-describedby=" " placeholder="Digite a palavra chave. Ex: '123'">
 					</div>
 					
 					<div class="form-group">
@@ -45,11 +45,11 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="filCluster">Cluster</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCluster" ng-model="filCluster" aria-describedby=" " placeholder=" ">
+						<label for="projeto">Sincronização</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input" ng-value="filSincronizado.nome" ng-model="filSincronizado" id="filSincronizado" uib-typeahead="(sincronizado.nome) for sincronizado in getFilScinronizacao($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectFilSincronizacao($item, $model, $label)">
 					</div>
 					
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="filStatusAmostra">Status da Amostra</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filStatusAmostra" ng-model="filStatusAmostra" aria-describedby=" " placeholder=" ">
 					</div>
@@ -82,7 +82,7 @@
 					<div class="form-group">
 						<label for="filCarteira">Prioridade</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filPrioridade" ng-model="filPrioridade" aria-describedby=" " placeholder=" ">
-					</div>
+					</div> -->
 					
 					<div class="form-group">
 						<label for="filCarteira">Produto</label>
@@ -592,6 +592,9 @@ angular
 		$scope.filPrioridade		= "";
 		$scope.filProduto			= "";
 
+		$scope.filSincronizado		= {nome:"", send:""};
+		$scope.filPesquisaGeral		= "";
+
 		/*Incializa produtos*/
 		$rootScope.produtos 		= [];
 		
@@ -645,6 +648,29 @@ angular
 				$scope.exibeListaDocumentos = true;
 			};
 
+		};
+
+		$scope.getFilScinronizacao = () =>{
+			$scope.listaFilSincronizacao = [ 
+				{
+					nome: 'Não sincronizados',
+					send: "DOCUMENTO_NAO_SINCRONIZADO"
+				},
+				{
+					nome: 'Sincronizados',
+					send: "DOCUMENTO_SINCRONIZADO"
+				},
+				{
+					nome: 'Falha na sincronização',
+					send: 'ERRO: '
+				},
+			];
+			return $scope.listaFilSincronizacao;
+		};
+
+		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
+			console.log($item)
+			$scope.filSincronizado	= $item;
 		};
 
 		$scope.getSituacaoAmostra = () => {
@@ -877,15 +903,17 @@ angular
 				closeButton: false
 			});
 
-			let result = await $scope.executaRequisicaoExterna(
-				{
-					idCvtccnpj : dadosUserLogado.cId,
-					numreg	   : 752,
-					pRotina	   : 'criarPedidoAmostra',
-					pCodCli    : dadosUserLogado.rId,
-					pDocumento : {documento : $item}
-				}		
-			);
+			// let result = await $scope.executaRequisicaoExterna(
+			// 	{
+			// 		idCvtccnpj : dadosUserLogado.cId,
+			// 		numreg	   : 752,
+			// 		pRotina	   : 'criarPedidoAmostra',
+			// 		pCodCli    : dadosUserLogado.rId,
+			// 		pDocumento : {documento : $item}
+			// 	}		
+			// );
+			
+			let result ="Houve um erro ao gravar o pedido..."
 
 			console.log(result, "Retorno pedido enviado ao ERP")
 
@@ -896,8 +924,9 @@ angular
 				dialog.modal('hide');
 				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
 			};
-			//return result;
-			return 63182;
+			
+			return result;
+			
 		};
 
 		$scope.getProdutos = (val) => {			
@@ -1318,6 +1347,9 @@ angular
 			$scope.filPrioridade		= '';
 			$scope.filProduto			= '';
 
+			$scope.filPesquisaGeral		= '';
+			$scope.filSincronizado		= {nome:"", send:""};
+
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
 		};
@@ -1337,6 +1369,9 @@ angular
 			$scope.filPrioridade 		= $scope.filPrioridade; 
 			$scope.filProduto 			= $scope.filProduto; 		
 
+			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
+			$scope.filSincronizado		= $scope.filSincronizado;	
+
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
 		};
@@ -1355,10 +1390,10 @@ angular
 								fil3:  $scope.filBU,
 								fil4:  dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
 								fil5:  dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
-								fil6:  $scope.filDataEnvio,
+								fil6:  $scope.filSincronizado.send,
 								fil7:  $scope.filDataSolicitacao,
 								fil8:  $scope.filSegmento,
-								fil9:  $scope.filSubSegmento,
+								fil9:  $scope.filPesquisaGeral,
 								fil10: $scope.filPrioridade,
 								fil11: $scope.filProduto
 							};
@@ -1491,14 +1526,14 @@ angular
 							var filter = {
 								fil1: $scope.filCliente,
 								fil2: $scope.filFornecedores,
-								fil3: "",
+								fil3: $scope.filPesquisaGeral,
 								fil4: dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
 								fil5: dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
 								fil5: $scope.filStatusAmostra,
 								fil6: $scope.filDataEnvio,
 								fil7: $scope.filDataSolicitacao,
 								fil8: $scope.filSegmento,
-								fil9: $scope.filSubSegmento,
+								fil9: $scope.filSincronizado.send,
 								fil10: $scope.filPrioridade,
 								fil11: $scope.filProduto
 							};
