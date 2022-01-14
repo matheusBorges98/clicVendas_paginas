@@ -579,25 +579,23 @@ angular
 		$scope.exibeListaDocumentos = true;
 		
 		/* Inicializa filtros */
-		$scope.filCliente 			= "";
-		$scope.filFornecedores 		= "";
-		$scope.filBU 				= "";
-		$scope.filCluster 			= "";
-		$scope.filStatusAmostra		= "";
-		$scope.filCarteira 			= "";
-		$scope.filDataEnvio 		= "";
-		$scope.filDataSolicitacao	= "";
+
+		// $scope.filFornecedores 		= "";
+		// $scope.filBU 				= "";
+		// $scope.filCluster 			= "";
+		// $scope.filCarteira 			= "";
+		// $scope.filDataSolicitacao	= "";
+		// $scope.filSubSegmento 		= "";
 		$scope.filSegmento			= "";
-		$scope.filSubSegmento 		= "";
+		$scope.filDataEnvio 		= "";
+		$scope.filCliente 			= "";
+		$scope.filStatusAmostra		= "";
 		$scope.filPrioridade		= "";
 		$scope.filProduto			= "";
-
 		$scope.filSincronizado		= {nome:"", send:""};
 		$scope.filPesquisaGeral		= "";
-
 		/*Incializa produtos*/
 		$rootScope.produtos 		= [];
-		
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
@@ -1336,20 +1334,18 @@ angular
 		};
 
 		$scope.limparFiltros = () =>{
-			
+			// $scope.filFornecedores 		= '';
+			// $scope.filBU 				= '';
+			// $scope.filCluster 			= '';
+			// $scope.filCarteira 			= '';
+			// $scope.filDataSolicitacao	= '';
+			// $scope.filSubSegmento 		= '';
 			$scope.filCliente 			= '';
-			$scope.filFornecedores 		= '';
-			$scope.filBU 				= '';
-			$scope.filCluster 			= '';
 			$scope.filStatusAmostra		= '';
-			$scope.filCarteira 			= '';
-			$scope.filDataEnvio 		= '';
-			$scope.filDataSolicitacao	= '';
-			$scope.filSegmento			= '';
-			$scope.filSubSegmento 		= '';
 			$scope.filPrioridade		= '';
 			$scope.filProduto			= '';
-
+			$scope.filSegmento			= '';
+			$scope.filDataEnvio 		= '';
 			$scope.filPesquisaGeral		= '';
 			$scope.filSincronizado		= {nome:"", send:""};
 
@@ -1358,20 +1354,18 @@ angular
 		};
 
 		$scope.aplicarFiltros = (valor) => {
-
-			$scope.filCliente 			= $scope.filCliente; 		
-			$scope.filFornecedores 		= $scope.filFornecedores;	
-			$scope.filBU 				= $scope.filBU;				
-			$scope.filCluster 			= $scope.filCluster; 		
+			// $scope.filFornecedores 		= $scope.filFornecedores;	
+			// $scope.filBU 				= $scope.filBU;				
+			// $scope.filCluster 			= $scope.filCluster; 		
+			// $scope.filCarteira 			= $scope.filCarteira; 		
+			// $scope.filDataSolicitacao 	= $scope.filDataSolicitacao; 		
+			// $scope.filSubSegmento 		= $scope.filSubSegmento; 	
+			$scope.filCliente 			= $scope.filCliente; 	
 			$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
-			$scope.filCarteira 			= $scope.filCarteira; 		
-			$scope.filDataEnvio 		= $scope.filDataEnvio; 		
-			$scope.filDataSolicitacao 	= $scope.filDataSolicitacao; 		
-			$scope.filSegmento 			= $scope.filSegmento; 		
-			$scope.filSubSegmento 		= $scope.filSubSegmento; 		
 			$scope.filPrioridade 		= $scope.filPrioridade; 
 			$scope.filProduto 			= $scope.filProduto; 		
-
+			$scope.filDataEnvio 		= $scope.filDataEnvio; 	
+			$scope.filSegmento 			= $scope.filSegmento; 
 			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
 			$scope.filSincronizado		= $scope.filSincronizado;	
 
@@ -1389,12 +1383,12 @@ angular
 							var param = {idCvTccnpj	: dadosUserLogado.cId};
 							var filter = {
 								fil1:  $scope.filCliente,
-								fil2:  $scope.filFornecedores,
-								fil3:  $scope.filBU,
+								fil2:  "",
+								fil3:  "",
 								fil4:  dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
 								fil5:  dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
 								fil6:  $scope.filSincronizado.send,
-								fil7:  $scope.filDataSolicitacao,
+								fil7:  "",
 								fil8:  $scope.filSegmento,
 								fil9:  $scope.filPesquisaGeral,
 								fil10: $scope.filPrioridade,
