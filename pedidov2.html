@@ -1663,6 +1663,19 @@ angular
 				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
 				return btnhtml;
 			}));
+
+			montaColunasFull.push(DTColumnBuilder.newColumn(null).withTitle('Sinc.').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+				var btnhtmlSinc = '';				
+				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
+					btnhtmlSinc += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
+					btnhtmlSinc += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+row.jsonDocs[0].pedido+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
+					btnhtmlSinc += "<div class='glyphicon glyphicon-exclamation-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}
+				
+				return btnhtmlSinc;
+			}));
 			
 			angular.forEach(defPD, function(value, key) {
 				montaColunasFull.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
