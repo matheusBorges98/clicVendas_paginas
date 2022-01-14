@@ -1454,7 +1454,7 @@ angular
 				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
 			});
 
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Sincronização').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '100px').renderWith(function(data, type, row) {
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Sinc.').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '100px').renderWith(function(data, type, row) {
 				var btnhtml1 = '';				
 				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
