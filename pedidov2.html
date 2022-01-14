@@ -848,49 +848,52 @@ angular
 			
 			console.log(result)
 			
-			for(k = 0; k < pedidosGravadosERP.length; k++){				
-				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
+			if(result !=""){
+				for(k = 0; k < pedidosGravadosERP.length; k++){				
+					let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
-				if(dadosAtualizados && dadosAtualizados.length > 0){
-					for(l=0; l < $rootScope.dadosGrid.length; l++){
+					if(dadosAtualizados && dadosAtualizados.length > 0){
+						for(l=0; l < $rootScope.dadosGrid.length; l++){
 
-						/*Verifica -
-							Codigo externo - Codigo variacao - Numero pedido ERP*/
-						if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
-							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
-							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
-							
-							/*Itens que serão atualizados*/
-							
-							/*pedidosGravadosERP[k].jsonDocs[0].anoFat		= dadosAtualizados[0].ano;*/
-							pedidosGravadosERP[k].jsonDocs[0].emissao 							= dadosAtualizados[0].datEmi;
-							pedidosGravadosERP[k].jsonDocs[0].responsavel 						= dadosAtualizados[0].respFor;
-							pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].sigufs;
-							pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].bu;
-							pedidosGravadosERP[k].jsonDocs[0].subsegmento						= dadosAtualizados[0].subseg;
-							pedidosGravadosERP[k].jsonDocs[0].segmento							= dadosAtualizados[0].segmento;
-							
-							pedidosGravadosERP[k].jsonDocs[0].familia 							= dadosAtualizados[0].produto[0].familia;
-							pedidosGravadosERP[k].jsonDocs[0].cluster 							= dadosAtualizados[0].produto[0].cluster;
-							pedidosGravadosERP[k].jsonDocs[0].desagr 							= dadosAtualizados[0].produto[0].agrCom;
-							
-							pedidosGravadosERP[k].jsonDocs[0].situacao	 						= dadosAtualizados[0].produto[0].sitAmostra;
-							pedidosGravadosERP[k].jsonDocs[0].justificativa						= dadosAtualizados[0].produto[0].justificativa;
-							//pedidosGravadosERP[k].jsonDocs[0].consumoProdutoKgMes	= dadosAtualizados[0].produto[0].consumo;
-							pedidosGravadosERP[k].jsonDocs[0].quantidade 						= dadosAtualizados[0].produto[0].qtdPed;
-							pedidosGravadosERP[k].jsonDocs[0].identQtd	 						= dadosAtualizados[0].produto[0].identQtd;
-							pedidosGravadosERP[k].jsonDocs[0].ofertaData 						= dadosAtualizados[0].produto[0].ofertaData;
-							pedidosGravadosERP[k].jsonDocs[0].vendaLocalKg 						= dadosAtualizados[0].produto[0].vendaLocal;
-							pedidosGravadosERP[k].jsonDocs[0].ofertaUnit 						= dadosAtualizados[0].produto[0].preUni;
+							/*Verifica -
+								Codigo externo - Codigo variacao - Numero pedido ERP*/
+							if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
+								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
+								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
 								
-							/*Atualiza informações do produto vinculado ao pedido*/
-							pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= dadosAtualizados[0].produto[0].consumoCliente;
+								/*Itens que serão atualizados*/
+								
+								/*pedidosGravadosERP[k].jsonDocs[0].anoFat		= dadosAtualizados[0].ano;*/
+								pedidosGravadosERP[k].jsonDocs[0].emissao 							= dadosAtualizados[0].datEmi;
+								pedidosGravadosERP[k].jsonDocs[0].responsavel 						= dadosAtualizados[0].respFor;
+								pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].sigufs;
+								pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].bu;
+								pedidosGravadosERP[k].jsonDocs[0].subsegmento						= dadosAtualizados[0].subseg;
+								pedidosGravadosERP[k].jsonDocs[0].segmento							= dadosAtualizados[0].segmento;
+								
+								pedidosGravadosERP[k].jsonDocs[0].familia 							= dadosAtualizados[0].produto[0].familia;
+								pedidosGravadosERP[k].jsonDocs[0].cluster 							= dadosAtualizados[0].produto[0].cluster;
+								pedidosGravadosERP[k].jsonDocs[0].desagr 							= dadosAtualizados[0].produto[0].agrCom;
+								
+								pedidosGravadosERP[k].jsonDocs[0].situacao	 						= dadosAtualizados[0].produto[0].sitAmostra;
+								pedidosGravadosERP[k].jsonDocs[0].justificativa						= dadosAtualizados[0].produto[0].justificativa;
+								//pedidosGravadosERP[k].jsonDocs[0].consumoProdutoKgMes	= dadosAtualizados[0].produto[0].consumo;
+								pedidosGravadosERP[k].jsonDocs[0].quantidade 						= dadosAtualizados[0].produto[0].qtdPed;
+								pedidosGravadosERP[k].jsonDocs[0].identQtd	 						= dadosAtualizados[0].produto[0].identQtd;
+								pedidosGravadosERP[k].jsonDocs[0].ofertaData 						= dadosAtualizados[0].produto[0].ofertaData;
+								pedidosGravadosERP[k].jsonDocs[0].vendaLocalKg 						= dadosAtualizados[0].produto[0].vendaLocal;
+								pedidosGravadosERP[k].jsonDocs[0].ofertaUnit 						= dadosAtualizados[0].produto[0].preUni;
+									
+								/*Atualiza informações do produto vinculado ao pedido*/
+								pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= dadosAtualizados[0].produto[0].consumoCliente;
 
-							continue;
+								continue;
+							};
 						};
 					};
 				};
-			};
+			}
+			
 			
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 			$scope.atualizaTabelaCompleta(1);		
