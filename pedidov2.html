@@ -1013,6 +1013,9 @@ angular
 				$scope.histOportunidade		= '';
 				$rootScope.hashDoc			= '';
 
+				/*Sincronização - Envio ERP*/
+				$scope.sincronizado			= "DOCUMENTO_NAO_SINCRONIZADO";
+
 			}else{
 				
 				let docs 					= $dados.jsonDocs[0];
@@ -1071,6 +1074,9 @@ angular
 				$scope.acoes				= docs.acoes;
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
+
+				/*Sincronização - Envio ERP*/
+				$scope.sincronizado			= docs.sincronizado;
 
 				/*Informações sobre o produto*/
 				$rootScope.produtos			= docs.produtos;
@@ -1211,7 +1217,7 @@ angular
 				histOportunidade	: $scope.histOportunidade,
 				
 				//Metodos
-				//exportarDoc		: rotina == 2 ? 'S' : 'N',
+				sincronizado	: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
 				idDocument		: $rootScope.idDocumento,
 				docCtrl			: hashDoc,
 				pedido			: $scope.pedido,		
@@ -1243,14 +1249,23 @@ angular
 	
 				let sendToERP 			= JSON.parse(dados.jsonDocs);
 
+				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
+
 				if(id > 0){
 					sendToERP[0].produtos 	= produtos; /*Array de produtos*/
 				}
-						
-				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
 				
 				/*Atualiza numero do pedido*/
-				json[0].pedido			= $rootScope.documentoERP;
+				if(!isNaN(parseInt($rootScope.documentoERP))){
+					//let dataFormat			= new Date();
+					json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
+					//json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR");
+					json[0].pedido			= $rootScope.documentoERP;
+				}else{
+					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
+					json[0].pedido		 = 0;
+				}
+
 			};
 	
 			if(id > 0){
@@ -1338,8 +1353,8 @@ angular
 								fil1:  $scope.filCliente,
 								fil2:  $scope.filFornecedores,
 								fil3:  $scope.filBU,
-								fil4:  $scope.filCluster,
-								fil5:  $scope.filStatusAmostra,
+								fil4:  dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
+								fil5:  dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
 								fil6:  $scope.filDataEnvio,
 								fil7:  $scope.filDataSolicitacao,
 								fil8:  $scope.filSegmento,
@@ -1366,7 +1381,7 @@ angular
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						}	
 
-						return $rootScope.dadosGrid;				
+						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);					
 					}
 				})
 					.withDataProp('data')
@@ -1428,6 +1443,19 @@ angular
 			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
 			var montaColunas = [];
 
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Sincronização').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '100px').renderWith(function(data, type, row) {
+				var btnhtml1 = '';				
+				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+row.jsonDocs[0].pedido+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
+					btnhtml1 += "<div class='glyphicon glyphicon-exclamation-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}
+				
+				return btnhtml1;
+			}));
+
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml = '';				
 				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
@@ -1463,8 +1491,8 @@ angular
 							var filter = {
 								fil1: $scope.filCliente,
 								fil2: $scope.filFornecedores,
-								fil3: $scope.filBU,
-								fil4: $scope.filCluster,
+								fil4: dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
+								fil5: dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
 								fil5: $scope.filStatusAmostra,
 								fil6: $scope.filDataEnvio,
 								fil7: $scope.filDataSolicitacao,
@@ -1489,7 +1517,7 @@ angular
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						};			
 						
-						return $rootScope.dadosGrid;	
+						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
 					}		
 				})
 					.withDataProp('data')
