@@ -1287,8 +1287,8 @@ angular
 				
 				/*Atualiza numero do pedido*/
 				if(!isNaN(parseInt($rootScope.documentoERP))){
-					//let dataFormat			= new Date();
-					json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
+					let dataFormat			= new Date();
+					json[0].dataEmissao	    = "DOCUMENTO_SINCRONIZADO";
 					//json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR");
 					json[0].pedido			= $rootScope.documentoERP;
 				}else{
