@@ -300,8 +300,8 @@
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedNumped" id="pedNumped">
 									</div>
 									<div class="col-sm-2 spacer">
-										<label for="emissao">Emissão</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="emissao" id="emissao">
+										<label for="pedDatEmi">Emissão</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedDatEmi" id="pedDatEmi">
 									</div>
 									<div class="col-sm-4 spacer">
 										<label for="familia">Familia</label>
@@ -862,7 +862,7 @@ angular
 								/*Itens que serão atualizados*/
 								
 								/*pedidosGravadosERP[k].jsonDocs[0].anoFat		= dadosAtualizados[0].ano;*/
-								pedidosGravadosERP[k].jsonDocs[0].emissao 							= dadosAtualizados[0].datEmi;
+								pedidosGravadosERP[k].jsonDocs[0].pedDatEmi 						= dadosAtualizados[0].datEmi;
 								pedidosGravadosERP[k].jsonDocs[0].responsavel 						= dadosAtualizados[0].respFor;
 								pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].sigufs;
 								pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].bu;
@@ -1003,7 +1003,7 @@ angular
 				$scope.subsegmento			= '';
 				$scope.bu					= '';
 				$scope.aplicacao			= '';
-				$scope.emissao				= '';
+				$scope.pedDatEmi			= '';
 				$scope.pedNumped			= 0 ;
 				$scope.familia				= '';
 				$scope.cluster				= '';
@@ -1067,13 +1067,12 @@ angular
 				$scope.segmento				= docs.segmento;
 				$scope.subsegmento			= docs.subsegmento;
 				$scope.bu					= docs.bu;
-				$scope.emissao				= docs.emissao;
+				$scope.pedDatEmi			= docs.pedDatEmi;
 				$scope.pedNumped			= docs.pedNumped;
 				$scope.familia				= docs.familia;
 				$scope.cluster				= docs.cluster;
 				$scope.desagr				= docs.desagr;
 				$scope.dataStatus			= docs.dataStatus;
-				$scope.quantidade			= docs.quantidade;
 				$scope.situacao				= docs.situacao;
 				$scope.justificativa		= docs.justificativa;
 				$scope.prioridade			= docs.prioridade;
@@ -1110,6 +1109,7 @@ angular
 
 				/*Informações sobre o produto*/
 				$rootScope.produtos			= docs.produtos;
+				$scope.quantidade			= docs.produtos.quantidade;
 				$scope.codigoProduto		= docs.produtos.codigoProduto;
 				$scope.descricao			= docs.produtos.descricao;
 				$scope.consumoProdutoKgMes  = docs.produtos.consumoProdutoKgMes;
@@ -1209,7 +1209,7 @@ angular
 				segmento			: $scope.segmento,
 				subsegmento 		: $scope.subsegmento,
 				bu 					: $scope.bu,
-				emissao				: $scope.emissao,
+				pedDatEmi			: $scope.pedDatEmi,
 				familia				: $scope.familia,
 				cluster				: $scope.cluster,
 				desagr				: $scope.desagr,
