@@ -819,6 +819,8 @@ angular
 			};
 		};
 
+		console.log(dadosUserLogado, "dados")
+
 		$scope.consultaPedidosERP = async () => {
 			
 			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedNumped != '' &&  parseInt(doc.jsonDocs[0].pedNumped) > 0);
@@ -862,7 +864,7 @@ angular
 								/*Itens que serão atualizados*/
 								
 								/*pedidosGravadosERP[k].jsonDocs[0].anoFat		= dadosAtualizados[0].ano;*/
-								pedidosGravadosERP[k].jsonDocs[0].pedDatEmi 						= dadosAtualizados[0].datEmi;
+								pedidosGravadosERP[k].jsonDocs[0].pedDatEmi 						= dadosAtualizados[0].pedDatEmi;
 								pedidosGravadosERP[k].jsonDocs[0].responsavel 						= dadosAtualizados[0].respFor;
 								pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].sigufs;
 								pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].bu;
@@ -1214,7 +1216,7 @@ angular
 				cluster				: $scope.cluster,
 				desagr				: $scope.desagr,
 				dataStatus			: $scope.dataStatus,
-				quantidade			: $scope.quantidade,
+				//quantidade			: $scope.quantidade,
 				situacao			: $scope.situacao,
 				justificativa		: $scope.justificativa,
 				prioridade			: $scope.prioridade,
@@ -1616,7 +1618,7 @@ angular
 						'jsonDocs[0].cluster'						:	{i:15, vsbl: true,	tlt: 'Cluster',					width:'130px'	},
 						'jsonDocs[0].descricao'						:	{i:16, vsbl: true,	tlt: 'Descrição',				width:'130px'	},
 						'jsonDocs[0].desagr'						:	{i:17, vsbl: true,	tlt: 'Agrupamento Comercial',	width:'130px'	},
-						'jsonDocs[0].quantidadeKg'					:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:'130px'	},
+						'jsonDocs[0].produtos.quantidade'			:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:'130px'	},
 						'jsonDocs[0].dataStatus'					:	{i:19, vsbl: true,	tlt: 'Data Status',				width:'130px'	},
 						'jsonDocs[0].situacao.nome'					:	{i:20, vsbl: true,	tlt: 'Situação',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:'130px'	},
