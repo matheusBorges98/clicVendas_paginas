@@ -4,18 +4,18 @@
 <head> 
 	<meta charset="UTF-8"/>
 	<!-- Imports CSS-->
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
 	
 	<!--<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/bootstrap.min.css">-->
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.tableTools.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
-	<link rel="stylesheet" href="http://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.tableTools.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
+	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
 	<!-- Imports CSS-->
 
 <!-- View --> 
@@ -30,8 +30,8 @@
 			<div id="mySidebar" class="sidebar">
 				<form>
 					<div class="form-group">
-						<label for="filFornecedores">Fornecedor</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filFornecedores" ng-model="filFornecedores" aria-describedby=" " placeholder=" ">
+						<label for="filFornecedores">Pesquisar</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filPesquisaGeral" ng-model="filPesquisaGeral" autocomplete="off" aria-describedby=" " placeholder="Digite a palavra chave. Ex: '123'">
 					</div>
 					
 					<div class="form-group">
@@ -39,45 +39,45 @@
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCliente" ng-model="filCliente" aria-describedby=" " placeholder=" ">
 					</div>
 					
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="filBU">BU</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filBU" ng-model="filBU" aria-describedby=" " placeholder=" ">
-					</div>
+					</div> -->
 					
 					<div class="form-group">
-						<label for="filCluster">Cluster</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCluster" ng-model="filCluster" aria-describedby=" " placeholder=" ">
+						<label for="projeto">Sincronização</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input" ng-value="filSincronizado.nome" ng-model="filSincronizado" id="filSincronizado" uib-typeahead="(sincronizado.nome) for sincronizado in getFilScinronizacao($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectFilSincronizacao($item, $model, $label)">
 					</div>
 					
-					<div class="form-group">
+					<!-- <div class="form-group"> Sera ajustado
 						<label for="filStatusAmostra">Status da Amostra</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filStatusAmostra" ng-model="filStatusAmostra" aria-describedby=" " placeholder=" ">
-					</div>
+					</div> -->
 					
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="filCarteira">Carteira</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filCarteira" ng-model="filCarteira" aria-describedby=" " placeholder=" ">
 					</div>
-					
+					 -->
 					<div class="form-group">
 						<label for="filCarteira">Data Emissão</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filDataEnvio" ng-model="filDataEnvio" aria-describedby=" " placeholder="Ex: 01/12/2021">
+						<input type="text" style="width: 220px;" class="form-control spacer-input" ui-mask="99/99/9999" id="filDataEmissao" ng-model="filDataEmissao">
 					</div>
 					
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="filCarteira">Data Solicitação</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filDataSolicitacao" ng-model="filDataSolicitacao" aria-describedby=" " placeholder="Ex: 01/12/2021">
-				</div>
+					</div> -->
 					
-					<div class="form-group">
+					<!-- <div class="form-group"> Sera ajustado
 						<label for="filCarteira">Segmento</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filSegmento" ng-model="filSegmento" aria-describedby=" " placeholder=" ">
-					</div>
+					</div> -->
 					
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="filCarteira">Subsegmento</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filSubSegmento" ng-model="filSubSegmento" aria-describedby=" " placeholder=" ">
-					</div>
+					</div> -->
 					
 					<div class="form-group">
 						<label for="filCarteira">Prioridade</label>
@@ -110,7 +110,7 @@
 				</div>
 				<!-- Tabela completa -->
 				<div ng-hide="!tabelaCompleta" class="col-sm-12">
-					<table id="listDocumentsFull"  dt-options="dtOptionsFull" dt-columns="dtColumnsFull" dt-instance="dtInstanceFull" class="row-border responsive hover table-striped table-bordered"></table>					
+					<table id="listDocumentsFull"  dt-options="dtOptionsFull" dt-columns="dtColumnsFull" dt-instance="dtInstanceFull" class="tabelaCompleta row-border responsive hover table-striped table-bordered"></table>					
 				</div>
 			</div>
 			<!-- Tabela -->
@@ -167,7 +167,7 @@
 									<div class="col-sm-3 spacer ">
 										<label for="vendedor">Vendedor</label>
 										<div class="input-group spacer">
-											<input type="text" ng-disabled="inputDesabilitado" class="form-control" ng-model="vendedor" id="vendedor">
+											<input type="text" readonly class="form-control" ng-model="vendedor" id="vendedor">
 										</div>
 									</div>
 								</div>
@@ -296,12 +296,12 @@
 							<div class="form-row ">
 								<div class="form-group col-md-12">
 									<div class="col-sm-2 spacer">
-										<label for="pedido">Pedido</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedido" id="pedido">
+										<label for="pedNumped">Pedido</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedNumped" id="pedNumped">
 									</div>
 									<div class="col-sm-2 spacer">
-										<label for="emissao">Emissão</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="emissao" id="emissao">
+										<label for="pedDatEmi">Emissão</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedDatEmi" id="pedDatEmi">
 									</div>
 									<div class="col-sm-4 spacer">
 										<label for="familia">Familia</label>
@@ -522,7 +522,7 @@
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0" ng-show="pedido == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
+						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0" ng-show="pedNumped == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
 					</div>	
 					<div class="btn-group">
 						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
@@ -541,37 +541,38 @@
 	<!-- View --> 
 
 <!-- Scripts importados -->
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/jquery-3.1.1.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/easytimer.min.js"></script>	
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-route.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-ui-router.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-cookies.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angular-ui-notification/angular-ui-notification.min.js"></script>  
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/ui-bootstrap-tpls-2.5.0.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/dist/jquery.dataTables.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/dist/angular-datatables.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/bootstrap.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.bootstrap.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.factory.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.options.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/dataTables.buttons.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.colVis.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.flash.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.html5.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.print.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.buttons.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/fullcalendar-3.10.0/lib/moment.min.js"></script>	
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/jquery-3.1.1.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/easytimer.min.js"></script>	
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-route.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-ui-router.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-cookies.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angular-ui-notification/angular-ui-notification.min.js"></script>  
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/ui-bootstrap-tpls-2.5.0.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/dist/jquery.dataTables.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/dist/angular-datatables.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/bootstrap.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.bootstrap.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.factory.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.options.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/dataTables.buttons.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.colVis.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.flash.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.html5.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/buttons.print.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.buttons.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/fullcalendar-3.10.0/lib/moment.min.js"></script>	
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/ui-mask-master/dist/mask.min.js"></script>
 <!-- Scripts importados -->	
 
 <script>
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
 
 angular
-	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons'])
+	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
 	.controller("MainController",
 	function(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
 		
@@ -579,22 +580,23 @@ angular
 		$scope.exibeListaDocumentos = true;
 		
 		/* Inicializa filtros */
-		$scope.filCliente 			= "";
-		$scope.filFornecedores 		= "";
-		$scope.filBU 				= "";
-		$scope.filCluster 			= "";
-		$scope.filStatusAmostra		= "";
-		$scope.filCarteira 			= "";
-		$scope.filDataEnvio 		= "";
-		$scope.filDataSolicitacao	= "";
+
+		// $scope.filFornecedores 		= "";
+		// $scope.filBU 				= "";
+		// $scope.filCluster 			= "";
+		// $scope.filCarteira 			= "";
+		// $scope.filDataSolicitacao	= "";
+		// $scope.filSubSegmento 		= "";
 		$scope.filSegmento			= "";
-		$scope.filSubSegmento 		= "";
+		$scope.filDataEmissao 		= "";
+		$scope.filCliente 			= "";
+		$scope.filStatusAmostra		= "";
 		$scope.filPrioridade		= "";
 		$scope.filProduto			= "";
-
+		$scope.filSincronizado		= {nome:"", send:""};
+		$scope.filPesquisaGeral		= "";
 		/*Incializa produtos*/
 		$rootScope.produtos 		= [];
-		
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
@@ -633,7 +635,7 @@ angular
 					$scope.$apply();
 
 				}else{
-					$scope.tipoFormulario = $dados.jsonDocs[0].pedido != '' ? 'Edição pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
+					$scope.tipoFormulario = $dados.jsonDocs[0].pedNumped != '' ? 'Edição pedido Nº '+ $dados.jsonDocs[0].pedNumped : 'Edição';
 					
 					$scope.inputDesabilitado  = true;
 					$scope.permiteEditar	  = false;
@@ -645,6 +647,28 @@ angular
 				$scope.exibeListaDocumentos = true;
 			};
 
+		};
+
+		$scope.getFilScinronizacao = () =>{
+			$scope.listaFilSincronizacao = [ 
+				{
+					nome: 'Não sincronizados',
+					send: "DOCUMENTO_NAO_SINCRONIZADO"
+				},
+				{
+					nome: 'Sincronizados',
+					send: "DOCUMENTO_SINCRONIZADO"
+				},
+				{
+					nome: 'Falha na sincronização',
+					send: 'ERRO: '
+				},
+			];
+			return $scope.listaFilSincronizacao;
+		};
+
+		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
+			$scope.filSincronizado	= $item;
 		};
 
 		$scope.getSituacaoAmostra = () => {
@@ -797,13 +821,13 @@ angular
 
 		$scope.consultaPedidosERP = async () => {
 			
-			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedido != '' &&  parseInt(doc.jsonDocs[0].pedido) > 0);
+			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc.jsonDocs[0].pedNumped != '' &&  parseInt(doc.jsonDocs[0].pedNumped) > 0);
 			let consulta 			= [];
 
 			for(i = 0; i < pedidosGravadosERP.length; i++){
 				consulta.push(
 					{
-						numPed: pedidosGravadosERP[i].jsonDocs[0].pedido,
+						numPed: pedidosGravadosERP[i].jsonDocs[0].pedNumped,
 						codPro: pedidosGravadosERP[i].jsonDocs[0].produtos.codExterno,
 						codDer: pedidosGravadosERP[i].jsonDocs[0].produtos.codVariacao,
 					}
@@ -820,52 +844,55 @@ angular
 				}
 			);
 			
-			console.log(result)
+			console.log(result, "listarPedidosAmostras")
 			
-			for(k = 0; k < pedidosGravadosERP.length; k++){				
-				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
+			if(result !=""){
+				for(k = 0; k < pedidosGravadosERP.length; k++){				
+					//let dadosAtualizados = result.resultado.filter(res => res.pedNumped == pedidosGravadosERP[k].jsonDocs[0].pedNumped && res.produto[0].ipdCodPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
+					/*Precisa retornar o código externo junto - Está retornando sem os 000... como é salvo no clicVenda*/
+					let dadosAtualizados = result.resultado.filter(res => res.pedNumped == pedidosGravadosERP[k].jsonDocs[0].pedNumped);
 
-				if(dadosAtualizados && dadosAtualizados.length > 0){
-					for(l=0; l < $rootScope.dadosGrid.length; l++){
+					if(dadosAtualizados && dadosAtualizados.length > 0){
+						for(l=0; l < $rootScope.dadosGrid.length; l++){
 
-						/*Verifica -
-							Codigo externo - Codigo variacao - Numero pedido ERP*/
-						if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
-							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
-							($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
-							
-							/*Itens que serão atualizados*/
-							
-							/*pedidosGravadosERP[k].jsonDocs[0].anoFat		= dadosAtualizados[0].ano;*/
-							pedidosGravadosERP[k].jsonDocs[0].emissao 							= dadosAtualizados[0].datEmi;
-							pedidosGravadosERP[k].jsonDocs[0].responsavel 						= dadosAtualizados[0].respFor;
-							pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].sigufs;
-							pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].bu;
-							pedidosGravadosERP[k].jsonDocs[0].subsegmento						= dadosAtualizados[0].subseg;
-							pedidosGravadosERP[k].jsonDocs[0].segmento							= dadosAtualizados[0].segmento;
-							
-							pedidosGravadosERP[k].jsonDocs[0].familia 							= dadosAtualizados[0].produto[0].familia;
-							pedidosGravadosERP[k].jsonDocs[0].cluster 							= dadosAtualizados[0].produto[0].cluster;
-							pedidosGravadosERP[k].jsonDocs[0].desagr 							= dadosAtualizados[0].produto[0].agrCom;
-							
-							pedidosGravadosERP[k].jsonDocs[0].situacao	 						= dadosAtualizados[0].produto[0].sitAmostra;
-							pedidosGravadosERP[k].jsonDocs[0].justificativa						= dadosAtualizados[0].produto[0].justificativa;
-							//pedidosGravadosERP[k].jsonDocs[0].consumoProdutoKgMes	= dadosAtualizados[0].produto[0].consumo;
-							pedidosGravadosERP[k].jsonDocs[0].quantidade 						= dadosAtualizados[0].produto[0].qtdPed;
-							pedidosGravadosERP[k].jsonDocs[0].identQtd	 						= dadosAtualizados[0].produto[0].identQtd;
-							pedidosGravadosERP[k].jsonDocs[0].ofertaData 						= dadosAtualizados[0].produto[0].ofertaData;
-							pedidosGravadosERP[k].jsonDocs[0].vendaLocalKg 						= dadosAtualizados[0].produto[0].vendaLocal;
-							pedidosGravadosERP[k].jsonDocs[0].ofertaUnit 						= dadosAtualizados[0].produto[0].preUni;
-								
-							/*Atualiza informações do produto vinculado ao pedido*/
-							pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= dadosAtualizados[0].produto[0].consumoCliente;
+							/*Verifica -
+								Codigo externo - Codigo variacao - Numero pedido ERP*/
+							if(($rootScope.dadosGrid[l].jsonDocs[0].pedNumped == pedidosGravadosERP[k].jsonDocs[0].pedNumped) && 
+								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
+								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
+																
+								// pedidosGravadosERP[k].jsonDocs[0].familia 							= dadosAtualizados[0].produto[0].familia;
+								// pedidosGravadosERP[k].jsonDocs[0].desagr 							= dadosAtualizados[0].produto[0].agrCom;
+								// pedidosGravadosERP[k].jsonDocs[0].justificativa						= dadosAtualizados[0].produto[0].justificativa;
+								// pedidosGravadosERP[k].jsonDocs[0].identQtd	 						= dadosAtualizados[0].produto[0].identQtd;
+								// pedidosGravadosERP[k].jsonDocs[0].ofertaData 						= dadosAtualizados[0].produto[0].ofertaData;
+								// pedidosGravadosERP[k].jsonDocs[0].vendaLocalKg 						= dadosAtualizados[0].produto[0].vendaLocal;
+																			
+								/*Itens do documento geral que serão atualizados*/
+								//pedidosGravadosERP[k].jsonDocs[0].pedDatEmi 						= dadosAtualizados[0].pedDatEmi;
+								pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].cliSigUfs;
+								pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].cliBU;
+								pedidosGravadosERP[k].jsonDocs[0].subsegmento						= dadosAtualizados[0].cliSubSeg;
+								pedidosGravadosERP[k].jsonDocs[0].segmento							= dadosAtualizados[0].cliDesRam;
+									
+								/*Atualiza informações do produto vinculado ao documento*/
+								pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= dadosAtualizados[0].produto[0].consumoCliente;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.cluster					= dadosAtualizados[0].produto[0].proCluster;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.situacao					= dadosAtualizados[0].produto[0].ipdSitAmo;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaUnit				= dadosAtualizados[0].produto[0].ipvVlrBru;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.dataStatus				= dadosAtualizados[0].produto[0].ipdDatAmo;
 
-							continue;
+								/*Adiciona ao documento campos que não estão listados*/
+								pedidosGravadosERP[k].jsonDocs[0].nfvDatEmi							= dadosAtualizados[0].nfvDatEmi;
+							
+								continue;
+							};
 						};
 					};
 				};
-			};
+			}
 			
+			console.log($rootScope.dadosGrid, "atualizado")
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 			$scope.atualizaTabelaCompleta(1);		
 		};
@@ -873,29 +900,34 @@ angular
 		$scope.gravaDocumentoERP = async ($item) => {
 
 			let dialog = bootbox.dialog({
-				message: "<p style='font-size=1.2em' class='text-center'> O pedido está sendo enviado ao ERP...</p>",
+				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Enviando pedido para o ERP...</p></div>',
 				closeButton: false
 			});
 
-			let result = await $scope.executaRequisicaoExterna(
-				{
-					idCvtccnpj : dadosUserLogado.cId,
-					numreg	   : 752,
-					pRotina	   : 'criarPedidoAmostra',
-					pCodCli    : dadosUserLogado.rId,
-					pDocumento : {documento : $item}
-				}		
-			);
+			// let result = await $scope.executaRequisicaoExterna(
+			// 	{
+			// 		idCvtccnpj : dadosUserLogado.cId,
+			// 		numreg	   : 752,
+			// 		pRotina	   : 'criarPedidoAmostra',
+			// 		pCodCli    : dadosUserLogado.rId,
+			// 		pDocumento : {documento : $item}
+			// 	}		
+			// );
+			
+			let result = '63178'
+
+			console.log(result, "Retorno pedido enviado ao ERP - VALOR FIXO para testes")
 
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
-				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP', 2000)
+				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
 			}else{
 				dialog.modal('hide');
-				$scope.geraNotificacao('Houve uma falha na gravação do pedido: ' + result, 2500);
+				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
 			};
-			//return result;
-			return 63182;
+			
+			return result;
+			
 		};
 
 		$scope.getProdutos = (val) => {			
@@ -913,6 +945,7 @@ angular
 		};
 
 		$scope.onSelectProd = ($item, $model, $label) => {
+			console.log($item, "Seleciona produto")
 			
 			$scope.descricaoProd = $item.produto.nome;
 			$scope.codVariacao	 = $item.produto.codVariacao;
@@ -936,6 +969,7 @@ angular
 			$scope.codVariacao	 		= '';
 			$scope.codExterno	 		= '';
 			$scope.codigoProduto 		= '';
+			$scope.cluster				= '';
 			
 			var produto		 = angular.element(document.querySelector('#itemProd'));
 			
@@ -956,6 +990,9 @@ angular
 
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
+
+				$scope.quantidadeProduto	= '';
+				$scope.itemProd				= '';
 				
 				$scope.chave 				= '';
 				$scope.anoFat 		    	= '';
@@ -971,8 +1008,8 @@ angular
 				$scope.subsegmento			= '';
 				$scope.bu					= '';
 				$scope.aplicacao			= '';
-				$scope.emissao				= '';
-				$scope.pedido				= 0 ;
+				$scope.pedDatEmi			= '';
+				$scope.pedNumped			= 0 ;
 				$scope.familia				= '';
 				$scope.cluster				= '';
 				$scope.desagr				= '';
@@ -1011,6 +1048,11 @@ angular
 				$scope.histOportunidade		= '';
 				$rootScope.hashDoc			= '';
 
+				/*Sincronização - Envio ERP*/
+				$scope.sincronizado			= "DOCUMENTO_NAO_SINCRONIZADO";
+
+				$scope.atualizaTabelaProdutos();
+
 			}else{
 				
 				let docs 					= $dados.jsonDocs[0];
@@ -1032,14 +1074,10 @@ angular
 				$scope.segmento				= docs.segmento;
 				$scope.subsegmento			= docs.subsegmento;
 				$scope.bu					= docs.bu;
-				$scope.emissao				= docs.emissao;
-				$scope.pedido				= docs.pedido;
+				$scope.pedDatEmi			= docs.pedDatEmi;
+				$scope.pedNumped			= docs.pedNumped;
 				$scope.familia				= docs.familia;
-				$scope.cluster				= docs.cluster;
 				$scope.desagr				= docs.desagr;
-				$scope.dataStatus			= docs.dataStatus;
-				$scope.quantidade			= docs.quantidade;
-				$scope.situacao				= docs.situacao;
 				$scope.justificativa		= docs.justificativa;
 				$scope.prioridade			= docs.prioridade;
 				$scope.consumoAg			= docs.consumoAg;
@@ -1052,7 +1090,6 @@ angular
 				$scope.precoConc			= docs.precoConc;
 				$scope.dataAtu				= docs.dataAtu;
 				$scope.ofertaData			= docs.ofertaData;
-				$scope.ofertaUnit			= docs.ofertaUnit;
 				$scope.potencial0XCM		= docs.potencial0XCM;
 				$scope.chaveCp				= docs.chaveCp;
 				$scope.identQtd				= docs.identQtd;
@@ -1070,12 +1107,20 @@ angular
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
 
+				/*Sincronização - Envio ERP*/
+				$scope.sincronizado			= docs.sincronizado;
+
 				/*Informações sobre o produto*/
 				$rootScope.produtos			= docs.produtos;
+				$scope.cluster				= docs.produtos.cluster;
+				$scope.quantidade			= docs.produtos.quantidade;
 				$scope.codigoProduto		= docs.produtos.codigoProduto;
 				$scope.descricao			= docs.produtos.descricao;
 				$scope.consumoProdutoKgMes  = docs.produtos.consumoProdutoKgMes;
 				$scope.codExternoProduto	= docs.produtos.codExterno
+				$scope.situacao				= docs.produtos.situacao;
+				$scope.ofertaUnit			= docs.produtos.ofertaUnit;
+				$scope.dataStatus			= docs.produtos.dataStatus;
 
 				$scope.consultaDocumento($rootScope.hashDoc);
 			};
@@ -1095,6 +1140,11 @@ angular
 					quantidade			: $scope.quantidadeProduto,
 					codVariacao			: $scope.codVariacao,
 					codExterno			: $scope.codExterno,
+					/* Não grava o valor atualizado - Apenas leitura*/
+					cluster				: $scope.cluster,
+					situacao			: $scope.situacao,
+					ofertaUnit			: $scope.ofertaUnit,
+					dataStatus			: $scope.dataStatus,
 					hashDoc				: '',
 				}
 			);
@@ -1122,6 +1172,7 @@ angular
 			var dataAtual 	= new Date();
 			var horas 		= dataAtual.getHours();
 			var minutos 	= dataAtual.getMinutes();
+			var datFormat 	= dataAtual.toLocaleDateString('pt-BR')
 
 			let strHistorico = [];
 
@@ -1134,7 +1185,7 @@ angular
 				
 - Descrição: ${strHistorico[i].item}
 - Produto: ${$scope.descricao} - ${$scope.codExternoProduto}. 
-- Registrado em: ${dataAtual.toLocaleDateString('pt-BR')} às ${horas}:${minutos}`
+- Registrado em: ${datFormat.substr(0,5)} às ${horas}:${minutos}`
 			}
 		
 			$scope.obsOportunidade = "";
@@ -1167,17 +1218,17 @@ angular
 				responsavel			: $scope.responsavel,
 				projeto     		: $scope.projeto,
 				uf 					: $scope.uf,
-				vendedor			: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
+				vendedor			: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
 				segmento			: $scope.segmento,
 				subsegmento 		: $scope.subsegmento,
 				bu 					: $scope.bu,
-				emissao				: $scope.emissao,
+				//pedDatEmi			: $scope.pedDatEmi,
 				familia				: $scope.familia,
-				cluster				: $scope.cluster,
+				//cluster				: $scope.cluster,
 				desagr				: $scope.desagr,
-				dataStatus			: $scope.dataStatus,
-				quantidade			: $scope.quantidade,
-				situacao			: $scope.situacao,
+				//dataStatus			: $scope.dataStatus,
+				//quantidade			: $scope.quantidade,
+				//situacao			: $scope.situacao,
 				justificativa		: $scope.justificativa,
 				prioridade			: $scope.prioridade,
 				consumoAg			: $scope.consumoAg,
@@ -1190,7 +1241,7 @@ angular
 				precoConc			: $scope.precoConc,
 				dataAtu				: $scope.dataAtu,
 				ofertaData			: $scope.ofertaData,
-				ofertaUnit			: $scope.ofertaUnit,
+				//ofertaUnit			: $scope.ofertaUnit,
 				potencial0XCM		: $scope.potencial0XCM,
 				chaveCp				: $scope.chaveCp,
 				identQtd			: $scope.identQtd,
@@ -1209,10 +1260,10 @@ angular
 				histOportunidade	: $scope.histOportunidade,
 				
 				//Metodos
-				//exportarDoc		: rotina == 2 ? 'S' : 'N',
+				sincronizado	: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
 				idDocument		: $rootScope.idDocumento,
 				docCtrl			: hashDoc,
-				pedido			: $scope.pedido,		
+				pedNumped		: $scope.pedNumped,		
 				
 				//Produtos
 				produtos		: $rootScope.produtos,
@@ -1241,14 +1292,23 @@ angular
 	
 				let sendToERP 			= JSON.parse(dados.jsonDocs);
 
+				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
+
 				if(id > 0){
 					sendToERP[0].produtos 	= produtos; /*Array de produtos*/
 				}
-						
-				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
 				
 				/*Atualiza numero do pedido*/
-				json[0].pedido			= $rootScope.documentoERP;
+				if(!isNaN(parseInt($rootScope.documentoERP))){
+					let dataFormat			= new Date();
+					json[0].sincronizado    = "DOCUMENTO_SINCRONIZADO";
+					json[0].pedDatEmi		= dataFormat.toLocaleDateString("pt-BR");
+					json[0].pedNumped		= $rootScope.documentoERP;
+				}else{
+					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
+					json[0].pedNumped	 = 0;
+				}
+
 			};
 	
 			if(id > 0){
@@ -1263,7 +1323,7 @@ angular
 				};
 
 				$scope.messageNotific = 'Registro alterado com sucesso';
-				$scope.geraNotificacao($scope.messageNotific);
+				$scope.geraNotificacao($scope.messageNotific, 1200, "success");
 
 			}else{
 				for(i = 0; i < $rootScope.produtos.length; i++){
@@ -1274,7 +1334,7 @@ angular
 					let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
 					if(rotina == 1){
 						$scope.messageNotific 	= 'Registro inserido com sucesso';
-						$scope.geraNotificacao($scope.messageNotific);
+						$scope.geraNotificacao($scope.messageNotific, 1200, "success");
 					}
 				};
 			};
@@ -1287,38 +1347,40 @@ angular
 		};
 
 		$scope.limparFiltros = () =>{
-			
+			// $scope.filFornecedores 		= '';
+			// $scope.filBU 				= '';
+			// $scope.filCluster 			= '';
+			// $scope.filCarteira 			= '';
+			// $scope.filDataSolicitacao	= '';
+			// $scope.filSubSegmento 		= '';
 			$scope.filCliente 			= '';
-			$scope.filFornecedores 		= '';
-			$scope.filBU 				= '';
-			$scope.filCluster 			= '';
 			$scope.filStatusAmostra		= '';
-			$scope.filCarteira 			= '';
-			$scope.filDataEnvio 		= '';
-			$scope.filDataSolicitacao	= '';
-			$scope.filSegmento			= '';
-			$scope.filSubSegmento 		= '';
 			$scope.filPrioridade		= '';
 			$scope.filProduto			= '';
+			$scope.filSegmento			= '';
+			$scope.filDataEmissao 		= '';
+			$scope.filPesquisaGeral		= '';
+			$scope.filSincronizado		= {nome:"", send:""};
 
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
 		};
 
 		$scope.aplicarFiltros = (valor) => {
-
-			$scope.filCliente 			= $scope.filCliente; 		
-			$scope.filFornecedores 		= $scope.filFornecedores;	
-			$scope.filBU 				= $scope.filBU;				
-			$scope.filCluster 			= $scope.filCluster; 		
+			// $scope.filFornecedores 		= $scope.filFornecedores;	
+			// $scope.filBU 				= $scope.filBU;				
+			// $scope.filCluster 			= $scope.filCluster; 		
+			// $scope.filCarteira 			= $scope.filCarteira; 		
+			// $scope.filDataSolicitacao 	= $scope.filDataSolicitacao; 		
+			// $scope.filSubSegmento 		= $scope.filSubSegmento; 	
+			$scope.filCliente 			= $scope.filCliente; 	
 			$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
-			$scope.filCarteira 			= $scope.filCarteira; 		
-			$scope.filDataEnvio 		= $scope.filDataEnvio; 		
-			$scope.filDataSolicitacao 	= $scope.filDataSolicitacao; 		
-			$scope.filSegmento 			= $scope.filSegmento; 		
-			$scope.filSubSegmento 		= $scope.filSubSegmento; 		
 			$scope.filPrioridade 		= $scope.filPrioridade; 
 			$scope.filProduto 			= $scope.filProduto; 		
+			$scope.filDataEmissao 		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7);	
+			$scope.filSegmento 			= $scope.filSegmento; 
+			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
+			$scope.filSincronizado		= $scope.filSincronizado;	
 
 			$scope.atualizaTabela();
 			$scope.atualizaTabelaCompleta();
@@ -1333,17 +1395,18 @@ angular
 				data	: function(d) {   
 							var param = {idCvTccnpj	: dadosUserLogado.cId};
 							var filter = {
-								fil1:  $scope.filCliente,
-								fil2:  $scope.filFornecedores,
-								fil3:  $scope.filBU,
-								fil4:  $scope.filCluster,
-								fil5:  $scope.filStatusAmostra,
-								fil6:  $scope.filDataEnvio,
-								fil7:  $scope.filDataSolicitacao,
-								fil8:  $scope.filSegmento,
-								fil9:  $scope.filSubSegmento,
+								fil1: $scope.filCliente,
+								fil2: "",
+								fil3: $scope.filPesquisaGeral,
+								fil4: dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
+								fil5: dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
+								fil6: $scope.filDataEmissao,
+								fil7: $scope.filStatusAmostra,
+								fil8: $scope.filSegmento,
+								fil9: $scope.filSincronizado.send,
 								fil10: $scope.filPrioridade,
 								fil11: $scope.filProduto
+
 							};
 							d.param = param;
 							d.filter = filter;
@@ -1364,7 +1427,7 @@ angular
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						}	
 
-						return $rootScope.dadosGrid;				
+						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);					
 					}
 				})
 					.withDataProp('data')
@@ -1414,11 +1477,11 @@ angular
 
 
 			defPD = {	'id'								:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Pedido',			width:''	},
+						'jsonDocs[0].pedNumped'				:	{i:1, vsbl: true,	tlt: 'Pedido',			width:''	},
 						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
 						'jsonDocs[0].vendedor.nome'			:	{i:2, vsbl: true,	tlt: 'Vendedor',		width:''	},
-						'jsonDocs[0].produtos.codigoProduto':	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs[0].statusAcao'			:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
+						'jsonDocs[0].produtos.descricao'    :	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
+						'jsonDocs[0].produtos.situacao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
 						'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
 				};
 
@@ -1436,6 +1499,19 @@ angular
 			angular.forEach(defPD, function(value, key) {
 				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
 			});
+
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Sinc.').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+				var btnhtml1 = '';				
+				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+row.jsonDocs[0].pedNumped+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
+					btnhtml1 += "<div class='glyphicon glyphicon-exclamation-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}
+				
+				return btnhtml1;
+			}));
 
 			$scope.dtColumns = montaColunas;
 											
@@ -1460,14 +1536,14 @@ angular
 							var param = {idCvTccnpj	: dadosUserLogado.cId};
 							var filter = {
 								fil1: $scope.filCliente,
-								fil2: $scope.filFornecedores,
-								fil3: $scope.filBU,
-								fil4: $scope.filCluster,
-								fil5: $scope.filStatusAmostra,
-								fil6: $scope.filDataEnvio,
-								fil7: $scope.filDataSolicitacao,
+								fil2: "",
+								fil3: $scope.filPesquisaGeral,
+								fil4: dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
+								fil5: dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
+								fil6: $scope.filDataEmissao,
+								fil7: $scope.filStatusAmostra,
 								fil8: $scope.filSegmento,
-								fil9: $scope.filSubSegmento,
+								fil9: $scope.filSincronizado.send,
 								fil10: $scope.filPrioridade,
 								fil11: $scope.filProduto
 							};
@@ -1487,7 +1563,7 @@ angular
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						};			
 						
-						return $rootScope.dadosGrid;	
+						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
 					}		
 				})
 					.withDataProp('data')
@@ -1509,6 +1585,7 @@ angular
 						$scope.abreFormulario();					
 					}
 				},		
+
 				{
 					text: 'Filtrar',
 					key: '2',
@@ -1536,10 +1613,10 @@ angular
 			]);
 			
 			defPD = {	'id'										:	{i:0,  vsbl: false,	tlt: '',        				width:'130px'},
-						'jsonDocs[0].pedido'						:	{i:1,  vsbl: true,	tlt: 'Pedido',					width:'130px'},
+						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Pedido',					width:'130px'},
 						'jsonDocs[0].responsavel'					:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:'130px'},
-						'jsonDocs[0].projeto.nome'					:	{i:4,  vsbl: true,	tlt: 'Projeto',					width:'130px'},
-						'jsonDocs[0].produtos.codigoProduto'		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'},
+						'jsonDocs[0].produtos.descricao'			:	{i:4,  vsbl: true,	tlt: 'Produto',					width:'130px'},
+						'jsonDocs[0].produtos.codExterno'    		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'},
 						'jsonDocs[0].cliente.nome'					:	{i:6,  vsbl: true,	tlt: 'Nome Cliente',			width:'350px'},
 						'jsonDocs[0].uf'							:	{i:7,  vsbl: true,	tlt: 'UF',						width:'130px'},
 						'jsonDocs[0].vendedor.nome'					:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:'130px'},
@@ -1552,9 +1629,9 @@ angular
 						'jsonDocs[0].cluster'						:	{i:15, vsbl: true,	tlt: 'Cluster',					width:'130px'	},
 						'jsonDocs[0].descricao'						:	{i:16, vsbl: true,	tlt: 'Descrição',				width:'130px'	},
 						'jsonDocs[0].desagr'						:	{i:17, vsbl: true,	tlt: 'Agrupamento Comercial',	width:'130px'	},
-						'jsonDocs[0].quantidadeKg'					:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:'130px'	},
-						'jsonDocs[0].dataStatus'					:	{i:19, vsbl: true,	tlt: 'Data Status',				width:'130px'	},
-						'jsonDocs[0].situacao.nome'					:	{i:20, vsbl: true,	tlt: 'Situação',				width:'130px'	},
+						'jsonDocs[0].produtos.quantidade'			:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:'130px'	},
+						'jsonDocs[0].produtos.dataStatus'			:	{i:19, vsbl: true,	tlt: 'Data Status',				width:'130px'	},
+						'jsonDocs[0].produtos.situacao'				:	{i:20, vsbl: true,	tlt: 'Situação',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:'130px'	},
 						'jsonDocs[0].prioridade.nome'				:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:'130px'	},
 						'jsonDocs[0].potencial0XCM'					:	{i:23, vsbl: true,	tlt: 'Potencial',				width:'130px'	},
@@ -1569,7 +1646,7 @@ angular
 						'jsonDocs[0].statusAcao'      				:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:'130px'	},
 						'jsonDocs[0].dataAtu'      					:	{i:33, vsbl: true,	tlt: 'Data Atu.',				width:'130px'	},
 						'jsonDocs[0].ofertaData'      				:	{i:34, vsbl: true,	tlt: 'Data Oferta',				width:'130px'	},
-						'jsonDocs[0].ofertaUnit'      				:	{i:35, vsbl: true,	tlt: 'Oferta Unitário. (US$)',	width:'130px'	},
+						'jsonDocs[0].produtos.ofertaUnit'      		:	{i:35, vsbl: true,	tlt: 'Oferta Unitário. (US$)',	width:'130px'	},
 						'jsonDocs[0].potencial0XCM'   				:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:'130px'	},
 						'jsonDocs[0].chaveCp'      					:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:'130px'	},
 						'jsonDocs[0].identQtd'     					:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:'130px'	},
@@ -1582,6 +1659,7 @@ angular
 						'jsonDocs[0].margemR'	      				:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:'130px'	},
 						'jsonDocs[0].preUSD'	      				:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:'130px'	},
 						'jsonDocs[0].potVolAg'	      				:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:'130px'	},
+						'jsonDocs[0].projeto.nome'					:	{i:48,  vsbl: true,	tlt: 'Projeto',					width:'130px'},
 				};
 		
 			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
@@ -1592,6 +1670,19 @@ angular
 				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
 				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
 				return btnhtml;
+			}));
+
+			montaColunasFull.push(DTColumnBuilder.newColumn(null).withTitle('Sinc.').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+				var btnhtmlSinc = '';				
+				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
+					btnhtmlSinc += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
+					btnhtmlSinc += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+row.jsonDocs[0].pedNumped+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
+					btnhtmlSinc += "<div class='glyphicon glyphicon-exclamation-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+				}
+				
+				return btnhtmlSinc;
 			}));
 			
 			angular.forEach(defPD, function(value, key) {
@@ -1662,16 +1753,22 @@ angular
 			
 		};
 
-		$scope.geraNotificacao = (message, time = 1200) =>{
+		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
+			/* Utiliza o Alert Bootstrap
+				light   - padrao
+				danger 	- aviso erro
+				warning	- aviso informativo 
+				success - sucesso
+			*/
 			var dialog = bootbox.dialog({
-				message: "<p style='font-size=1.2em' class='text-center'>"+message+"</p>",
+				message: '<div class="alert alert-'+tipo+' popup"role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">'+message+'</p></div>',
 				closeButton: false
 			});
 			
 			setTimeout(() => {
 				dialog.modal('hide');
 			}, time);
-		};
+		};	
 			
 		$scope.atualizaTabela();
 						
@@ -1688,11 +1785,12 @@ angular
 		$scope.removerDocumento = ($dados) =>{	
 			var id = $dados.id;
 
-			if($dados.jsonDocs[0].pedido != 0 &&  !isNaN(parseInt($dados.jsonDocs[0].pedido))){
-				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500);
+			if($dados.jsonDocs[0].pedNumped != 0 &&  !isNaN(parseInt($dados.jsonDocs[0].pedNumped))){
+				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500, "warning");
 			}else{
 				bootbox.confirm({
 					message:'Confirma a exclusão do registro?',
+					closeButton: false,
 					onHidden: function(e) {
 						$scope.atualizaTabela();
 						$scope.atualizaTabelaCompleta();
@@ -1729,7 +1827,7 @@ angular
 			document.getElementById("main").style.marginLeft = "0";
 		  }else{
 			document.getElementById("mySidebar").style.width = "250px";
-			document.getElementById("mySidebar").style.height = "100%";
+			document.getElementById("mySidebar").style.height = "750px";
 			document.getElementById("main").style.marginLeft = "250px";
 		  };
 		
@@ -1745,22 +1843,7 @@ angular
 		target: '#leftCol',
 		offset: navHeight
 	});
-	
-	function mostraCompleta() {
-	  document.getElementById("tbSimplificada").style.visibility = "hidden";
-	  document.getElementById("tbSimplificada").style.display = "none";
-	  document.getElementById("tbCompleta").style.visibility = "visible";
-	  document.getElementById("btnMostraTabela").setAttribute('onclick', "mostraSimplificada()");
-	  document.getElementById("btnMostraTabela").innerText = 'Simplificada';
-	};
-	
-	function mostraSimplificada() {
-	  document.getElementById("tbSimplificada").style.visibility = "visible";
-	  document.getElementById("tbSimplificada").style.display = "block";
-	  document.getElementById("tbCompleta").style.visibility = "hidden";
-	  document.getElementById("btnMostraTabela").setAttribute('onclick', "mostraCompleta()");
-	  document.getElementById("btnMostraTabela").innerText = 'Completa';  
-	};
+
 	</script>
 <!-- Regra de negócio -->
 </body>
@@ -1771,6 +1854,15 @@ angular
 
 :root {
 		--cor_principal: #047cca;
+	}
+
+	h5{
+		font-weight: bold;
+		font-size: 1.0em;
+	}
+
+	tr{
+		height: 55px;
 	}
 				
 	.btn_grid{
@@ -1843,7 +1935,7 @@ angular
   
 	}
 
-	#mySidebar a, label {
+	#mySidebar label {
 	  padding: 5px 5px 5px 10px;
 	  text-decoration: none;
 	  font-size: 14px;
@@ -1863,7 +1955,7 @@ angular
 	
 	/* When you mouse over the navigation links, change their color */
 	#mySidebar a:hover {
-	  color: #000;
+	  color: rgb(216, 216, 216);
 	}
 
 	/* The button used to open the sidebar */
@@ -1876,6 +1968,20 @@ angular
 	  border: none;
 	}
 
+	.inputTable{
+		outline: 0;
+		border-width: 0 0 0.5px;
+		border-color: rgb(184, 184, 184);
+		width: 50%;
+		height: 35px;
+		border-style: dashed;
+	}
+
+	.inputTable:focus{
+		border-color: rgb(0, 0, 0);
+		border-style: solid;
+	}
+
 	.openbtn:hover {
 	  background-color: #444;
 	}
@@ -1884,6 +1990,45 @@ angular
 	#main {
 	  transition: margin-left .5s; /* If you want a transition effect */
 	  padding: 0px;
+	}
+
+	.modal-body{
+		padding:0;
+		margin-top:15%;
+	}
+
+	.modal-content{
+		margin-top:20%;
+		background-color: rgb(247, 247, 247);
+		border:0;
+	}
+
+	.modal{
+		margin-left:5%;
+	}
+
+	.bootbox-body{
+		height: 50px;
+		font-size: 1.1em;
+		text-align: center;
+		font-weight: 500;
+	}
+
+	.popup{
+		height: 100px;
+	}
+
+	.modal-backdrop{
+		display: none;
+	}
+
+	.tabelaCompleta{
+		margin: 0 auto;
+		width: 100%;
+		clear: both;
+		border-collapse: collapse;
+		table-layout: fixed; 
+		word-wrap:normal; 
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
