@@ -846,7 +846,7 @@ angular
 				}
 			);
 			
-			console.log(result)
+			console.log(result, "listarPedidosAmostras")
 			
 			if(result !=""){
 				for(k = 0; k < pedidosGravadosERP.length; k++){				
@@ -862,22 +862,17 @@ angular
 								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
 								
 								/*Itens que serão atualizados*/
-								
-								/*pedidosGravadosERP[k].jsonDocs[0].anoFat		= dadosAtualizados[0].ano;*/
 								pedidosGravadosERP[k].jsonDocs[0].pedDatEmi 						= dadosAtualizados[0].pedDatEmi;
 								pedidosGravadosERP[k].jsonDocs[0].responsavel 						= dadosAtualizados[0].respFor;
-								pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].sigufs;
-								pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].bu;
-								pedidosGravadosERP[k].jsonDocs[0].subsegmento						= dadosAtualizados[0].subseg;
+								pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].cliSigUfs;
+								pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].cliBU;
+								pedidosGravadosERP[k].jsonDocs[0].subsegmento						= dadosAtualizados[0].cliSubSeg;
 								pedidosGravadosERP[k].jsonDocs[0].segmento							= dadosAtualizados[0].segmento;
-								
 								pedidosGravadosERP[k].jsonDocs[0].familia 							= dadosAtualizados[0].produto[0].familia;
 								pedidosGravadosERP[k].jsonDocs[0].cluster 							= dadosAtualizados[0].produto[0].cluster;
 								pedidosGravadosERP[k].jsonDocs[0].desagr 							= dadosAtualizados[0].produto[0].agrCom;
-								
 								pedidosGravadosERP[k].jsonDocs[0].situacao	 						= dadosAtualizados[0].produto[0].sitAmostra;
 								pedidosGravadosERP[k].jsonDocs[0].justificativa						= dadosAtualizados[0].produto[0].justificativa;
-								//pedidosGravadosERP[k].jsonDocs[0].consumoProdutoKgMes	= dadosAtualizados[0].produto[0].consumo;
 								pedidosGravadosERP[k].jsonDocs[0].quantidade 						= dadosAtualizados[0].produto[0].qtdPed;
 								pedidosGravadosERP[k].jsonDocs[0].identQtd	 						= dadosAtualizados[0].produto[0].identQtd;
 								pedidosGravadosERP[k].jsonDocs[0].ofertaData 						= dadosAtualizados[0].produto[0].ofertaData;
@@ -886,6 +881,9 @@ angular
 									
 								/*Atualiza informações do produto vinculado ao pedido*/
 								pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= dadosAtualizados[0].produto[0].consumoCliente;
+
+								/*Adiciona ao documento campos que não estão listados*/
+								pedidosGravadosERP[k].jsonDocs[0].nfvDatEmi							= dadosAtualizados[0].nfvDatEmi;
 
 								continue;
 							};
@@ -1207,7 +1205,7 @@ angular
 				responsavel			: $scope.responsavel,
 				projeto     		: $scope.projeto,
 				uf 					: $scope.uf,
-				vendedor			: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
+				vendedor			: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
 				segmento			: $scope.segmento,
 				subsegmento 		: $scope.subsegmento,
 				bu 					: $scope.bu,
