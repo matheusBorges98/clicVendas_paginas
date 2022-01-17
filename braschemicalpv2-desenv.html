@@ -38,47 +38,17 @@
 						<label for="filCliente">Cliente</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCliente" ng-model="filCliente" aria-describedby=" " placeholder=" ">
 					</div>
-					
-					<!-- <div class="form-group">
-						<label for="filBU">BU</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filBU" ng-model="filBU" aria-describedby=" " placeholder=" ">
-					</div> -->
-					
+										
 					<div class="form-group">
 						<label for="projeto">Sincronização</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" ng-value="filSincronizado.nome" ng-model="filSincronizado" id="filSincronizado" uib-typeahead="(sincronizado.nome) for sincronizado in getFilScinronizacao($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectFilSincronizacao($item, $model, $label)">
 					</div>
 					
-					<!-- <div class="form-group"> Sera ajustado
-						<label for="filStatusAmostra">Status da Amostra</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filStatusAmostra" ng-model="filStatusAmostra" aria-describedby=" " placeholder=" ">
-					</div> -->
-					
-					<!-- <div class="form-group">
-						<label for="filCarteira">Carteira</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filCarteira" ng-model="filCarteira" aria-describedby=" " placeholder=" ">
-					</div>
-					 -->
 					<div class="form-group">
 						<label for="filCarteira">Data Emissão</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" ui-mask="99/99/9999" id="filDataEmissao" ng-model="filDataEmissao">
 					</div>
-					
-					<!-- <div class="form-group">
-						<label for="filCarteira">Data Solicitação</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filDataSolicitacao" ng-model="filDataSolicitacao" aria-describedby=" " placeholder="Ex: 01/12/2021">
-					</div> -->
-					
-					<!-- <div class="form-group"> Sera ajustado
-						<label for="filCarteira">Segmento</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filSegmento" ng-model="filSegmento" aria-describedby=" " placeholder=" ">
-					</div> -->
-					
-					<!-- <div class="form-group">
-						<label for="filCarteira">Subsegmento</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filSubSegmento" ng-model="filSubSegmento" aria-describedby=" " placeholder=" ">
-					</div> -->
-					
+										
 					<div class="form-group">
 						<label for="filCarteira">Prioridade</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filPrioridade" ng-model="filPrioridade" aria-describedby=" " placeholder=" ">
@@ -580,13 +550,6 @@ angular
 		$scope.exibeListaDocumentos = true;
 		
 		/* Inicializa filtros */
-
-		// $scope.filFornecedores 		= "";
-		// $scope.filBU 				= "";
-		// $scope.filCluster 			= "";
-		// $scope.filCarteira 			= "";
-		// $scope.filDataSolicitacao	= "";
-		// $scope.filSubSegmento 		= "";
 		$scope.filSegmento			= "";
 		$scope.filDataEmissao 		= "";
 		$scope.filCliente 			= "";
@@ -860,14 +823,7 @@ angular
 							if(($rootScope.dadosGrid[l].jsonDocs[0].pedNumped == pedidosGravadosERP[k].jsonDocs[0].pedNumped) && 
 								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
 								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
-																
-								// pedidosGravadosERP[k].jsonDocs[0].familia 							= dadosAtualizados[0].produto[0].familia;
-								// pedidosGravadosERP[k].jsonDocs[0].desagr 							= dadosAtualizados[0].produto[0].agrCom;
-								// pedidosGravadosERP[k].jsonDocs[0].justificativa						= dadosAtualizados[0].produto[0].justificativa;
-								// pedidosGravadosERP[k].jsonDocs[0].identQtd	 						= dadosAtualizados[0].produto[0].identQtd;
-								// pedidosGravadosERP[k].jsonDocs[0].ofertaData 						= dadosAtualizados[0].produto[0].ofertaData;
-								// pedidosGravadosERP[k].jsonDocs[0].vendaLocalKg 						= dadosAtualizados[0].produto[0].vendaLocal;
-																			
+																								
 								/*Itens do documento geral que serão atualizados*/
 								//pedidosGravadosERP[k].jsonDocs[0].pedDatEmi 						= dadosAtualizados[0].pedDatEmi;
 								pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].cliSigUfs;
@@ -881,6 +837,20 @@ angular
 								pedidosGravadosERP[k].jsonDocs[0].produtos.situacao					= dadosAtualizados[0].produto[0].ipdSitAmo;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaUnit				= dadosAtualizados[0].produto[0].ipvVlrBru;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.dataStatus				= dadosAtualizados[0].produto[0].ipdDatAmo;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.justificativa			= dadosAtualizados[0].produto[0].ipdObsAmo;
+								
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.potencial0XCM			= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.chaveCp					= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.identQtd					= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.venda					= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.vendaLocalKg				= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.totalFatUSD				= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.margemR					= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.preUSD					= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaData				= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.probFechamento			= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.consumoAg				= dadosAtualizados[0].produto[0].
+
 
 								/*Adiciona ao documento campos que não estão listados*/
 								pedidosGravadosERP[k].jsonDocs[0].nfvDatEmi							= dadosAtualizados[0].nfvDatEmi;
@@ -986,48 +956,22 @@ angular
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
 
+				/*Produtos*/
 				$rootScope.produtos			= [];
-
-				$scope.frmCliente			= '';
-				$scope.codigoCliente		= '';
-
 				$scope.quantidadeProduto	= '';
-				$scope.itemProd				= '';
-				
-				$scope.chave 				= '';
-				$scope.anoFat 		    	= '';
-				$scope.responsavel			= '';
-				$scope.projeto				= '';
-				
 				$scope.codigoProduto		= '';
 				$scope.descricaoProd		= '';
-				$scope.nomeCliente			= '';
-				$scope.uf					= '';
-				$scope.vendedor				= dadosUserLogado.rNome;
-				$scope.segmento				= '';
-				$scope.subsegmento			= '';
-				$scope.bu					= '';
 				$scope.aplicacao			= '';
-				$scope.pedDatEmi			= '';
-				$scope.pedNumped			= 0 ;
-				$scope.familia				= '';
-				$scope.cluster				= '';
-				$scope.desagr				= '';
-				$scope.dataStatus			= '';
+				$scope.itemProd				= '';
 				$scope.quantidade			= '';
 				$scope.situacao				= '';
 				$scope.justificativa		= '';
 				$scope.consumoProdutoKgMes	= '';
-				$scope.prioridade			= '';
-				$scope.consumoAg			= '';
-				$scope.con2021Ident			= '';
-				$scope.con2021n				= '';
-				$scope.con2022n				= '';
-				$scope.con2022Local			= '';
+				$scope.familia				= '';
 				$scope.probFechamento		= '';
 				$scope.concorrencia			= '';
 				$scope.precoConc			= '';
-				$scope.dataAtu				= '';
+				$scope.consumoAg			= '';
 				$scope.ofertaData			= '';
 				$scope.ofertaUnit			= '';
 				$scope.potencial0XCM		= '';
@@ -1038,17 +982,49 @@ angular
 				$scope.totalFatUSD			= '';
 				$scope.margemR				= '';
 				$scope.preUSD				= '';
+
+				/*Cliente*/
+				$scope.frmCliente			= '';
+				$scope.codigoCliente		= '';
+				$scope.nomeCliente			= '';
+
+				/*Documento*/
+				$scope.chave 				= '';
+				$scope.anoFat 		    	= '';
+				$scope.responsavel			= '';
+				$scope.projeto				= '';				
+				$scope.uf					= '';
+				$scope.vendedor				= dadosUserLogado.rNome;
+				$scope.segmento				= '';
+				$scope.subsegmento			= '';
+				$scope.bu					= '';
+				$scope.pedDatEmi			= '';
+				$scope.pedNumped			= 0 ;
+				$scope.cluster				= '';
+				$scope.desagr				= '';
+				$scope.dataStatus			= '';
+				$scope.prioridade			= '';
+				
+				$scope.con2021Ident			= '';
+				$scope.con2021n				= '';
+				$scope.con2022n				= '';
+				$scope.con2022Local			= '';
+				$scope.dataAtu				= '';
 				$scope.potVolAg				= '';
 				$scope.ultVendaTabdin		= '';
 				$scope.primVendaTabdin		= '';
 				$scope.anoPrimVenda			= '';
 				$scope.statusAcao			= '';
 				$scope.acoes				= '';
+
+				/*Historico*/
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= '';
-				$rootScope.hashDoc			= '';
+				
+			
 
 				/*Sincronização - Envio ERP*/
+				$rootScope.hashDoc			= '';
 				$scope.sincronizado			= "DOCUMENTO_NAO_SINCRONIZADO";
 
 				$scope.atualizaTabelaProdutos();
@@ -1059,16 +1035,17 @@ angular
 
 				$rootScope.hashDoc			= docs.docCtrl;
 				$rootScope.idDocumento 		= $dados.id;
+				/*Cliente*/
 				$rootScope.cliente			= docs.cliente;
-
 				$scope.frmCliente			= docs.cliente;
 				$scope.codigoCliente		= docs.cliente.codExterno;
 				$scope.nomeCliente			= docs.cliente.nome
+
+				/*Documento*/
 				$scope.chave 				= docs.chave;
 				$scope.anoFat				= docs.ano;
 				$scope.responsavel			= docs.responsavel;
 				$scope.projeto				= docs.projeto;
-				$scope.codigo				= docs.codigo;
 				$scope.uf					= docs.uf;
 				$scope.vendedor				= docs.vendedor.nome;
 				$scope.segmento				= docs.segmento;
@@ -1076,34 +1053,22 @@ angular
 				$scope.bu					= docs.bu;
 				$scope.pedDatEmi			= docs.pedDatEmi;
 				$scope.pedNumped			= docs.pedNumped;
-				$scope.familia				= docs.familia;
 				$scope.desagr				= docs.desagr;
-				$scope.justificativa		= docs.justificativa;
 				$scope.prioridade			= docs.prioridade;
-				$scope.consumoAg			= docs.consumoAg;
 				$scope.con2021Ident			= docs.con2021Ident;
 				$scope.con2021n				= docs.con2021n;
 				$scope.con2022n				= docs.con2022n;
 				$scope.con2022Local			= docs.con2022Local;
-				$scope.probFechamento		= docs.probFechamento;
-				$scope.concorrencia			= docs.concorrencia;
-				$scope.precoConc			= docs.precoConc;
+
 				$scope.dataAtu				= docs.dataAtu;
-				$scope.ofertaData			= docs.ofertaData;
-				$scope.potencial0XCM		= docs.potencial0XCM;
-				$scope.chaveCp				= docs.chaveCp;
-				$scope.identQtd				= docs.identQtd;
-				$scope.venda				= docs.venda;
-				$scope.vendaLocalKg			= docs.vendaLocalKg;
-				$scope.totalFatUSD			= docs.totalFatUSD;
-				$scope.margemR				= docs.margemR;
-				$scope.preUSD				= docs.preUSD;
 				$scope.potVolAg				= docs.potVolAg;
 				$scope.ultVendaTabdin		= docs.ultVendaTabdin;
 				$scope.primVendaTabdin		= docs.primVendaTabdin;
 				$scope.anoPrimVenda			= docs.anoPrimVenda;
 				$scope.statusAcao			= docs.statusAcao;
 				$scope.acoes				= docs.acoes;
+
+				/*Historico*/
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
 
@@ -1121,7 +1086,23 @@ angular
 				$scope.situacao				= docs.produtos.situacao;
 				$scope.ofertaUnit			= docs.produtos.ofertaUnit;
 				$scope.dataStatus			= docs.produtos.dataStatus;
-
+				$scope.justificativa		= docs.produtos.justificativa;
+				$scope.potencial0XCM		= docs.produtos.potencial0XCM;
+				$scope.chaveCp				= docs.produtos.chaveCp;
+				$scope.identQtd				= docs.produtos.identQtd;
+				$scope.venda				= docs.produtos.venda;
+				$scope.vendaLocalKg			= docs.produtos.vendaLocalKg;
+				$scope.totalFatUSD			= docs.produtos.totalFatUSD;
+				$scope.margemR				= docs.produtos.margemR;
+				$scope.preUSD				= docs.produtos.preUSD;
+				$scope.ofertaData			= docs.produtos.ofertaData;
+				$scope.probFechamento		= docs.produtos.probFechamento;
+				$scope.consumoAg			= docs.produtos.consumoAg;
+				$scope.chaveCp				= docs.produtos.chaveCp;
+				$scope.familia				= docs.produtos.familia;
+				$scope.concorrencia			= docs.produtos.concorrencia;
+				$scope.precoConc			= docs.produtos.precoConc;
+				
 				$scope.consultaDocumento($rootScope.hashDoc);
 			};
 			
@@ -1145,6 +1126,21 @@ angular
 					situacao			: $scope.situacao,
 					ofertaUnit			: $scope.ofertaUnit,
 					dataStatus			: $scope.dataStatus,
+					justificativa		: $scope.justificativa,
+					potencial0XCM		: $scope.potencial0XCM,
+					chaveCp				: $scope.chaveCp,
+					identQtd			: $scope.identQtd,
+					venda				: $scope.venda,
+					vendaLocalKg		: $scope.vendaLocalKg,
+					totalFatUSD			: $scope.totalFatUSD,
+					margemR				: $scope.margemR,
+					preUSD				: $scope.preUSD,
+					ofertaData			: $scope.ofertaData,
+					probFechamento		: $scope.probFechamento,		
+					consumoAg			: $scope.consumoAg,	
+					familia				: $scope.familia,
+					concorrencia		: $scope.concorrencia,
+					precoConc			: $scope.precoConc,			
 					hashDoc				: '',
 				}
 			);
@@ -1222,34 +1218,14 @@ angular
 				segmento			: $scope.segmento,
 				subsegmento 		: $scope.subsegmento,
 				bu 					: $scope.bu,
-				//pedDatEmi			: $scope.pedDatEmi,
-				familia				: $scope.familia,
-				//cluster				: $scope.cluster,
+				pedDatEmi			: $scope.pedDatEmi,
 				desagr				: $scope.desagr,
-				//dataStatus			: $scope.dataStatus,
-				//quantidade			: $scope.quantidade,
-				//situacao			: $scope.situacao,
-				justificativa		: $scope.justificativa,
 				prioridade			: $scope.prioridade,
-				consumoAg			: $scope.consumoAg,
 				con2021Ident		: $scope.con2021Ident,
 				con2021n			: $scope.con2021n,
 				con2022n			: $scope.con2022n,
 				con2022Local		: $scope.con2022Local,
-				probFechamento		: $scope.probFechamento,
-				concorrencia		: $scope.concorrencia,
-				precoConc			: $scope.precoConc,
 				dataAtu				: $scope.dataAtu,
-				ofertaData			: $scope.ofertaData,
-				//ofertaUnit			: $scope.ofertaUnit,
-				potencial0XCM		: $scope.potencial0XCM,
-				chaveCp				: $scope.chaveCp,
-				identQtd			: $scope.identQtd,
-				venda				: $scope.venda,
-				vendaLocalKg		: $scope.vendaLocalKg,
-				totalFatUSD			: $scope.totalFatUSD,
-				margemR				: $scope.margemR,
-				preUSD				: $scope.preUSD,
 				potVolAg			: $scope.potVolAg,
 				ultVendaTabdin  	: $scope.ultVendaTabdin,
 				primVendaTabdin 	: $scope.primVendaTabdin,
@@ -1347,12 +1323,6 @@ angular
 		};
 
 		$scope.limparFiltros = () =>{
-			// $scope.filFornecedores 		= '';
-			// $scope.filBU 				= '';
-			// $scope.filCluster 			= '';
-			// $scope.filCarteira 			= '';
-			// $scope.filDataSolicitacao	= '';
-			// $scope.filSubSegmento 		= '';
 			$scope.filCliente 			= '';
 			$scope.filStatusAmostra		= '';
 			$scope.filPrioridade		= '';
@@ -1367,12 +1337,6 @@ angular
 		};
 
 		$scope.aplicarFiltros = (valor) => {
-			// $scope.filFornecedores 		= $scope.filFornecedores;	
-			// $scope.filBU 				= $scope.filBU;				
-			// $scope.filCluster 			= $scope.filCluster; 		
-			// $scope.filCarteira 			= $scope.filCarteira; 		
-			// $scope.filDataSolicitacao 	= $scope.filDataSolicitacao; 		
-			// $scope.filSubSegmento 		= $scope.filSubSegmento; 	
 			$scope.filCliente 			= $scope.filCliente; 	
 			$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
 			$scope.filPrioridade 		= $scope.filPrioridade; 
@@ -1634,30 +1598,29 @@ angular
 						'jsonDocs[0].produtos.situacao'				:	{i:20, vsbl: true,	tlt: 'Situação',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:'130px'	},
 						'jsonDocs[0].prioridade.nome'				:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:'130px'	},
-						'jsonDocs[0].potencial0XCM'					:	{i:23, vsbl: true,	tlt: 'Potencial',				width:'130px'	},
-						'jsonDocs[0].consumoAg'      				:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:'130px'	},
+						'jsonDocs[0].produtos.consumoAg'      		:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:'130px'	},
 						'jsonDocs[0].con2021Ident'     				:	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:'130px'	},
 						'jsonDocs[0].con2021n'      				:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:'130px'	},
 						'jsonDocs[0].con2022n'      				:	{i:27, vsbl: true,	tlt: 'Con. 2022(em nº)',		width:'130px'	},
 						'jsonDocs[0].con2022Local'    				:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:'130px'	},
-						'jsonDocs[0].probFechamento'  				:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:'130px'	},
-						'jsonDocs[0].concorrencia'    				:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:'130px'	},
+						'jsonDocs[0].produtos.probFechamento'  		:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:'130px'	},
+						'jsonDocs[0].produtos.concorrencia'    		:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:'130px'	},
 						'jsonDocs[0].acoes'	      					:	{i:31, vsbl: true,	tlt: 'Ações',					width:'130px'	},
 						'jsonDocs[0].statusAcao'      				:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:'130px'	},
 						'jsonDocs[0].dataAtu'      					:	{i:33, vsbl: true,	tlt: 'Data Atu.',				width:'130px'	},
-						'jsonDocs[0].ofertaData'      				:	{i:34, vsbl: true,	tlt: 'Data Oferta',				width:'130px'	},
+						'jsonDocs[0].produtos.ofertaData'			:	{i:34, vsbl: true,	tlt: 'Data Oferta',				width:'130px'	},
 						'jsonDocs[0].produtos.ofertaUnit'      		:	{i:35, vsbl: true,	tlt: 'Oferta Unitário. (US$)',	width:'130px'	},
-						'jsonDocs[0].potencial0XCM'   				:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:'130px'	},
-						'jsonDocs[0].chaveCp'      					:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:'130px'	},
-						'jsonDocs[0].identQtd'     					:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:'130px'	},
-						'jsonDocs[0].venda'	      					:	{i:39, vsbl: true,	tlt: 'Venda',					width:'130px'	},
+						'jsonDocs[0].produtos.potencial0XCM'		:	{i:36, vsbl: true,	tlt: 'Potencial OxCM',			width:'130px'	},
+						'jsonDocs[0].produtos.chaveCp'      		:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:'130px'	},
+						'jsonDocs[0].produtos.identQtd'     		:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:'130px'	},
+						'jsonDocs[0].produtos.venda'				:	{i:39, vsbl: true,	tlt: 'Venda',					width:'130px'	},
 						'jsonDocs[0].vendaLocalKg'    				:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:'130px'	},
 						'jsonDocs[0].ultVendaTabdin'  				:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:'130px'	},
 						'jsonDocs[0].primVendaTabdin' 				:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:'130px'	},
 						'jsonDocs[0].anoPrimVenda'     				:	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:'130px'	},
-						'jsonDocs[0].totalFatUSD'      				:	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:'130px'	},
-						'jsonDocs[0].margemR'	      				:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:'130px'	},
-						'jsonDocs[0].preUSD'	      				:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:'130px'	},
+						'jsonDocs[0].produtos.totalFatUSD'      	:	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:'130px'	},
+						'jsonDocs[0].produtos.margemR'	      		:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:'130px'	},
+						'jsonDocs[0].produtos.preUSD'	      		:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:'130px'	},
 						'jsonDocs[0].potVolAg'	      				:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:'130px'	},
 						'jsonDocs[0].projeto.nome'					:	{i:48,  vsbl: true,	tlt: 'Projeto',					width:'130px'},
 				};
