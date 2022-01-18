@@ -497,13 +497,13 @@
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0 || isLoading" ng-show="pedNumped == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
+						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
 					</div>	
 					<div class="btn-group">
 						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
 					</div>
 					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || isLoading" ng-click="salvarDocumento(1)"> Salvar </button>
+						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' "  ng-click="salvarDocumento(1)"> Salvar </button>
 					</div>	
 				</div>
 			</div>
@@ -876,7 +876,7 @@ angular
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 			$scope.atualizaTabelaCompleta(1);		
 		};
-		
+
 		$scope.gravaDocumentoERP = async ($item) => {
 
 			let dialog = bootbox.dialog({
@@ -919,7 +919,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 41943; /*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 17431//41943; /*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -1039,6 +1039,7 @@ angular
 				
 				/*Sincronização - Envio ERP*/
 				$rootScope.hashDoc			= '';
+				$rootScope.numPedidoClic	= '';
 				$scope.sincronizado			= "DOCUMENTO_NAO_SINCRONIZADO";
 
 				$scope.atualizaTabelaProdutos();
@@ -1048,6 +1049,7 @@ angular
 				let docs 					= $dados.jsonDocs[0];
 
 				$rootScope.hashDoc			= docs.docCtrl;
+				$rootScope.numPedidoClic	= docs.numPedidoClic;
 				$rootScope.idDocumento 		= $dados.id;
 				/*Cliente*/
 				$rootScope.cliente			= docs.cliente;
@@ -1211,7 +1213,8 @@ angular
 				2 - Finalizar (Envia o pedido para ERP)
 			*/
 			
-			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;						
+			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
+			let numPedidoClic		= $rootScope.numPedidoClic == '' ?  Math.floor(Math.random() * 87654321) +  Math.floor(Math.random() * 123456789) : $rootScope.numPedidoClic						
 			let id 					= $rootScope.idDocumento;
 			let jsonDocs			= [];
 			let dados 				= {};
@@ -1220,7 +1223,7 @@ angular
 
 			for(i = 0; i < $rootScope.produtos.length; i++){
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
-				$rootScope.produtos[i].hashDoc = hashDoc;
+				$rootScope.produtos[i].hashDoc 	= hashDoc;	
 			}
 			//$scope.adicionarProduto();
 			
@@ -1257,7 +1260,8 @@ angular
 				sincronizado	: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
 				idDocument		: $rootScope.idDocumento,
 				docCtrl			: hashDoc,
-				pedNumped		: $scope.pedNumped,		
+				pedNumped		: $scope.pedNumped,	
+				numPedidoClic	: numPedidoClic,	
 				
 				//Produtos
 				produtos		: $rootScope.produtos,
@@ -1487,8 +1491,8 @@ angular
 			]);	
 
 
-			defPD = {	'id'								:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						'jsonDocs[0].pedNumped'				:	{i:1, vsbl: true,	tlt: 'Pedido',			width:''	},
+			defPD = {	'jsonDocs[0].numPedidoClic'			:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  		width:''	},
+						'jsonDocs[0].pedNumped'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
 						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
 						'jsonDocs[0].vendedor.nome'			:	{i:2, vsbl: true,	tlt: 'Vendedor',		width:''	},
 						'jsonDocs[0].produtos.descricao'    :	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
@@ -1623,8 +1627,8 @@ angular
 				},									
 			]);
 			
-			defPD = {	'id'										:	{i:0,  vsbl: false,	tlt: '',        				width:'130px'},
-						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Pedido',					width:'130px'},
+			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  				width:'130px'	},
+						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Nº Pedido ERP',			width:'130px'},
 						'jsonDocs[0].responsavel'					:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:'130px'},
 						'jsonDocs[0].produtos.descricao'			:	{i:4,  vsbl: true,	tlt: 'Produto',					width:'130px'},
 						'jsonDocs[0].produtos.codExterno'    		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'},
@@ -1946,7 +1950,7 @@ angular
 	}
 
 	#mySidebar {
-	  height: 100%; /* 100% Full-height */
+	  height: 600px; /* 100% Full-height */
 	  width: 0; /* 0 width - change this with JavaScript */
 	  position: absolute; /* Stay in place */
 	  z-index: 1; /* Stay on top */
