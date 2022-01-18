@@ -803,7 +803,7 @@ angular
 
 				$scope.representante		= docs.representante.nome;
 
-				$scope.prevEntrega			= new Date(docs.prevEntrega);
+				$scope.prevEntrega			= docs.prevEntrega != "" ? new Date(docs.prevEntrega) : "";
 
 				$scope.datEmiERP			= docs.datEmiERP;
 
@@ -822,10 +822,7 @@ angular
 				$scope.codigoProduto		= docs.produtos.codigoProduto;
 				$scope.descricao			= docs.produtos.descricao;
 				$scope.codExternoProduto	= docs.produtos.codExterno;
-
-				/*Valores formatados*/
-				// $scope.dataEmissaoErpFormatada 	= new Date($scope.datEmiERP);
-				// $scope.dataEmissaoErpFormatada	= $scope.dataEmissaoErpFormatada.toLocaleDateString('pt-br');
+			
 
 				$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
 				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br');
