@@ -264,7 +264,7 @@
 													</td>
 													<td>
 														<div>
-															<input type="number" name="valorNegociado" class="inputTable" ng-model="produto.valorNegociado">
+															<input type="number" name="valorNegociado" class="inputTable" required ng-model="produto.valorNegociado">
 														</div>
 													</td>
 													<td>
@@ -1444,6 +1444,11 @@ angular
 	.inputTable:focus{
 		border-color: rgb(0, 0, 0);
 		border-style: solid;
+	}
+
+	.inputTable.invalid{
+		border-style: dashed;
+		border-color: rgba(243, 3, 3, 0.568);
 	}
 
 	.openbtn:hover {
