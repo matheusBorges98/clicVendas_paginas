@@ -27,7 +27,7 @@
 			<div id="mySidebar" class="sidebar">
 
 				<div class="header-filtro-tabela">
-					<p style="text-align: center; color:white; font-weight: 900; ">Filtro<span onclick="openNav()" style="color: white; margin-left:70%" class="glyphicon glyphicon-minus"></span></p>
+					<p style="text-align: center; color:white; font-weight: 900; ">Filtro<span ng-click="openNav()" style="color: white; margin-left:70%" class="glyphicon glyphicon-minus"></span></p>
 				</div>
 
 				<form style="margin-top:5px">
@@ -868,7 +868,7 @@ angular
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
 		}
 
-		console.log("G")
+		console.log("FF")
 
 		$scope.calculoValidacaoProdutoERP = async ($dados) =>{
 			
@@ -1082,7 +1082,7 @@ angular
 
 		$scope.aplicarFiltros = (valor) => {
 			
-			openNav();
+			$scope.openNav();
 
 			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7);
 			$scope.filCliente 			= $scope.filCliente; 		
@@ -1158,7 +1158,7 @@ angular
 					key: '2',
 					className: 'btn_grid btn_cor_padrao',
 					action: function (e, dt, node, config) {									
-						openNav();					
+						$scope.openNav();				
 					}
 				},			
 				{
@@ -1285,41 +1285,25 @@ angular
 				}); 
 			};
 		};
+
+		$scope.openNav = () => {
+			if(document.getElementById("mySidebar").style.width =="250px"){
+				document.getElementById("mySidebar").style.width = "0";
+				document.getElementById("mySidebar").style.height = "0";
+				document.getElementById("main").style.marginLeft = "0";
+			}else{
+				
+				document.getElementById("mySidebar").style.width = "250px";
+				document.getElementById("mySidebar").style.height = "500px";
+				document.getElementById("main").style.marginLeft = "255px";
+				$scope.atualizaTabela()
+			};
+
+		};
 			
 	});
 </script> 
-<!-- Regra de negócio -->
-<script>
-	/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
-	function openNav() {
-		if(document.getElementById("mySidebar").style.width =="250px"){
-			document.getElementById("mySidebar").style.width = "0";
-			document.getElementById("mySidebar").style.height = "0";
-			document.getElementById("listDocuments").style.marginLeft = "0";
-			document.getElementById("main").style.marginLeft = "0";
-		  }else{
-			
-			document.getElementById("mySidebar").style.width = "250px";
-			document.getElementById("mySidebar").style.height = "500px";
-			document.getElementById("listDocuments").style.marginLeft = "255px";
-			document.getElementById("main").style.marginLeft = "255px";
-		  };
-		
-	};
 
-	/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-	
-	/* activate scrollspy menu */
-	var $body   = $(document.body);
-	var navHeight = $('#mySideBar').outerHeight(true) + 10;
-
-	$body.scrollspy({
-		target: '#leftCol',
-		offset: navHeight
-	});
-	
-	</script>
-<!-- Regra de negócio -->
 </body>
 
 </html>
