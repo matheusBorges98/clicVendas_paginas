@@ -30,7 +30,7 @@
 			<div id="mySidebar" class="sidebar">
 			
 				<div class="header-filtro-tabela">
-					<p style="text-align: center; color:white; font-weight: 900; ">Filtro<span onclick="openNav()" style="color: white; margin-left:70%" class="glyphicon glyphicon-minus"></span></p>
+					<p style="text-align: center; color:white; font-weight: 900; ">Filtro<span ng-click="openNav()" style="color: white; margin-left:70%" class="glyphicon glyphicon-minus"></span></p>
 				</div>
 
 				<form>
@@ -1037,8 +1037,6 @@ angular
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= '';
 				
-			
-
 				/*Sincronização - Envio ERP*/
 				$rootScope.hashDoc			= '';
 				$scope.sincronizado			= "DOCUMENTO_NAO_SINCRONIZADO";
@@ -1145,7 +1143,7 @@ angular
 					ofertaUnit			: $scope.ofertaUnit,
 					dataStatus			: $scope.dataStatus,
 					justificativa		: $scope.justificativa,
-					potencial0XCM		: $scope.potencial0XCM, //
+					potencial0XCM		: $scope.potencial0XCM, 
 					chaveCp				: $scope.chaveCp,
 					identQtd			: $scope.identQtd,
 					venda				: $scope.venda,
@@ -1155,7 +1153,7 @@ angular
 					preUSD				: $scope.preUSD,
 					ofertaData			: $scope.ofertaData,
 					probFechamento		: $scope.probFechamento,		
-					consumoAg			: $scope.consumoAg,	//
+					consumoAg			: $scope.consumoAg,	
 					familia				: $scope.familia,
 					concorrencia		: $scope.concorrencia,
 					precoConc			: $scope.precoConc,
@@ -1467,7 +1465,7 @@ angular
 					key: '2',
 					className: 'btn_grid btn_cor_padrao',
 					action: function (e, dt, node, config) {									
-						openNav();					
+						$scope.openNav();					
 					}
 				},		
 				{
@@ -1604,7 +1602,7 @@ angular
 					key: '2',
 					className: 'btn_grid btn_cor_padrao',
 					action: function (e, dt, node, config) {									
-						openNav();					
+						$scope.openNav();				
 					}
 				},		
 				{
@@ -1826,40 +1824,29 @@ angular
 				}); 
 			};
 		};
+
+		$scope.openNav = () => {
+			if(document.getElementById("mySidebar").style.width =="250px"){
+				document.getElementById("mySidebar").style.width = "0";
+				document.getElementById("mySidebar").style.height = "0";
+				document.getElementById("main").style.marginLeft = "0";
+				
+				setTimeout(()=>{
+					$scope.atualizaTabela();
+					$scope.atualizaTabelaCompleta();
+				}, 250)
+			}else{
+				
+				document.getElementById("mySidebar").style.width = "250px";
+				document.getElementById("mySidebar").style.height = "500px";
+				document.getElementById("main").style.marginLeft = "255px";
+			};
+
+		};
 			
 	});
 </script> 
-<!-- Regra de negócio -->
 
-
-<script>
-	/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
-	function openNav() {
-		if(document.getElementById("mySidebar").style.width =="250px"){
-			document.getElementById("mySidebar").style.width = "0";
-			document.getElementById("mySidebar").style.height = "0";
-			document.getElementById("main").style.marginLeft = "0";
-		  }else{
-			document.getElementById("mySidebar").style.width = "250px";
-			document.getElementById("mySidebar").style.height = "750px";
-			document.getElementById("main").style.marginLeft = "250px";
-		  };
-		
-	};
-
-	/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-	
-	/* activate scrollspy menu */
-	var $body   = $(document.body);
-	var navHeight = $('#mySideBar').outerHeight(true) + 10;
-
-	$body.scrollspy({
-		target: '#leftCol',
-		offset: navHeight
-	});
-
-	</script>
-<!-- Regra de negócio -->
 </body>
 
 </html>
@@ -1867,7 +1854,7 @@ angular
 <style>
 
 :root {
-		--cor_principal: #047cca;
+		--cor_principal: #1a6c95;
 	}
 
 	h5{
@@ -1886,7 +1873,8 @@ angular
 	}
 
 	th{
-		background-color: rgb(245 245 245);
+		background-color: rgb(248, 248, 248);
+		border-radius: 2px;
 	}
 
 	.dataTables_wrapper .dataTables_info{
@@ -1967,7 +1955,7 @@ angular
 	  background-color: rgba(255, 255, 255, 1); 
 	  overflow-x: hidden; /* Disable horizontal scroll */
 	  padding-top: 60px; /* Place content 60px from the top */
-	  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */ 
+	  transition: 0.2s; /* 0.5 second transition effect to slide in the sidebar */ 
 	  box-shadow: 0 5px 5px 0 rgba(0,0,0,0.50);
   
 	}
@@ -1978,7 +1966,7 @@ angular
 	  font-size: 14px;
 	  color: #000;
 	  display: block;
-	  transition: 0.3s;
+	  transition: 0.2s;
 	}
 	
 	#mySidebar input {
@@ -2019,14 +2007,20 @@ angular
 		border-style: solid;
 	}
 
+	.inputTable:invalid{
+		border-style: dashed;
+		border-color: rgba(243, 3, 3, 0.568);
+	}
+
 	.openbtn:hover {
 	  background-color: #444;
 	}
 
 	/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 	#main {
-	  transition: margin-left .5s; /* If you want a transition effect */
+	  transition: margin-left .2s; /* If you want a transition effect */
 	  padding: 0px;
+	  height: 100%;
 	}
 
 	.modal-body{
