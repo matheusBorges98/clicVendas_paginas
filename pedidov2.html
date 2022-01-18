@@ -467,7 +467,7 @@ angular
 		$scope.abreHistoricos = (acao) => {
 			$scope.exibeHistoricos = true;
 		};
-		console.log("TESTE")
+	
 		$scope.getEndEntrega = function(val) {
 			if(angular.isUndefined($scope.frmCliente) || $scope.frmCliente == ""){
 				$scope.critInfClienteEe = true;
@@ -1142,8 +1142,8 @@ angular
 			]);	
 
 
-			defPD = {	'id'								:	{i:0, vsbl: false,	tlt: '',        		width:''	},
-						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido',		width:''	},
+			defPD = {	'id'								:	{i:0, vsbl: false,	tlt: 'Nº Pedido',   	width:''	},
+						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
 						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
 				};
 
