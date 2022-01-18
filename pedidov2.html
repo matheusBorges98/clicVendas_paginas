@@ -454,6 +454,8 @@ angular
 				$scope.exibeHistoricos = false;
 			}
 
+			$scope.atualizaTabela();
+
 		};
 
 		$scope.abreHistoricos = (acao) => {
@@ -714,7 +716,9 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 
-			return result;
+			return result.data.map((item)=>{
+				return item
+			})
 		}
 
 		$scope.getProdutos = (val) => {			
