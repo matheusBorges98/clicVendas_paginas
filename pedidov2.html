@@ -692,12 +692,14 @@ angular
 			);
 
 			$rootScope.isLoading = false;
+				/*teste*/
+			result = '600';
 
 			console.log(result, "Retorno pedido enviado ao ERP")
 					
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
-				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
+				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP.', 2000, 'success')
 			}else{
 				dialog.modal('hide');
 				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
@@ -868,7 +870,7 @@ angular
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
 		}
 
-		console.log("C")
+		console.log("D")
 
 		$scope.calculoValidacaoProdutoERP = async ($dados) =>{
 			
