@@ -398,7 +398,7 @@
 									</div>			  
 									<div class="col-sm-2 spacer">
 										<label for="potencial">Potencial</label>
-										<input type="text" class="form-control spacer-input" ng-model="potencial" id="potencial" >
+										<input type="text" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM" >
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="consumoAg">Consumo Ano Ger.</label>
@@ -492,13 +492,13 @@
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0" ng-show="pedNumped == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
+						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0 || isLoading" ng-show="pedNumped == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
 					</div>	
 					<div class="btn-group">
 						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
 					</div>
 					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0" ng-click="salvarDocumento(1)"> Salvar </button>
+						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || isLoading" ng-click="salvarDocumento(1)"> Salvar </button>
 					</div>	
 				</div>
 			</div>
@@ -548,6 +548,8 @@ angular
 		
 		$scope.exibeFormulario 		= false; 
 		$scope.exibeListaDocumentos = true;
+
+		$rootScope.isLoading 		= false;
 		
 		/* Inicializa filtros */
 		$scope.filSegmento			= "";
@@ -874,6 +876,8 @@ angular
 				closeButton: false
 			});
 
+			$rootScope.isLoading = true;
+
 			// let result = await $scope.executaRequisicaoExterna(
 			// 	{
 			// 		idCvtccnpj : dadosUserLogado.cId,
@@ -883,6 +887,8 @@ angular
 			// 		pDocumento : {documento : $item}
 			// 	}		
 			// );
+
+			$rootScope.isLoading = false;
 			
 			let result = '63178'
 
@@ -983,6 +989,8 @@ angular
 				$scope.margemR				= '';
 				$scope.preUSD				= '';
 
+				$scope.mesIniConsumo		= '';
+
 				/*Cliente*/
 				$scope.frmCliente			= '';
 				$scope.codigoCliente		= '';
@@ -1032,6 +1040,8 @@ angular
 			}else{
 				
 				let docs 					= $dados.jsonDocs[0];
+
+				console.log(docs, "Documentos carregados da tabela")
 
 				$rootScope.hashDoc			= docs.docCtrl;
 				$rootScope.idDocumento 		= $dados.id;
@@ -1102,6 +1112,8 @@ angular
 				$scope.familia				= docs.produtos.familia;
 				$scope.concorrencia			= docs.produtos.concorrencia;
 				$scope.precoConc			= docs.produtos.precoConc;
+
+				$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
 				
 				$scope.consultaDocumento($rootScope.hashDoc);
 			};
@@ -1127,7 +1139,7 @@ angular
 					ofertaUnit			: $scope.ofertaUnit,
 					dataStatus			: $scope.dataStatus,
 					justificativa		: $scope.justificativa,
-					potencial0XCM		: $scope.potencial0XCM,
+					potencial0XCM		: $scope.potencial0XCM, //
 					chaveCp				: $scope.chaveCp,
 					identQtd			: $scope.identQtd,
 					venda				: $scope.venda,
@@ -1137,10 +1149,11 @@ angular
 					preUSD				: $scope.preUSD,
 					ofertaData			: $scope.ofertaData,
 					probFechamento		: $scope.probFechamento,		
-					consumoAg			: $scope.consumoAg,	
+					consumoAg			: $scope.consumoAg,	//
 					familia				: $scope.familia,
 					concorrencia		: $scope.concorrencia,
-					precoConc			: $scope.precoConc,			
+					precoConc			: $scope.precoConc,
+					mesIniConsumo		: $scope.mesIniConsumo,			
 					hashDoc				: '',
 				}
 			);
@@ -1205,9 +1218,12 @@ angular
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
 				$rootScope.produtos[i].hashDoc = hashDoc;
 			}
+			//$scope.adicionarProduto();
+
+			console.log($rootScope.produtos, "prod")
 			
 			dados.cnpj 				= {id: dadosUserLogado.cId};
-
+			
 			jsonDocs = [{
 				chave 				: $scope.chave,
 				anoFat	  			: $scope.anoFat,
@@ -1248,10 +1264,14 @@ angular
 				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
 				
 			}];
+
+			console.log(jsonDocs, "jsonDocs")
 			
 			dados.jsonDocs 		= JSON.stringify(jsonDocs);
 			/*Recebe dados e para que sejam feitas as alterações necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
+
+			console.log(json)
 			
 			if(rotina == 2){
 				/*Faz o envio dos produtos como um array para o ERP*/
@@ -1291,11 +1311,12 @@ angular
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){
+										
+					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 					
-					json[0].produtos			= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
-					dados.jsonDocs 		  		= JSON.stringify(json); 
+					dados.jsonDocs 		= JSON.stringify(json); 
 
-					let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
+					let response 		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
 				};
 
 				$scope.messageNotific = 'Registro alterado com sucesso';
@@ -1304,7 +1325,8 @@ angular
 			}else{
 				for(i = 0; i < $rootScope.produtos.length; i++){
 					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
-					json[0].produtos 		= $rootScope.produtos[i];
+					json[0].produtos 				= $rootScope.produtos[i];
+
 					dados.jsonDocs 			= JSON.stringify(json);
 
 					let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
@@ -1723,6 +1745,7 @@ angular
 				warning	- aviso informativo 
 				success - sucesso
 			*/
+			$rootScope.isLoading = true;
 			var dialog = bootbox.dialog({
 				message: '<div class="alert alert-'+tipo+' popup"role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">'+message+'</p></div>',
 				closeButton: false
@@ -1730,6 +1753,7 @@ angular
 			
 			setTimeout(() => {
 				dialog.modal('hide');
+				$rootScope.isLoading = false;
 			}, time);
 		};	
 			
@@ -1967,7 +1991,7 @@ angular
 	}
 
 	.modal{
-		margin-left:5%;
+		margin-left:-5%;
 	}
 
 	.bootbox-body{

@@ -181,7 +181,7 @@
 								<div class="col-sm-6 spacer">
 									<label for="nomeCliente">Cliente <span style="color: red;" ng-show="cadastroPedido.frmCliente.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<input type="text" ng-disabled="inputDesabilitado" ng-model="frmCliente" name="frmCliente" required id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
+										<input type="text" ng-model="frmCliente" name="frmCliente" required id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -314,7 +314,7 @@
 							<div class="col-sm-1 spacer" style="padding-top: 30px;">
 								<label for="obsOportunidade"> </label>							
 								<div class="btn-group">
-									<button class="btn btn_grid btn_cor_padrao" ng-disabled="obsOportunidade=='' || obsOportunidade==undefined " ng-click="addObservacaoHistorico()"> Incluir </button>
+									<button class="btn btn_grid btn_cor_padrao" ng-disabled="obsOportunidade=='' || obsOportunidade==undefined || isLoading" ng-click="addObservacaoHistorico()"> Incluir </button>
 								</div>
 							</div>
 						</div>
@@ -330,13 +330,13 @@
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required" ng-show="pedido == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
+						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-show="pedido == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
 					</div>	
 					<div class="btn-group">
 						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
 					</div>
 					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required" ng-click="salvarDocumento(1)"> Salvar </button>
+						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-click="salvarDocumento(1)"> Salvar </button>
 					</div>	
 				</div>
 			</div>
@@ -371,7 +371,7 @@
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.buttons.min.js"></script>
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/fullcalendar-3.10.0/lib/moment.min.js"></script>	
 	<script src="http://sistema.clicvenda.com.br/clicVendas/plugins/ui-mask-master/dist/mask.min.js"></script>
 <!-- Scripts importados -->	
@@ -387,6 +387,8 @@ angular
 		$scope.exibeFormulario 		= false; 
 		$scope.exibeListaDocumentos = true;
 		$scope.exibeHistoricos		= false;
+
+		$rootScope.isLoading 		= false;
 		
 		/* Inicializa filtros */
 		$scope.filCliente 			= "";
@@ -400,6 +402,8 @@ angular
 		
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
+
+		console.log("aaa")
 
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -455,7 +459,7 @@ angular
 		$scope.abreHistoricos = (acao) => {
 			$scope.exibeHistoricos = true;
 		};
-		
+		console.log("TESTE")
 		$scope.getEndEntrega = function(val) {
 			if(angular.isUndefined($scope.frmCliente) || $scope.frmCliente == ""){
 				$scope.critInfClienteEe = true;
@@ -666,6 +670,8 @@ angular
 				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Enviando pedido para o ERP...</p></div>',
 				closeButton: false
 			});
+
+			$rootScope.isLoading = true;
 			
 			let result = await $scope.executaRequisicaoExterna(
 				{
@@ -676,6 +682,8 @@ angular
 					pDocumento : {documento : $item}
 				}		
 			);
+
+			$rootScope.isLoading = false;
 
 			console.log(result, "Retorno pedido enviado ao ERP")
 					
@@ -849,6 +857,26 @@ angular
 			
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
 		}
+
+		$scope.calculoValidacaoProdutoERP = async ($dados) =>{
+			
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 752,
+						pRotina	   : 'calculo',
+						pCodCli    : dadosUserLogado.rId,
+						filter 	   : {valores : $dados}
+					}
+				);
+
+				return result /*Verdadeiro ou falso para prosseguir inserção do produto*/
+
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+		}
 	
 		$scope.adicionarProduto = ($item) =>{
 			console.log($item)
@@ -977,9 +1005,8 @@ angular
 	
 			if(id > 0){
 			
-				dados.jsonDocs 		  		= JSON.stringify(json); 
-
-				let response 		  		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
+				dados.jsonDocs 	= JSON.stringify(json); 
+				let response 	= await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
 				
 				if(rotina == 1){
 					$scope.messageNotific = 'Registro alterado com sucesso';
@@ -1177,6 +1204,8 @@ angular
 				warning	- aviso informativo 
 				success - sucesso
 			*/
+			$rootScope.isLoading = true;
+
 			var dialog = bootbox.dialog({
 				message: '<div class="alert alert-'+tipo+' popup"role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">'+message+'</p></div>',
 				closeButton: false
@@ -1184,6 +1213,7 @@ angular
 			
 			setTimeout(() => {
 				dialog.modal('hide');
+				$rootScope.isLoading = false;
 			}, time);
 		};	
 		
@@ -1405,7 +1435,7 @@ angular
 	}
 
 	.modal{
-		margin-left:5%;
+		margin-left:-5%;
 	}
 
 	.bootbox-body{
