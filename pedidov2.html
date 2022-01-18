@@ -909,7 +909,7 @@ angular
 			
 		};
 
-		console.log("CCC")
+		console.log("DDD")
 
 		$scope.getProdutos = (val) => {			
 			
@@ -1292,6 +1292,8 @@ angular
 				}
 	
 				let sendToERP 			= JSON.parse(dados.jsonDocs);
+
+				console.log(sendToERP[0], "enviado ao ERP")
 
 				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
 
