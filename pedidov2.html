@@ -72,7 +72,7 @@
 			<!-- Tabela -->
 			<div id="main">
 				<!-- Tabela Simplificada -->
-				<div class="col-sm-12 ">
+				<div class="col-sm-12 col-md-12 col-xs-12">
 					<table id="listDocuments"  dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border responsive hover"></table>					
 				</div>
 			</div>
@@ -1300,9 +1300,10 @@ angular
 			document.getElementById("mySidebar").style.height = "0";
 			document.getElementById("main").style.marginLeft = "0";
 		  }else{
+			
 			document.getElementById("mySidebar").style.width = "250px";
 			document.getElementById("mySidebar").style.height = "500px";
-			document.getElementById("main").style.marginLeft = "250px";
+			document.getElementById("main").style.marginLeft = "0";
 		  };
 		
 	};
