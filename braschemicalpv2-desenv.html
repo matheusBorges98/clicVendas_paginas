@@ -1139,7 +1139,7 @@ angular
 					quantidade			: $scope.quantidadeProduto,
 					codVariacao			: $scope.codVariacao,
 					codExterno			: $scope.codExterno,
-					/* Não grava o valor atualizado - Apenas leitura*/
+					/*Grava durante a edição  do pedido*/
 					cluster				: $scope.cluster,
 					situacao			: $scope.situacao,
 					ofertaUnit			: $scope.ofertaUnit,
@@ -1314,7 +1314,7 @@ angular
 										
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 
-					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto*/
+					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
 					if(json[0].produtos.codigoProduto == $scope.codigoProduto){
 						
 						json[0].produtos.potencial0XCM 	= $scope.potencial0XCM;
