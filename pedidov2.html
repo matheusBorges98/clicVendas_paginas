@@ -612,6 +612,9 @@ angular
 				$scope.exibeListaDocumentos = true;
 			};
 
+			$scope.atualizaTabela();
+			$scope.atualizaTabelaCompleta();
+
 		};
 
 		$scope.getFilScinronizacao = () =>{
@@ -906,7 +909,7 @@ angular
 			
 		};
 
-		console.log("BBB")
+		console.log("CCC")
 
 		$scope.getProdutos = (val) => {			
 			
@@ -1316,6 +1319,7 @@ angular
 										
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 
+					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto*/
 					if(json[0].produtos.codigoProduto == $scope.codigoProduto){
 						
 						json[0].produtos.potencial0XCM 	= $scope.potencial0XCM;
