@@ -868,20 +868,39 @@ angular
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
 		}
 
+		console.log("AAA")
+
 		$scope.calculoValidacaoProdutoERP = async ($dados) =>{
 			
 			try{
-				let result = await $scope.executaRequisicaoExterna(
-					{
-						idCvtccnpj : dadosUserLogado.cId,
-						numreg	   : 752,
-						pRotina	   : 'calculo',
-						pCodCli    : dadosUserLogado.rId,
-						filter 	   : {valores : $dados}
-					}
-				);
+				// let result = await $scope.executaRequisicaoExterna(
+				// 	{
+				// 		idCvtccnpj : dadosUserLogado.cId,
+				// 		numreg	   : 752,
+				// 		pRotina	   : 'calculo',
+				// 		pCodCli    : dadosUserLogado.rId,
+				// 		filter 	   : {valores : $dados}
+				// 	}
+				// );
 
-				return result /*Verdadeiro ou falso para prosseguir inserção do produto*/
+				//return result /*Verdadeiro ou falso para prosseguir inserção do produto*/
+
+				let result = {
+					erro: "O produto X está fora da margem de lucro",
+					aprovado:false,
+				}
+
+				// result = {
+				// 	erro: "",
+				// 	aprovado:true,
+				// }
+
+				$rootScope.pedidoAprovado = {
+					erro: result.erro,
+					aprovado: result.aprovado
+				}
+
+				return $rootScope.pedidoAprovado
 
 			}catch(err){
 				console.log("Ocorreu um erro na requisição: ", err);
@@ -997,20 +1016,30 @@ angular
 			var json 			= JSON.parse(dados.jsonDocs);
 			
 			if(rotina == 2){					
-				let sendToERP 			= JSON.parse(dados.jsonDocs);
+				let sendToERP 				= JSON.parse(dados.jsonDocs);
 
-				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
-				
-				/*Atualiza numero do pedido*/
-				if(!isNaN(parseInt($rootScope.documentoERP))){
-					let dataFormat			= new Date();
-					json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
-					json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR");
-					json[0].pedido			= $rootScope.documentoERP;
-				}else{
-					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
+				$rootScope.pedidoAprovado	= await $scope.calculoValidacaoProdutoERP(sendToERP[0]);
+
+				if(!$rootScope.pedidoAprovado.aprovado){
+					$scope.geraNotificacao("O pedido não foi aprovado: "+$rootScope.pedidoAprovado.erro, 2500, 'warning')
+					json[0].sincronizado = "ERRO: "+$rootScope.pedidoAprovado.erro;
 					json[0].pedido		 = 0;
+				}else{
+					$rootScope.documentoERP 	= await $scope.gravaDocumentoERP(sendToERP[0]);
+				
+					/*Atualiza numero do pedido*/
+					if(!isNaN(parseInt($rootScope.documentoERP))){
+						let dataFormat			= new Date();
+						json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
+						json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR");
+						json[0].pedido			= $rootScope.documentoERP;
+					}else{
+						json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
+						json[0].pedido		 = 0;
+					}
 				}
+
+				
 			};
 	
 			if(id > 0){
