@@ -906,7 +906,7 @@ angular
 			
 		};
 
-		console.log("alterar")
+		console.log("XXX")
 
 		$scope.getProdutos = (val) => {			
 			
@@ -1315,6 +1315,8 @@ angular
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){
 										
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
+
+					json[0].produtos.potencial0XCM = $scope.potencial0XCM;
 					
 					dados.jsonDocs 		= JSON.stringify(json); 
 
