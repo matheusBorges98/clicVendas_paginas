@@ -876,7 +876,7 @@ angular
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 			$scope.atualizaTabelaCompleta(1);		
 		};
-		console.log("teste")
+
 		console.log("teste2")
 		$scope.gravaDocumentoERP = async ($item) => {
 
@@ -1356,7 +1356,6 @@ angular
 			}else{
 				for(i = 0; i < $rootScope.produtos.length; i++){
 					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
-					$rootScope.produtos[i].numeroPedidoClic	= 
 					json[0].produtos 				= $rootScope.produtos[i];
 
 					dados.jsonDocs 			= JSON.stringify(json);
