@@ -1082,13 +1082,13 @@ angular
 
 		$scope.aplicarFiltros = (valor) => {
 			
-			$scope.openNav();
-
 			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7);
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;
 			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
 			$scope.filSincronizado		= $scope.filSincronizado;	
+
+			$scope.openNav();
 			
 			//$scope.atualizaTabela();
 		};
