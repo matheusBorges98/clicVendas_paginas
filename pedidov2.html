@@ -409,7 +409,7 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("aaa")
+		console.log("C")
 
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -1084,6 +1084,8 @@ angular
 
 		$scope.aplicarFiltros = (valor) => {
 			
+			openNav();
+
 			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7);
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;
