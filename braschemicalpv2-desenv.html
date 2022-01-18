@@ -28,8 +28,13 @@
 		
 			<!-- Sidebar Menu FILTRO -->
 			<div id="mySidebar" class="sidebar">
+			
+				<div class="header-filtro-tabela">
+					<p style="text-align: center; color:white; font-weight: 900; ">Filtro<span onclick="openNav()" style="color: white; margin-left:70%" class="glyphicon glyphicon-minus"></span></p>
+				</div>
+
 				<form>
-					<div class="form-group">
+					<div style="margin-top:5px" class="form-group">
 						<label for="filFornecedores">Pesquisar</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filPesquisaGeral" ng-model="filPesquisaGeral" autocomplete="off" aria-describedby=" " placeholder="Digite a palavra chave. Ex: '123'">
 					</div>
@@ -612,6 +617,9 @@ angular
 				$scope.exibeListaDocumentos = true;
 			};
 
+			$scope.atualizaTabela();
+			$scope.atualizaTabelaCompleta();
+
 		};
 
 		$scope.getFilScinronizacao = () =>{
@@ -1041,8 +1049,6 @@ angular
 				
 				let docs 					= $dados.jsonDocs[0];
 
-				console.log(docs, "Documentos carregados da tabela")
-
 				$rootScope.hashDoc			= docs.docCtrl;
 				$rootScope.idDocumento 		= $dados.id;
 				/*Cliente*/
@@ -1219,8 +1225,6 @@ angular
 				$rootScope.produtos[i].hashDoc = hashDoc;
 			}
 			//$scope.adicionarProduto();
-
-			console.log($rootScope.produtos, "prod")
 			
 			dados.cnpj 				= {id: dadosUserLogado.cId};
 			
@@ -1264,14 +1268,10 @@ angular
 				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
 				
 			}];
-
-			console.log(jsonDocs, "jsonDocs")
 			
 			dados.jsonDocs 		= JSON.stringify(jsonDocs);
 			/*Recebe dados e para que sejam feitas as alterações necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
-
-			console.log(json)
 			
 			if(rotina == 2){
 				/*Faz o envio dos produtos como um array para o ERP*/
@@ -1313,6 +1313,33 @@ angular
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){
 										
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
+
+					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto*/
+					if(json[0].produtos.codigoProduto == $scope.codigoProduto){
+						
+						json[0].produtos.potencial0XCM 	= $scope.potencial0XCM;
+						json[0].produtos.consumoAg		= $scope.consumoAg;
+						json[0].produtos.cluster		= $scope.cluster,
+						json[0].produtos.situacao		= $scope.situacao,
+						json[0].produtos.ofertaUnit		= $scope.ofertaUnit,
+						json[0].produtos.dataStatus		= $scope.dataStatus,
+						json[0].produtos.justificativa	= $scope.justificativa,
+						json[0].produtos.potencial0XCM	= $scope.potencial0XCM, //
+						json[0].produtos.chaveCp		= $scope.chaveCp,
+						json[0].produtos.identQtd		= $scope.identQtd,
+						json[0].produtos.venda			= $scope.venda,
+						json[0].produtos.vendaLocalKg	= $scope.vendaLocalKg,
+						json[0].produtos.totalFatUSD	= $scope.totalFatUSD,
+						json[0].produtos.margemR		= $scope.margemR,
+						json[0].produtos.preUSD			= $scope.preUSD,
+						json[0].produtos.ofertaData		= $scope.ofertaData,
+						json[0].produtos.probFechamento	= $scope.probFechamento,		
+						json[0].produtos.consumoAg		= $scope.consumoAg,	//
+						json[0].produtos.familia		= $scope.familia,
+						json[0].produtos.concorrencia	= $scope.concorrencia,
+						json[0].produtos.precoConc		= $scope.precoConc,
+						json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo	
+					}
 					
 					dados.jsonDocs 		= JSON.stringify(json); 
 
@@ -1851,6 +1878,28 @@ angular
 	tr{
 		height: 55px;
 	}
+
+	th, td, a{
+		font-size: 12px;
+		font-family: "Helvetica Neue";
+	}
+
+	th{
+		background-color: rgb(245 245 245);
+	}
+
+	.dataTables_wrapper .dataTables_info{
+		font-size: 12px;
+	}
+
+	.header-filtro-tabela{
+		background-color: var(--cor_principal);	
+		border-radius: 3px; 
+		margin-top: -10px; 
+		margin-top: -25%; 
+		height: 35px; 
+		padding:5px
+	}
 				
 	.btn_grid{
 		background-image: none !important;
@@ -2009,13 +2058,8 @@ angular
 		display: none;
 	}
 
-	.tabelaCompleta{
-		margin: 0 auto;
-		width: 100%;
-		clear: both;
-		border-collapse: collapse;
-		table-layout: fixed; 
-		word-wrap:normal; 
+	body{
+		font-family: "Helvetica Neue"
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
