@@ -96,20 +96,25 @@
 		<!-- FORM NOVO DOCUMENTO -->
 
 		<div ng-show="exibeFormulario">
-			<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button>
+			<!-- <button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button> -->
 
 			<!-- Header formulario -->
-			<div class="divider-titulo col-sm-12">
-				<div class="spacer titulo vcenter">
-					<h4 style="margin-top: 0;">{{tipoFormulario}}</h4>
+			<div class="divider-titulo row">
+				<div class="spacer titulo vcenter col-sm-12">
+					<div class="col-sm-6 itens-titulo">
+						<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"><span class="glyphicon glyphicon-chevron-left"></span>  Voltar</button>
+					</div>
+					<div class="col-sm-6">
+						<h4 style="margin-top: 0; margin-left:-15%;">{{tipoFormulario}}</h4>
+					</div>
 				</div>			
 			</div>
 			<!-- Header formulario -->
 			
 			<!-- Capa do pedido -->
-			<div id="docAdd" class="row spacer " ng-show="permiteEditar">
+			<div id="docAdd" class="row" ng-show="permiteEditar">
 				
-				<div class="col-sm-12 spacer">
+				<div class="col-sm-12">
 
 					<!-- Body formulario -->
 					
@@ -201,9 +206,9 @@
 				</div>
 			</div>	
 
-			<div id="docEdit" class="row spacer" ng-show="!permiteEditar">
+			<div id="docEdit" class="row" ng-show="!permiteEditar">
 				
-				<div class="col-sm-12 spacer">	
+				<div class="col-sm-12">	
 				
 					<ul class="nav nav-tabs" role="tablist" id="myTab">
 						<li role="presentation" class="active"><a href="#docEdit-info-projeto" role="tab" data-toggle="tab">Informações do projeto</a></li>
@@ -605,7 +610,8 @@ angular
 					$scope.$apply();
 
 				}else{
-					$scope.tipoFormulario = $dados.jsonDocs[0].pedNumped != '' ? 'Edição pedido Nº '+ $dados.jsonDocs[0].pedNumped : 'Edição';
+					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Edição pedido local Nº "+$dados.jsonDocs[0].numPedidoClic;
+					//$dados.jsonDocs[0].pedNumped != '' ? 'Edição pedido Nº '+ $dados.jsonDocs[0].pedNumped : 'Edição';
 					
 					$scope.inputDesabilitado  = true;
 					$scope.permiteEditar	  = false;
@@ -1877,6 +1883,24 @@ angular
 		font-size: 1.0em;
 	}
 
+	li{
+		font-weight: 800;
+		font-size: 1.0em;
+	}
+
+	.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+		color: #555;
+		cursor: default;
+		background-color: #fff;
+		border: 2.5px solid #95c5ff;
+		border-bottom-color: transparent;
+		font-size: 13.5px;
+	}
+
+	.nav-tabs>li>a {
+		color:black;
+	}
+
 	tr{
 		height: 55px;
 	}
@@ -1935,7 +1959,6 @@ angular
 	
 	.divider-titulo{
 		border-top: 0.8px solid rgb(230, 230, 230);
-		border-bottom: 0.8px solid rgb(230, 230, 230);
 		height: 50px;
 		margin-top: 5px;
 	}
@@ -1950,8 +1973,12 @@ angular
 	}
 
 	.titulo{
-		font-size: 15px;
-		font-weight: 900;
+		font-size: 12px;
+		font-weight: bolder;
+	}
+
+	.itens-titulo{
+		margin-top:-25px;
 	}
 
 	.vcenter {
