@@ -119,7 +119,7 @@
 
 									<div class="col-sm-2 spacer">
 										<h5>Data de emissão</h5>
-										{{dataEmissaoErpFormatada}}
+										{{datEmiERP}}
 									</div>
 									<div class="col-sm-2 spacer">
 										<h5>Previsão de entrega</h5>
@@ -181,7 +181,7 @@
 								</div>
 							</div>
 
-							<div ng-show="sincronizado != 'DOCUMENTO_SINCRONIZADO' "  class="form-group col-md-12">
+							<div style="margin-top:-25px" ng-show="sincronizado != 'DOCUMENTO_SINCRONIZADO' "  class="form-group col-md-12">
 								
 								<div class="col-sm-6 spacer">
 									<label for="nomeCliente">Cliente <span style="color: red;" ng-show="cadastroPedido.frmCliente.$error.required">*</span></label>
@@ -222,7 +222,7 @@
 									</div>
 								</div>
 
-								<div style="margin-top:3%" class="col-sm-12">
+								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
 										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
@@ -259,12 +259,12 @@
 													</td>
 													<td>
 														<div>
-															<input type="number" name="quantidadeProduto" min="1" id="quantidadeProduto" class="inputTable" required ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
+															<input type="number" step="any" name="quantidadeProduto" min="1" id="quantidadeProduto" class="inputTable" required ng-value="produto.quantidade" id="produto.quantidade" ng-model="produto.quantidade">
 														</div>
 													</td>
 													<td>
 														<div>
-															<input type="number" name="valorNegociado" class="inputTable" required ng-model="produto.valorNegociado">
+															<input type="number" step="any" name="valorNegociado" class="inputTable" required ng-model="produto.valorNegociado">
 														</div>
 													</td>
 													<td>
@@ -444,7 +444,8 @@ angular
 					$scope.$apply();
 
 				}else{
-					$scope.tipoFormulario = $dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
+					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : "Edição pedido Nº "+$dados.id
+					//$dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
 					
 					$scope.inputDesabilitado  = true;
 					$scope.permiteEditar	  = false;
@@ -453,13 +454,11 @@ angular
 			}else if($scope.exibeFormulario == true && !$scope.exibeHistoricos){
 				$scope.exibeFormulario = false;
 				$scope.exibeListaDocumentos = true;
+				$scope.atualizaTabela();
 
 			}else if($scope.exibeFormulario == true && $scope.exibeHistoricos){
 				$scope.exibeHistoricos = false;
 			}
-
-			$scope.atualizaTabela();
-
 		};
 
 		$scope.abreHistoricos = (acao) => {
@@ -619,16 +618,22 @@ angular
 			
 			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc && Number(doc.jsonDocs[0].pedido) > 0);
 			let consulta 			= [];
-
+			/*Ira consultar com base apenas no numero do pedido*/
 			for(i = 0; i < pedidosGravadosERP.length; i++){
 				consulta.push(
 					{
 						numPed: pedidosGravadosERP[i].jsonDocs[0].pedido,
-						codPro: pedidosGravadosERP[i].jsonDocs[0].produtos.codExterno,
-						codDer: pedidosGravadosERP[i].jsonDocs[0].produtos.codVariacao,
+						codPro: "CMPMS14",
+						codDer: "1GB"
 					}
 				)
 			};
+			
+			let dialog = bootbox.dialog({
+				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Sincronizando com o ERP...</p></div>',
+				closeButton: false
+			});
+			$rootScope.isLoading = true;
 
 			let result = await $scope.executaRequisicaoExterna(
 				{
@@ -639,22 +644,21 @@ angular
 					pListaPedido : {lista:{pedidos : consulta}},
 				}
 			);
-
 			console.log(result, "Sinc itens gravados no ERP")
 
-			// erro na regra - ERRO: Regra 752: Função de programador ListaRegraCarregarJson: TJSONObject["codPro"] not found.
-
-			if(result !=""){
+			dialog.modal('hide');
+			$rootScope.isLoading = false;
+		
+			if(result !="" && !isNaN(parseInt(result))){
 				for(k = 0; k < pedidosGravadosERP.length; k++){				
-				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
+				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido);
+				//result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
 					if(dadosAtualizados && dadosAtualizados.length > 0){
 						for(l=0; l < $rootScope.dadosGrid.length; l++){
 							/*Verifica -
 								Codigo externo - Codigo variacao - Numero pedido ERP*/
-							if(($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) && 
-								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)&&
-								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codVariacao == pedidosGravadosERP[k].jsonDocs[0].produtos.codVariacao)){
+							if($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido){
 								
 								/*Itens que serão atualizados*/							
 								/*Atualiza informações do produto vinculado ao pedido*/
@@ -691,7 +695,7 @@ angular
 
 			$rootScope.isLoading = false;
 				/*teste*/
-			result = '600';
+			//result = '600';
 
 			console.log(result, "Retorno pedido enviado ao ERP")
 					
@@ -782,7 +786,7 @@ angular
 				$scope.sincronizado				= 'DOCUMENTO_NAO_SINCRONIZADO';
 
 				$scope.dataPrevEntregaFormatada	= "";
-				$scope.dataEmissaoErpFormatada	= "";
+				// $scope.dataEmissaoErpFormatada	= "";
 
 				$scope.valorTotal				= 0;
 
@@ -803,7 +807,7 @@ angular
 
 				$scope.representante		= docs.representante.nome;
 
-				$scope.prevEntrega			= new Date(docs.prevEntrega);
+				$scope.prevEntrega			= docs.prevEntrega != "" ? new Date(docs.prevEntrega) : "";
 
 				$scope.datEmiERP			= docs.datEmiERP;
 
@@ -822,10 +826,7 @@ angular
 				$scope.codigoProduto		= docs.produtos.codigoProduto;
 				$scope.descricao			= docs.produtos.descricao;
 				$scope.codExternoProduto	= docs.produtos.codExterno;
-
-				/*Valores formatados*/
-				// $scope.dataEmissaoErpFormatada 	= new Date($scope.datEmiERP);
-				// $scope.dataEmissaoErpFormatada	= $scope.dataEmissaoErpFormatada.toLocaleDateString('pt-br');
+			
 
 				$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
 				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br');
@@ -904,9 +905,8 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-	
+		console.log("A")
 		$scope.adicionarProduto = ($item) =>{
-			console.log($item)
 			$rootScope.produtos.unshift(
 				{ 
 					descricao			: $item.produto.nome,
@@ -1087,8 +1087,6 @@ angular
 			$scope.filSincronizado		= $scope.filSincronizado;	
 
 			$scope.openNav();
-			
-			//$scope.atualizaTabela();
 		};
 
 		$scope.atualizaTabela = async (modo) =>{
@@ -1193,7 +1191,7 @@ angular
 
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
 				var btnhtmlValor = '';
-				let formatedValue = row.jsonDocs[0].valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+				let formatedValue = row.jsonDocs[0].valorTotal!="" ? row.jsonDocs[0].valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) : ""
 
 				btnhtmlValor += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValue+"</div>";
 							
@@ -1326,7 +1324,6 @@ angular
 
 	th, td, a{
 		font-size: 12px;
-		font-family: "Helvetica Neue";
 		white-space: nowrap;
 	}
 
@@ -1508,11 +1505,7 @@ angular
 	}
 
 	.modal-backdrop{
-		display: none;
-	}
-
-	body{
-		font-family: "Helvetica Neue"
+		visibility:hidden;
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
