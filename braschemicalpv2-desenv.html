@@ -822,7 +822,7 @@ angular
 			);
 			
 			console.log(result, "listarPedidosAmostras")
-
+			
 			dialog.modal('hide');
 			$rootScope.isLoading = false;
 			
@@ -847,25 +847,30 @@ angular
 								pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].cliBU;
 								pedidosGravadosERP[k].jsonDocs[0].subsegmento						= dadosAtualizados[0].cliSubSeg;
 								pedidosGravadosERP[k].jsonDocs[0].segmento							= dadosAtualizados[0].cliDesRam;
+								
 									
 								/*Atualiza informações do produto vinculado ao documento*/
 								pedidosGravadosERP[k].jsonDocs[0].produtos.consumoProdutoKgMes		= dadosAtualizados[0].produto[0].consumoCliente;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.cluster					= dadosAtualizados[0].produto[0].proCluster;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.situacao					= dadosAtualizados[0].produto[0].ipdSitAmo;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaUnit				= dadosAtualizados[0].produto[0].ipvVlrBru;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.familia			    	= dadosAtualizados[0].produto[0].proDesFam;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.dataStatus				= dadosAtualizados[0].produto[0].ipdDatAmo;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.justificativa			= dadosAtualizados[0].produto[0].ipdObsAmo;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaData				= dadosAtualizados[0].produto[0].cliOfrDat;
+								
+								pedidosGravadosERP[k].jsonDocs[0].produtos.responsavel				= dadosAtualizados[0].produto[0].proResFor;
 								
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.potencial0XCM			= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.chaveCp					= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.identQtd					= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.chaveCp				= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.identQtd				= dadosAtualizados[0].produto[0].
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.venda					= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.vendaLocalKg				= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.totalFatUSD				= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.margemR					= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.preUSD					= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaData				= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.probFechamento			= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.vendaLocalKg			= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.totalFatUSD			= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.margemR				= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.preUSD				= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaData			= dadosAtualizados[0].produto[0].
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.probFechamento		= dadosAtualizados[0].produto[0].
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.consumoAg				= dadosAtualizados[0].produto[0].
 
 
@@ -942,7 +947,7 @@ angular
 			$scope.codVariacao	 = $item.produto.codVariacao;
 			$scope.codExterno	 = $item.produto.codExterno;
 			$scope.codigoProduto = $item.produto.id;
-			
+
 			var focusBtn		 = angular.element(document.querySelector('#consumoProdutoKgMes'));
 						
 			$timeout(function () {
@@ -1067,7 +1072,6 @@ angular
 				/*Documento*/
 				$scope.chave 				= docs.chave;
 				$scope.anoFat				= docs.ano;
-				$scope.responsavel			= docs.responsavel;
 				$scope.projeto				= docs.projeto;
 				$scope.uf					= docs.uf;
 				$scope.vendedor				= docs.vendedor.nome;
@@ -1100,6 +1104,7 @@ angular
 
 				/*Informações sobre o produto*/
 				$rootScope.produtos			= docs.produtos;
+				$scope.responsavel			= docs.produtos.responsavel;
 				$scope.cluster				= docs.produtos.cluster;
 				$scope.quantidade			= docs.produtos.quantidade;
 				$scope.codigoProduto		= docs.produtos.codigoProduto;
@@ -1148,6 +1153,7 @@ angular
 					codExterno			: $scope.codExterno,
 					/*Grava durante a edição  do pedido*/
 					cluster				: $scope.cluster,
+					responsavel			: $scope.responsavel,
 					situacao			: $scope.situacao,
 					ofertaUnit			: $scope.ofertaUnit,
 					dataStatus			: $scope.dataStatus,
@@ -1339,6 +1345,7 @@ angular
 						json[0].produtos.venda			= $scope.venda,
 						json[0].produtos.vendaLocalKg	= $scope.vendaLocalKg,
 						json[0].produtos.totalFatUSD	= $scope.totalFatUSD,
+						json[0].produtos.responsavel	= $scope.responsavel,
 						json[0].produtos.margemR		= $scope.margemR,
 						json[0].produtos.preUSD			= $scope.preUSD,
 						json[0].produtos.ofertaData		= $scope.ofertaData,
