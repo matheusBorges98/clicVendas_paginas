@@ -204,7 +204,7 @@
 
 								<div class="col-sm-6 spacer ">
 									<label for="prevEntrega">Previsão de entrega </label>
-									<input type="date" class="form-control" ng-value="prevEntrega" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
+									<input type="date" class="form-control" placeholder="15/01/2022" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
 								</div>
 								<div class="col-sm-6 spacer ">
 									<label for="representante">Representante</label>
@@ -811,7 +811,7 @@ angular
 
 				$scope.representante		= docs.representante.nome;
 
-				$scope.prevEntrega			= docs.prevEntrega != "" || docs.prevEntrega !=undefined ? new Date(docs.prevEntrega) : "";
+				$scope.prevEntrega			= docs.prevEntrega;
 
 				$scope.datEmiERP			= docs.datEmiERP;
 
