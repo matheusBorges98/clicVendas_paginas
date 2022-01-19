@@ -630,11 +630,9 @@ angular
 					}
 				)
 			};
-
-			console.log(consulta, "O que é solicitado ao ERP")
-
+			
 			let dialog = bootbox.dialog({
-				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Sincronizando com o ERP...</p></div>',
+				message: '<div id="sincronizando-erp-loader" class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Sincronizando com o ERP...</p></div>',
 				closeButton: false
 			});
 			$rootScope.isLoading = true;
@@ -1514,6 +1512,10 @@ angular
 
 	.modal-backdrop{
 		display: none;
+	}
+
+	#sincronizando-erp-loader .modal-backdrop{
+		display:block;
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
