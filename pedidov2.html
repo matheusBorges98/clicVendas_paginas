@@ -87,16 +87,13 @@
 			<!-- Header formulario -->
 			<div class="divider-titulo row">
 				<div class="spacer titulo vcenter col-sm-12">
-					<div class="col-sm-4">
+					<div class="col-sm-6 itens-titulo">
 						<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button>
+						<button class="btn btn_acao_header btn_cor_padrao" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"> Histórico </button>
 					</div>
 
-					<div class="col-sm-4">
-						<button class="btn btn_acao_header btn_cor_padrao text-center" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"> Histórico </button>
-					</div>
-
-					<div class="col-sm-4">
-						<h4 style="margin-top: 0;">{{tipoFormulario}}</h4>
+					<div class="col-sm-6">
+						<h4 style="margin-top: 0; margin-left:0;">{{tipoFormulario}}</h4>
 					</div>
 				</div>			
 			</div>
@@ -1385,7 +1382,10 @@ angular
 		border-top: 0.8px solid rgb(230, 230, 230);
 		border-bottom: 0.8px solid rgb(230, 230, 230);
 		height: 50px;
-		margin-top: 5px;
+	}
+
+	.itens-titulo{
+		margin-top:-25px;
 	}
 
 	.spacer{
