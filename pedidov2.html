@@ -204,7 +204,7 @@
 
 								<div class="col-sm-6 spacer ">
 									<label for="prevEntrega">Previsão de entrega </label>
-									<input type="date" class="form-control" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
+									<input type="date" class="form-control" ng-value="prevEntrega" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
 								</div>
 								<div class="col-sm-6 spacer ">
 									<label for="representante">Representante</label>
@@ -776,7 +776,7 @@ angular
 				$scope.codigoCliente			= '';
 				$scope.frmEndEntrega			= '';
 
-				$scope.prevEntrega				= null;
+				$scope.prevEntrega				= '';
 				
 				$scope.codigoProduto			= '';
 				
@@ -993,7 +993,7 @@ angular
 				formaPagamento	: $scope.formaPagamento,
 
 				endEntrega		: $scope.frmEndEntrega,
-				prevEntrega		: $scope.prevEntrega != "" || $scope.prevEntrega != undefined ? $scope.prevEntrega : "",
+				prevEntrega		: $scope.prevEntrega != "" || $scope.prevEntrega != undefined ? $scope.prevEntrega : null,
 				
 				//Metodos
 				docCtrl			: hashDoc,
