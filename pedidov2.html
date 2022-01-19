@@ -84,12 +84,11 @@
 		<!-- FORM NOVO DOCUMENTO -->
 
 		<div ng-show="exibeFormulario">
-			<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button>
-			<button class="btn btn_acao_header btn_cor_padrao text-center" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"> Histórico </button>
-
 			<!-- Header formulario -->
 			<div class="divider-titulo col-sm-12">
 				<div class="spacer titulo vcenter">
+					<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button>
+					<button class="btn btn_acao_header btn_cor_padrao text-center" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"> Histórico </button>
 					<h4 style="margin-top: 0;">{{tipoFormulario}}</h4>
 				</div>			
 			</div>
