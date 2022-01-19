@@ -631,10 +631,12 @@ angular
 				)
 			};
 			
+
 			let dialog = bootbox.dialog({
 				message: '<div id="sincronizando-erp-loader" class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Sincronizando com o ERP...</p></div>',
 				closeButton: false
 			});
+			document.getElementsByClassName("modal-backdrop").style.display = "block";
 			$rootScope.isLoading = true;
 
 			let result = await $scope.executaRequisicaoExterna(
@@ -646,12 +648,12 @@ angular
 					pListaPedido : {lista:{pedidos : consulta}},
 				}
 			);
-
 			console.log(result, "Sinc itens gravados no ERP")
 
-			// erro na regra - ERRO: Regra 752: Função de programador ListaRegraCarregarJson: TJSONObject["codPro"] not found.
 			dialog.modal('hide');
 			$rootScope.isLoading = false;
+			document.getElementsByClassName("modal-backdrop").style.display = "none";
+
 			if(result !="" && !isNaN(parseInt(result))){
 				for(k = 0; k < pedidosGravadosERP.length; k++){				
 				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido);
@@ -1512,10 +1514,6 @@ angular
 
 	.modal-backdrop{
 		display: none;
-	}
-
-	#sincronizando-erp-loader .modal-backdrop{
-		display:block;
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
