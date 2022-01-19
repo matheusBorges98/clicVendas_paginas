@@ -454,13 +454,11 @@ angular
 			}else if($scope.exibeFormulario == true && !$scope.exibeHistoricos){
 				$scope.exibeFormulario = false;
 				$scope.exibeListaDocumentos = true;
+				$scope.atualizaTabela();
 
 			}else if($scope.exibeFormulario == true && $scope.exibeHistoricos){
 				$scope.exibeHistoricos = false;
 			}
-
-			$scope.atualizaTabela();
-
 		};
 
 		$scope.abreHistoricos = (acao) => {
@@ -649,7 +647,7 @@ angular
 			);
 			console.log(result, "Sinc itens gravados no ERP")
 
-			dialog.modal('hide');
+			//dialog.modal('hide');
 			$rootScope.isLoading = false;
 		
 			if(result !="" && !isNaN(parseInt(result))){
