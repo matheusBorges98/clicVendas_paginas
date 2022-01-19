@@ -204,7 +204,7 @@
 
 								<div class="col-sm-6 spacer ">
 									<label for="prevEntrega">Previsão de entrega </label>
-									<input type="date" class="form-control" placeholder="15/01/2022" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
+									<input type="date" class="form-control" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
 								</div>
 								<div class="col-sm-6 spacer ">
 									<label for="representante">Representante</label>
@@ -603,7 +603,7 @@ angular
 			return $scope.listaFilSincronizacao;
 		};
 
-		console.log("AAAAAA")
+		console.log("B")
 
 		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
 			console.log($item)
