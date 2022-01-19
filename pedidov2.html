@@ -647,7 +647,8 @@ angular
 
 			if(result !="" && !isNaN(parseInt(result))){
 				for(k = 0; k < pedidosGravadosERP.length; k++){				
-				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
+				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido);
+				//result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
 					if(dadosAtualizados && dadosAtualizados.length > 0){
 						for(l=0; l < $rootScope.dadosGrid.length; l++){
@@ -902,7 +903,7 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-		console.log("A")
+		console.log("B")
 		$scope.adicionarProduto = ($item) =>{
 			console.log($item)
 			$rootScope.produtos.unshift(
