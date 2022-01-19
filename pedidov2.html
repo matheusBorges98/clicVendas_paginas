@@ -100,7 +100,7 @@
 			<!-- Header formulario -->
 			
 			<!-- Capa do pedido -->
-			<div class="row spacer ">
+			<div class="row">
 
 				<form name="cadastroPedido">
 				
@@ -149,7 +149,7 @@
 								</div>
 								
 								<div style="margin-top: 2%;" class="col-sm-12 spacer divider">
-									<table style="margin-top: 1%;" class="table">
+									<table style="margin-top: 1%;" id="tabelaProdutos" class="table">
 										<thead>
 											<tr>
 												<th>Produto</th>
@@ -1235,6 +1235,8 @@ angular
 
 		};
 
+		console.log("teste tabela prod")
+
 		$scope.atualizaTabela();
 
 		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
@@ -1324,6 +1326,11 @@ angular
 
 	tr{
 		height: 55px;
+	}
+
+	#tabelaProdutos tr:hover{
+		background-color: rgb(247, 247, 247);
+		transition: 0.2
 	}
 
 	th, td, a{
