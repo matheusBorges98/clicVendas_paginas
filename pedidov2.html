@@ -633,6 +633,12 @@ angular
 
 			console.log(consulta, "O que é solicitado ao ERP")
 
+			let dialog = bootbox.dialog({
+				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Sincronizando com o ERP...</p></div>',
+				closeButton: false
+			});
+			$rootScope.isLoading = true;
+
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj 	 : dadosUserLogado.cId,
@@ -646,7 +652,8 @@ angular
 			console.log(result, "Sinc itens gravados no ERP")
 
 			// erro na regra - ERRO: Regra 752: Função de programador ListaRegraCarregarJson: TJSONObject["codPro"] not found.
-
+			dialog.modal('hide');
+			$rootScope.isLoading = false;
 			if(result !="" && !isNaN(parseInt(result))){
 				for(k = 0; k < pedidosGravadosERP.length; k++){				
 				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido);
