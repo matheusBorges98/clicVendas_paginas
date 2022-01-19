@@ -222,7 +222,7 @@
 									</div>
 								</div>
 
-								<div style="margin-top:3%" class="col-sm-12">
+								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
 										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
@@ -444,7 +444,8 @@ angular
 					$scope.$apply();
 
 				}else{
-					$scope.tipoFormulario = $dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
+					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : "Edição pedido Nº "+$dados.id
+					//$dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
 					
 					$scope.inputDesabilitado  = true;
 					$scope.permiteEditar	  = false;
