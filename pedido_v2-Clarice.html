@@ -84,19 +84,23 @@
 		<!-- FORM NOVO DOCUMENTO -->
 
 		<div ng-show="exibeFormulario">
-			<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button>
-			<button class="btn btn_acao_header btn_cor_padrao text-center" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"> Histórico </button>
-
 			<!-- Header formulario -->
-			<div class="divider-titulo col-sm-12">
-				<div class="spacer titulo vcenter">
-					<h4 style="margin-top: 0;">{{tipoFormulario}}</h4>
+			<div class="divider-titulo row">
+				<div class="spacer titulo vcenter col-sm-12">
+					<div class="col-sm-6 itens-titulo">
+						<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"><span class="glyphicon glyphicon-menu-left"></span>  Voltar</button>
+						<button style="text-align: center; width: 120px;" class="btn btn_acao_header btn_cor_padrao" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"><span class="glyphicon glyphicon-list-alt"></span> Histórico </button>
+					</div>
+
+					<div class="col-sm-6">
+						<h4 style="margin-top: 0; margin-left:-15%;">{{tipoFormulario}}</h4>
+					</div>
 				</div>			
 			</div>
 			<!-- Header formulario -->
 			
 			<!-- Capa do pedido -->
-			<div class="row spacer ">
+			<div class="row">
 
 				<form name="cadastroPedido">
 				
@@ -145,7 +149,7 @@
 								</div>
 								
 								<div style="margin-top: 2%;" class="col-sm-12 spacer divider">
-									<table style="margin-top: 1%;" class="table">
+									<table style="margin-top: 1%;" id="tabelaProdutos" class="table">
 										<thead>
 											<tr>
 												<th>Produto</th>
@@ -233,7 +237,7 @@
 								<div style="margin-top:5px" class="form-group col-md-12">
 									<div class="col-sm-12 spacer">
 									
-										<table class="table">
+										<table id ="tabelaProdutos" class="table">
 											<thead>
 												<tr>
 													<th>Produto</th>
@@ -272,7 +276,7 @@
 															<button type='button' class='btn btn-default btn-number' ng-click='produto.opcaoDescAcresc === "DESCONTO" ? produto.opcaoDescAcresc = "ACRESCIMO" : produto.opcaoDescAcresc = "DESCONTO" '>																																								
 																<span ng-class="produto.opcaoDescAcresc === 'DESCONTO' ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus' "></span>																								
 															</button>		
-																<input style="margin-left:1px; width: 30%;" type="number" class="inputTable" ng-model="produto.descAcresc">
+																<input step="any" style="margin-left:1px; width: 30%;" type="number" class="inputTable" ng-model="produto.descAcresc">
 														</div>
 													</td>
 													<td>
@@ -651,9 +655,9 @@ angular
 		
 			if(result !="" && !isNaN(parseInt(result))){
 				for(k = 0; k < pedidosGravadosERP.length; k++){				
-				let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido);
-				//result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido && res.produto[0].codPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
-
+					
+					let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido);
+				
 					if(dadosAtualizados && dadosAtualizados.length > 0){
 						for(l=0; l < $rootScope.dadosGrid.length; l++){
 							/*Verifica -
@@ -807,7 +811,7 @@ angular
 
 				$scope.representante		= docs.representante.nome;
 
-				$scope.prevEntrega			= docs.prevEntrega != "" ? new Date(docs.prevEntrega) : "";
+				$scope.prevEntrega			= docs.prevEntrega != "" || docs.prevEntrega !=undefined ? new Date(docs.prevEntrega) : "";
 
 				$scope.datEmiERP			= docs.datEmiERP;
 
@@ -989,7 +993,7 @@ angular
 				formaPagamento	: $scope.formaPagamento,
 
 				endEntrega		: $scope.frmEndEntrega,
-				prevEntrega		: $scope.prevEntrega,
+				prevEntrega		: $scope.prevEntrega != "" || $scope.prevEntrega != undefined ? $scope.prevEntrega : "",
 				
 				//Metodos
 				docCtrl			: hashDoc,
@@ -1231,6 +1235,8 @@ angular
 
 		};
 
+		console.log("teste tabela prod")
+
 		$scope.atualizaTabela();
 
 		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
@@ -1322,6 +1328,12 @@ angular
 		height: 55px;
 	}
 
+	#tabelaProdutos tr:hover{
+		background-color: rgb(255, 250, 244);
+		transition: 0.2;
+		border-radius: 8px;
+	}
+
 	th, td, a{
 		font-size: 12px;
 		white-space: nowrap;
@@ -1378,7 +1390,12 @@ angular
 		border-top: 0.8px solid rgb(230, 230, 230);
 		border-bottom: 0.8px solid rgb(230, 230, 230);
 		height: 50px;
-		margin-top: 5px;
+		background-color:#f9f9f9;
+		border-radius: 5px;
+	}
+
+	.itens-titulo{
+		margin-top:-25px;
 	}
 
 	.spacer{
@@ -1391,8 +1408,8 @@ angular
 	}
 
 	.titulo{
-		font-size: 15px;
-		font-weight: 900;
+		font-size: 12px;
+		font-weight: bolder;
 	}
 
 	.vcenter {
