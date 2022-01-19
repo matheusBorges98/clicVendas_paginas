@@ -629,7 +629,6 @@ angular
 				)
 			};
 			
-
 			let dialog = bootbox.dialog({
 				message: '<div id="sincronizando-erp-loader" style="height:200px; justify-content:center;" class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Sincronizando com o ERP...</p></div>',
 				closeButton: false
@@ -647,7 +646,7 @@ angular
 			);
 			console.log(result, "Sinc itens gravados no ERP")
 
-			//dialog.modal('hide');
+			dialog.modal('hide');
 			$rootScope.isLoading = false;
 		
 			if(result !="" && !isNaN(parseInt(result))){
