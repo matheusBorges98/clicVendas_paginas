@@ -93,7 +93,7 @@
 					</div>
 
 					<div class="col-sm-6">
-						<h4 style="margin-top: 0; margin-left:-15%;">{{tipoFormulario}}</h4>
+						<h5 style="margin-top: 0; margin-left:-15%; font-size: 12px;">{{tipoFormulario}}</h5>
 					</div>
 				</div>			
 			</div>
@@ -448,7 +448,7 @@ angular
 					$scope.$apply();
 
 				}else{
-					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : "Edição pedido Nº "+$dados.id
+					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedido : "Pedido Nº "+$dados.id
 					//$dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
 					
 					$scope.inputDesabilitado  = true;
@@ -602,8 +602,6 @@ angular
 			];
 			return $scope.listaFilSincronizacao;
 		};
-
-		console.log("CCCC")
 
 		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
 			console.log($item)
@@ -1408,7 +1406,7 @@ angular
 	}
 
 	.titulo{
-		font-size: 12px;
+		font-size: 14px;
 		font-weight: bolder;
 	}
 
