@@ -993,7 +993,7 @@ angular
 				formaPagamento	: $scope.formaPagamento,
 
 				endEntrega		: $scope.frmEndEntrega,
-				prevEntrega		: $scope.prevEntrega,
+				prevEntrega		: $scope.prevEntrega != "" || $scope.prevEntrega != undefined ? $scope.prevEntrega : "",
 				
 				//Metodos
 				docCtrl			: hashDoc,
