@@ -96,12 +96,17 @@
 		<!-- FORM NOVO DOCUMENTO -->
 
 		<div ng-show="exibeFormulario">
-			<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button>
+			<!-- <button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"> Voltar </button> -->
 
 			<!-- Header formulario -->
-			<div class="divider-titulo col-sm-12">
-				<div class="spacer titulo vcenter">
-					<h4 style="margin-top: 0;">{{tipoFormulario}}</h4>
+			<div class="divider-titulo row">
+				<div class="spacer titulo vcenter col-sm-12">
+					<div class="col-sm-6 itens-titulo">
+						<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"><span class="glyphicon glyphicon-menu-left"></span>  Voltar</button>
+					</div>
+					<div class="col-sm-6">
+						<h4 style="margin-top: 0; margin-left:-15%;">{{tipoFormulario}}</h4>
+					</div>
 				</div>			
 			</div>
 			<!-- Header formulario -->
@@ -1950,8 +1955,12 @@ angular
 	}
 
 	.titulo{
-		font-size: 15px;
-		font-weight: 900;
+		font-size: 12px;
+		font-weight: bolder;
+	}
+
+	.itens-titulo{
+		margin-top:-25px;
 	}
 
 	.vcenter {
