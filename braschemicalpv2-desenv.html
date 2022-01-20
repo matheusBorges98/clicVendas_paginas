@@ -1201,8 +1201,8 @@ angular
 		$scope.addObservacaoHistorico = () => {
 			/*Data*/
 			var dataAtual 	= new Date();
-			var horas 		= dataAtual.getHours();
-			var minutos 	= dataAtual.getMinutes();
+			var horas 		= (dataAtual.getHours()<10?'0':'') + dataAtual.getHours()
+			var minutos 	= (dataAtual.getMinutes()<10?'0':'') + dataAtual.getMinutes()
 			var datFormat 	= dataAtual.toLocaleDateString('pt-BR')
 
 			let strHistorico = [];
@@ -1855,8 +1855,8 @@ angular
 						}
 					},
 					buttons: {
-						confirm: {label: 'Excluir',className:'btn_grid btn_cor_padrao'},
 						cancel: {label: 'Cancelar',className:'btn-default'},
+						confirm: {label: 'Excluir',className:'btn_grid btn_cor_padrao'},
 					},
 				}); 
 			};
@@ -1900,7 +1900,7 @@ angular
 	}
 	
 	li{
-		font-weight: 800;
+		font-weight: 500;
 		font-size: 1.0em;
 	}
 
@@ -1914,7 +1914,7 @@ angular
 	}
 
 	.nav-tabs>li>a {
-		color:black;
+		color:rgb(66, 66, 66);
 	}
 
 	tr{
