@@ -1111,7 +1111,7 @@ angular
 
 			$scope.openNav();
 		};
-
+		console.log("TESTE")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1125,7 +1125,7 @@ angular
 								fil3:  $scope.filPesquisaGeral,
 								fil4:  $scope.filSincronizado.send,
 								fil5:  "",
-								fil6:  $scope.filDataEmissao,
+								fil6:  $scope.filDataEmissao+" DAT_EMI",
 								fil7:  dadosUserLogado.rId, /*Lista pedidos apenas do representante que o fez*/
 								fil8:  dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
 								fil9:  "",
