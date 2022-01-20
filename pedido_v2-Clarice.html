@@ -123,7 +123,7 @@
 
 									<div class="col-sm-2 spacer">
 										<h5>Data de emissão</h5>
-										{{datEmiERP}}
+										{{dataEmissaoFormat}}
 									</div>
 									<div class="col-sm-2 spacer">
 										<h5>Previsão de entrega</h5>
@@ -789,6 +789,7 @@ angular
 				$rootScope.hashDoc				= '';
 				$scope.sincronizado				= 'DOCUMENTO_NAO_SINCRONIZADO';
 
+				$scope.dataEmissaoFormat		= '';
 				$scope.dataPrevEntregaFormatada	= "";
 				// $scope.dataEmissaoErpFormatada	= "";
 
@@ -814,6 +815,8 @@ angular
 				$scope.prevEntrega			= docs.prevEntrega != null ? new Date(docs.prevEntrega) : null
 
 				$scope.datEmiERP			= docs.datEmiERP;
+
+				$scope.dataEmissaoFormat	= docs.datEmiERP != null ? docs.datEmiERP.substr(0,10) : "";
 
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
@@ -1056,7 +1059,7 @@ angular
 					if(!isNaN(parseInt($rootScope.documentoERP))){
 						let dataFormat			= new Date();
 						json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
-						json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR");
+						json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR")+" EMI";
 						json[0].pedido			= $rootScope.documentoERP;
 					}else{
 						json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
@@ -1103,7 +1106,7 @@ angular
 
 		$scope.aplicarFiltros = (valor) => {
 			
-			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7);
+			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7)+" EMI";
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;
 			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
@@ -1111,7 +1114,7 @@ angular
 
 			$scope.openNav();
 		};
-
+		console.log("FFF")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1207,7 +1210,9 @@ angular
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
 				var btnhtmlData 	  = '';
 
-				btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+row.jsonDocs[0].datEmiERP+"</div>";
+				let dataFormat= row.jsonDocs[0].datEmiERP != "" ? row.jsonDocs[0].datEmiERP.substr(0,10) : ""
+
+				btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+dataFormat+"</div>";
 							
 				return btnhtmlData;
 			}));

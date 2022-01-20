@@ -281,7 +281,7 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="pedDatEmi">Emissão</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedDatEmi" id="pedDatEmi">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="pedDatEmiFormat" id="pedDatEmi">
 									</div>
 									<div class="col-sm-4 spacer">
 										<label for="familia">Familia</label>
@@ -934,7 +934,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 41943; //17431/*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 17431//41943; //17431/*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -1030,6 +1030,8 @@ angular
 				$scope.subsegmento			= '';
 				$scope.bu					= '';
 				$scope.pedDatEmi			= '';
+				$scope.pedDatEmiFormat		= '';
+
 				$scope.pedNumped			= 0 ;
 				$scope.cluster				= '';
 				$scope.desagr				= '';
@@ -1082,6 +1084,7 @@ angular
 				$scope.subsegmento			= docs.subsegmento;
 				$scope.bu					= docs.bu;
 				$scope.pedDatEmi			= docs.pedDatEmi;
+				$scope.pedDatEmiFormat		= docs.pedDatEmi != null ? docs.pedDatEmi.substr(0,10) : "";;
 				$scope.pedNumped			= docs.pedNumped;
 				$scope.desagr				= docs.desagr;
 				$scope.prioridade			= docs.prioridade;
@@ -1333,7 +1336,7 @@ angular
 				if(!isNaN(parseInt($rootScope.documentoERP))){
 					let dataFormat			= new Date();
 					json[0].sincronizado    = "DOCUMENTO_SINCRONIZADO";
-					json[0].pedDatEmi		= dataFormat.toLocaleDateString("pt-BR");
+					json[0].pedDatEmi		= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
 					json[0].pedNumped		= $rootScope.documentoERP;
 				}else{
 					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
@@ -1426,7 +1429,7 @@ angular
 			$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
 			$scope.filPrioridade 		= $scope.filPrioridade; 
 			$scope.filProduto 			= $scope.filProduto; 		
-			$scope.filDataEmissao 		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7);	
+			$scope.filDataEmissao 		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7)+ " EMI";	
 			$scope.filSegmento 			= $scope.filSegmento; 
 			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
 			$scope.filSincronizado		= $scope.filSincronizado;	
