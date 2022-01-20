@@ -976,7 +976,7 @@ angular
 		$scope.finalizarDocumento = () => {
 			
 			bootbox.confirm({
-				message:'<div class="alert alert-light popup" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a finalização do pedido?</p></div>',
+				message:'<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a finalização do pedido?</p></div>',
 				closeButton: false,
 				callback: function(confirmacao){
 					if (confirmacao){
@@ -1283,7 +1283,7 @@ angular
 				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500, 'warning');
 			}else{
 				bootbox.confirm({
-					message:'<div class="alert alert-light popup" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a exclusão do pedido?</p></div>',
+					message:'<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a exclusão do pedido?</p></div>',
 					closeButton: false,
 					onHidden: function(e) {
 						$scope.atualizaTabela();
