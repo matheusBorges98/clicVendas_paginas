@@ -947,6 +947,7 @@ angular
 		$scope.addObservacaoHistorico = () => {
 			/*Data*/
 			var dataAtual 	= new Date();
+
 			var horas 		= (dataAtual.getHours()<10?'0':'') + dataAtual.getHours()
 			var minutos 	= (dataAtual.getMinutes()<10?'0':'') + dataAtual.getMinutes()
 
@@ -1516,6 +1517,11 @@ angular
 
 	.modal-backdrop{
 		visibility:hidden;
+	}
+
+	/*Remove o espaçamento da view herdado do ClicVenda.*/
+	.div-ng-view .ng-scope{
+		padding:0;
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
