@@ -413,6 +413,12 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
+		$(nRow).on('click', function() {
+			$scope.abreFormulario(JSON.stringify(aData));
+		});
+
+		console.log("AAAAA")
+
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
@@ -1114,7 +1120,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("B")
+		console.log("AAA")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1255,12 +1261,6 @@ angular
 				
 			function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 				$compile(nRow)($scope);
-				
-				$('td:eq(1)', nRow).bind('click', function() {
-					$scope.$apply(function() {
-						$scope.abreFormulario(JSON.stringify(aData));
-					});
-				});
 			});
 
 		};
