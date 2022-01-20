@@ -340,7 +340,7 @@
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" title="O pedido será finalizado e enviado ao ERP" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-show="pedido == 0 " ng-click="salvarDocumento(2)"> Finalizar </button>
+						<button class="btn btn_grid btn-success" title="O pedido será finalizado e enviado ao ERP" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-show="pedido == 0 " ng-click="finalizarDocumento()"> Finalizar </button>
 					</div>	
 					<div class="btn-group">
 						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
@@ -909,7 +909,7 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-		console.log("zzz")
+		console.log("R")
 
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
@@ -973,6 +973,23 @@ angular
 		
 			$scope.obsOportunidade = "";
 		};
+
+		$scope.finalizarDocumento = () => {
+			
+			bootbox.confirm({
+				message:'Confirma a finalização do pedido?',
+				closeButton: false,
+				callback: function(confirmacao){
+					if (confirmacao){
+						$scope.salvarDocumento(2);
+					}
+				},
+				buttons: {
+					cancel: {label: 'Cancelar',className:'btn-default'},
+					confirm: {label: 'Confirmar',className:'btn_grid btn_cor_padrao'},
+				},
+			}); 
+		}
 
 		$scope.salvarDocumento = async (rotina) => {
 			/*
@@ -1205,7 +1222,7 @@ angular
 				return btnhtmlValor;
 			}));
 			
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Status').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Sinc.').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml1 = '';				
 				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
@@ -1335,14 +1352,11 @@ angular
 	}
 
 	#tabelaProdutos td, th{
-		min-width: auto;
 		vertical-align: inherit;
 	}
 
 	#tabelaProdutos tr:hover{
-		max-width: 105%;
 		background-color: rgb(248, 248, 248);
-		transition: 0.3;
 		border-radius: 8px;
 	}
 
