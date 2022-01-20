@@ -1103,7 +1103,7 @@ angular
 
 		$scope.aplicarFiltros = (valor) => {
 			
-			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7);
+			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7)+" ";
 			$scope.filCliente 			= $scope.filCliente; 		
 			$scope.filRepresentante		= $scope.filRepresentante;
 			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
@@ -1111,7 +1111,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("TESTE")
+		console.log("E")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1125,7 +1125,7 @@ angular
 								fil3:  $scope.filPesquisaGeral,
 								fil4:  $scope.filSincronizado.send,
 								fil5:  "",
-								fil6:  $scope.filDataEmissao+" DAT_EMI",
+								fil6:  $scope.filDataEmissao,
 								fil7:  dadosUserLogado.rId, /*Lista pedidos apenas do representante que o fez*/
 								fil8:  dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
 								fil9:  "",
