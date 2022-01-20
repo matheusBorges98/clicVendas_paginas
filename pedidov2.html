@@ -1114,7 +1114,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("A")
+		console.log("B")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1365,7 +1365,7 @@ angular
 		border-top: 1.5px solid rgb(236, 236, 236);;
 	}
 
-	#tabelaProdutos tr{
+	#tabelaProdutos tr>th {
    		box-shadow: 1px 3px 4px #b3b2b2;
 	}
 
