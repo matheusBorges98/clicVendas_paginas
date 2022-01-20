@@ -909,7 +909,7 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-		console.log("E")
+		console.log("F")
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
 				{ 
@@ -932,10 +932,15 @@ angular
 			$timeout(function () {
 				buscaProduto.blur();
 				$scope.itemProd = '';
+
+				$("table tbody tr td:first-child").addClass("new-row-enter");
 			}, 200);
 
+			$timeout(()=>{
+				$("table tbody tr td:first-child").removeClass("new-row-enter");
+			}, 1300)
+
 			$scope.calcularProdutos();
-			
 		};
 
 		$scope.removerProduto = ($item) => {
@@ -1532,6 +1537,10 @@ angular
 	/*Remove o espaçamento da view herdado do ClicVenda.*/
 	.div-ng-view{
 		padding:0;
+	}
+
+	.new-row-enter{
+		background-color: rgb(253, 249, 243);
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
