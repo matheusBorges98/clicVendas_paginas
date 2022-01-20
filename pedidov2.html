@@ -250,7 +250,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr ng-repeat = "produto in produtos">
+												<tr class="animate-repeat" ng-repeat = "produto in produtos">
 													<td>
 														<!-- <input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 														-->
@@ -909,7 +909,7 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-		console.log("E")
+		console.log("GH")
 
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
@@ -1543,6 +1543,33 @@ angular
 
 	.new-row-enter{
 		background-color: rgb(253, 249, 243);
+	}
+
+	/*Animações ng-repeat*/
+	.animate-repeat {
+		line-height:30px;
+		list-style:none;
+		box-sizing:border-box;
+	}
+
+	.animate-repeat.ng-move,
+	.animate-repeat.ng-enter,
+	.animate-repeat.ng-leave {
+		transition:all linear 0.5s;
+	}
+
+	.animate-repeat.ng-leave.ng-leave-active,
+	.animate-repeat.ng-move,
+	.animate-repeat.ng-enter {
+		opacity:0;
+		max-height:0;
+	}
+
+	.animate-repeat.ng-leave,
+	.animate-repeat.ng-move.ng-move-active,
+	.animate-repeat.ng-enter.ng-enter-active {
+		opacity:1;
+		max-height:30px;
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
