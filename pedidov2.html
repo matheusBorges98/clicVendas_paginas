@@ -1254,6 +1254,10 @@ angular
 			$scope.dtOptions.withOption('fnRowCallback',
 				
 			function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+				$(nRow).on('click', function() {
+					$scope.abreFormulario(JSON.stringify(aData));
+				});
+
 				$compile(nRow)($scope);
 			});
 
@@ -1261,16 +1265,7 @@ angular
 
 		$scope.atualizaTabela();
 
-		$('#listDocuments').dataTable({
-			fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-			// Row click
-				$(nRow).on('click', function() {
-					$scope.abreFormulario(JSON.stringify(aData));
-				});
-			}
-		});
-
-		console.log("k")
+		console.log("h")
 
 		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
 			/* Utiliza o Alert Bootstrap
