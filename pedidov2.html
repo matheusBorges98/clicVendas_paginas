@@ -114,41 +114,41 @@
 								<div style="background-color: #FBFBFB">
 									<div class="col-sm-6">
 										<h5>Cliente</h5>
-										{{frmCliente.nome}}
+										<p>{{frmCliente.nome}}<p>
 									</div>
 									<div class="col-sm-6">
 										<h5>Endereço de entrega</h5>
-										{{frmEndEntrega}}
+										<p>{{frmEndEntrega}}</p>
 									</div>
 
 									<div class="col-sm-2 spacer">
 										<h5>Data de emissão</h5>
-										{{dataEmissaoFormat}}
+										<p>{{dataEmissaoFormat}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
 										<h5>Previsão de entrega</h5>
-										{{dataPrevEntregaFormatada}}
+										<p>{{dataPrevEntregaFormatada}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
 										<h5>Condição de pagamento</h5>
-										{{condPagamento.nome}}
+										<p>{{condPagamento.nome}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
 										<h5>Forma de pagamento</h5>
-										{{formaPagamento.nome}}
+										<p>{{formaPagamento.nome}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
 										<h5>Total</h5>
-										{{valorTotal | currency:'R$ '}}
+										<p>{{valorTotal | currency:'R$ '}}</p>
 									</div>	
 									<div class="col-sm-2 spacer">
 										<h5>Representante</h5>
-										{{representante}}
+										<p>{{representante}}</p>
 									</div>
 									
 								</div>
 								
-								<div style="margin-top: 2%; padding:0;" class="col-sm-12 spacer divider">
+								<div style="margin-top: 2%; padding:0;" class="col-sm-12 spacer">
 									<table style="margin-top: 1%;" id="tabelaProdutos" class="table">
 										<thead>
 											<tr>
@@ -1344,6 +1344,7 @@ angular
 	h5{
 		font-weight: bold;
 		font-size: 1.0em;
+		color:#747474;
 	}
 
 	tr{
