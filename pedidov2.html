@@ -1210,7 +1210,7 @@ angular
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
 				var btnhtmlData 	  = '';
 
-				let dataFormat= row.jsonDocs[0].datEmiERP != "" ? row.jsonDocs[0].datEmiERP.substr(0,10) : ""
+				let dataFormat= row.jsonDocs[0].datEmiERP != undefined ? row.jsonDocs[0].datEmiERP.substr(0,10) : ""
 
 				btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+dataFormat+"</div>";
 							
