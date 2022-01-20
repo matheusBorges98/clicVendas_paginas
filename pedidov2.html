@@ -973,13 +973,11 @@ angular
 			$scope.obsOportunidade = "";
 		};
 
-		console.log("E")
+		console.log("F")
 		$scope.finalizarDocumento = () => {
 			
 			bootbox.confirm({
-				message:`
-				
-				Confirma a finalização do pedido?`,
+				message:'<div class="alert alert-light popup" "role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">Confirma a finalização do pedido?</p></div>',
 				closeButton: false,
 				callback: function(confirmacao){
 					if (confirmacao){
