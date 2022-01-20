@@ -909,7 +909,7 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-		console.log("A")
+		console.log("B")
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
 				{ 
@@ -947,8 +947,8 @@ angular
 		$scope.addObservacaoHistorico = () => {
 			/*Data*/
 			var dataAtual 	= new Date();
-			var horas 		= dataAtual.getHours();
-			var minutos 	= dataAtual.getMinutes();
+			var horas 		= (dataAtual.getHours()<10?'0':'') + dataAtual.getHours()
+			var minutos 	= (dataAtual.getMinutes()<10?'0':'') + dataAtual.getMinutes()
 
 			let strHistorico = [];
 
