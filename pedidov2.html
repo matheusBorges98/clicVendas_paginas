@@ -909,7 +909,7 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-		console.log("D")
+		console.log("E")
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
 				{ 
@@ -1324,11 +1324,12 @@ angular
 
 	#tabelaProdutos {
 		border-radius: 4px;
-		border-top: 1px solid rgb(235, 235, 235);;
+		border-top: 1.5px solid rgb(231, 231, 231);;
 	}
 
 	#tabelaProdutos td, th{
 		vertical-align: inherit;
+		transition: 0.2;
 	}
 
 	#tabelaProdutos tr:hover{
@@ -1529,7 +1530,7 @@ angular
 	}
 
 	/*Remove o espaçamento da view herdado do ClicVenda.*/
-	.div-ng-view .ng-scope{
+	.div-ng-view{
 		padding:0;
 	}
 
