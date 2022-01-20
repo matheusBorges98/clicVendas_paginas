@@ -1114,7 +1114,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("AAA")
+		console.log("B")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1163,14 +1163,6 @@ angular
 					.withOption('bFilter', false)
 					.withOption('searchDelay', 1000)
 					.withOption('scrollY', '100%')
-					.withOption('fnRowCallback', function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-						$('td:eq(1)', nRow).bind('click', function() {
-							$scope.$apply(function() {
-								$scope.abreFormulario(JSON.stringify(aData));
-							});
-						});
-						return nRow;
-					})     
 					.withPaginationType('full_numbers')            
 					.withDisplayLength(20)
 					.withDOM('ftrip')
@@ -1263,6 +1255,12 @@ angular
 				
 			function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 				$compile(nRow)($scope);
+				
+				$('td:eq(1)', nRow).bind('click', function() {
+					$scope.$apply(function() {
+						$scope.abreFormulario(JSON.stringify(aData));
+					});
+				});
 			});
 
 		};
