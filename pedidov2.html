@@ -413,8 +413,17 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
+		$('#listDocuments').dataTable({
+			fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			// Row click
+				$(nRow).on('click', function() {
+					$scope.abreFormulario(JSON.stringify(aData));
+				});
+			}
+		});
+
 		$(nRow).on('click', function() {
-			$scope.abreFormulario(JSON.stringify(aData));
+			
 		});
 
 		console.log("AAAAA")
