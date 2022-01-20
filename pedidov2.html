@@ -909,7 +909,7 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-		console.log("B")
+		console.log("D")
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
 				{ 
@@ -1327,6 +1327,10 @@ angular
 		border-top: 1px solid rgb(235, 235, 235);;
 	}
 
+	#tabelaProdutos td, th{
+		vertical-align: inherit;
+	}
+
 	#tabelaProdutos tr:hover{
 		background-color: rgb(255, 250, 244);
 		transition: 0.2;
@@ -1336,7 +1340,6 @@ angular
 	th, td, a{
 		font-size: 12px;
 		white-space: nowrap;
-		vertical-align: inherit;
 	}
 
 	th{
