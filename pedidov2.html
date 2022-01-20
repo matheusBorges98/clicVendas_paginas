@@ -909,8 +909,7 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-		console.log("R")
-
+		
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
 				{ 
@@ -974,10 +973,13 @@ angular
 			$scope.obsOportunidade = "";
 		};
 
+		console.log("E")
 		$scope.finalizarDocumento = () => {
 			
 			bootbox.confirm({
-				message:'Confirma a finalização do pedido?',
+				message:`
+				
+				Confirma a finalização do pedido?`,
 				closeButton: false,
 				callback: function(confirmacao){
 					if (confirmacao){
