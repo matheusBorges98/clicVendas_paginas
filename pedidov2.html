@@ -909,7 +909,7 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-		console.log("A")
+		console.log("zzzzz")
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
 				{ 
@@ -972,103 +972,119 @@ angular
 				1 - Salvar (Mantém apenas no ClicVenda)
 				2 - Finalizar (Envia o pedido para ERP)
 			*/
-			
-			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;						
-			let id 					= $rootScope.idDocumento;
-			let jsonDocs			= [];
-			let dados 				= {};
 
-			$scope.messageNotific	= '';
-			
-			dados.cnpj 				= {id: dadosUserLogado.cId};
+			bootbox.confirm({
+				message:'Confirma a finalização do pedido?',
+				closeButton: false,
+				callback: function(confirmacao){
 
-			jsonDocs = [{
-				representante		: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
+					if (confirmacao){
+						let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;						
+						let id 					= $rootScope.idDocumento;
+						let jsonDocs			= [];
+						let dados 				= {};
 
-				/*Historico*/
-				obsOportunidade	: $scope.obsOportunidade,
-				histOportunidade: $scope.histOportunidade,
-
-				condPagamento	: $scope.condPagamento,
-				formaPagamento	: $scope.formaPagamento,
-
-				endEntrega		: $scope.frmEndEntrega,
-				prevEntrega		: $scope.prevEntrega != "" || $scope.prevEntrega != undefined ? $scope.prevEntrega : null,
-				
-				//Metodos
-				docCtrl			: hashDoc,
-				pedido			: $scope.pedido,
-				sincronizado	: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
-				
-				representante	: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
-
-				datEmiERP		: $scope.datEmiERP,
-				
-				//Produtos
-				produtos		: $rootScope.produtos,
-				valorTotal		: parseFloat($scope.valorTotal),
-
-				//Cliente
-				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
-				
-			}];
-			
-			dados.jsonDocs 		= JSON.stringify(jsonDocs);
-			/*Recebe dados e para que sejam feitas as alterações necessarias*/
-			var json 			= JSON.parse(dados.jsonDocs);
-			
-			if(rotina == 2){					
-				let sendToERP 				= JSON.parse(dados.jsonDocs);
-
-				$rootScope.pedidoAprovado	= await $scope.calculoValidacaoProdutoERP(sendToERP[0]);
-
-				if(!$rootScope.pedidoAprovado.aprovado){
-					$scope.geraNotificacao("O pedido não foi aprovado: "+$rootScope.pedidoAprovado.erro, 2500, 'warning')
-					json[0].sincronizado = "ERRO: "+$rootScope.pedidoAprovado.erro;
-					json[0].pedido		 = 0;
-				}else{
-					$rootScope.documentoERP 	= await $scope.gravaDocumentoERP(sendToERP[0]);
-				
-					/*Atualiza numero do pedido*/
-					if(!isNaN(parseInt($rootScope.documentoERP))){
-						let dataFormat			= new Date();
-						json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
-						json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR");
-						json[0].pedido			= $rootScope.documentoERP;
-					}else{
-						json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
-						json[0].pedido		 = 0;
-					}
-				}
-
-				
-			};
-	
-			if(id > 0){
-			
-				dados.jsonDocs 	= JSON.stringify(json); 
-				let response 	= await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
-				
-				if(rotina == 1){
-					$scope.messageNotific = 'Registro alterado com sucesso';
-					$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
-				}
-			}else{
-				dados.jsonDocs 			= JSON.stringify(json);
-
-				let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
-
-				if(rotina == 1){
-					$scope.messageNotific 	= 'Registro inserido com sucesso';
-					$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
-				}
-				
-			};
-			
-			$scope.atualizaTabela();
+						$scope.messageNotific	= '';
 						
-			$scope.exibeFormulario 		= false;
-			$scope.exibeListaDocumentos = true;
+						dados.cnpj 				= {id: dadosUserLogado.cId};
+
+						jsonDocs = [{
+							representante		: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
+
+							/*Historico*/
+							obsOportunidade	: $scope.obsOportunidade,
+							histOportunidade: $scope.histOportunidade,
+
+							condPagamento	: $scope.condPagamento,
+							formaPagamento	: $scope.formaPagamento,
+
+							endEntrega		: $scope.frmEndEntrega,
+							prevEntrega		: $scope.prevEntrega != "" || $scope.prevEntrega != undefined ? $scope.prevEntrega : null,
+							
+							//Metodos
+							docCtrl			: hashDoc,
+							pedido			: $scope.pedido,
+							sincronizado	: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
+							
+							representante	: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
+
+							datEmiERP		: $scope.datEmiERP,
+							
+							//Produtos
+							produtos		: $rootScope.produtos,
+							valorTotal		: parseFloat($scope.valorTotal),
+
+							//Cliente
+							cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
+							
+						}];
+						
+						dados.jsonDocs 		= JSON.stringify(jsonDocs);
+						/*Recebe dados e para que sejam feitas as alterações necessarias*/
+						var json 			= JSON.parse(dados.jsonDocs);
+						
+						if(rotina == 2){					
+							let sendToERP 				= JSON.parse(dados.jsonDocs);
+
+							$rootScope.pedidoAprovado	= await $scope.calculoValidacaoProdutoERP(sendToERP[0]);
+
+							if(!$rootScope.pedidoAprovado.aprovado){
+								$scope.geraNotificacao("O pedido não foi aprovado: "+$rootScope.pedidoAprovado.erro, 2500, 'warning')
+								json[0].sincronizado = "ERRO: "+$rootScope.pedidoAprovado.erro;
+								json[0].pedido		 = 0;
+							}else{
+								$rootScope.documentoERP 	= await $scope.gravaDocumentoERP(sendToERP[0]);
+							
+								/*Atualiza numero do pedido*/
+								if(!isNaN(parseInt($rootScope.documentoERP))){
+									let dataFormat			= new Date();
+									json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
+									json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR");
+									json[0].pedido			= $rootScope.documentoERP;
+								}else{
+									json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
+									json[0].pedido		 = 0;
+								}
+							}
+
+							
+						};
+				
+						if(id > 0){
+						
+							dados.jsonDocs 	= JSON.stringify(json); 
+							let response 	= await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
+							
+							if(rotina == 1){
+								$scope.messageNotific = 'Registro alterado com sucesso';
+								$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
+							}
+						}else{
+							dados.jsonDocs 			= JSON.stringify(json);
+
+							let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
+
+							if(rotina == 1){
+								$scope.messageNotific 	= 'Registro inserido com sucesso';
+								$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
+							}
+							
+						};
+						
+						$scope.atualizaTabela();
+									
+						$scope.exibeFormulario 		= false;
+						$scope.exibeListaDocumentos = true;
+						
+					}
+				},
+				buttons: {
+					cancel: {label: 'Cancelar',className:'btn-default'},
+					confirm: {label: 'Confirmar',className:'btn_grid btn_cor_padrao'},
+				},
+			}); 
+			
+		
 		};
 
 		$scope.limparFiltros = () =>{
