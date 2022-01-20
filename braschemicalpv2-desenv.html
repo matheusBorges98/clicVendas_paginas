@@ -610,8 +610,7 @@ angular
 					$scope.$apply();
 
 				}else{
-					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Edição pedido local Nº "+$dados.jsonDocs[0].numPedidoClic;
-					//$dados.jsonDocs[0].pedNumped != '' ? 'Edição pedido Nº '+ $dados.jsonDocs[0].pedNumped : 'Edição';
+					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Pedido Nº "+$dados.jsonDocs[0].numPedidoClic;
 					
 					$scope.inputDesabilitado  = true;
 					$scope.permiteEditar	  = false;
@@ -1882,7 +1881,7 @@ angular
 		font-weight: bold;
 		font-size: 1.0em;
 	}
-
+	
 	li{
 		font-weight: 800;
 		font-size: 1.0em;
