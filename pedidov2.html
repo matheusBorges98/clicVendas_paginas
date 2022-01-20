@@ -413,17 +413,6 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		$('#listDocuments').dataTable({
-			fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-			// Row click
-				$(nRow).on('click', function() {
-					$scope.abreFormulario(JSON.stringify(aData));
-				});
-			}
-		});
-
-		console.log("l")
-
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
@@ -1271,6 +1260,17 @@ angular
 		};
 
 		$scope.atualizaTabela();
+
+		$('#listDocuments').dataTable({
+			fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+			// Row click
+				$(nRow).on('click', function() {
+					$scope.abreFormulario(JSON.stringify(aData));
+				});
+			}
+		});
+
+		console.log("k")
 
 		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
 			/* Utiliza o Alert Bootstrap
