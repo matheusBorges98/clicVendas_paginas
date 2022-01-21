@@ -718,7 +718,7 @@ angular
 			return result
 		};
 
-		console.log("TESTE ERP 455")
+		console.log("TESTE ERP 5")
 		$scope.getProdutosERP = async (consulta) => {
 
 			try{
@@ -726,7 +726,7 @@ angular
 
 				let result =	{
 						idCvtccnpj : dadosUserLogado.cId,
-						numreg	   : 752,
+						numreg	   : 750,
 						pRotina	   : 'filtroProduto',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroProd : consulta}},
@@ -735,20 +735,20 @@ angular
 				console.log(result, "GET ERP")
 				console.log("executou pesquisa")
 				
-				result ={
-					data:[{
-						nome: "Computador mesa 14 polegadas",
-						codVariacao:"1GB",
-						codExterno:"CMPMS14",
-						preco:1000,
-						unimed: "PC",
-						qtdeEstoque: 5
-					}]
+				// result ={
+				// 	data:[{
+				// 		nome: "Computador mesa 14 polegadas",
+				// 		codVariacao:"1GB",
+				// 		codExterno:"CMPMS14",
+				// 		preco:1000,
+				// 		unimed: "PC",
+				// 		qtdeEstoque: 5
+				// 	}]
 				
-				}
+				// }
 
-				console.log("result")
-				return result.data.map((item)=>{
+				// console.log("result")
+				return result.resultado.map((item)=>{
 					return item
 				})
 
