@@ -716,7 +716,7 @@ angular
 			return result
 		};
 
-		console.log("TESTE ERP 23")
+		console.log("TESTE ERP 3")
 		$scope.getProdutosERP = async (consulta) => {
 
 			try{
@@ -730,29 +730,30 @@ angular
 						pFilter    : {filtro:{filtroProd : consulta}},
 					}
 			//	);
-			console.log(result, "GET ERP")
-			console.log("executou pesquisa")
-			
-			result ={
-				data:[{
-					nome: "Computador teste",
-					codVariacao:"I9 12900K",
-					codExterno:"i912900KCOMPUTER",
-					preco:1500,
-					unimed: "PC",
-					qtdeEstoque: 5
-				}]
-			
-			}
+				console.log(result, "GET ERP")
+				console.log("executou pesquisa")
+				
+				result ={
+					data:[{
+						nome: "Computador teste",
+						codVariacao:"I9 12900K",
+						codExterno:"i912900KCOMPUTER",
+						preco:1500,
+						unimed: "PC",
+						qtdeEstoque: 5
+					}]
+				
+				}
+
+				console.log("result")
+				return result.data.map((item)=>{
+					return item
+				})
 
 			}catch(err){
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 
-			console.log("result")
-			return result.data.map((item)=>{
-				return item
-			})
 		}
 
 		$scope.getProdutos = (val) => {			
