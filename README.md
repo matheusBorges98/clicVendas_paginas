@@ -1,5 +1,5 @@
-clicVendas > Páginas
+###clicVendas > Páginas
 
- *Braschemical (Tela personalizada)
- *Clarice (Tela pedidov2 + Personalizado)
- *Demo2 (pedidov2)
+ <p><b>Braschemical</b> (Tela personalizada)</p>
+ <p><b>Clarice</b> (Tela pedidov2 + Personalizado)</p>
+ <p><b>Demo2<b/> (pedidov2)</p>
