@@ -499,8 +499,6 @@ angular
 			}
 		};
 
-		console.log("AAA")
-
 		$scope.onSelectEE = function ($item, $model, $label) {			
 			$scope.endEntrega = $item;			
 		};
@@ -718,8 +716,6 @@ angular
 			return result
 		};
 
-		console.log("TESTE ERP 66666")
-		console.log("TESTE ERP 66666")
 		$scope.getProdutosERP = async (consulta) => {
 
 			try{
@@ -1156,7 +1152,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("F")
+	
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1302,8 +1298,6 @@ angular
 		};
 
 		$scope.atualizaTabela();
-
-		console.log("AAA")
 
 		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
 			/* Utiliza o Alert Bootstrap
