@@ -937,22 +937,38 @@ angular
 		}
 		
 		$scope.adicionarProduto = ($item) =>{
+			// $rootScope.produtos.unshift(
+			// 	{ 
+			// 		descricao			: $item.produto.nome,
+			// 		codigoProduto		: $item.produto.id,
+			// 		codVariacao			: $item.produto.codVariacao,
+			// 		codExterno			: $item.produto.codExterno,
+			// 		opcaoDescAcresc		: 'DESCONTO',
+			// 		quantidade			: 1,
+			// 		valorNegociado		: $item.preco,
+			// 		precoTabela			: $item.preco,
+			// 		unidMedida			: $item.produto.unimed,
+			// 		estoque				: $item.produto.qtdeEstoque,
+			// 		hashDoc				: '',
+			// 	}
+			// );
+			/*Testes para getProdutosERP*/
 			$rootScope.produtos.unshift(
 				{ 
-					descricao			: $item.produto.nome,
-					codigoProduto		: $item.produto.id,
-					codVariacao			: $item.produto.codVariacao,
-					codExterno			: $item.produto.codExterno,
+					descricao			: $item.nome,
+					codigoProduto		: $item.id,
+					codVariacao			: $item.codVariacao,
+					codExterno			: $item.codExterno,
 					opcaoDescAcresc		: 'DESCONTO',
 					quantidade			: 1,
 					valorNegociado		: $item.preco,
 					precoTabela			: $item.preco,
-					unidMedida			: $item.produto.unimed,
-					estoque				: $item.produto.qtdeEstoque,
+					unidMedida			: $item.unimed,
+					estoque				: $item.qtdeEstoque,
 					hashDoc				: '',
 				}
 			);
-
+			
 			var buscaProduto		= angular.element(document.querySelector('#itemProd'));
 			
 			$timeout(function () {
@@ -1137,7 +1153,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("p")
+		console.log("F")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
