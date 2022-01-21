@@ -718,7 +718,7 @@ angular
 			return result
 		};
 
-		console.log("TESTE ERP 4")
+		console.log("TESTE ERP 45")
 		$scope.getProdutosERP = async (consulta) => {
 
 			try{
@@ -860,6 +860,8 @@ angular
 
 				$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
 				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada != "" ? $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br') : null;
+
+				console.log($scope.dataPrevEntregaFormatada)
 
 			};
 			
