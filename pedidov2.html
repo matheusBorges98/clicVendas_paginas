@@ -231,7 +231,7 @@
 									<div class="input-group spacer">
 										<!-- <input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span> -->
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="4" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -611,6 +611,7 @@ angular
 		};
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
+			console.log($json, "req")
 			try{
 				let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
 				
@@ -716,7 +717,7 @@ angular
 			return result
 		};
 
-		console.log("SINC - 1")
+		console.log("TESTE - 1")
 
 		$scope.getProdutosERP = async (consulta) => {
 
@@ -745,9 +746,14 @@ angular
 				// }
 
 				// console.log("result")
-				return result.resultado.map((item)=>{
-					return item
-				})
+				if(result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						return item
+					})
+				}else{
+					return [];
+				}
+				
 
 			}catch(err){
 				console.log("Ocorreu um erro na requisição: ", err);
