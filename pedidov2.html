@@ -716,6 +716,7 @@ angular
 			return result
 		};
 
+		console.log("TESTE ERP")
 		$scope.getProdutosERP = async (consulta) => {
 
 			try{
@@ -730,6 +731,20 @@ angular
 					}
 			//	);
 			console.log(result, "GET ERP")
+			console.log("executou pesquisa")
+			
+			result ={
+				data:{
+					nome: "Computador teste",
+					codVariacao:"I9 12900K",
+					codExterno:"i912900KCOMPUTER",
+					preco:1500,
+					unimed: "PC",
+					qtdeEstoque: 5
+				}
+			
+			}
+
 			}catch(err){
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
