@@ -229,7 +229,7 @@
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -716,18 +716,21 @@ angular
 			return result
 		};
 
-		$scope.getProdutosERP = async (val) => {
+		$scope.getProdutosERP = async (consulta) => {
 
 			try{
-				let result = await $scope.executaRequisicaoExterna(
-					{
+				//let result = await $scope.executaRequisicaoExterna(
+
+				let result =	{
 						idCvtccnpj : dadosUserLogado.cId,
 						numreg	   : 752,
-						pRotina	   : 'getProdutos',
+						pRotina	   : 'filtroProduto',
 						pCodCli    : dadosUserLogado.rId,
-						filter 	   : {filtroProd : val}
+						pFilter	   : {filtroProd : val},
+						pFilter    : {filtro:{filtroProd : consulta}},
 					}
-				);
+			//	);
+			console.log(result)
 			}catch(err){
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
