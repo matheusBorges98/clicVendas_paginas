@@ -716,19 +716,20 @@ angular
 			return result
 		};
 
+		console.log("SINC")
+
 		$scope.getProdutosERP = async (consulta) => {
 
 			try{
-				//let result = await $scope.executaRequisicaoExterna(
-
-				let result =	{
+				let result = await $scope.executaRequisicaoExterna(
+					{
 						idCvtccnpj : dadosUserLogado.cId,
 						numreg	   : 750,
 						pRotina	   : 'filtroProduto',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroProd : consulta}},
 					}
-			//	);
+				);
 				console.log(result, "GET ERP")
 				console.log("executou pesquisa")
 				
