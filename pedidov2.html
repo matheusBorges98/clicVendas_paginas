@@ -716,7 +716,7 @@ angular
 			return result
 		};
 
-		console.log("SINC")
+		console.log("SINC - 1")
 
 		$scope.getProdutosERP = async (consulta) => {
 
@@ -730,9 +730,8 @@ angular
 						pFilter    : {filtro:{filtroProd : consulta}},
 					}
 				);
-				console.log(result, "GET ERP")
-				console.log("executou pesquisa")
-				
+				console.log(result, "Resultado pesquisa ERP:")
+							
 				// result ={
 				// 	data:[{
 				// 		nome: "Computador mesa 14 polegadas",
