@@ -716,7 +716,7 @@ angular
 			return result
 		};
 
-		console.log("TESTE ERP")
+		console.log("TESTE ERP 2")
 		$scope.getProdutosERP = async (consulta) => {
 
 			try{
@@ -734,14 +734,14 @@ angular
 			console.log("executou pesquisa")
 			
 			result ={
-				data:{
+				data:[{
 					nome: "Computador teste",
 					codVariacao:"I9 12900K",
 					codExterno:"i912900KCOMPUTER",
 					preco:1500,
 					unimed: "PC",
 					qtdeEstoque: 5
-				}
+				}]
 			
 			}
 
@@ -749,6 +749,7 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 
+			console.log("result")
 			return result.data.map((item)=>{
 				return item
 			})
