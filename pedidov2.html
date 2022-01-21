@@ -859,7 +859,7 @@ angular
 			
 
 				$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
-				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br');
+				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada != "" ? $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br') : "";
 
 			};
 			
