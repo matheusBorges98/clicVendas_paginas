@@ -231,7 +231,7 @@
 									<div class="input-group spacer">
 										<!-- <input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span> -->
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="4" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' Tab Preço:' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="4" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -717,7 +717,7 @@ angular
 			return result
 		};
 
-		console.log("TESTE -21")
+		console.log("TESTE")
 
 		$scope.getProdutosERP = async (consulta) => {
 
@@ -733,19 +733,6 @@ angular
 				);
 				console.log(result, "Resultado pesquisa ERP:")
 							
-				// result ={
-				// 	data:[{
-				// 		nome: "Computador mesa 14 polegadas",
-				// 		codVariacao:"1GB",
-				// 		codExterno:"CMPMS14",
-				// 		preco:1000,
-				// 		unimed: "PC",
-				// 		qtdeEstoque: 5
-				// 	}]
-				
-				// }
-
-				// console.log("result")
 				if(result.resultado != undefined){
 					return result.resultado.map((item)=>{
 						return item
@@ -761,19 +748,19 @@ angular
 
 		}
 
-		$scope.getProdutos = (val) => {			
+		// $scope.getProdutos = (val) => {			
 			
-			var dados = {};
-			dados.filtro			= val|| '';
-			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431; /*Lista de preço com ID fixo*/
+		// 	var dados = {};
+		// 	dados.filtro			= val|| '';
+		// 	dados.idCvTccnpj		= dadosUserLogado.cId;
+		// 	dados.idCvTolistapreco	= 17431; /*Lista de preço com ID fixo*/
 			
-			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
-				return response.data.map(function(item){
-					return item;
-				});
-			});
-		};
+		// 	return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
+		// 		return response.data.map(function(item){
+		// 			return item;
+		// 		});
+		// 	});
+		// };
 
 		$scope.limpaProduto = (acao) =>{
 			$scope.itemProd = '';
@@ -966,10 +953,11 @@ angular
 					codExterno			: $item.codExterno,
 					opcaoDescAcresc		: 'DESCONTO',
 					quantidade			: 1,
-					valorNegociado		: $item.preco,
+					valorNegociado		: parseFloat($item.preco),
 					precoTabela			: $item.preco,
 					unidMedida			: $item.unimed,
 					estoque				: $item.qtdeEstoque,
+					codTpr				: $item.codTpr,
 					hashDoc				: '',
 				}
 			);
