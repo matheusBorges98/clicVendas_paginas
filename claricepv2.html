@@ -127,7 +127,7 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<h5>Previsão de entrega</h5>
-										<p>{{dataPrevEntregaFormatada}}</p>
+										<p ng-show="dataPrevEntregaFormatada != 'Invalid Date'" >{{dataPrevEntregaFormatada}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
 										<h5>Condição de pagamento</h5>
@@ -162,7 +162,7 @@
 										<tbody>
 											<tr ng-repeat = "produto in produtos">
 												<td>
-													{{produto.descricao}} - {{produto.codExterno}}
+													{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}
 												</td>
 												<td>
 													{{produto.quantidade}}
@@ -229,7 +229,7 @@
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="4" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -252,9 +252,7 @@
 											<tbody>
 												<tr ng-repeat = "produto in produtos">
 													<td>
-														<!-- <input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" >
-														-->
-														<p> {{produto.descricao}} - {{produto.codExterno}}<p>
+														<p>{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}} <p>
 														<p style="font-size: 0.8em;"><b>Estoque: </b>{{produto.estoque}}</p>
 														<p style="font-size: 0.8em;"><b>Un. medida: </b>{{produto.unidMedida}}</p>
 													</td>
@@ -604,7 +602,6 @@ angular
 		};
 
 		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
-			console.log($item)
 			$scope.filSincronizado	= $item;
 		};
 						
@@ -648,7 +645,6 @@ angular
 					pListaPedido : {lista:{pedidos : consulta}},
 				}
 			);
-			console.log(result, "Sinc itens gravados no ERP")
 
 			dialog.modal('hide');
 			$rootScope.isLoading = false;
@@ -698,11 +694,7 @@ angular
 			);
 
 			$rootScope.isLoading = false;
-				/*teste*/
-			//result = '600';
-
-			console.log(result, "Retorno pedido enviado ao ERP")
-					
+						
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP.', 2000, 'success')
@@ -714,40 +706,33 @@ angular
 			return result
 		};
 
-		$scope.getProdutosERP = async (val) => {
+		$scope.getProdutosERP = async (consulta) => {
 
 			try{
 				let result = await $scope.executaRequisicaoExterna(
 					{
 						idCvtccnpj : dadosUserLogado.cId,
-						numreg	   : 752,
-						pRotina	   : 'getProdutos',
+						numreg	   : 750,
+						pRotina	   : 'filtrarProduto',
 						pCodCli    : dadosUserLogado.rId,
-						filter 	   : {filtroProd : val}
+						pFilter    : {filtro:{filtroProd : consulta}},
 					}
 				);
+										
+				if(result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						return item
+					})
+				}else{
+					return [];
+				}
+				
+
 			}catch(err){
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 
-			return result.data.map((item)=>{
-				return item
-			})
 		}
-
-		$scope.getProdutos = (val) => {			
-			
-			var dados = {};
-			dados.filtro			= val|| '';
-			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431; /*Lista de preço com ID fixo*/
-			
-			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
-				return response.data.map(function(item){
-					return item;
-				});
-			});
-		};
 
 		$scope.limpaProduto = (acao) =>{
 			$scope.itemProd = '';
@@ -836,8 +821,7 @@ angular
 			
 
 				$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
-				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br');
-
+				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada != "" ? $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br') : null;
 			};
 			
 			$rootScope.changeView($dados);
@@ -896,6 +880,10 @@ angular
 				// 	aprovado:false,
 				// }
 
+				/*Retorna sempre true - 
+					TO DO: Calculo de validação no ERP
+				*/
+
 				result = {
 					erro: "",
 					aprovado:true,
@@ -916,20 +904,21 @@ angular
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
 				{ 
-					descricao			: $item.produto.nome,
-					codigoProduto		: $item.produto.id,
-					codVariacao			: $item.produto.codVariacao,
-					codExterno			: $item.produto.codExterno,
+					descricao			: $item.nome,
+					codigoProduto		: $item.id,
+					codVariacao			: $item.codVariacao,
+					codExterno			: $item.codExterno,
 					opcaoDescAcresc		: 'DESCONTO',
 					quantidade			: 1,
-					valorNegociado		: $item.preco,
+					valorNegociado		: parseFloat($item.preco),
 					precoTabela			: $item.preco,
-					unidMedida			: $item.produto.unimed,
-					estoque				: $item.produto.qtdeEstoque,
+					unidMedida			: $item.unimed,
+					estoque				: $item.qtdeEstoque,
+					codTpr				: $item.codTpr,
 					hashDoc				: '',
 				}
 			);
-
+			
 			var buscaProduto		= angular.element(document.querySelector('#itemProd'));
 			
 			$timeout(function () {
@@ -1114,7 +1103,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("p")
+	
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1261,8 +1250,6 @@ angular
 
 		$scope.atualizaTabela();
 
-		console.log("4")
-
 		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
 			/* Utiliza o Alert Bootstrap
 				light   - padrao
@@ -1340,7 +1327,7 @@ angular
 <style>
 
 :root {
-		--cor_principal: #1a6c95;
+		--cor_principal: #ca0008;
 	}
 
 	h5{
@@ -1399,6 +1386,10 @@ angular
 		font-size: 12px;
 	}
 
+	.dataTables {
+		border-bottom:0;
+	}
+
 	.header-filtro-tabela{
 		background-color: var(--cor_principal);	
 		border-radius: 3px; 
@@ -1431,7 +1422,6 @@ angular
 	.container{
 		flex:1;
 		width: -webkit-fill-available;
-		padding:0;
 	}
 
 	.divider{
@@ -1576,11 +1566,6 @@ angular
 
 	.modal-backdrop{
 		visibility:hidden;
-	}
-
-	/*Remove o espaçamento da view herdado do ClicVenda.*/
-	.div-ng-view{
-		padding:0;
 	}
 
 	.new-row-enter{
