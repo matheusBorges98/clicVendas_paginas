@@ -162,9 +162,11 @@
 										<tbody>
 											<tr ng-repeat = "produto in produtos">
 												<td>
-													{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}
-													<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
-													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+													<div class="col-sm-12">
+														<div ng-show="produto.codVariacao == ''" class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+														<div ng-show="produto.codVariacao != ''" class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+														<div class="col-sm-11">{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}</div>
+													</div>
 												</td>
 												<td>
 													{{produto.quantidade}}
@@ -236,7 +238,7 @@
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="4" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -263,8 +265,8 @@
 														<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 														<p>{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}} <p>
 															
-														<p style="font-size: 0.8em;"><b>Estoque: </b>{{produto.estoque}}</p>
-														<p style="font-size: 0.8em;"><b>Un. medida: </b>{{produto.unidMedida}}</p>
+														<p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p>
+														<p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p>
 													</td>
 													<td>
 														{{produto.precoTabela | currency:'R$ '}}
@@ -364,6 +366,33 @@
 		</div>
 	
 	</div>
+
+	<script type="text/ng-template" id="templateAutoCompleteProduto">
+		<a>
+			<table>
+				<tr>
+					<td style="padding-right: 25px;">
+						<div ng-show="match.model.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src="/clicvenda/produtos/{{$parent.$parent.$parent.subdomain}}/{{match.model.codExterno}}.jpg" onerror='this.src="images/icon/semimagem.png"' style='width: 64px;'/></div>
+						<div ng-show="match.model.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src="/clicvenda/produtos/{{$parent.$parent.$parent.subdomain}}/{{match.model.codExterno}}_{{match.model.codVariacao}}.jpg" onerror='this.src="images/icon/semimagem.png"' style='width: 64px;'/></div>
+					</td>			
+					<td>
+						<div class="row">
+							<div class="col-md-12">{{match.model.nome}} - {{match.model.codVariacao}}</div>				
+						</div>
+						<div class="row">
+							<div class="col-md-12">Estoque: {{match.model.qtdeEstoque}}</div>				
+						</div>				
+						<div class="row">
+							<div class="col-md-12">Preço: {{match.model.preco}}</div>				
+						</div>
+						<div class="row">
+							<div class="col-md-12">Tab. Preço: {{match.model.codTpr}}</div>				
+						</div>												
+					</td>
+				</tr>
+			</table>
+		</a>
+	 </script>
 	<!-- View --> 
 
 <!-- Scripts importados -->
@@ -554,7 +583,7 @@ angular
 
 		}
 
-		$scope.onSelectCond = function ($item, $model, $label) {			
+		$scope.onSelectCond = function ($item, $model, $label) {		
 			$scope.condPagamento = $item;
 		};
 
@@ -605,7 +634,7 @@ angular
 
 		}
 
-		$scope.onSelectForma = function ($item, $model, $label) {	
+		$scope.onSelectForma = function ($item, $model, $label) {					
 			$scope.formaPagamento = $item;			
 		};
 		
@@ -782,7 +811,7 @@ angular
 				);
 										
 				if(result.resultado != undefined){
-					return result.resultado.slice(0, 10).map((item)=>{
+					return result.resultado.slice(0, 8).map((item)=>{
 						return item
 					})
 				}else{

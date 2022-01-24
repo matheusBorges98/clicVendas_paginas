@@ -472,8 +472,6 @@ angular
 			return listAllDocs;
 		};
 
-		console.log("TESTE8")
-
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
 
@@ -555,7 +553,6 @@ angular
 			}
 			}).then(function(response){              
 				return response.data.map(function(item){
-					console.log(item, "condição")
 					return item;
 				});
 			});
@@ -586,8 +583,7 @@ angular
 
 		}
 
-		$scope.onSelectCond = function ($item, $model, $label) {	
-			console.log($item, "condição select")		
+		$scope.onSelectCond = function ($item, $model, $label) {		
 			$scope.condPagamento = $item;
 		};
 
@@ -604,7 +600,6 @@ angular
 					}
 				}).then(function(response){
 					return response.data.map(function(item){
-						console.log(item, "forma")
 						return item;
 					});
 				});
@@ -639,8 +634,7 @@ angular
 
 		}
 
-		$scope.onSelectForma = function ($item, $model, $label) {	
-			console.log($item, "forma select")					
+		$scope.onSelectForma = function ($item, $model, $label) {					
 			$scope.formaPagamento = $item;			
 		};
 		
@@ -803,8 +797,6 @@ angular
 							
 			return result
 		};
-
-		console.log("AA")
 
 		$scope.getProdutosERP = async (consulta) => {
 			try{

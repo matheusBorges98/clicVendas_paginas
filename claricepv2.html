@@ -162,7 +162,11 @@
 										<tbody>
 											<tr ng-repeat = "produto in produtos">
 												<td>
-													{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}
+													<div class="col-sm-12">
+														<div ng-show="produto.codVariacao == ''" class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+														<div ng-show="produto.codVariacao != ''" class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+														<div class="col-sm-11">{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}</div>
+													</div>
 												</td>
 												<td>
 													{{produto.quantidade}}
@@ -215,6 +219,9 @@
 									<label for="condPagamento">Condição de pagamento <span style="color: red;" ng-show="cadastroPedido.condPagamento.$error.required">*</span></label>
 									<div class="input-group spacer">
 										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCondicaoPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -222,6 +229,8 @@
 									<label for="nomeCliente">Forma de pagamento  <span style="color: red;" ng-show="cadastroPedido.formaPagamento.$error.required">*</span></label>
 									<div class="input-group spacer">
 										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+
+										<!-- <input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaFormaPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -229,7 +238,7 @@
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="4" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -252,9 +261,12 @@
 											<tbody>
 												<tr ng-repeat = "produto in produtos">
 													<td>
+														<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+														<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 														<p>{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}} <p>
-														<p style="font-size: 0.8em;"><b>Estoque: </b>{{produto.estoque}}</p>
-														<p style="font-size: 0.8em;"><b>Un. medida: </b>{{produto.unidMedida}}</p>
+															
+														<p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p>
+														<p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p>
 													</td>
 													<td>
 														{{produto.precoTabela | currency:'R$ '}}
@@ -354,6 +366,33 @@
 		</div>
 	
 	</div>
+
+	<script type="text/ng-template" id="templateAutoCompleteProduto">
+		<a>
+			<table>
+				<tr>
+					<td style="padding-right: 25px;">
+						<div ng-show="match.model.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src="/clicvenda/produtos/{{$parent.$parent.$parent.subdomain}}/{{match.model.codExterno}}.jpg" onerror='this.src="images/icon/semimagem.png"' style='width: 64px;'/></div>
+						<div ng-show="match.model.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src="/clicvenda/produtos/{{$parent.$parent.$parent.subdomain}}/{{match.model.codExterno}}_{{match.model.codVariacao}}.jpg" onerror='this.src="images/icon/semimagem.png"' style='width: 64px;'/></div>
+					</td>			
+					<td>
+						<div class="row">
+							<div class="col-md-12">{{match.model.nome}} - {{match.model.codVariacao}}</div>				
+						</div>
+						<div class="row">
+							<div class="col-md-12">Estoque: {{match.model.qtdeEstoque}}</div>				
+						</div>				
+						<div class="row">
+							<div class="col-md-12">Preço: {{match.model.preco}}</div>				
+						</div>
+						<div class="row">
+							<div class="col-md-12">Tab. Preço: {{match.model.codTpr}}</div>				
+						</div>												
+					</td>
+				</tr>
+			</table>
+		</a>
+	 </script>
 	<!-- View --> 
 
 <!-- Scripts importados -->
@@ -397,6 +436,8 @@ angular
 		$scope.exibeHistoricos		= false;
 
 		$rootScope.isLoading 		= false;
+
+		$rootScope.subdomain		= dadosUserLogado.cSubdominio;
 		
 		/* Inicializa filtros */
 		$scope.filCliente 			= "";
@@ -512,13 +553,37 @@ angular
 			}
 			}).then(function(response){              
 				return response.data.map(function(item){
-					console.log(item, "condição")
 					return item;
 				});
 			});
 		};
 
-		$scope.onSelectCond = function ($item, $model, $label) {			
+		$scope.getCondicaoPagamentoERP = async (consulta) => {
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 750,
+						pRotina	   : 'filtrarCondPagamento',
+						pCodCli    : dadosUserLogado.rId,
+						pFilter    : {filtro:{filtroCondPag : consulta}},
+					}
+				);
+										
+				if(result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						return item
+					})
+				}else{
+					return [];
+				}
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+
+		}
+
+		$scope.onSelectCond = function ($item, $model, $label) {		
 			$scope.condPagamento = $item;
 		};
 
@@ -535,7 +600,6 @@ angular
 					}
 				}).then(function(response){
 					return response.data.map(function(item){
-						console.log(item, "forma pag")
 						return item;
 					});
 				});
@@ -544,7 +608,33 @@ angular
 			}			
 		};
 
-		$scope.onSelectForma = function ($item, $model, $label) {						
+		$scope.getFormasPagamentoERP = async (consulta) => {
+
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 750,
+						pRotina	   : 'filtrarFormaPagamento',
+						pCodCli    : dadosUserLogado.rId,
+						pFilter    : {filtro:{filtroFormaPag : consulta}},
+					}
+				);
+										
+				if(result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						return item
+					})
+				}else{
+					return [];
+				}
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+
+		}
+
+		$scope.onSelectForma = function ($item, $model, $label) {					
 			$scope.formaPagamento = $item;			
 		};
 		
@@ -709,7 +799,6 @@ angular
 		};
 
 		$scope.getProdutosERP = async (consulta) => {
-
 			try{
 				let result = await $scope.executaRequisicaoExterna(
 					{
@@ -722,14 +811,12 @@ angular
 				);
 										
 				if(result.resultado != undefined){
-					return result.resultado.map((item)=>{
+					return result.resultado.slice(0, 8).map((item)=>{
 						return item
 					})
 				}else{
 					return [];
 				}
-				
-
 			}catch(err){
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
@@ -1329,7 +1416,7 @@ angular
 <style>
 
 :root {
-		--cor_principal: #ca0008;
+		--cor_principal: #1a6c95;
 	}
 
 	h5{
