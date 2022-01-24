@@ -371,8 +371,8 @@
 				<tr>
 					<td style="padding-right: 25px;">
 						<!-- <img ng-src="images/icon/semimagem.png" width="64" /> -->
-						<img ng-show="match.model.codVariacao != ''" ng-src="/clicvenda/produtos/{{subdomain}}/{{match.model.codExterno}}_{{match.model.codVariacao}}.jpg" onerror='this.src="images/icon/semimagem.png"' width="64"/>
-						<img ng-show="match.model.codVariacao == ''" ng-src="/clicvenda/produtos/{{subdomain}}/{{match.model.codExterno}}.jpg" onerror='this.src="images/icon/semimagem.png"' width="64"/>
+						<!-- <img  ng-src="/clicvenda/produtos/{{subdomain}}/{{match.model.codExterno}}_{{match.model.codVariacao}}.jpg" onerror='this.src="images/icon/semimagem.png"' width="64"/> -->
+						<img ng-src="/clicvenda/produtos/{{subdomain}}/{{match.model.codExterno}}.jpg" onerror='this.src="images/icon/semimagem.png"' width="64"/>
 					</td>			
 					<td>
 						<div class="row">
@@ -471,7 +471,7 @@ angular
 			return listAllDocs;
 		};
 
-		console.log("2222")
+		console.log("TESTE")
 
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
