@@ -519,7 +519,7 @@ angular
 		};
 
 		$scope.onSelectCond = function ($item, $model, $label) {	
-			console.log(item, "condição select")		
+			console.log($item, "condição select")		
 			$scope.condPagamento = $item;
 		};
 
@@ -546,7 +546,7 @@ angular
 		};
 		console.log("teste")
 		$scope.onSelectForma = function ($item, $model, $label) {	
-			console.log(item, "forma select")					
+			console.log($item, "forma select")					
 			$scope.formaPagamento = $item;			
 		};
 		
