@@ -518,7 +518,8 @@ angular
 			});
 		};
 
-		$scope.onSelectCond = function ($item, $model, $label) {			
+		$scope.onSelectCond = function ($item, $model, $label) {	
+			console.log(item, "condição select")		
 			$scope.condPagamento = $item;
 		};
 
@@ -543,8 +544,9 @@ angular
 				return "";
 			}			
 		};
-
-		$scope.onSelectForma = function ($item, $model, $label) {						
+		console.log("teste")
+		$scope.onSelectForma = function ($item, $model, $label) {	
+			console.log(item, "forma select")					
 			$scope.formaPagamento = $item;			
 		};
 		
