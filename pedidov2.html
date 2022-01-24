@@ -372,7 +372,8 @@
 					<td style="padding-right: 25px;">
 						<!-- <img ng-src="images/icon/semimagem.png" width="64" /> -->
 						<!-- <img  ng-src="/clicvenda/produtos/{{subdomain}}/{{match.model.codExterno}}_{{match.model.codVariacao}}.jpg" onerror='this.src="images/icon/semimagem.png"' width="64"/> -->
-						<img ng-src="/clicvenda/produtos/{{subdomain}}/{{match.model.codExterno}}.jpg" onerror='this.src="images/icon/semimagem.png"' width="64"/>
+						<div ng-show="match.model.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src="/clicvenda/produtos/{{subdomain}}/{{match.model.codExterno}}.jpg" onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+						<div ng-show="match.model.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src="/clicvenda/produtos/{{subdomain}}/{{match.model.codExterno}}_{{match.model.codVariacao}}.jpg" onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 					</td>			
 					<td>
 						<div class="row">
@@ -471,7 +472,7 @@ angular
 			return listAllDocs;
 		};
 
-		console.log("TESTE")
+		console.log("TESTE2")
 
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
@@ -818,7 +819,7 @@ angular
 				);
 										
 				if(result.resultado != undefined){
-					return result.resultado.slice(0, 10).map((item)=>{
+					return result.resultado.slice(0, 8).map((item)=>{
 						return item
 					})
 				}else{
