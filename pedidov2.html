@@ -163,9 +163,9 @@
 											<tr ng-repeat = "produto in produtos">
 												<td>
 													<div class="col-sm-12">
-														<div ng-show="produto.codVariacao == ''" class='col-sm-3 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
-														<div ng-show="produto.codVariacao != ''" class='col-sm-3 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
-														<div class="col-sm-9">{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}</div>
+														<div ng-show="produto.codVariacao == ''" class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+														<div ng-show="produto.codVariacao != ''" class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+														<div class="col-sm-11">{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}</div>
 													</div>
 												</td>
 												<td>
@@ -377,7 +377,7 @@
 					</td>			
 					<td>
 						<div class="row">
-							<div class="col-md-12">{{match.model.nome}} - {{match-model.codVariacao}}</div>				
+							<div class="col-md-12">{{match.model.nome}} - {{match.model.codVariacao}}</div>				
 						</div>
 						<div class="row">
 							<div class="col-md-12">Estoque: {{match.model.qtdeEstoque}}</div>				
