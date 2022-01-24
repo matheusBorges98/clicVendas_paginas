@@ -518,6 +518,31 @@ angular
 			});
 		};
 
+		$scope.getCondicaoPagamentoERP = async (consulta) => {
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 750,
+						pRotina	   : 'filtrarCondPagamento',
+						pCodCli    : dadosUserLogado.rId,
+						pFilter    : {filtro:{filtroCondPag : consulta}},
+					}
+				);
+										
+				if(result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						return item
+					})
+				}else{
+					return [];
+				}
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+
+		}
+
 		$scope.onSelectCond = function ($item, $model, $label) {	
 			console.log($item, "condição select")		
 			$scope.condPagamento = $item;
@@ -544,7 +569,33 @@ angular
 				return "";
 			}			
 		};
-		console.log("3")
+
+		$scope.getFormasPagamentoERP = async (consulta) => {
+
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 750,
+						pRotina	   : 'filtrarFormaPagamento',
+						pCodCli    : dadosUserLogado.rId,
+						pFilter    : {filtro:{filtroFormaPag : consulta}},
+					}
+				);
+										
+				if(result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						return item
+					})
+				}else{
+					return [];
+				}
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+
+		}
+
 		$scope.onSelectForma = function ($item, $model, $label) {	
 			console.log($item, "forma select")					
 			$scope.formaPagamento = $item;			
@@ -710,6 +761,8 @@ angular
 			return result
 		};
 
+		console.log("AA")
+
 		$scope.getProdutosERP = async (consulta) => {
 
 			try{
@@ -723,15 +776,17 @@ angular
 					}
 				);
 										
+				// if(result.resultado != undefined){
+				// 	return result.resultado.map((item)=>{
+				// 		return item
+				// 	})
 				if(result.resultado != undefined){
-					return result.resultado.map((item)=>{
+					return result.resultado.slice(0, 8).map((item)=>{
 						return item
 					})
 				}else{
 					return [];
 				}
-				
-
 			}catch(err){
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
