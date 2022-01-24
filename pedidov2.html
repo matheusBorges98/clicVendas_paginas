@@ -163,7 +163,7 @@
 											<tr ng-repeat = "produto in produtos">
 												<td>
 													{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}
-													<div class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/"+subdomain+"/"+img+"' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+													<div class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{codExterno}}' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 												</td>
 												<td>
 													{{produto.quantidade}}
@@ -406,7 +406,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		$rootScope.subdomain		= dadosUserLogado.cContextIntegracao;
+		$rootScope.subdomain		= dadosUserLogado.cSubdominio;
 		
 		/* Inicializa filtros */
 		$scope.filCliente 			= "";
@@ -420,8 +420,6 @@ angular
 		
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
-
-		console.log(dadosUserLogado)
 
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
