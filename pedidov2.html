@@ -163,6 +163,7 @@
 											<tr ng-repeat = "produto in produtos">
 												<td>
 													{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}
+													<div class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/"+subdomain+"/"+img+"' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 												</td>
 												<td>
 													{{produto.quantidade}}
@@ -215,6 +216,9 @@
 									<label for="condPagamento">Condição de pagamento <span style="color: red;" ng-show="cadastroPedido.condPagamento.$error.required">*</span></label>
 									<div class="input-group spacer">
 										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCondicaoPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -222,6 +226,8 @@
 									<label for="nomeCliente">Forma de pagamento  <span style="color: red;" ng-show="cadastroPedido.formaPagamento.$error.required">*</span></label>
 									<div class="input-group spacer">
 										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+
+										<!-- <input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaFormaPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -252,7 +258,9 @@
 											<tbody>
 												<tr ng-repeat = "produto in produtos">
 													<td>
+														<div class="thumbnail pull-left" style="margin:0"> <img class="media-object" ng-src="/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg"  onerror="this.src='images/icon/semimagem.png'" style='width: 80px;'></div>
 														<p>{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}} <p>
+															
 														<p style="font-size: 0.8em;"><b>Estoque: </b>{{produto.estoque}}</p>
 														<p style="font-size: 0.8em;"><b>Un. medida: </b>{{produto.unidMedida}}</p>
 													</td>
@@ -397,6 +405,8 @@ angular
 		$scope.exibeHistoricos		= false;
 
 		$rootScope.isLoading 		= false;
+
+		$rootScope.subdomain		= dadosUserLogado.cContextIntegracao;
 		
 		/* Inicializa filtros */
 		$scope.filCliente 			= "";
@@ -764,7 +774,6 @@ angular
 		console.log("AA")
 
 		$scope.getProdutosERP = async (consulta) => {
-
 			try{
 				let result = await $scope.executaRequisicaoExterna(
 					{
@@ -776,12 +785,8 @@ angular
 					}
 				);
 										
-				// if(result.resultado != undefined){
-				// 	return result.resultado.map((item)=>{
-				// 		return item
-				// 	})
 				if(result.resultado != undefined){
-					return result.resultado.slice(0, 8).map((item)=>{
+					return result.resultado.slice(0, 10).map((item)=>{
 						return item
 					})
 				}else{
