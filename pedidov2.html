@@ -236,7 +236,7 @@
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="4" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -364,6 +364,30 @@
 		</div>
 	
 	</div>
+
+	<script type="text/ng-template" id="templateAutoCompleteProduto">
+		<a>
+			<table>
+				<tr>
+					<td style="padding-right: 25px;">
+						<!-- <img ng-src="images/icon/semimagem.png" width="64" /> -->
+						<img ng-src="/clicvenda/produtos/{{$parent.$parent.$parent.subdomain}}/{{match.model.produto.codExterno.replace('/','')}}.jpg" onerror="this.src = 'images/icon/semimagem.png';" width="64"/>
+					</td>			
+					<td>
+						<div class="row">
+							<div class="col-md-12">{{match.model.nome}}</div>				
+						</div>
+						<div class="row">
+							<div class="col-md-12">Estoque: {{match.model.qtdeEstoque}}</div>				
+						</div>				
+						<div class="row">
+							<div class="col-md-12">Preço: {{match.model.preco}}</div>				
+						</div>											
+					</td>
+				</tr>
+			</table>
+		</a>
+	 </script>
 	<!-- View --> 
 
 <!-- Scripts importados -->
@@ -442,6 +466,8 @@ angular
 
 			return listAllDocs;
 		};
+
+		console.log("TESTE")
 
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
