@@ -229,7 +229,7 @@
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue) | filter:$viewValue | limitTo:8" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="4" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue) | filter:$viewValue | limitTo:5" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="4" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -544,7 +544,7 @@ angular
 				return "";
 			}			
 		};
-		console.log("3")
+		console.log("1")
 		$scope.onSelectForma = function ($item, $model, $label) {	
 			console.log($item, "forma select")					
 			$scope.formaPagamento = $item;			
@@ -723,10 +723,12 @@ angular
 					}
 				);
 										
+				// if(result.resultado != undefined){
+				// 	return result.resultado.map((item)=>{
+				// 		return item
+				// 	})
 				if(result.resultado != undefined){
-					return result.resultado.map((item)=>{
-						return item
-					})
+					return result.resultado
 				}else{
 					return [];
 				}
