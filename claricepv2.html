@@ -512,6 +512,7 @@ angular
 			}
 			}).then(function(response){              
 				return response.data.map(function(item){
+					console.log(item, "condição")
 					return item;
 				});
 			});
@@ -534,6 +535,7 @@ angular
 					}
 				}).then(function(response){
 					return response.data.map(function(item){
+						console.log(item, "forma pag")
 						return item;
 					});
 				});
