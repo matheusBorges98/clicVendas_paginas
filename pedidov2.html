@@ -163,7 +163,8 @@
 											<tr ng-repeat = "produto in produtos">
 												<td>
 													{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}
-													<div class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{codExterno}}' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+													<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 												</td>
 												<td>
 													{{produto.quantidade}}
