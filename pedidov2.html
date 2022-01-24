@@ -162,9 +162,11 @@
 										<tbody>
 											<tr ng-repeat = "produto in produtos">
 												<td>
-													{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}
-													<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
-													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+													<div class="col-sm-12">
+														<div ng-show="produto.codVariacao == ''" class='col-sm-3 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+														<div ng-show="produto.codVariacao != ''" class='col-sm-3 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+														<div class="col-sm-9">{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}</div>
+													</div>
 												</td>
 												<td>
 													{{produto.quantidade}}
@@ -263,8 +265,8 @@
 														<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 														<p>{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}} <p>
 															
-														<p style="font-size: 0.8em;"><b>Estoque: </b>{{produto.estoque}}</p>
-														<p style="font-size: 0.8em;"><b>Un. medida: </b>{{produto.unidMedida}}</p>
+														<p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p>
+														<p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p>
 													</td>
 													<td>
 														{{produto.precoTabela | currency:'R$ '}}
@@ -470,7 +472,7 @@ angular
 			return listAllDocs;
 		};
 
-		console.log("TESTE7")
+		console.log("TESTE8")
 
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
