@@ -587,7 +587,7 @@ angular
 
 			console.log(result, "result")
 
-			let listAllDocs = result != null ? result.data.parametros.documentos : [];
+			let listAllDocs = result.data.parametros != null ? result.data.parametros.documentos : [];
 
 			for(doc of listAllDocs){
 				doc.jsonDocs = JSON.parse(doc.jsonDocs);
@@ -599,7 +599,7 @@ angular
 			return listAllDocs;
 		};
 
-		console.log("AB")
+		console.log("X")
 
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
