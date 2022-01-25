@@ -725,8 +725,8 @@ angular
 					return response.data;
 				}, 1000); // 5 seconds max for this set of operations
 			}catch(err){
-				$scope.geraNotificacao("Não foi possível finalizar a sincronização no momento. "+err+"", 5000, 'danger')
-				console.error('[Timeout] Não foi possível finalizar a sincronização no momento.', err);
+				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
+				console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
 			};
 		};
 
