@@ -456,8 +456,6 @@ angular
 		
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
-
-		console.log("TESTE445X")
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -705,12 +703,11 @@ angular
 		};
 
 		/*Tempo limite para funções*/
-		
 		const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
 			cb(resolve);
-			setTimeout(() => reject('A requisição demorou muito para responde, por favor tente novamente mais tarde.'), timeout);
+			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
-		console.log("C")	
+		
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 10) => {
 			try {
 				await setAsyncTimeout(async done => {
@@ -719,7 +716,7 @@ angular
 					done();
 					
 					return response.data;
-				}, timeLimit * 1000); // 5 seconds max for this set of operations
+				}, timeLimit * 1000); // limite em segundos
 			}catch(err){
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
 				console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
@@ -727,6 +724,8 @@ angular
 		};
 
 		$scope.consultaPedidosERP = async () => {
+
+			/*Precisa alterar na regra para pegar apenas pelo numero do pedido.*/
 			
 			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc && Number(doc.jsonDocs[0].pedido) > 0);
 			let consulta 			= [];
@@ -1053,7 +1052,6 @@ angular
 		};
 
 		$scope.removerProduto = ($item) => {
-			console.log($item)
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno !== $item.codExterno && item.codVariacao !== $item.codVariacao);
 
 			$scope.calcularProdutos();
