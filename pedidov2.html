@@ -708,7 +708,7 @@ angular
 		
 		const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
 			cb(resolve);
-			setTimeout(() => reject('A requisição demorou muito para responder.'), timeout);
+			setTimeout(() => reject('A requisição demorou muito para responde, por favor tente novamente mais tarde.'), timeout);
 		});
 		console.log("C")	
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 10) => {
@@ -716,14 +716,10 @@ angular
 				await setAsyncTimeout(async done => {
 					
 					let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-					
-					setTimeout(()=>{
-						done();
-					},16000)
-										
+					done();
 					
 					return response.data;
-				}, 1000); // 5 seconds max for this set of operations
+				}, timeLimit * 1000); // 5 seconds max for this set of operations
 			}catch(err){
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
 				console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
