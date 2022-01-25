@@ -559,6 +559,8 @@ angular
 		$scope.exibeFormulario 		= false; 
 		$scope.exibeListaDocumentos = true;
 
+		$rootScope.subdomain		= dadosUserLogado.cSubdominio;
+
 		$rootScope.isLoading 		= false;
 		
 		/* Inicializa filtros */
@@ -1775,7 +1777,7 @@ angular
 			});
 
 		};
-
+		console.log("A")
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
 					
@@ -1812,7 +1814,7 @@ angular
 					var imgProdutoHtml = '';
 
 					imgProdutoHtml += "<div class='col-sm-12'>"
-					imgProdutoHtml += "<div class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/"+$rootScope.subdominio+"/"+img+".jpg' onerror='this.src='images/icon/semimagem.png'' style='width: 80px;'></div>";
+					imgProdutoHtml += "<div class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/"+$rootScope.subdomain+"/"+img+"' onerror='this.src='images/icon/semimagem.png'' style='width: 80px;'></div>";
 					imgProdutoHtml += "<div class='col-sm-11'>"+row.codExterno+" - "+row.descricao+" - "+row.codVariacao+"</div>";
 					imgProdutoHtml += "</div>"
 					
