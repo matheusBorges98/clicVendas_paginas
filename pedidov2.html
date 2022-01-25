@@ -457,7 +457,7 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTE445")
+		console.log("TESTE445X")
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -722,7 +722,7 @@ angular
 			})
 		}
 		
-		$scope.executaRequisicaoExterna = ($json) => {
+		$scope.executaRequisicaoExterna = async ($json) => {
 			try {
 					const { data } = await asyncCallWithTimeout(requisicaoExterna, 100);
 					console.log(data);
