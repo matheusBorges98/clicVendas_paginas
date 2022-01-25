@@ -163,9 +163,13 @@
 										<label for="codPro">Localizar Produto</label>
 										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 										<div class="input-group spacer">
-											<input type="text" ng-disabled="inputDesabilitado" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" typeahead-template-url="templateAutoCompleteProduto">
+											<input type="text" ng-disabled="inputDesabilitado" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" typeahead-template-url="templateAutoCompleteProduto">
 											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 										</div>
+										<i ng-show="loadingProd" class="glyphicon glyphicon-refresh"></i>
+										<div ng-show="noResults">
+											<i class="glyphicon glyphicon-remove"></i> Sem Resultados
+										</div>	
 									</div>
 
 									<div class="col-sm-5 spacer">
@@ -861,7 +865,7 @@ angular
 			dialog.modal('hide');
 			$rootScope.isLoading = false;
 			
-			if(result !=""){
+			if(result !="" && !isNaN(parseInt(result))){
 				for(k = 0; k < pedidosGravadosERP.length; k++){				
 					let dadosAtualizados = result.resultado.filter(res => res.pedNumped == pedidosGravadosERP[k].jsonDocs[0].pedNumped && res.produto[0].ipdCodPro == pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno);
 
