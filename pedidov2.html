@@ -704,59 +704,28 @@ angular
 			$scope.filSincronizado	= $item;
 		};
 
-	/*Tempo limite para funções*/
-
-		// const asyncCallWithTimeout = async (asyncPromise, timeLimit) => {
-		// 	let timeoutHandle;
-
-		// 	const timeoutPromise = new Promise((_resolve, reject) => {
-		// 		timeoutHandle = setTimeout(
-		// 			() => reject(new Error('Async call timeout limit reached')),
-		// 			timeLimit
-		// 		);
-		// 	});
-
-		// 	return Promise.race([asyncPromise, timeoutPromise]).then(result => {
-		// 		clearTimeout(timeoutHandle);
-		// 		return result;
-		// 	})
-		// }
-		
-		// $scope.executaRequisicaoExterna = async ($json) => {
-		// 	try {
-		// 			const { data } = await asyncCallWithTimeout($scope.requisicaoExterna(), 100);
-		// 			console.log(data);
-		// 		}
-		// 		catch (err) {
-		// 			console.error(err);
-		// 	}
-		
-		// };
-
-		console.log("z")
+		/*Tempo limite para funções*/
+		console.log("TEMPO")
 
 		const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
 			cb(resolve);
 			setTimeout(() => reject('A requisição demorou muito para responder.'), timeout);
 		});
 						
-		$scope.executaRequisicaoExterna = async ($json) => {
-				try {
-					await setAsyncTimeout(async done => {
-						
-						// let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-						setTimeout(()=>{done();},10000)		
-						
-						
-						//return response.data;
-					}, 50); // 5 seconds max for this set of operations
-				}catch(err){
+		$scope.executaRequisicaoExterna = async ($json, timeLimit = 10) => {
+			try {
+				await setAsyncTimeout(async done => {
+					
+					let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+					done();					
+					
+					return response.data;
+				}, timeLimit * 1000); // 5 seconds max for this set of operations
+			}catch(err){
+				$scope.geraNotificacao("Não foi possível finalizar a sincronização no momento. ", err , 5000, 'danger')
 				console.error('[Timeout] Não foi possível finalizar a sincronização no momento.', err);
 			};
-
 		};
-
-	
 
 		$scope.consultaPedidosERP = async () => {
 			
@@ -787,7 +756,8 @@ angular
 					pRotina	   	 : 'listarPedidosAmostras',
 					pCodCli    	 : dadosUserLogado.rId,
 					pListaPedido : {lista:{pedidos : consulta}},
-				}
+				},
+				15//limite de espera em segundos
 			);
 
 			dialog.modal('hide');
