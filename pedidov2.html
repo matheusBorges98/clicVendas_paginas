@@ -710,7 +710,7 @@ angular
 			cb(resolve);
 			setTimeout(() => reject('A requisição demorou muito para responder.'), timeout);
 		});
-		console.log("AAA")	
+		console.log("C")	
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 10) => {
 			try {
 				await setAsyncTimeout(async done => {
@@ -725,7 +725,7 @@ angular
 					return response.data;
 				}, 1000); // 5 seconds max for this set of operations
 			}catch(err){
-				$scope.geraNotificacao("Não foi possível finalizar a sincronização no momento. ", err , 5000, 'danger')
+				$scope.geraNotificacao("Não foi possível finalizar a sincronização no momento. "+err+"", 5000, 'danger')
 				console.error('[Timeout] Não foi possível finalizar a sincronização no momento.', err);
 			};
 		};
