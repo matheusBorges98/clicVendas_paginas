@@ -1025,10 +1025,10 @@ angular
 			$scope.calcularProdutos();
 		};
 
-		console.log("teste")
+		console.log("x")
 		$scope.removerProduto = ($item) => {
 			console.log($item)
-			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
+			$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno !== $item.codExterno && item.codVariacao !== $item.codVariacao);
 
 			$scope.calcularProdutos();
 		};
