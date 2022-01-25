@@ -733,24 +733,25 @@ angular
 		
 		// };
 
-		console.log("xXXX")
+		console.log("z")
 
 		const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
 			cb(resolve);
-			setTimeout(() => reject('Request is taking too long to response'), timeout);
+			setTimeout(() => reject('A requisição demorou muito para responder.'), timeout);
 		});
 						
 		$scope.executaRequisicaoExterna = async ($json) => {
 				try {
 					await setAsyncTimeout(async done => {
 						
-						let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);		
-						done();
+						// let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+						setTimeout(()=>{done();},10000)		
 						
-						return response.data;
+						
+						//return response.data;
 					}, 50); // 5 seconds max for this set of operations
 				}catch(err){
-				console.error('[Timeout] Unable to complete the operation', err);
+				console.error('[Timeout] Não foi possível finalizar a sincronização no momento.', err);
 			};
 
 		};
