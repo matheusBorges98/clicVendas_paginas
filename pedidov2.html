@@ -457,7 +457,7 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTEZX")
+		console.log("TESTE445")
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -703,8 +703,37 @@ angular
 		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
 			$scope.filSincronizado	= $item;
 		};
+
+	/*Tempo limite para funções*/
+
+		const asyncCallWithTimeout = async (asyncPromise, timeLimit) => {
+			let timeoutHandle;
+
+			const timeoutPromise = new Promise((_resolve, reject) => {
+				timeoutHandle = setTimeout(
+					() => reject(new Error('Async call timeout limit reached')),
+					timeLimit
+				);
+			});
+
+			return Promise.race([asyncPromise, timeoutPromise]).then(result => {
+				clearTimeout(timeoutHandle);
+				return result;
+			})
+		}
+		
+		$scope.executaRequisicaoExterna = ($json) => {
+			try {
+					const { data } = await asyncCallWithTimeout(requisicaoExterna, 100);
+					console.log(data);
+				}
+				catch (err) {
+					console.error(err);
+			}
+		
+		};
 						
-		$scope.executaRequisicaoExterna = async ($json) => {
+		$scope.requisicaoExterna = async ($json) => {
 			try{
 				let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
 				
@@ -713,6 +742,8 @@ angular
 				console.log('erro', 'Não foi possível completar a requisição. Por favor, tente novamente mais tarde.');
 			};
 		};
+
+	
 
 		$scope.consultaPedidosERP = async () => {
 			
@@ -734,6 +765,7 @@ angular
 				closeButton: false
 			});
 			$rootScope.isLoading = true;
+
 
 			let result = await $scope.executaRequisicaoExterna(
 				{
