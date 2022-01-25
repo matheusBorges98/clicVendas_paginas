@@ -706,41 +706,45 @@ angular
 
 	/*Tempo limite para funções*/
 
-		const asyncCallWithTimeout = async (asyncPromise, timeLimit) => {
-			let timeoutHandle;
+		// const asyncCallWithTimeout = async (asyncPromise, timeLimit) => {
+		// 	let timeoutHandle;
 
-			const timeoutPromise = new Promise((_resolve, reject) => {
-				timeoutHandle = setTimeout(
-					() => reject(new Error('Async call timeout limit reached')),
-					timeLimit
-				);
-			});
+		// 	const timeoutPromise = new Promise((_resolve, reject) => {
+		// 		timeoutHandle = setTimeout(
+		// 			() => reject(new Error('Async call timeout limit reached')),
+		// 			timeLimit
+		// 		);
+		// 	});
 
-			return Promise.race([asyncPromise, timeoutPromise]).then(result => {
-				clearTimeout(timeoutHandle);
-				return result;
-			})
-		}
+		// 	return Promise.race([asyncPromise, timeoutPromise]).then(result => {
+		// 		clearTimeout(timeoutHandle);
+		// 		return result;
+		// 	})
+		// }
 		
-		$scope.executaRequisicaoExterna = async ($json) => {
-			try {
-					const { data } = await asyncCallWithTimeout(requisicaoExterna, 100);
-					console.log(data);
-				}
-				catch (err) {
-					console.error(err);
-			}
+		// $scope.executaRequisicaoExterna = async ($json) => {
+		// 	try {
+		// 			const { data } = await asyncCallWithTimeout($scope.requisicaoExterna(), 100);
+		// 			console.log(data);
+		// 		}
+		// 		catch (err) {
+		// 			console.error(err);
+		// 	}
 		
-		};
+		// };
 						
-		$scope.requisicaoExterna = async ($json) => {
+		$scope.executaRequisicaoExterna = async ($json) => {
 			try{
 				let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-				
+								
 				return response.data;
 			}catch(response){
 				console.log('erro', 'Não foi possível completar a requisição. Por favor, tente novamente mais tarde.');
 			};
+
+			setTimeout(()=>{
+				console.log('erro', 'NAO FOI');
+			},100)
 		};
 
 	
