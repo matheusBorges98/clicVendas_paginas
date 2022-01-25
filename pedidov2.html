@@ -454,9 +454,9 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTE2")
+		console.log("TESTE3")
 		$(window).scroll(function() {
-			if ($(window).scrollTop() + $(window.height() == $(document).height())){
+			if ($(window).scrollTop() + $(window.screen.height() == $(document).height())){
 				$( "#formEdicaoDocumento" ).css( "visibility", "hidden" ).fadeOut( "slow" );
 			}else{
 				$( "#formEdicaoDocumento" ).css( "visibility", "visible" ).fadeIn( "slow" );
