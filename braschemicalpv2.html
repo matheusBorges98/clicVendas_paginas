@@ -585,7 +585,7 @@ angular
 				data	: {param:{idCvTccnpj : dadosUserLogado.cId, id: hash}}	
 			});
 
-			let listAllDocs = result.data.parametros.documentos;
+			let listAllDocs = result != null ? result.data.parametros.documentos : [];
 
 			for(doc of listAllDocs){
 				doc.jsonDocs = JSON.parse(doc.jsonDocs);
@@ -1246,6 +1246,20 @@ angular
 			}); 
 		}
 
+		$scope.validaCodigos = async (numPed) => {
+
+			let validaNumPedidoClic = await $scope.consultaDocumento(numPed)
+
+			if(validaNumPedidoClic != []){
+				return false;
+			}else{
+				return true;
+			}
+
+		}
+
+		console.log("TESTE2")
+
 		$scope.salvarDocumento = async (rotina) => {
 			/*
 			Rotinas:
@@ -1256,7 +1270,11 @@ angular
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
 			let numPedidoClic		= $rootScope.numPedidoClic == '' ?  Math.floor(Math.random() * 87654321) +  Math.floor(Math.random() * 123456789) : $rootScope.numPedidoClic
 			
-			$scope.consultaDocumento(numPedidoClic)
+			/*Verifica se o número do pedido já não foi gravado - Numero gerado aleatoriamente.*/
+			let validaChaves 		=  await $scope.validaCodigos(numPedidoClic);
+			if(!validaChaves){
+				numPedidoClic = Math.floor(Math.random() * 120360520) +  Math.floor(Math.random() * 620340950)
+			}
 			
 			let id 					= $rootScope.idDocumento;
 			let jsonDocs			= [];
