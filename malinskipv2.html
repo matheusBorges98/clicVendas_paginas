@@ -238,10 +238,15 @@
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
+									<i ng-show="loadingProd" class="glyphicon glyphicon-refresh"></i>
+									<div ng-show="noResults">
+										<i class="glyphicon glyphicon-remove"></i> Sem Resultados
+									</div>	
 								</div>
+							
 
 								<div style="margin-top:5px" class="form-group col-md-12">
 									<div style="padding:0;" class="col-sm-12 spacer">
@@ -305,7 +310,7 @@
 									</div>
 
 									<div class="col-sm-12 spacer">
-										<h5>Total: </h5>{{valorTotal | currency:'R$ '}}
+										<h5>Total: </h5><h5 id="valorTotalPedido">{{valorTotal | currency:'R$ '}}</h5>
 									</div>	
 								</div>
 
@@ -451,7 +456,7 @@ angular
 		
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
-
+	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
@@ -696,18 +701,31 @@ angular
 		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
 			$scope.filSincronizado	= $item;
 		};
-						
-		$scope.executaRequisicaoExterna = async ($json) => {
-			try{
-				let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-				
-				return response.data;
-			}catch(response){
-				console.log('erro', 'Não foi possível completar a requisição. Por favor, tente novamente mais tarde.');
+
+		/*Tempo limite para funções*/
+		const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
+			cb(resolve);
+			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
+		});
+		
+		$scope.executaRequisicaoExterna = async ($json, timeLimit = 10) => {
+			try {
+				await setAsyncTimeout(async done => {
+					
+					let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+					done();
+					
+					return response.data;
+				}, timeLimit * 1000); // limite em segundos
+			}catch(err){
+				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
+				console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
 			};
 		};
 
 		$scope.consultaPedidosERP = async () => {
+
+			/*Precisa alterar na regra para pegar apenas pelo numero do pedido.*/
 			
 			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc && Number(doc.jsonDocs[0].pedido) > 0);
 			let consulta 			= [];
@@ -728,6 +746,7 @@ angular
 			});
 			$rootScope.isLoading = true;
 
+
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj 	 : dadosUserLogado.cId,
@@ -735,7 +754,8 @@ angular
 					pRotina	   	 : 'listarPedidosAmostras',
 					pCodCli    	 : dadosUserLogado.rId,
 					pListaPedido : {lista:{pedidos : consulta}},
-				}
+				},
+				15//limite de espera em segundos
 			);
 
 			dialog.modal('hide');
@@ -810,7 +830,7 @@ angular
 					}
 				);
 										
-				if(result != undefined && result.resultado != undefined){
+				if(result != undefined){
 					return result.resultado.slice(0, 8).map((item)=>{
 						return item
 					})
@@ -947,6 +967,12 @@ angular
 			}
 			
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
+
+			$('#valorTotalPedido').css({'font-weight':'800','color':'black', 'fontSize':'19px', }).fadeOut(400)
+			setTimeout(()=>{
+				$('#valorTotalPedido').css({'font-weight':'600','color':'#787878', 'fontSize':'17px', }).fadeIn(300)
+			}, 350)
+
 		}
 		
 		$scope.calculoValidacaoProdutoERP = async ($dados) =>{
@@ -1026,7 +1052,6 @@ angular
 		};
 
 		$scope.removerProduto = ($item) => {
-			console.log($item)
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno !== $item.codExterno && item.codVariacao !== $item.codVariacao);
 
 			$scope.calcularProdutos();
@@ -1413,7 +1438,6 @@ angular
 </body>
 
 </html>
-
 <style>
 
 :root {
