@@ -585,8 +585,6 @@ angular
 				data	: {param:{idCvTccnpj : dadosUserLogado.cId, id: hash}}	
 			});
 
-			console.log(result, "result")
-
 			let listAllDocs = result.data.parametros != null ? result.data.parametros.documentos : [];
 
 			for(doc of listAllDocs){
@@ -594,12 +592,8 @@ angular
 			}
 			$rootScope.listAllDocs = listAllDocs;
 
-			console.log($rootScope.listAllDocs, "CONSULTA")
-
 			return listAllDocs;
 		};
-
-		console.log("X")
 
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
@@ -1260,7 +1254,7 @@ angular
 
 		}
 
-		console.log("TESTE3")
+		console.log("TESTE4")
 
 		$scope.salvarDocumento = async (rotina) => {
 			/*
@@ -1797,7 +1791,7 @@ angular
 					.withDisplayLength(20)
 					.withDOM('tr');
 					
-				defPD = {	'descricao' 								:	{i:1, vsbl: true,	tlt: 'Produto',			width:''},
+				defPD = {	'descricao' 								:	{i:1, vsbl: false,	tlt: 'Produto',			width:''},
 							'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
 							'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
 							'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
@@ -1808,15 +1802,34 @@ angular
 				DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
 				var montaColunas = [];
 
+				montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Produto').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+					let img = row.codExterno.replace('/','')+".jpg";
+					
+					if (row.codVariacao.length > 0){
+						img = row.codExterno.replace('/','') + "_" + row.codVariacao.replace('/','') + ".jpg";
+					}
+					
+					var imgProdutoHtml = '';
+
+					imgProdutoHtml += "<div class='col-sm-12'>"
+					imgProdutoHtml += "<div class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/"+$rootScope.subdominio+"/"+img+".jpg' onerror='this.src='images/icon/semimagem.png'' style='width: 80px;'></div>";
+					imgProdutoHtml += "<div class='col-sm-11'>"+row.codExterno+" - "+row.descricao+" - "+codVariacao+"</div>";
+					imgProdutoHtml += "</div>"
+					
+					
+					return imgProdutoHtml;
+				}));
+
+			
+				angular.forEach(defPD, function(value, key) {
+					montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withClass('responsive').withOption('sWidth', value.width));
+				});
+
 				montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 					var btnhtml = '';				
 					btnhtml += "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(row)+")' ></div>";
 					return btnhtml;
 				}));
-
-				angular.forEach(defPD, function(value, key) {
-					montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withClass('responsive').withOption('sWidth', value.width));
-				});
 
 				$scope.dtColumnsProd = montaColunas;
 												
