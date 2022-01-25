@@ -191,59 +191,58 @@
 
 							<div style="margin-top:-25px" ng-show="sincronizado != 'DOCUMENTO_SINCRONIZADO' "  class="form-group col-md-12">
 								
-								<div id="formEdicaoDocumento">
-									<div class="col-sm-6 spacer">
-										<label for="nomeCliente">Cliente <span style="color: red;" ng-show="cadastroPedido.frmCliente.$error.required">*</span></label>
-										<div class="input-group spacer">
-											<input type="text" ng-model="frmCliente" name="frmCliente" required id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
-											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
-										</div>
-									</div>
-									<div class="col-sm-6 spacer">
-										<label for="nomeCliente">Endereço de entrega</label>
-										<div class="input-group spacer">
-											<input type="text" ng-model="frmEndEntrega" name="frmEndEntrega" placeholder="Informe o endereço de entrega" uib-typeahead="ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + ee.complemento for ee in getEndEntrega($viewValue)" typeahead-loading="loadingEE" typeahead-no-results="noResultsEE"  typeahead-on-select="onSelectEE($item, $model, $label)" class="form-control"  autocomplete="off" typeahead-min-length="0">
-											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaEndEntrega()"><i class="glyphicon glyphicon-remove"></i></span>
-										</div>
-									</div>
-
-									<div class="col-sm-6 spacer ">
-										<label for="prevEntrega">Previsão de entrega </label>
-										<input type="date" class="form-control" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
-									</div>
-									<div class="col-sm-6 spacer ">
-										<label for="representante">Representante</label>
-										<input type="text" readonly class="form-control" ng-model="representante" id="representante">
-									</div>
-								
-									<div class="col-sm-6 spacer">
-										<label for="condPagamento">Condição de pagamento <span style="color: red;" ng-show="cadastroPedido.condPagamento.$error.required">*</span></label>
-										<div class="input-group spacer">
-											<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-											
-											<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
-
-											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCondicaoPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
-										</div>
-									</div>
-									<div class="col-sm-6 spacer">
-										<label for="nomeCliente">Forma de pagamento  <span style="color: red;" ng-show="cadastroPedido.formaPagamento.$error.required">*</span></label>
-										<div class="input-group spacer">
-											<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-
-											<!-- <input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
-											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaFormaPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
-										</div>
-									</div>
-
-									<div style="margin-top:1.5%" class="col-sm-12">
-										<label class="spacer" for="codPro">Adicionar Produto</label>
-										<div class="input-group spacer">
-											<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
-											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
-										</div>
+								<div class="col-sm-6 spacer">
+									<label for="nomeCliente">Cliente <span style="color: red;" ng-show="cadastroPedido.frmCliente.$error.required">*</span></label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="frmCliente" name="frmCliente" required id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
+								<div class="col-sm-6 spacer">
+									<label for="nomeCliente">Endereço de entrega</label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="frmEndEntrega" name="frmEndEntrega" placeholder="Informe o endereço de entrega" uib-typeahead="ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + ee.complemento for ee in getEndEntrega($viewValue)" typeahead-loading="loadingEE" typeahead-no-results="noResultsEE"  typeahead-on-select="onSelectEE($item, $model, $label)" class="form-control"  autocomplete="off" typeahead-min-length="0">
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaEndEntrega()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+
+								<div class="col-sm-6 spacer ">
+									<label for="prevEntrega">Previsão de entrega </label>
+									<input type="date" class="form-control" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
+								</div>
+								<div class="col-sm-6 spacer ">
+									<label for="representante">Representante</label>
+									<input type="text" readonly class="form-control" ng-model="representante" id="representante">
+								</div>
+							
+								<div class="col-sm-6 spacer">
+									<label for="condPagamento">Condição de pagamento <span style="color: red;" ng-show="cadastroPedido.condPagamento.$error.required">*</span></label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCondicaoPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+								<div class="col-sm-6 spacer">
+									<label for="nomeCliente">Forma de pagamento  <span style="color: red;" ng-show="cadastroPedido.formaPagamento.$error.required">*</span></label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+
+										<!-- <input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaFormaPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+
+								<div style="margin-top:1.5%" class="col-sm-12">
+									<label class="spacer" for="codPro">Adicionar Produto</label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+							
 
 								<div style="margin-top:5px" class="form-group col-md-12">
 									<div style="padding:0;" class="col-sm-12 spacer">
@@ -307,7 +306,7 @@
 									</div>
 
 									<div class="col-sm-12 spacer">
-										<h5>Total: </h5>{{valorTotal | currency:'R$ '}}
+										<h5>Total: </h5 id="valorTotalPedido">{{valorTotal | currency:'R$ '}}
 									</div>	
 								</div>
 
@@ -454,16 +453,8 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTE3")
-		$(window).scroll(function() {
-			if ($(window).scrollTop() + $(window.screen.height() == $(document).height())){
-				$( "#formEdicaoDocumento" ).css( "visibility", "hidden" ).fadeOut( "slow" );
-			}else{
-				$( "#formEdicaoDocumento" ).css( "visibility", "visible" ).fadeIn( "slow" );
-			}
-		
-		});
-
+		console.log("TESTE5")
+	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
@@ -959,6 +950,16 @@ angular
 			}
 			
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
+
+			$('#valorTotalPedido').css({color:'green', fontSize:'18px', }).fadeIn(300)
+
+			setTimeout(()=>{
+				$('#valorTotalPedido').css({color:'black', fontSize:'14px', }).fadeOut(300)
+			}, 300)
+
+
+
+
 		}
 		
 		$scope.calculoValidacaoProdutoERP = async ($dados) =>{
