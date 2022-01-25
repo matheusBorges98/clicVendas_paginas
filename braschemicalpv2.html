@@ -592,6 +592,8 @@ angular
 			}
 			$rootScope.listAllDocs = listAllDocs;
 
+			console.log($rootScope.listAllDocs, "CONSULTA")
+
 			return listAllDocs;
 		};
 
@@ -1250,7 +1252,10 @@ angular
 			*/
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
-			let numPedidoClic		= $rootScope.numPedidoClic == '' ?  Math.floor(Math.random() * 87654321) +  Math.floor(Math.random() * 123456789) : $rootScope.numPedidoClic						
+			let numPedidoClic		= $rootScope.numPedidoClic == '' ?  Math.floor(Math.random() * 87654321) +  Math.floor(Math.random() * 123456789) : $rootScope.numPedidoClic
+			
+			$scope.consultaDocumento(numPedidoClic)
+			
 			let id 					= $rootScope.idDocumento;
 			let jsonDocs			= [];
 			let dados 				= {};
