@@ -919,7 +919,7 @@ angular
 			$rootScope.changeView($dados);
 			
 		};
-
+		console.log("teste 6")
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
@@ -951,10 +951,10 @@ angular
 			
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
 
-			$('#valorTotalPedido').css({color:'green', fontSize:'18px', }).fadeIn(300)
+			$('#valorTotalPedido').css({'color':'green', 'fontSize':'18px', }).fadeIn(300)
 
 			setTimeout(()=>{
-				$('#valorTotalPedido').css({color:'black', fontSize:'14px', }).fadeOut(300)
+				$('#valorTotalPedido').css({'color':'black', 'fontSize':'14px', }).fadeOut(300)
 			}, 300)
 
 
