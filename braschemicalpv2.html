@@ -585,6 +585,8 @@ angular
 				data	: {param:{idCvTccnpj : dadosUserLogado.cId, id: hash}}	
 			});
 
+			console.log(result, "result")
+
 			let listAllDocs = result != null ? result.data.parametros.documentos : [];
 
 			for(doc of listAllDocs){
@@ -597,7 +599,7 @@ angular
 			return listAllDocs;
 		};
 
-		console.log("A")
+		console.log("AB")
 
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
@@ -1258,7 +1260,7 @@ angular
 
 		}
 
-		console.log("TESTE2")
+		console.log("TESTE3")
 
 		$scope.salvarDocumento = async (rotina) => {
 			/*
@@ -1271,11 +1273,14 @@ angular
 			let numPedidoClic		= $rootScope.numPedidoClic == '' ?  Math.floor(Math.random() * 87654321) +  Math.floor(Math.random() * 123456789) : $rootScope.numPedidoClic
 			
 			/*Verifica se o número do pedido já não foi gravado - Numero gerado aleatoriamente.*/
-			let validaChaves 		=  await $scope.validaCodigos(numPedidoClic);
-			if(!validaChaves){
-				numPedidoClic = Math.floor(Math.random() * 120360520) +  Math.floor(Math.random() * 620340950)
+			if($rootScope.numPedidoClic == ''){
+				let validaChaves 		=  await $scope.validaCodigos(numPedidoClic);
+
+				if(!validaChaves){
+					numPedidoClic = Math.floor(Math.random() * 120360520) +  Math.floor(Math.random() * 620340950)
+				}
 			}
-			
+						
 			let id 					= $rootScope.idDocumento;
 			let jsonDocs			= [];
 			let dados 				= {};
@@ -1286,7 +1291,7 @@ angular
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
 				$rootScope.produtos[i].hashDoc 	= hashDoc;	
 			}
-			//$scope.adicionarProduto();
+
 			
 			dados.cnpj 				= {id: dadosUserLogado.cId};
 			
