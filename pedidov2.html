@@ -453,7 +453,7 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTE2")
+		console.log("32")
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -951,10 +951,10 @@ angular
 			
 			$scope.valorTotal = valorTotalCalc.toFixed(2);
 
-			$('#valorTotalPedido').css({'font-weight':'800', 'fontSize':'18px', }).fadeIn(300)
+			$('#valorTotalPedido').css({'font-weight':'800','color':'black', 'fontSize':'18px', }).fadeOut(400)
 			setTimeout(()=>{
-				$('#valorTotalPedido').css({'font-weight':'400', 'fontSize':'14px', }).fadeIn(300)
-			}, 300)
+				$('#valorTotalPedido').css({'font-weight':'500','color':'#787878', 'fontSize':'14px', }).fadeIn(300)
+			}, 420)
 
 		}
 		
