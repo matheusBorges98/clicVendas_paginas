@@ -829,6 +829,8 @@ angular
 						pFilter    : {filtro:{filtroProd : consulta}},
 					}
 				);
+
+				console.log(result, "produtos erp")
 										
 				if(result != undefined){
 					return result.resultado.slice(0, 8).map((item)=>{
