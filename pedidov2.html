@@ -707,15 +707,16 @@ angular
 			cb(resolve);
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
-		console.log("2")
+		console.log("3")
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 10) => {
 			try {
 				await setAsyncTimeout(async done => {
 					
 					let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-					done();
+					
 					console.log(response.data, "req ext")
 					return response.data;
+					done();
 					
 				}, timeLimit * 1000); // limite em segundos
 			}catch(err){
