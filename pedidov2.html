@@ -382,7 +382,7 @@
 					</td>			
 					<td>
 						<div class="row">
-							<div class="col-md-12">{{match.model.codExterno}} <b>|</b> {{match.model.nome}} <b>-</b>{{match.model.codVariacao}}</div>				
+							<div class="col-md-12">{{match.model.codExterno}} <b>|</b> {{match.model.nome}} <b>-</b> {{match.model.codVariacao}}</div>				
 						</div>
 						<div class="row">
 							<div class="col-md-12">Estoque: {{match.model.qtdeEstoque}}</div>				
@@ -1410,7 +1410,7 @@ angular
 				}); 
 			};
 		};
-
+		console.log("tes")
 		$scope.openNav = () => {
 			if(document.getElementById("mySidebar").style.width =="250px"){
 				document.getElementById("mySidebar").style.width = "0";
@@ -1442,7 +1442,7 @@ angular
 		--cor_principal: #1a6c95;
 	}
 
-	#templateAutoCompleteProduto>ul{
+	ul{
 		overflow-y: auto; 
 		max-height: 420px;
 	}
