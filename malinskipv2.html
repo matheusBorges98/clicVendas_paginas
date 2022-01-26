@@ -20,7 +20,7 @@
 <body>
 	<div class="container" ng-controller="MainController">
 		
-		<!--Primeira página-->
+		<!--Primeira p�gina-->
 		<div ng-show="exibeListaDocumentos">
 		
 			<!-- Sidebar Menu FILTRO -->
@@ -46,12 +46,12 @@
 					</div>
 																			
 					<div class="form-group">
-						<label for="filCarteira">Data Emissão</label>
+						<label for="filCarteira">Data Emiss�o</label>
 						<input type="text" style="width: 220px;" ui-mask="99/99/9999" class="form-control spacer-input" autocomplete="off" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
 					</div>
 
 					<div class="form-group">
-						<label for="projeto">Sincronização</label>
+						<label for="projeto">Sincroniza��o</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" ng-value="filSincronizado.nome" ng-model="filSincronizado" id="filSincronizado" uib-typeahead="(sincronizado.nome) for sincronizado in getFilScinronizacao($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectFilSincronizacao($item, $model, $label)">
 					</div>
 									
@@ -79,7 +79,7 @@
 			<!-- Tabela -->
 		
 		</div>
-		<!--Primeira página-->
+		<!--Primeira p�gina-->
 
 		<!-- FORM NOVO DOCUMENTO -->
 
@@ -89,7 +89,7 @@
 				<div class="spacer titulo vcenter col-sm-12">
 					<div class="col-sm-6 itens-titulo">
 						<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"><span class="glyphicon glyphicon-menu-left"></span>  Voltar</button>
-						<button style="text-align: center; width: 120px;" class="btn btn_acao_header btn_cor_padrao" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"><span class="glyphicon glyphicon-list-alt"></span> Histórico </button>
+						<button style="text-align: center; width: 120px;" class="btn btn_acao_header btn_cor_padrao" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"><span class="glyphicon glyphicon-list-alt"></span> Hist�rico </button>
 					</div>
 
 					<div class="col-sm-6">
@@ -106,7 +106,7 @@
 				
 					<div ng-hide="exibeHistoricos" class="col-sm-12 spacer">
 
-						<!-- Informações resumidas do pedido -->
+						<!-- Informa��es resumidas do pedido -->
 
 						<div class="row">
 							
@@ -117,20 +117,20 @@
 										<p>{{frmCliente.nome}}<p>
 									</div>
 									<div class="col-sm-6">
-										<h5>Endereço de entrega</h5>
+										<h5>Endere�o de entrega</h5>
 										<p>{{frmEndEntrega}}</p>
 									</div>
 
 									<div class="col-sm-2 spacer">
-										<h5>Data de emissão</h5>
+										<h5>Data de emiss�o</h5>
 										<p>{{dataEmissaoFormat}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
-										<h5>Previsão de entrega</h5>
+										<h5>Previs�o de entrega</h5>
 										<p ng-show="dataPrevEntregaFormatada != 'Invalid Date'" >{{dataPrevEntregaFormatada}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
-										<h5>Condição de pagamento</h5>
+										<h5>Condi��o de pagamento</h5>
 										<p>{{condPagamento.nome}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
@@ -155,7 +155,7 @@
 												<th>Produto</th>
 												<th>Quantidade</th>
 												<th>Valor und.</th>
-												<th>Desc. / Acrésc.</th>
+												<th>Desc. / Acr�sc.</th>
 												<th>Total item</th>
 											</tr>
 										</thead>
@@ -189,65 +189,115 @@
 								</div>
 							</div>
 
+							<!--ALTERAÇÂO SAMUEL-->
+
 							<div style="margin-top:-25px" ng-show="sincronizado != 'DOCUMENTO_SINCRONIZADO' "  class="form-group col-md-12">
 								
-								<div class="col-sm-6 spacer">
-									<label for="nomeCliente">Cliente <span style="color: red;" ng-show="cadastroPedido.frmCliente.$error.required">*</span></label>
-									<div class="input-group spacer">
-										<input type="text" ng-model="frmCliente" name="frmCliente" required id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
-										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
-									</div>
-								</div>
-								<div class="col-sm-6 spacer">
-									<label for="nomeCliente">Endereço de entrega</label>
-									<div class="input-group spacer">
-										<input type="text" ng-model="frmEndEntrega" name="frmEndEntrega" placeholder="Informe o endereço de entrega" uib-typeahead="ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + ee.complemento for ee in getEndEntrega($viewValue)" typeahead-loading="loadingEE" typeahead-no-results="noResultsEE"  typeahead-on-select="onSelectEE($item, $model, $label)" class="form-control"  autocomplete="off" typeahead-min-length="0">
-										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaEndEntrega()"><i class="glyphicon glyphicon-remove"></i></span>
-									</div>
+								<!--TIPO DE ORÇAMENTO-->
+								<div class="col-sm-6 spacer ">
+									<label for="tipoOrcamento">Tipo de orçamento</label>
+									<input type="text" class="form-control" ng-model="tipoOrcamento" id="tipoOrcamento">
 								</div>
 
+								<!-- FILIAl-->
 								<div class="col-sm-6 spacer ">
-									<label for="prevEntrega">Previsão de entrega </label>
-									<input type="date" class="form-control" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
+									<label for="filial">Filial</label>
+									<input type="text" class="form-control" ng-model="filial" id="filial">
 								</div>
+
+								<!-- TABELA DE PREÇO-->
+								<div class="col-sm-6 spacer ">
+									<label for="tabPreco">Tabela de preço</label>
+									<input type="text" class="form-control" ng-model="tabPreco" id="tabPreco">
+								</div>
+
+								<!--Cliente-->
+								<div class="col-sm-6 spacer ">
+									<label for="cliente">Cliente</label>
+									<input type="text" class="form-control" ng-model="cliente" id="cliente">
+								</div>
+
+								<!--FRETE-->
+								<div class="col-sm-6 spacer ">
+									<label for="frete">Frete</label>
+									<input type="text" class="form-control" ng-model="frete" id="frete">
+								</div>
+								
+								<!--TOTAL FRETE-->
+								<div class="col-sm-6 spacer ">
+									<label for="totalFrete">Total de frete</label>
+									<input type="text" class="form-control" ng-model="totalFrete" id="totalFrete">
+								</div>
+								
+								<!--TABELA FRETE-->
+								<div class="col-sm-6 spacer ">
+									<label for="tabelaFrete">Tabela de frete</label>
+									<input type="text" class="form-control" ng-model="tabelaFrete" id="tabelaFrete">
+								</div>
+
+								<!--VALIDADAE DE ORÇAMENTO-->
+
+								<div class="col-sm-6 spacer ">
+									<label for="validadeOrcamento">Validade do orçamento</label>
+									<input type="date" class="form-control" ng-model="validadeOrcamento" id="validadeOrcamento">
+								</div>
+
+								<!--EMISSÂO DO ORÇAMENTO-->
+
+								<div class="col-sm-6 spacer ">
+									<label for="emissaoOrcamento">Emissão do orçamento</label>
+									<input type="date" class="form-control" ng-model="emissaoOrcamento" id="emissaoOrcamento">
+								</div>
+
+								<!--SITUAÇÂO-->
+								<div class="col-sm-6 spacer ">									
+									<label for="situacao">Situação</label>
+									<input type="text" class="form-control" name="situacao" ng-model="situacao" id="situacao">
+								</div>
+	
+								<!--PREVISÂO DO CLIENTE-->
+								<div class="col-sm-3 spacer ">									
+									<label for="prevEntregCli">Previsão de entrega do cliente</label>
+									<input type="date" class="form-control" name="prevEntregCli" ng-model="prevEntregCli" id="prevEntregCli">
+								</div>
+
+								<!--DATA PREVISTA (ORIGINAL)-->
+								<div class="col-sm-3 spacer ">									
+									<label for="prevEntregCli">Data prevista PCP(original)</label>
+									<input type="date" class="form-control" name="prevEntregCli" ng-model="prevEntregCli" id="prevEntregCli">
+								</div>
+
+								<!--CAMPO CLEAN-->
 								<div class="col-sm-6 spacer ">
 									<label for="representante">Representante</label>
-									<input type="text" readonly class="form-control" ng-model="representante" id="representante">
+									<input type="text" class="form-control" ng-model="representante" id="representante">
+								</div>
+
+								<!--CONDIÇÂO DE PAGAMENTO-->
+								<div class="col-sm-6 spacer ">
+									<label for="condicaoPagamento">Condição de pagamento</label>
+									<input type="text" class="form-control" ng-model="condicaoPagamento" id="condicaoPagamento">
+								</div>
+
+								<!--FORMA DE PAGAMENTO-->
+								<div class="col-sm-6 spacer ">
+									<label for="formaPagamento">Forma de pagamento</label>
+									<input type="text" class="form-control" ng-model="formaPagamento" id="formaPagamento">
 								</div>
 							
-								<div class="col-sm-6 spacer">
-									<label for="condPagamento">Condição de pagamento <span style="color: red;" ng-show="cadastroPedido.condPagamento.$error.required">*</span></label>
-									<div class="input-group spacer">
-										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-										
-										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
-
-										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCondicaoPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
-									</div>
-								</div>
-								<div class="col-sm-6 spacer">
-									<label for="nomeCliente">Forma de pagamento  <span style="color: red;" ng-show="cadastroPedido.formaPagamento.$error.required">*</span></label>
-									<div class="input-group spacer">
-										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-
-										<!-- <input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
-										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaFormaPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
-									</div>
+								<!--OBSERVAÇÂO-->
+								<div class="col-sm-6 spacer ">
+									<label for="observação">Observação</label>
+									<textarea class="form-control spacer-input ng-pristine ng-valid ng-empty ng-touched" ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
 								</div>
 
-								<div style="margin-top:1.5%" class="col-sm-12">
-									<label class="spacer" for="codPro">Adicionar Produto</label>
-									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
-										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
-									</div>
-									<i ng-show="loadingProd" class="glyphicon glyphicon-refresh"></i>
-									<div ng-show="noResults">
-										<i class="glyphicon glyphicon-remove"></i> Sem Resultados
-									</div>	
+								<!--OC/PO-->
+								<div class="col-sm-6 spacer ">
+									<label for="numPedCliente">Numero pedido do cliente (OC/PO)</label>
+									<input type="text" class="form-control" ng-model="numPedCliente" id="numPedCliente">
 								</div>
-							
 
+								<!--ALTERAÇÂO SAMUEL-->
 								<div style="margin-top:5px" class="form-group col-md-12">
 									<div style="padding:0;" class="col-sm-12 spacer">
 									
@@ -255,10 +305,10 @@
 											<thead>
 												<tr>
 													<th>Produto</th>
-													<th>Preço Tab.</th>
+													<th>Pre�o Tab.</th>
 													<th>Quantidade</th>
 													<th>Vlr Negoc. (R$)</th>
-													<th>Desc./Acrésc. %</th>
+													<th>Desc./Acr�sc. %</th>
 													<th>Valor total</th>
 													<th></th>
 												</tr>
@@ -310,7 +360,7 @@
 									</div>
 
 									<div class="col-sm-12 spacer">
-										<h5>Total: </h5><h5 id="valorTotalPedido">{{valorTotal | currency:'R$ '}}</h5>
+										<h5>Total: </h5>{{valorTotal | currency:'R$ '}}
 									</div>	
 								</div>
 
@@ -322,7 +372,7 @@
 					<div ng-show="exibeHistoricos" class="col-sm-12">
 						<div class="form-row">
 							<div class="col-sm-12 spacer">
-									<label for="histOportunidade">Histórico</label>
+									<label for="histOportunidade">Hist�rico</label>
 									<textarea readonly class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
 							</div>
 						</div>
@@ -333,7 +383,7 @@
 						</div>
 						<div class="form-row">
 							<div class="col-sm-11 spacer">
-								<label for="obsOportunidade">Observação</label>
+								<label for="obsOportunidade">Observa��o</label>
 								<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
 							</div>
 							<div class="col-sm-1 spacer" style="padding-top: 30px;">
@@ -351,21 +401,21 @@
 			<!-- Capa do pedido -->
 						
 			<hr class="divider">
-			<!-- Ações sob o formulario -->
+			<!-- A��es sob o formulario -->
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" title="O pedido será finalizado e enviado ao ERP" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-show="pedido == 0 " ng-click="finalizarDocumento()"> Finalizar </button>
+						<button class="btn btn_grid btn-success" title="O pedido ser� finalizado e enviado ao ERP" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-show="pedido == 0 " ng-click="finalizarDocumento()"> Finalizar </button>
 					</div>	
 					<div class="btn-group">
 						<button class="btn" ng-click="changeView()"> Cancelar </button>
 					</div>
 					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" title="O pedido será salvo. Você ainda poderá editar e finalizar o pedido." ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-click="salvarDocumento(1)"> Salvar </button>
+						<button class="btn btn_grid btn_cor_padrao" title="O pedido ser� salvo. Voc� ainda poder� editar e finalizar o pedido." ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-click="salvarDocumento(1)"> Salvar </button>
 					</div>	
 				</div>
 			</div>
-			<!-- Ações sob o formulario -->
+			<!-- A��es sob o formulario -->
 			<hr class="divider">	
 
 		</div>
@@ -456,7 +506,7 @@ angular
 		
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
-	
+
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
@@ -701,7 +751,7 @@ angular
 		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
 			$scope.filSincronizado	= $item;
 		};
-
+						
 		/*Tempo limite para funções*/
 		const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
 			cb(resolve);
@@ -743,8 +793,7 @@ angular
 				closeButton: false
 			});
 			$rootScope.isLoading = true;
-
-
+			
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj 	 : dadosUserLogado.cId,
@@ -758,7 +807,8 @@ angular
 
 			dialog.modal('hide');
 			$rootScope.isLoading = false;
-		
+				
+			console.log(result, "res")
 			if(result !="" && !isNaN(parseInt(result))){
 				for(k = 0; k < pedidosGravadosERP.length; k++){				
 					
@@ -829,7 +879,7 @@ angular
 					}
 				);
 										
-				if(result != undefined){
+				if(result != undefined && result.resultado != undefined){
 					return result.resultado.slice(0, 8).map((item)=>{
 						return item
 					})
