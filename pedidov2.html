@@ -714,7 +714,8 @@ angular
 
 				await setAsyncTimeout(async done => {		
 					response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-					done();				
+					setTimeout(()=>{done();	}, 16000)
+								
 				}, timeLimit * 1000); // limite em segundos
 			
 				return response.data;
@@ -803,7 +804,8 @@ angular
 					pRotina	   : 'criarPedidoAmostra',
 					pCodCli    : dadosUserLogado.rId,
 					pDocumento : {documento : $item}
-				}		
+				},
+				20//limite tempo		
 			);
 
 			$rootScope.isLoading = false;
