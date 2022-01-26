@@ -375,7 +375,7 @@
 	<script type="text/ng-template" id="templateAutoCompleteProduto">
 		<a>
 			<table>
-				<tr>
+				<tr style="overflow-y: auto; max-height: 420px;">
 					<td style="padding-right: 25px;">
 						<div ng-show="match.model.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src="/clicvenda/produtos/{{$parent.$parent.$parent.subdomain}}/{{match.model.codExterno}}.jpg" onerror='this.src="images/icon/semimagem.png"' style='width: 64px;'/></div>
 						<div ng-show="match.model.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src="/clicvenda/produtos/{{$parent.$parent.$parent.subdomain}}/{{match.model.codExterno}}_{{match.model.codVariacao}}.jpg" onerror='this.src="images/icon/semimagem.png"' style='width: 64px;'/></div>
