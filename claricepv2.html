@@ -707,16 +707,18 @@ angular
 			cb(resolve);
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
-		
-		$scope.executaRequisicaoExterna = async ($json, timeLimit = 10) => {
+
+		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			try {
-				await setAsyncTimeout(async done => {
-					
-					let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-					done();
-					
-					return response.data;
+				let response;
+
+				await setAsyncTimeout(async done => {		
+					response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+					done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
+								
 				}, timeLimit * 1000); // limite em segundos
+			
+				return response.data;
 			}catch(err){
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
 				console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
@@ -733,9 +735,7 @@ angular
 			for(i = 0; i < pedidosGravadosERP.length; i++){
 				consulta.push(
 					{
-						numPed: pedidosGravadosERP[i].jsonDocs[0].pedido,
-						codPro: "CMPMS14",
-						codDer: "1GB"
+						numPed: pedidosGravadosERP[i].jsonDocs[0].pedido
 					}
 				)
 			};
@@ -802,7 +802,8 @@ angular
 					pRotina	   : 'criarPedidoAmostra',
 					pCodCli    : dadosUserLogado.rId,
 					pDocumento : {documento : $item}
-				}		
+				},
+				20//limite tempo		
 			);
 
 			$rootScope.isLoading = false;
@@ -823,7 +824,7 @@ angular
 				let result = await $scope.executaRequisicaoExterna(
 					{
 						idCvtccnpj : dadosUserLogado.cId,
-						numreg	   : 750,
+						numreg	   : 752,
 						pRotina	   : 'filtrarProduto',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroProd : consulta}},
@@ -1113,8 +1114,6 @@ angular
 			dados.cnpj 				= {id: dadosUserLogado.cId};
 
 			jsonDocs = [{
-				representante		: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
-
 				/*Historico*/
 				obsOportunidade	: $scope.obsOportunidade,
 				histOportunidade: $scope.histOportunidade,

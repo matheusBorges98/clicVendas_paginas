@@ -809,21 +809,23 @@ angular
 			}, 200);
 		};
 						
-			/*Tempo limite para funções*/
+		/*Tempo limite para funções*/
 		const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
 			cb(resolve);
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
-		
-		$scope.executaRequisicaoExterna = async ($json, timeLimit = 10) => {
+
+		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			try {
-				await setAsyncTimeout(async done => {
-					
-					let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-					done();
-					
-					return response.data;
+				let response;
+
+				await setAsyncTimeout(async done => {		
+					response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+					done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
+								
 				}, timeLimit * 1000); // limite em segundos
+			
+				return response.data;
 			}catch(err){
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
 				console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
@@ -859,7 +861,7 @@ angular
 					pCodCli    	 : dadosUserLogado.rId,
 					pListaPedido : {lista:{pedidos : consulta}},
 				},
-				15//limite de espera em segundos
+				20//limite de espera em segundos
 			);
 						
 			dialog.modal('hide');

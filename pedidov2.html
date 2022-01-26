@@ -736,8 +736,6 @@ angular
 				consulta.push(
 					{
 						numPed: pedidosGravadosERP[i].jsonDocs[0].pedido
-						// codPro: "CMPMS14",
-						// codDer: "1GB"
 					}
 				)
 			};
@@ -821,8 +819,6 @@ angular
 			return result
 		};
 
-		console.log("TESTE")
-
 		$scope.getProdutosERP = async (consulta) => {
 			try{
 				let result = await $scope.executaRequisicaoExterna(
@@ -834,8 +830,6 @@ angular
 						pFilter    : {filtro:{filtroProd : consulta}},
 					}
 				);
-
-				console.log(result, "produtos erp")
 										
 				if(result != undefined){
 					return result.resultado.slice(0, 8).map((item)=>{
