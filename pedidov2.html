@@ -382,7 +382,7 @@
 					</td>			
 					<td>
 						<div class="row">
-							<div class="col-md-12">{{match.model.nome}} - {{match.model.codVariacao}}</div>				
+							<div class="col-md-12">{{match.model.codExterno}} | {{match.model.nome}} - {{match.model.codVariacao}}</div>				
 						</div>
 						<div class="row">
 							<div class="col-md-12">Estoque: {{match.model.qtdeEstoque}}</div>				
@@ -726,8 +726,6 @@ angular
 		};
 
 		$scope.consultaPedidosERP = async () => {
-
-			/*Precisa alterar na regra para pegar apenas pelo numero do pedido.*/
 			
 			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc && Number(doc.jsonDocs[0].pedido) > 0);
 			let consulta 			= [];
