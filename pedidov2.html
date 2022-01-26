@@ -714,8 +714,9 @@ angular
 					
 					let response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
 					done();
-					
+					console.log(response.data, "req ext")
 					return response.data;
+					
 				}, timeLimit * 1000); // limite em segundos
 			}catch(err){
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
@@ -1115,8 +1116,6 @@ angular
 			dados.cnpj 				= {id: dadosUserLogado.cId};
 
 			jsonDocs = [{
-				representante		: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
-
 				/*Historico*/
 				obsOportunidade	: $scope.obsOportunidade,
 				histOportunidade: $scope.histOportunidade,
