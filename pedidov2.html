@@ -734,9 +734,9 @@ angular
 			for(i = 0; i < pedidosGravadosERP.length; i++){
 				consulta.push(
 					{
-						numPed: pedidosGravadosERP[i].jsonDocs[0].pedido,
-						codPro: "CMPMS14",
-						codDer: "1GB"
+						numPed: pedidosGravadosERP[i].jsonDocs[0].pedido
+						// codPro: "CMPMS14",
+						// codDer: "1GB"
 					}
 				)
 			};
@@ -819,12 +819,14 @@ angular
 			return result
 		};
 
+		console.log("TESTE")
+
 		$scope.getProdutosERP = async (consulta) => {
 			try{
 				let result = await $scope.executaRequisicaoExterna(
 					{
 						idCvtccnpj : dadosUserLogado.cId,
-						numreg	   : 750,
+						numreg	   : 752,
 						pRotina	   : 'filtrarProduto',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroProd : consulta}},
