@@ -373,7 +373,7 @@
 	</div>
 
 	<script type="text/ng-template" id="templateAutoCompleteProduto">
-		<a style="overflow-y: auto; max-height: 420px;">
+		<a>
 			<table>
 				<tr>
 					<td style="padding-right: 25px;">
@@ -587,8 +587,6 @@ angular
 			};
 
 		}
-
-		console.log("AAAA")
 
 		$scope.onSelectCond = function ($item, $model, $label) {		
 			$scope.condPagamento = $item;
@@ -1442,6 +1440,11 @@ angular
 
 :root {
 		--cor_principal: #1a6c95;
+	}
+
+	#templateAutoCompleteProduto>ul{
+		overflow-y: auto; 
+		max-height: 420px;
 	}
 
 	h5{
