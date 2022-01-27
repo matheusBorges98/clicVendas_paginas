@@ -1232,8 +1232,11 @@ angular
 			$scope.atualizaTabelaProdutos();
 		};
 
+		console.log("lllllll")
+
 		$scope.removerProduto = ($item) => {
-			
+			console.log($item, "item")
+			console.log($rootScope.produtos)
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
 			$scope.atualizaTabelaProdutos();
 		};
