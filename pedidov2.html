@@ -155,11 +155,11 @@
 								<div class="form-group col-md-12">
 									
 									<div class="col-sm-12 spacer">
-										<label for="codPro">Localizar Produxxto</label>
+										<label for="codPro">Localizar Produto</label>
 										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 										<div class="input-group spacer">
-											<input class="col-sm-11" type="text" ng-disabled="inputDesabilitado" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" typeahead-template-url="templateAutoCompleteProduto">
-											<span class="input-group-addon col-sm-1" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
+											<input type="text" ng-disabled="inputDesabilitado" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" typeahead-template-url="templateAutoCompleteProduto">
+											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 										</div>
 										<i ng-show="loadingProd" class="glyphicon glyphicon-refresh"></i>
 										<div ng-show="noResults">
