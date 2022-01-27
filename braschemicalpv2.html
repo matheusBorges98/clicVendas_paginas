@@ -112,16 +112,16 @@
 			<!-- Header formulario -->
 			
 			<!-- Capa do pedido -->
-			<div id="docAdd" class="row spacer" ng-show="permiteEditar">
+			<div id="docAdd" class="row" ng-show="permiteEditar">
 				
 				<div class="col-sm-12">
 
 					<!-- Body formulario -->
-					
+<!-- 					
 					<ul style="overflow: hidden;" class="nav nav-tabs" role="tablist" id="myTab">
 					  <li role="presentation" class="active"><a href="#docAdd-cliente-tab" role="tab" data-toggle="tab">Informações</a></li>
 					  <li role="presentation"><a href="#docAdd-produto-tab" ng-click="atualizaTabelaProdutos()" role="tab" data-toggle="tab">Produtos</a></li>
-					</ul>
+					</ul> -->
 
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane active" id="docAdd-cliente-tab">
@@ -138,25 +138,19 @@
 									
 									<div class="col-sm-2 spacer">
 										<label for="codigoCliente">Cód. do Cliente</label>
-										<div class="input-group spacer">
+										<div class="spacer">
 											<input type="text" readonly class="form-control" ng-model="codigoCliente" id="codigoCliente">
 										</div>
 									</div>
 
-
 									<div class="col-sm-3 spacer ">
 										<label for="vendedor">Vendedor</label>
-										<div class="input-group spacer">
+										<div class="spacer">
 											<input type="text" readonly class="form-control" ng-model="vendedor" id="vendedor">
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-						
-						<div role="tabpanel" class="tab-pane" id="docAdd-produto-tab">
-							<div id="docAdd-produto" class="form-row">
-								
+
 								<div class="form-group col-md-12">
 									
 									<div class="col-sm-12 spacer">
@@ -206,22 +200,29 @@
 								</div>
 							</div>
 						</div>
+						
+						<!-- <div role="tabpanel" class="tab-pane" id="docAdd-produto-tab">
+							<div id="docAdd-produto" class="form-row">
+								
+								
+							</div>
+						</div> -->
 					</div>
 				</div>
 			</div>	
 
-			<div id="docEdit" class="row spacer" ng-show="!permiteEditar">
+			<div id="docEdit" style="margin-top:8px;" class="row spacer" ng-show="!permiteEditar">
 				
 				<div class="col-sm-12">	
 				
 					<ul style="overflow: hidden;" class="nav nav-tabs" role="tablist" id="myTab">
-						<li role="presentation" class="active"><a href="#docEdit-info-projeto" role="tab" data-toggle="tab">Informações do projeto</a></li>
-						<li role="presentation"><a href="#docEdit-manu-projeto" role="tab" data-toggle="tab">Manutenção</a></li>
+						<li role="presentation" class="active"><a href="#docEdit-manu-projeto" role="tab" data-toggle="tab">Manutenção</a></li>
+						<li role="presentation"><a href="#docEdit-info-projeto" role="tab" data-toggle="tab">Informações do projeto</a></li>
 						<li role="presentation"><a href="#docEdit-hist-projeto" role="tab" data-toggle="tab">Histórico / Observações</a></li>
 					</ul>
 					
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="docEdit-info-projeto">
+						<div role="tabpanel" class="tab-pane" id="docEdit-info-projeto">
 
 							<div class="form-row ">
 								<div class="form-group col-md-12" >
@@ -247,6 +248,7 @@
 										<label for="codigoCliente">Cód. do Cliente</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoCliente" id="codigoCliente">
 									</div>
+																
 									<div class="col-sm-6 spacer">
 										<label for="nomeCliente">Nome do Cliente</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="nomeCliente"  id="nomeCliente">
@@ -394,7 +396,7 @@
 
 						</div>
 					
-						<div role="tabpanel" class="tab-pane" id="docEdit-manu-projeto">
+						<div role="tabpanel" class="tab-pane active" id="docEdit-manu-projeto">
 					
 							<div class="form-row ">
 								<div class="form-group col-md-12">
@@ -969,7 +971,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 41943; //17431/*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 17431//41943; //17431/*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -1230,8 +1232,11 @@ angular
 			$scope.atualizaTabelaProdutos();
 		};
 
+		console.log("TESTE")
+
 		$scope.removerProduto = ($item) => {
-			
+			console.log($item, "item")
+			console.log($rootScope.produtos)
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
 			$scope.atualizaTabelaProdutos();
 		};
@@ -1808,7 +1813,7 @@ angular
 			});
 
 		};
-		console.log("B")
+		console.log("D")
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
 					
@@ -1819,8 +1824,10 @@ angular
 					.withOption('processing', true)
 					.withOption('serverSide', false)
 					.withOption('searchDelay', 1000)
-					.withOption('scrollY', '100%')      
-					.withOption('scrollX', '100%')       
+					.withOption('scrollY', '40vh')    
+					.withOption('scrollCollapse', true)  
+					.withOption('paging', false)    
+					.withOption('scrollX', '100%')     
 					.withDisplayLength(20)
 					.withDOM('tr');
 					
@@ -1971,6 +1978,10 @@ angular
 
 :root {
 		--cor_principal: #1a6c95;
+	}
+
+	.div-ng-view {
+		margin-top:-15px;
 	}
 
 	ul{
