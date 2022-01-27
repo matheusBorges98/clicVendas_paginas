@@ -150,7 +150,7 @@
 										</div>
 									</div>
 								</div>
-
+								
 								<div class="form-group col-md-12">
 									
 									<div class="col-sm-12 spacer">
@@ -200,13 +200,6 @@
 								</div>
 							</div>
 						</div>
-						
-						<!-- <div role="tabpanel" class="tab-pane" id="docAdd-produto-tab">
-							<div id="docAdd-produto" class="form-row">
-								
-								
-							</div>
-						</div> -->
 					</div>
 				</div>
 			</div>	
@@ -243,12 +236,10 @@
 				
 							<div class="form-row " >
 								<div class="form-group col-md-12">
-									
 									<div class="col-sm-2 spacer">
 										<label for="codigoCliente">Cód. do Cliente</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoCliente" id="codigoCliente">
 									</div>
-																
 									<div class="col-sm-6 spacer">
 										<label for="nomeCliente">Nome do Cliente</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="nomeCliente"  id="nomeCliente">
@@ -329,14 +320,14 @@
 										<label for="justificativa">Justificativa</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="justificativa" id="justificativa">
 									</div>				  		  
-									<div class="col-sm-2 spacer">
-										<label for="con2021n">Con. 2021 (em nº)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021n" id="con2021n">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="con2022n">Con. 2022 (em nº)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2022n" id="con2022n">
-									</div>
+									<!-- <div class="col-sm-2 spacer"> -->
+										<!-- <label for="con2021n">Con. 2021 (em nº)</label> -->
+										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021n" id="con2021n"> -->
+									<!-- </div>			   -->
+									<!-- <div class="col-sm-2 spacer"> -->
+										<!-- <label for="con2022n">Con. 2022 (em nº)</label> -->
+										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2022n" id="con2022n"> -->
+									<!-- </div> -->
 								</div>	
 							</div>
 							
@@ -371,10 +362,10 @@
 										<label for="primVendaTabdin">1.a Venda TABDIN</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="primVendaTabdin" id="primVendaTabdin">
 									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="anoPrimVenda">ANO 1.a VENDA</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda">
-									</div>
+									<!-- <div class="col-sm-2 spacer"> -->
+										<!-- <label for="anoPrimVenda">ANO 1.a VENDA</label> -->
+										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda"> -->
+									<!-- </div> -->
 									<div class="col-sm-2 spacer">
 										<label for="totalFatUSD">Tot. Fat. (USD)</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="totalFatUSD" id="totalFatUSD">
@@ -383,14 +374,14 @@
 										<label for="margemR">Margem (R$)</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="margemR" id="margemR"> 
 									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="preUSD">Pre. USD</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="preUSD" id="preUSD">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="potVolAg">Pot. Vol. AG</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="potVolAg" id="potVolAg">
-									</div>
+									<!-- <div class="col-sm-2 spacer"> -->
+										<!-- <label for="preUSD">Pre. USD</label> -->
+										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="preUSD" id="preUSD"> -->
+									<!-- </div>			   -->
+									<!-- <div class="col-sm-2 spacer"> -->
+										<!-- <label for="potVolAg">Pot. Vol. AG</label> -->
+										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="potVolAg" id="potVolAg"> -->
+									<!-- </div> -->
 								</div>
 							</div>
 
@@ -897,21 +888,23 @@ angular
 								pedidosGravadosERP[k].jsonDocs[0].produtos.familia			    	= dadosAtualizados[0].produto[0].proDesFam;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.dataStatus				= dadosAtualizados[0].produto[0].ipdDatAmo;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.justificativa			= dadosAtualizados[0].produto[0].ipdObsAmo;
-								pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaData				= dadosAtualizados[0].produto[0].cliOfrDat;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaData				= dadosAtualizados[0].produto[0].ofrDatEmi;
 								
 								pedidosGravadosERP[k].jsonDocs[0].produtos.responsavel				= dadosAtualizados[0].produto[0].proResFor;
 								
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.potencial0XCM			= dadosAtualizados[0].produto[0].
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.chaveCp				= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.identQtd				= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.venda					= dadosAtualizados[0].produto[0].
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.vendaLocalKg			= dadosAtualizados[0].produto[0].
+								pedidosGravadosERP[k].jsonDocs[0].produtos.identQtd					= dadosAtualizados[0].produto[0].indQtdPed;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.venda					= dadosAtualizados[0].produto[0].venVenda;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.vendaLocalKg				= dadosAtualizados[0].produto[0].venQtdFat;
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.totalFatUSD			= dadosAtualizados[0].produto[0].
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.margemR				= dadosAtualizados[0].produto[0].
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.preUSD				= dadosAtualizados[0].produto[0].
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaData			= dadosAtualizados[0].produto[0].
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.probFechamento		= dadosAtualizados[0].produto[0].
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.consumoAg				= dadosAtualizados[0].produto[0].
+								pedidosGravadosERP[k].jsonDocs[0].produtos.ultVendaTabdin			= dadosAtualizados[0].produto[0].venUltDat;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.primVendaTabdin			= dadosAtualizados[0].produto[0].venPriDat;
 
 
 								/*Adiciona ao documento campos que não estão listados*/
@@ -971,7 +964,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431//41943; //17431/*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 41943; //17431/*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -1132,8 +1125,8 @@ angular
 
 				$scope.dataAtu				= docs.dataAtu;
 				$scope.potVolAg				= docs.potVolAg;
-				$scope.ultVendaTabdin		= docs.ultVendaTabdin;
-				$scope.primVendaTabdin		= docs.primVendaTabdin;
+				$scope.ultVendaTabdin		= docs.produtos.ultVendaTabdin;
+				$scope.primVendaTabdin		= docs.produtos.primVendaTabdin;
 				$scope.anoPrimVenda			= docs.anoPrimVenda;
 				$scope.statusAcao			= docs.statusAcao;
 				$scope.acoes				= docs.acoes;
@@ -1232,11 +1225,8 @@ angular
 			$scope.atualizaTabelaProdutos();
 		};
 
-		console.log("TESTE")
-
 		$scope.removerProduto = ($item) => {
-			console.log($item, "item")
-			console.log($rootScope.produtos)
+			
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
 			$scope.atualizaTabelaProdutos();
 		};
@@ -1764,8 +1754,8 @@ angular
 						'jsonDocs[0].produtos.identQtd'     		:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:'130px'	},
 						'jsonDocs[0].produtos.venda'				:	{i:39, vsbl: true,	tlt: 'Venda',					width:'130px'	},
 						'jsonDocs[0].vendaLocalKg'    				:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:'130px'	},
-						'jsonDocs[0].ultVendaTabdin'  				:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:'130px'	},
-						'jsonDocs[0].primVendaTabdin' 				:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:'130px'	},
+						'jsonDocs[0].produtos.ultVendaTabdin'  		:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:'130px'	},
+						'jsonDocs[0].produtos.primVendaTabdin' 		:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:'130px'	},
 						'jsonDocs[0].anoPrimVenda'     				:	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:'130px'	},
 						'jsonDocs[0].produtos.totalFatUSD'      	:	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:'130px'	},
 						'jsonDocs[0].produtos.margemR'	      		:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:'130px'	},
@@ -1813,7 +1803,7 @@ angular
 			});
 
 		};
-		console.log("D")
+		console.log("B")
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
 					
@@ -1826,8 +1816,8 @@ angular
 					.withOption('searchDelay', 1000)
 					.withOption('scrollY', '40vh')    
 					.withOption('scrollCollapse', true)  
-					.withOption('paging', false)    
-					.withOption('scrollX', '100%')     
+					.withOption('paging', false)        
+					.withOption('scrollX', '100%')       
 					.withDisplayLength(20)
 					.withDOM('tr');
 					
@@ -1978,10 +1968,6 @@ angular
 
 :root {
 		--cor_principal: #1a6c95;
-	}
-
-	.div-ng-view {
-		margin-top:-15px;
 	}
 
 	ul{
