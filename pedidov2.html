@@ -1813,7 +1813,7 @@ angular
 			});
 
 		};
-		console.log("B")
+		console.log("C")
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
 					
@@ -1824,8 +1824,10 @@ angular
 					.withOption('processing', true)
 					.withOption('serverSide', false)
 					.withOption('searchDelay', 1000)
-					.withOption('scrollY', '100%')      
-					.withOption('scrollX', '100%')       
+					.withOption('scrollY', '20vh')    
+					.withOption('scrollCollapse', true)  
+					.withOption('paging', false)    
+					.withOption('scrollX', '100%')     
 					.withDisplayLength(20)
 					.withDOM('tr');
 					
