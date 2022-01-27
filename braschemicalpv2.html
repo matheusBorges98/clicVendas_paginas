@@ -118,7 +118,7 @@
 
 					<!-- Body formulario -->
 					
-					<ul class="nav nav-tabs" role="tablist" id="myTab">
+					<ul style="overflow: hidden;" class="nav nav-tabs" role="tablist" id="myTab">
 					  <li role="presentation" class="active"><a href="#docAdd-cliente-tab" role="tab" data-toggle="tab">Informações</a></li>
 					  <li role="presentation"><a href="#docAdd-produto-tab" ng-click="atualizaTabelaProdutos()" role="tab" data-toggle="tab">Produtos</a></li>
 					</ul>
@@ -214,7 +214,7 @@
 				
 				<div class="col-sm-12">	
 				
-					<ul class="nav nav-tabs" role="tablist" id="myTab">
+					<ul style="overflow: hidden;" class="nav nav-tabs" role="tablist" id="myTab">
 						<li role="presentation" class="active"><a href="#docEdit-info-projeto" role="tab" data-toggle="tab">Informações do projeto</a></li>
 						<li role="presentation"><a href="#docEdit-manu-projeto" role="tab" data-toggle="tab">Manutenção</a></li>
 						<li role="presentation"><a href="#docEdit-hist-projeto" role="tab" data-toggle="tab">Histórico / Observações</a></li>
@@ -927,8 +927,6 @@ angular
 			$scope.atualizaTabelaCompleta(1);		
 		};
 
-		console.log("AAA")
-		console.log("AAA")
 		$scope.gravaDocumentoERP = async ($item) => {
 
 			let dialog = bootbox.dialog({
