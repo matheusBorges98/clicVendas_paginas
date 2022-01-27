@@ -817,7 +817,10 @@ angular
 			return result
 		};
 
+		console.log("teste")
+
 		$scope.getProdutosERP = async (consulta) => {
+			console.log(consulta, "getprodutosERP")
 			try{
 				let result = await $scope.executaRequisicaoExterna(
 					{
@@ -828,6 +831,8 @@ angular
 						pFilter    : {filtro:{filtroProd : consulta}},
 					}
 				);
+
+				console.log(result, "resultado get")
 										
 				if(result != undefined && result.resultado != undefined){
 					return result.resultado.slice(0, 8).map((item)=>{
