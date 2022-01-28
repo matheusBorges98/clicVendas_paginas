@@ -13,8 +13,6 @@
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
-	<!-- TESTE CSS -->
-	<link href="http://raw.githubusercontent.com/matheusBorges98/clicVendas_paginas/main/css/demo2/demo2.css" rel="stylesheet">
 	<!-- Imports CSS-->
 
 <!-- View --> 
@@ -220,27 +218,32 @@
 								<div class="col-sm-6 spacer">
 									<label for="condPagamento">Condição de pagamento <span style="color: red;" ng-show="cadastroPedido.condPagamento.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-										
-										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
-
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="1">
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCondicaoPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
+									<i ng-show="loadingCond" class="glyphicon glyphicon-refresh"></i>
+									<div ng-show="noResultsCond">
+										<i class="glyphicon glyphicon-remove"></i> Sem Resultados
+									</div>	
 								</div>
 								<div class="col-sm-6 spacer">
 									<label for="nomeCliente">Forma de pagamento  <span style="color: red;" ng-show="cadastroPedido.formaPagamento.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-
-										<!-- <input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+										<!-- <input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingFormaPag" typeahead-no-results="noResultsFormaPag"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingFormaPag" typeahead-no-results="noResultsFormaPag"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="1">
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaFormaPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
+									<i ng-show="loadingFormaPag" class="glyphicon glyphicon-refresh"></i>
+									<div ng-show="noResultsFormaPag">
+										<i class="glyphicon glyphicon-remove"></i> Sem Resultados
+									</div>	
 								</div>
 
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="2" typeahead-template-url="templateAutoCompleteProduto" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 									<i ng-show="loadingProd" class="glyphicon glyphicon-refresh"></i>
@@ -553,18 +556,18 @@ angular
 			$scope.endEntrega	 = {};
 		};
 
-		$scope.getCondicoesP = function(val) {
-			return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
-			params: {
-				filtro		: val || '',
-				idCvTccnpj	: dadosUserLogado.cId 
-			}
-			}).then(function(response){              
-				return response.data.map(function(item){
-					return item;
-				});
-			});
-		};
+		// $scope.getCondicoesP = function(val) {
+		// 	return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
+		// 	params: {
+		// 		filtro		: val || '',
+		// 		idCvTccnpj	: dadosUserLogado.cId 
+		// 	}
+		// 	}).then(function(response){              
+		// 		return response.data.map(function(item){
+		// 			return item;
+		// 		});
+		// 	});
+		// };
 
 		$scope.getCondicaoPagamentoERP = async (consulta) => {
 			try{
@@ -572,13 +575,13 @@ angular
 					{
 						idCvtccnpj : dadosUserLogado.cId,
 						numreg	   : 750,
-						pRotina	   : 'filtrarCondPagamento',
+						pRotina	   : 'filtrarCondPag',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroCondPag : consulta}},
 					}
 				);
 										
-				if(result.resultado != undefined){
+				if(result != undefined && result.resultado !=undefined){
 					return result.resultado.map((item)=>{
 						return item
 					})
@@ -599,22 +602,22 @@ angular
 			$scope.condPagamento = "";
 		}
 
-		$scope.getFormasP = function(val) {			
-			if	($scope.condPagamento != null){
-				return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, {
-					params: {
-						filtro: val || '',
-						idCvTccnpj	: dadosUserLogado.cId
-					}
-				}).then(function(response){
-					return response.data.map(function(item){
-						return item;
-					});
-				});
-			} else {
-				return "";
-			}			
-		};
+		// $scope.getFormasP = function(val) {			
+		// 	if	($scope.condPagamento != null){
+		// 		return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, {
+		// 			params: {
+		// 				filtro: val || '',
+		// 				idCvTccnpj	: dadosUserLogado.cId
+		// 			}
+		// 		}).then(function(response){
+		// 			return response.data.map(function(item){
+		// 				return item;
+		// 			});
+		// 		});
+		// 	} else {
+		// 		return "";
+		// 	}			
+		// };
 
 		$scope.getFormasPagamentoERP = async (consulta) => {
 
@@ -623,13 +626,14 @@ angular
 					{
 						idCvtccnpj : dadosUserLogado.cId,
 						numreg	   : 750,
-						pRotina	   : 'filtrarFormaPagamento',
+						pRotina	   : 'filtrarFormaPag',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroFormaPag : consulta}},
-					}
+					},
+					1000
 				);
-										
-				if(result.resultado != undefined){
+		
+				if(result != undefined && result.resultado != undefined){
 					return result.resultado.map((item)=>{
 						return item
 					})
@@ -711,7 +715,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
+		$scope.executaRequisicaoExterna = async ($json, timeLimit = 20) => {
 			try {
 				let response;
 
@@ -756,7 +760,6 @@ angular
 					pCodCli    	 : dadosUserLogado.rId,
 					pListaPedido : {lista:{pedidos : consulta}},
 				},
-				15//limite de espera em segundos
 			);
 
 			dialog.modal('hide');
@@ -804,7 +807,7 @@ angular
 					pCodCli    : dadosUserLogado.rId,
 					pDocumento : {documento : $item}
 				},
-				20//limite tempo		
+				25//limite tempo		
 			);
 
 			$rootScope.isLoading = false;
@@ -820,22 +823,17 @@ angular
 			return result
 		};
 
-		console.log("teste4")
-
 		$scope.getProdutosERP = async (consulta) => {
-			console.log(consulta, "getprodutosERP")
 			try{
 				let result = await $scope.executaRequisicaoExterna(
 					{
 						idCvtccnpj : dadosUserLogado.cId,
-						numreg	   : 752,
+						numreg	   : 750,
 						pRotina	   : 'filtrarProduto',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroProd : consulta}},
-					}
+					},
 				);
-
-				console.log(result, "resultado get")
 										
 				if(result != undefined && result.resultado != undefined){
 					return result.resultado.slice(0, 8).map((item)=>{
