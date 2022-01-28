@@ -310,10 +310,10 @@
 										</table>
 		
 									</div>
-<!-- 
+
 									<div class="col-sm-12 spacer">
 										<h5>Total: </h5><h5 id="valorTotalPedido">{{valorTotal | currency:'R$ '}}</h5>
-									</div>	 -->
+									</div>	
 								</div>
 
 							</div>
@@ -356,8 +356,6 @@
 			<!-- Ações sob o formulario -->
 			<div class="row spacer">
 				
-				<h5 style="position: absolute; left:10px; top:10px"id="valorTotalPedido">Total: {{valorTotal | currency:'R$ '}}</h5>
-
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
 						<button class="btn btn_grid btn-success" title="O pedido será finalizado e enviado ao ERP" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-show="pedido == 0 " ng-click="confirmaFinalizarDocumento()"> Finalizar </button>
