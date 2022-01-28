@@ -506,7 +506,7 @@ angular
 		
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
-
+	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
@@ -600,18 +600,18 @@ angular
 			$scope.endEntrega	 = {};
 		};
 
-		$scope.getCondicoesP = function(val) {
-			return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
-			params: {
-				filtro		: val || '',
-				idCvTccnpj	: dadosUserLogado.cId 
-			}
-			}).then(function(response){              
-				return response.data.map(function(item){
-					return item;
-				});
-			});
-		};
+		// $scope.getCondicoesP = function(val) {
+		// 	return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
+		// 	params: {
+		// 		filtro		: val || '',
+		// 		idCvTccnpj	: dadosUserLogado.cId 
+		// 	}
+		// 	}).then(function(response){              
+		// 		return response.data.map(function(item){
+		// 			return item;
+		// 		});
+		// 	});
+		// };
 
 		$scope.getCondicaoPagamentoERP = async (consulta) => {
 			try{
@@ -619,13 +619,13 @@ angular
 					{
 						idCvtccnpj : dadosUserLogado.cId,
 						numreg	   : 750,
-						pRotina	   : 'filtrarCondPagamento',
+						pRotina	   : 'filtrarCondPag',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroCondPag : consulta}},
 					}
 				);
 										
-				if(result.resultado != undefined){
+				if(result != undefined && result.resultado !=undefined){
 					return result.resultado.map((item)=>{
 						return item
 					})
@@ -646,22 +646,22 @@ angular
 			$scope.condPagamento = "";
 		}
 
-		$scope.getFormasP = function(val) {			
-			if	($scope.condPagamento != null){
-				return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, {
-					params: {
-						filtro: val || '',
-						idCvTccnpj	: dadosUserLogado.cId
-					}
-				}).then(function(response){
-					return response.data.map(function(item){
-						return item;
-					});
-				});
-			} else {
-				return "";
-			}			
-		};
+		// $scope.getFormasP = function(val) {			
+		// 	if	($scope.condPagamento != null){
+		// 		return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, {
+		// 			params: {
+		// 				filtro: val || '',
+		// 				idCvTccnpj	: dadosUserLogado.cId
+		// 			}
+		// 		}).then(function(response){
+		// 			return response.data.map(function(item){
+		// 				return item;
+		// 			});
+		// 		});
+		// 	} else {
+		// 		return "";
+		// 	}			
+		// };
 
 		$scope.getFormasPagamentoERP = async (consulta) => {
 
@@ -670,13 +670,14 @@ angular
 					{
 						idCvtccnpj : dadosUserLogado.cId,
 						numreg	   : 750,
-						pRotina	   : 'filtrarFormaPagamento',
+						pRotina	   : 'filtrarFormaPag',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroFormaPag : consulta}},
-					}
+					},
+					1000
 				);
-										
-				if(result.resultado != undefined){
+		
+				if(result != undefined && result.resultado != undefined){
 					return result.resultado.map((item)=>{
 						return item
 					})
@@ -751,14 +752,14 @@ angular
 		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
 			$scope.filSincronizado	= $item;
 		};
-						
+
 		/*Tempo limite para funções*/
 		const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
 			cb(resolve);
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
+		$scope.executaRequisicaoExterna = async ($json, timeLimit = 20) => {
 			try {
 				let response;
 
@@ -793,7 +794,8 @@ angular
 				closeButton: false
 			});
 			$rootScope.isLoading = true;
-			
+
+
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj 	 : dadosUserLogado.cId,
@@ -802,13 +804,11 @@ angular
 					pCodCli    	 : dadosUserLogado.rId,
 					pListaPedido : {lista:{pedidos : consulta}},
 				},
-				15//limite de espera em segundos
 			);
 
 			dialog.modal('hide');
 			$rootScope.isLoading = false;
-				
-			console.log(result, "res")
+		
 			if(result !="" && !isNaN(parseInt(result))){
 				for(k = 0; k < pedidosGravadosERP.length; k++){				
 					
@@ -851,7 +851,7 @@ angular
 					pCodCli    : dadosUserLogado.rId,
 					pDocumento : {documento : $item}
 				},
-				20//limite tempo		
+				25//limite tempo		
 			);
 
 			$rootScope.isLoading = false;
@@ -872,11 +872,11 @@ angular
 				let result = await $scope.executaRequisicaoExterna(
 					{
 						idCvtccnpj : dadosUserLogado.cId,
-						numreg	   : 752,
+						numreg	   : 750,
 						pRotina	   : 'filtrarProduto',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroProd : consulta}},
-					}
+					},
 				);
 										
 				if(result != undefined && result.resultado != undefined){
@@ -1129,7 +1129,7 @@ angular
 			$scope.obsOportunidade = "";
 		};
 
-		$scope.finalizarDocumento = () => {
+		$scope.confirmaFinalizarDocumento = () => {
 			
 			bootbox.confirm({
 				message:'<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a finalização do pedido?</p></div>',

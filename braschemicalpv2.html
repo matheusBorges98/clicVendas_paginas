@@ -917,7 +917,6 @@ angular
 				};
 			}
 			
-			console.log($rootScope.dadosGrid, "atualizado")
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 			$scope.atualizaTabelaCompleta(1);		
 		};
@@ -931,22 +930,17 @@ angular
 
 			$rootScope.isLoading = true;
 
-			// let result = await $scope.executaRequisicaoExterna(
-			// 	{
-			// 		idCvtccnpj : dadosUserLogado.cId,
-			// 		numreg	   : 752,
-			// 		pRotina	   : 'criarPedidoAmostra',
-			// 		pCodCli    : dadosUserLogado.rId,
-			// 		pDocumento : {documento : $item}
-			// 	}		
-			// );
-
+			let result = await $scope.executaRequisicaoExterna(
+				{
+					idCvtccnpj : dadosUserLogado.cId,
+					numreg	   : 752,
+					pRotina	   : 'criarPedidoAmostra',
+					pCodCli    : dadosUserLogado.rId,
+					pDocumento : {documento : $item}
+				}		
+			);
 			$rootScope.isLoading = false;
 			
-			let result = '63178'
-
-			console.log(result, "Retorno pedido enviado ao ERP - VALOR FIXO para testes")
-
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
@@ -974,8 +968,7 @@ angular
 		};
 
 		$scope.onSelectProd = ($item, $model, $label) => {
-			console.log($item, "Seleciona produto")
-			
+					
 			$scope.descricaoProd = $item.produto.nome;
 			$scope.codVariacao	 = $item.produto.codVariacao;
 			$scope.codExterno	 = $item.produto.codExterno;
@@ -1803,7 +1796,6 @@ angular
 			});
 
 		};
-		console.log("B")
 		/*Tabela de produtos*/
 		$scope.atualizaTabelaProdutos = () =>{
 					
