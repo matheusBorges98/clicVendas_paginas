@@ -552,7 +552,7 @@
 							Salvar
 							<span class="caret caret-up"></span>
 						</button>
-						<ul class="dropdown-menu drop-up" role="menu">
+						<ul style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<li><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>
 							<li><a title="Salvar e enviar para revisão" ng-click="salvarDocumento(1, 'EM_REVISAO')">Enviar para revisão</a></li>          
@@ -670,6 +670,7 @@ angular
 		};
 
 		$rootScope.changeView = ($dados) => {
+			console.log($dados, "change view")
 			if($scope.exibeFormulario == false){
 
 				$scope.exibeFormulario = true;
@@ -1225,7 +1226,7 @@ angular
 					/*Grava durante a edição  do pedido*/
 					cluster				: $scope.cluster,
 					responsavel			: $scope.responsavel,
-					situacao			: $scope.situacao,
+					situacao			: {nome:"Em digitação", send:"EM_DIGITACAO"},//$scope.situacao,
 					ofertaUnit			: $scope.ofertaUnit,
 					dataStatus			: $scope.dataStatus,
 					justificativa		: $scope.justificativa,
