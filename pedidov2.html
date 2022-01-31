@@ -687,8 +687,15 @@ angular
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Pedido Nº "+$dados.jsonDocs[0].numPedidoClic;
 					
-					$scope.inputDesabilitado  = true;
-					$scope.permiteEditar	  = false;
+					if($dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO"){
+						$scope.inputDesabilitado  = false;
+						$scope.permiteEditar	  = true;
+					}else{
+						$scope.inputDesabilitado  = true;
+						$scope.permiteEditar	  = false;
+					}
+
+					
 				};
 				
 			}else if($scope.exibeFormulario == true){
@@ -1636,7 +1643,7 @@ angular
 						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
 						'jsonDocs[0].vendedor.nome'			:	{i:2, vsbl: true,	tlt: 'Vendedor',		width:''	},
 						'jsonDocs[0].produtos.descricao'    :	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs[0].produtos.situacao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
+						'jsonDocs[0].produtos.situacao.nome':	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
 						'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
 				};
 
@@ -2009,7 +2016,7 @@ angular
 
 		};
 
-		console.log("TESTE5")
+		console.log("TESTE6")
 			
 	});
 </script> 
