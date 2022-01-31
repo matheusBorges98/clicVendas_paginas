@@ -166,7 +166,7 @@
 										</div>	
 									</div>
 
-									<div class="col-sm-5 spacer">
+									<!-- <div class="col-sm-5 spacer">
 										<label for="despro">Descrição</label>
 										<input type="text" readonly ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricaoProd" id="descricaoProd">
 									</div>
@@ -190,7 +190,7 @@
 										<div class="btn-group">
 											<button ng-disabled="descricaoProd == '' || consumoProdutoKgMes == ''|| quantidadeProduto == '' || aplicacao  == '' " class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								
 								<div class="form-group col-md-12">
@@ -1226,7 +1226,7 @@ angular
 			$scope.codExterno	 = $item.produto.codExterno;
 			$scope.codigoProduto = $item.produto.id;
 			
-			$rootScope.produtos.push(
+			$rootScope.produtos.unshift(
 				{ 
 					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
 					descricao			: $item.produto.nome,//$scope.descricaoProd,
