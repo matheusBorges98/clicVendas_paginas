@@ -1261,15 +1261,29 @@ angular
 				}
 			);
 			
-			$scope.aplicacao			= '';
-			$scope.consumoProdutoKgMes  = '';
-			$scope.quantidadeProduto 	= '';
-			$scope.descricaoProd 		= '';
-			$scope.codVariacao	 		= '';
-			$scope.codExterno	 		= '';
-			$scope.codigoProduto 		= '';
+			var buscaProduto		= angular.element(document.querySelector('#itemProd'));
 			
-			$scope.limpaProduto('noFocus');
+			$timeout(function () {
+				buscaProduto.blur();
+				$scope.itemProd = '';
+
+				$("table tbody tr:first-child").addClass("new-row-enter");
+				$("table tbody tr:first-child input#quantidadeProdutoAdd").focus();
+			}, 200);
+
+			$timeout(()=>{
+				$("table tbody tr:first-child").removeClass("new-row-enter");
+			}, 1000)
+			
+			// $scope.aplicacao			= '';
+			// $scope.consumoProdutoKgMes  = '';
+			// $scope.quantidadeProduto 	= '';
+			// $scope.descricaoProd 		= '';
+			// $scope.codVariacao	 		= '';
+			// $scope.codExterno	 		= '';
+			// $scope.codigoProduto 		= '';
+			
+			//$scope.limpaProduto('noFocus');
 			// $scope.atualizaTabelaProdutos();
 		};
 
@@ -2005,7 +2019,7 @@ angular
 
 		};
 
-		console.log("TESTE4")
+		console.log("TESTE5")
 			
 	});
 </script> 
