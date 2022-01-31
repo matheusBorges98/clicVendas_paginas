@@ -157,7 +157,7 @@
 										<label for="codPro">Localizar Produto</label>
 										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 										<div class="input-group spacer">
-											<input type="text" ng-disabled="inputDesabilitado" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="onSelectProd($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" typeahead-template-url="templateAutoCompleteProduto">
+											<input type="text" ng-disabled="inputDesabilitado" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o produto" uib-typeahead="retorno.produto.codExterno + ' - ' + retorno.produto.nome for retorno in getProdutos($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0" typeahead-template-url="templateAutoCompleteProduto">
 											<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 										</div>
 										<i ng-show="loadingProd" class="glyphicon glyphicon-refresh"></i>
@@ -194,9 +194,55 @@
 								</div>
 								
 								<div class="form-group col-md-12">
-									<div class="col-sm-12 spacer">
+									<!-- <div class="col-sm-12 spacer">
 										<table id="listDocumentsProdutos" dt-options="dtOptionsProd" dt-columns="dtColumnsProd" dt-instance="dtInstanceProd" class="row-border responsive hover"></table>
-									</div>
+									</div> -->
+									<table id ="listDocumentsProdutos" class="table">
+										<thead>
+											<tr>
+												<th>Produto</th>
+												<th>Quantidade</th>
+												<th>Aplicação</th>
+												<th>Consumo</th>
+												<!-- <th>Valor total</th> -->
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat = "produto in produtos">
+												<td>
+													<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
+													<p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} <p>
+														
+													<!-- <p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p> -->
+													<!-- <p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p> -->
+												</td>
+												<td>
+													<div>
+														<input type="number" step="any" name="quantidadeProduto" class="inputTable" ng-value="produto.quantidade" id="quantidadeProdutoAdd" ng-model="produto.quantidade">
+													</div>
+												</td>
+												<td>
+													<div>
+														<input type="text" step="any" name="aplicacao" class="inputTable" ng-model="produto.aplicacao">
+													</div>
+												</td>
+												
+												<td>
+													<div>
+														<input type="text" step="any" name="consumoProdutoKgMes" class="inputTable" ng-model="produto.consumoProdutoKgMes">
+													</div>
+												</td>
+												<td>
+													<div class="col-sm-12">
+														<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
+														<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
+													</div>		
+												</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
@@ -1173,17 +1219,22 @@ angular
 			
 		};
 
-		$scope.adicionarProduto = () =>{
+		$scope.adicionarProduto = ($item) =>{
+
+			$scope.descricaoProd = $item.produto.nome;
+			$scope.codVariacao	 = $item.produto.codVariacao;
+			$scope.codExterno	 = $item.produto.codExterno;
+			$scope.codigoProduto = $item.produto.id;
 			
 			$rootScope.produtos.push(
 				{ 
 					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
-					descricao			: $scope.descricaoProd,
-					codigoProduto		: $scope.codigoProduto,
-					aplicacao			: $scope.aplicacao,
-					quantidade			: $scope.quantidadeProduto,
-					codVariacao			: $scope.codVariacao,
-					codExterno			: $scope.codExterno,
+					descricao			: $item.produto.nome,//$scope.descricaoProd,
+					codigoProduto		: $item.produto.id,//$scope.codigoProduto,
+					aplicacao			: $item.produto.aplicacao,//$scope.aplicacao,
+					quantidade			: $item.produto.quantidadeProduto,//$scope.quantidadeProduto,
+					codVariacao			: $item.produto.codVariacao,//$scope.codVariacao,
+					codExterno			: $item.produto.codExterno,//$scope.codExterno,
 					/*Grava durante a edição  do pedido*/
 					cluster				: $scope.cluster,
 					responsavel			: $scope.responsavel,
@@ -1802,76 +1853,76 @@ angular
 		};
 		
 		/*Tabela de produtos*/
-		$scope.atualizaTabelaProdutos = () =>{
+		// $scope.atualizaTabelaProdutos = () =>{
 					
-			setTimeout(()=>{
-				$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
-					.withOption('data', $rootScope.produtos)	
-					.withDataProp('data')
-					.withOption('processing', true)
-					.withOption('serverSide', false)
-					.withOption('searchDelay', 1000)
-					.withOption('scrollY', '40vh')    
-					.withOption('scrollCollapse', true)  
-					.withOption('paging', false)        
-					.withOption('scrollX', '100%')       
-					.withDisplayLength(20)
-					.withDOM('tr');
+		// 	setTimeout(()=>{
+		// 		$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
+		// 			.withOption('data', $rootScope.produtos)	
+		// 			.withDataProp('data')
+		// 			.withOption('processing', true)
+		// 			.withOption('serverSide', false)
+		// 			.withOption('searchDelay', 1000)
+		// 			.withOption('scrollY', '40vh')    
+		// 			.withOption('scrollCollapse', true)  
+		// 			.withOption('paging', false)        
+		// 			.withOption('scrollX', '100%')       
+		// 			.withDisplayLength(20)
+		// 			.withDOM('tr');
 					
-				defPD = {	'descricao' 								:	{i:1, vsbl: false,	tlt: 'Produto',			width:''},
-							'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
-							'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
-							'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
-							'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicação',		width:''}	
-					};
+		// 		defPD = {	'descricao' 								:	{i:1, vsbl: false,	tlt: 'Produto',			width:''},
+		// 					'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
+		// 					'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
+		// 					'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
+		// 					'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicação',		width:''}	
+		// 			};
 
 
-				DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
-				var montaColunas = [];
+		// 		DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
+		// 		var montaColunas = [];
 
-				montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Produto').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-					let img = row.codExterno.replace('/','')+".jpg";
+		// 		montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Produto').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+		// 			let img = row.codExterno.replace('/','')+".jpg";
 					
-					if (row.codVariacao.length > 0){
-						img = row.codExterno.replace('/','') + "_" + row.codVariacao.replace('/','') + ".jpg";
-					}
+		// 			if (row.codVariacao.length > 0){
+		// 				img = row.codExterno.replace('/','') + "_" + row.codVariacao.replace('/','') + ".jpg";
+		// 			}
 					
-					var imgProdutoHtml = '';
+		// 			var imgProdutoHtml = '';
 
-					imgProdutoHtml += "<div style='width:350px' class='col-sm-12'>"
-					imgProdutoHtml += "<div class='col-sm-3 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/"+$rootScope.subdomain+"/"+img+"' onerror='this.src=\"images/icon/semimagem.png\"' style='width: 80px;'></div>";
-					imgProdutoHtml += "<div class='col-sm-9'><p style='margin-top:25px; white-space:normal;'>"+row.codExterno+" - "+row.descricao+" - "+row.codVariacao+"</p></div>";
-					imgProdutoHtml += "</div>"
+		// 			imgProdutoHtml += "<div style='width:350px' class='col-sm-12'>"
+		// 			imgProdutoHtml += "<div class='col-sm-3 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/"+$rootScope.subdomain+"/"+img+"' onerror='this.src=\"images/icon/semimagem.png\"' style='width: 80px;'></div>";
+		// 			imgProdutoHtml += "<div class='col-sm-9'><p style='margin-top:25px; white-space:normal;'>"+row.codExterno+" - "+row.descricao+" - "+row.codVariacao+"</p></div>";
+		// 			imgProdutoHtml += "</div>"
 					
 					
-					return imgProdutoHtml;
-				}));
+		// 			return imgProdutoHtml;
+		// 		}));
 
 			
-				angular.forEach(defPD, function(value, key) {
-					montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withClass('responsive').withOption('sWidth', value.width));
-				});
+		// 		angular.forEach(defPD, function(value, key) {
+		// 			montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withClass('responsive').withOption('sWidth', value.width));
+		// 		});
 
-				montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-					var btnhtml = '';				
-					btnhtml += "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(row)+")' ></div>";
-					return btnhtml;
-				}));
+		// 		montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
+		// 			var btnhtml = '';				
+		// 			btnhtml += "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(row)+")' ></div>";
+		// 			return btnhtml;
+		// 		}));
 
-				$scope.dtColumnsProd = montaColunas;
+		// 		$scope.dtColumnsProd = montaColunas;
 												
-				angular.element('#listDocumentsProdutos').attr('datatable', '');
-				$compile(angular.element('#listDocumentsProdutos'))($scope);
+		// 		angular.element('#listDocumentsProdutos').attr('datatable', '');
+		// 		$compile(angular.element('#listDocumentsProdutos'))($scope);
 
-				$scope.dtOptionsProd.withOption('fnRowCallback',
+		// 		$scope.dtOptionsProd.withOption('fnRowCallback',
 					
-					function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-						$compile(nRow)($scope);
-				});
+		// 			function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+		// 				$compile(nRow)($scope);
+		// 		});
 
-			}, 500)
+		// 	}, 500)
 			
-		};
+		// };
 
 		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
 			/* Utiliza o Alert Bootstrap
@@ -1953,6 +2004,8 @@ angular
 			};
 
 		};
+
+		console.log("TESTE")
 			
 	});
 </script> 
@@ -2012,6 +2065,34 @@ angular
 	.dataTables_wrapper .dataTables_info{
 		font-size: 12px;
 	}
+
+	.table>thead>tr>th {
+    	vertical-align: inherit;
+	}
+
+	#listDocumentsProdutos {
+		border-radius: 4px;
+		border-top: 1.5px solid rgb(236, 236, 236);;
+	}
+
+	#listDocumentsProdutos tr>th {
+   		box-shadow: 4px 7px 7px #ededed;
+	}
+
+	#listDocumentsProdutos tr>td {
+		font-size: 13px;
+    	font-weight: 400;
+	}
+
+	#listDocumentsProdutos td, th{
+		vertical-align: inherit;
+	}
+
+	#listDocumentsProdutos tr:hover{
+		background-color: rgb(248, 248, 248);
+		border-radius: 8px;
+	}
+
 
 	.header-filtro-tabela{
 		background-color: var(--cor_principal);	
