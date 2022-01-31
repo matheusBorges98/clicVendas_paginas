@@ -1132,7 +1132,7 @@ angular
 				$rootScope.numPedidoClic	= '';
 				$scope.sincronizado			= "DOCUMENTO_NAO_SINCRONIZADO";
 
-				$scope.atualizaTabelaProdutos();
+				// $scope.atualizaTabelaProdutos();
 
 			}else{
 				
@@ -1270,13 +1270,13 @@ angular
 			$scope.codigoProduto 		= '';
 			
 			$scope.limpaProduto('noFocus');
-			$scope.atualizaTabelaProdutos();
+			// $scope.atualizaTabelaProdutos();
 		};
 
 		$scope.removerProduto = ($item) => {
 			
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
-			$scope.atualizaTabelaProdutos();
+			// $scope.atualizaTabelaProdutos();
 		};
 		
 		$scope.addObservacaoHistorico = () => {
