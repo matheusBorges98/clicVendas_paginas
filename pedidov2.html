@@ -237,7 +237,7 @@
 												<td>
 													<div class="col-sm-12">
 														<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
-														<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
+														<!-- <div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div> -->
 													</div>		
 												</td>
 											</tr>
@@ -546,10 +546,23 @@
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
 						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 " ng-click="finalizarDocumento()"> Finalizar </button>
-					</div>	
-					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' "  ng-click="salvarDocumento(1)"> Salvar </button>
 					</div>
+					<div class="btn-group dropup">
+						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' "  ng-click="salvarDocumento(1)"> Salvar </button>
+
+						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
+							Salvar
+							<span class="caret caret-up"></span>
+						</button>
+						<ul class="dropdown-menu drop-up" role="menu">
+							<li><a title="Manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
+							<li><a title="Manterá em aberto" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>
+							<li><a title="Manterá em aberto" ng-click="salvarDocumento(1, 'EM_REVISAO')">Enviar para revisão</a></li>          
+						</ul>
+					</div>	
+					<!-- <div class="btn-group">
+						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' "  ng-click="salvarDocumento(1)"> Salvar </button>
+					</div> -->
 					<div class="btn-group">
 						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
 					</div>	
@@ -713,49 +726,25 @@ angular
 		$scope.getSituacaoAmostra = () => {
 			$scope.listaSituacaoAmostra = [
 				{
-					nome:'SOLICITAÇÃO DE AMOSTRA',
-					id:1
+					nome:'Em digitação',
+					send:'EM_DIGITACAO'
 				},
 				{
-					nome:'ENVIADA',
-					id:2
+					nome:'Análise',
+					send:'EM_ANALISE'
 				},
 				{
-					nome:'TESTE',
-					id:3
+					nome:'Revisão',
+					send:'EM_REVISAO'
 				},
 				{
-					nome:'TESTE INDUSTRIAL',
-					id:4
+					nome:'Integrado',
+					send:'STATUS_INTEGRADO'
 				},
 				{
-					nome:'CATÁLOGO',
-					id:5
-				},
-				{
-					nome:'REPROVADA TECNICAMENTE',
-					id:6
-				},
-				{
-					nome:'APROVADA TECNICAMENTE',
-					id:7
-				},
-				{
-					nome:'REPROVADA COMERCIALMENTE',
-					id:8
-				},
-				{
-					nome:'APROV. TEC E REP. COMERCIAL',
-					id:9
-				},
-				{
-					nome:'STAND BY',
-					id:10
-				},
-				{
-					nome:'CANCELADA',
-					id:11
-				},
+					nome:'Fechada',
+					send:'STATUS_FECHADA'
+				}
 			];
 			return $scope.listaSituacaoAmostra;
 		};
@@ -1346,11 +1335,14 @@ angular
 
 		}
 
-		$scope.salvarDocumento = async (rotina) => {
+		$scope.salvarDocumento = async (rotina, situacao) => {
 			/*
 			Rotinas:
 				1 - Salvar (Mantém apenas no ClicVenda)
 				2 - Finalizar (Envia o pedido para ERP)
+
+			Situação: 
+				Em digitação: Primeira etapa do fluxo
 			*/
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
@@ -1376,7 +1368,6 @@ angular
 				$rootScope.produtos[i].hashDoc 	= hashDoc;	
 			}
 
-			
 			dados.cnpj 				= {id: dadosUserLogado.cId};
 			
 			jsonDocs = [{
