@@ -649,7 +649,7 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		$scope.consultaDocumento = async (hash) => {
+		$scope.consultaDocumento = async (hash, acao) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
 
@@ -660,8 +660,8 @@ angular
 			});
 
 			let listAllDocs = result.data.parametros != null ? result.data.parametros.documentos : [];
-
-			for(doc of listAllDocs){
+			console.log(listAllDocs, "docs")
+			for(doc of listAllDocs){	
 				doc.jsonDocs = JSON.parse(doc.jsonDocs);
 			}
 			$rootScope.listAllDocs = listAllDocs;
@@ -690,6 +690,8 @@ angular
 					if($dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO"){
 						$scope.inputDesabilitado  = false;
 						$scope.permiteEditar	  = true;
+
+						await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl, 2)
 					}else{
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
