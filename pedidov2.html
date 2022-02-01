@@ -1046,6 +1046,17 @@ angular
 			};
 
 		};
+		
+		$scope.agruparProdutos = ($item) => {
+			let allProducts = [];
+			
+			for(let i = 0; i < $item.length; i++){
+				allProducts.push($item[i].jsonDocs[0].produtos)
+			}
+			console.log(allProducts, "all")
+			return allProducts
+
+		}
 
 		$scope.abreFormulario = async ($dados) =>{
 
@@ -1180,11 +1191,8 @@ angular
 				if(docs.produtos.situacao && docs.produtos.situacao.send === "EM_DIGITACAO"){
 					let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 					
-					console.log(documentosClic, "RESULT")
-					for(docs of documentosClic){
-						$rootScope.produtos.push(docs.jsonDocs[0].produtos)
-					}
-					
+					$rootScope.produtos			= $scope.agruparProdutos(documentosClic);
+										
 				}else{
 					/*Informações sobre o produto*/
 					$rootScope.produtos			= docs.produtos;
@@ -1959,7 +1967,7 @@ angular
 
 		};
 
-		console.log("TESTE11")
+		console.log("TESTE12")
 			
 	});
 </script> 
