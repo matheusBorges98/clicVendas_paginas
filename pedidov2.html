@@ -674,9 +674,9 @@ angular
 
 		$scope.agrupaProdutosPedido = ($item) => {
 			
-			for(i = 0; i < $item.length; i++){
+			for(let i = 0; i < $item.length; i++){
 				console.log($item[i].jsonDocs[0].produtos)
-				$rootScope.produtos += $item[i].jsonDocs[0].produtos
+				$rootScope.produtos.push($item[i].jsonDocs[0].produtos)
 			}
 		}
 
@@ -2029,7 +2029,7 @@ angular
 
 		};
 
-		console.log("TESTE9")
+		console.log("TESTE10")
 			
 	});
 </script> 
