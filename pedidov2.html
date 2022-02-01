@@ -669,13 +669,13 @@ angular
 
 			let listAllDocs = result.data.parametros != null ? result.data.parametros.documentos : [];
 			console.log(listAllDocs, "docs")
-
-			$scope.agrupaProdutosPedido(listAllDocs)
 			
 			for(doc of listAllDocs){	
 				doc.jsonDocs = JSON.parse(doc.jsonDocs);
 			}
 			$rootScope.listAllDocs = listAllDocs;
+
+			$scope.agrupaProdutosPedido(listAllDocs);/*Ao editar um item, irá buscar produtos ligados ao mesmo pedido*/
 
 			return listAllDocs;
 		};
@@ -2029,7 +2029,7 @@ angular
 
 		};
 
-		console.log("TESTE12")
+		console.log("TESTE13")
 			
 	});
 </script> 
