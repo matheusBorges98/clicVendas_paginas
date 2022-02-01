@@ -1182,7 +1182,7 @@ angular
 					
 					console.log(documentosClic, "RESULT")
 					for(docs of documentosClic){
-						$rootScope.produtos.push(docs.produtos)
+						$rootScope.produtos.push(docs.jsonDocs[0].produtos)
 					}
 					
 				}else{
@@ -1959,7 +1959,7 @@ angular
 
 		};
 
-		console.log("TESTE10")
+		console.log("TESTE11")
 			
 	});
 </script> 
