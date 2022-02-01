@@ -1388,28 +1388,20 @@ angular
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
 				$rootScope.produtos[i].hashDoc 	= hashDoc;
 				
-				// switch(situacao){
-				// 	case 'EM_DIGITACAO':
-				// 		$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
-				// 		break;
+				switch(situacao){
+					case 'EM_DIGITACAO':
+						$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
+						break;
 					
-				// 	case 'EM_ANALISE':
-				// 		$rootScope.produtos[i].situacao = {nome:"Em análise", send:situacao}
-				// 		break;
+					case 'EM_ANALISE':
+						$rootScope.produtos[i].situacao = {nome:"Em análise", send:situacao}
+						break;
 					
-				// 	case 'EM_REVISAO':
-				// 		$rootScope.produtos[i].situacao = {nome:"Em revisão", send:situacao}
-				// 		break;
-				// }
-				
-
-				if(situacao === "EM_DIGITACAO"){
-					$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
-				}else if(situacao === "EM_ANALISE"){
-					$rootScope.produtos[i].situacao = {nome:"Em análise", send:situacao}
-				}else if(situacao === "EM_REVISAO"){
-					$rootScope.produtos[i].situacao = {nome:"Em revisão", send:situacao}
+					case 'EM_REVISAO':
+						$rootScope.produtos[i].situacao = {nome:"Em revisão", send:situacao}
+						break;
 				}
+				
 			}
 
 			dados.cnpj 				= {id: dadosUserLogado.cId};
@@ -1527,6 +1519,21 @@ angular
 						json[0].produtos.concorrencia	= $scope.concorrencia,
 						json[0].produtos.precoConc		= $scope.precoConc,
 						json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo	
+
+						switch(situacao){
+							case 'EM_DIGITACAO':
+								json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
+								break;
+							
+							case 'EM_ANALISE':
+								json[0].produtos.situacao = {nome:"Em análise", send:situacao}
+								break;
+							
+							case 'EM_REVISAO':
+								son[0].produtos.situacao = {nome:"Em revisão", send:situacao}
+								break;
+						}
+
 					}
 					
 					dados.jsonDocs 		= JSON.stringify(json); 
@@ -1984,7 +1991,7 @@ angular
 
 		};
 
-		console.log("TESTE17")
+		console.log("TESTE18")
 			
 	});
 </script> 
