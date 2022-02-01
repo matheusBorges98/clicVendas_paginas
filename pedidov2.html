@@ -658,7 +658,7 @@ angular
 				produtos.push($item[i].jsonDocs[0].produtos)
 				
 			}
-			$rootScope.produtos.push(produtos)
+			$rootScope.produtos = produtos;
 		}
 
 		$scope.consultaDocumento = async (hash, acao) => {
@@ -2033,7 +2033,7 @@ angular
 
 		};
 
-		console.log("TESTE14")
+		console.log("TESTE15")
 			
 	});
 </script> 
