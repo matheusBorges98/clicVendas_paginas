@@ -998,9 +998,6 @@ angular
 				}		
 			);
 
-			
-
-
 			$rootScope.isLoading = false;
 			
 			if(!isNaN(parseInt(result))){
@@ -1250,7 +1247,7 @@ angular
 					/*Grava durante a edição  do pedido*/
 					cluster				: $scope.cluster,
 					responsavel			: $scope.responsavel,
-					situacao			: {nome:"Em digitação", send:"EM_DIGITACAO"},//$scope.situacao,
+					//situacao			: {nome:"Em digitação", send:"EM_DIGITACAO"},//$scope.situacao,
 					ofertaUnit			: $scope.ofertaUnit,
 					dataStatus			: $scope.dataStatus,
 					justificativa		: $scope.justificativa,
@@ -1365,7 +1362,7 @@ angular
 				2 - Finalizar (Envia o pedido para ERP)
 
 			Situação: 
-				Em digitação: Primeira etapa do fluxo
+				Em digitação - EM_DIGITACAO: Primeira etapa do fluxo
 			*/
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
@@ -1388,7 +1385,11 @@ angular
 
 			for(i = 0; i < $rootScope.produtos.length; i++){
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
-				$rootScope.produtos[i].hashDoc 	= hashDoc;	
+				$rootScope.produtos[i].hashDoc 	= hashDoc;
+				
+				if(situacao === "EM_DIGITACAO"){
+					$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
+				}
 			}
 
 			dados.cnpj 				= {id: dadosUserLogado.cId};
@@ -2033,7 +2034,7 @@ angular
 
 		};
 
-		console.log("TESTE15")
+		console.log("TESTE16")
 			
 	});
 </script> 
