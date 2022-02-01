@@ -1181,36 +1181,10 @@ angular
 					let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 					
 					console.log(documentosClic, "RESULT")
-
-					$rootScope.produtos			= docs.produtos;
-					$scope.responsavel			= docs.produtos.responsavel;
-					$scope.cluster				= docs.produtos.cluster;
-					$scope.quantidade			= docs.produtos.quantidade;
-					$scope.codigoProduto		= docs.produtos.codigoProduto;
-					$scope.descricao			= docs.produtos.descricao;
-					$scope.consumoProdutoKgMes  = docs.produtos.consumoProdutoKgMes;
-					$scope.codExternoProduto	= docs.produtos.codExterno
-					$scope.situacao				= docs.produtos.situacao;
-					$scope.ofertaUnit			= docs.produtos.ofertaUnit;
-					$scope.dataStatus			= docs.produtos.dataStatus;
-					$scope.justificativa		= docs.produtos.justificativa;
-					$scope.potencial0XCM		= docs.produtos.potencial0XCM;
-					$scope.chaveCp				= docs.produtos.chaveCp;
-					$scope.identQtd				= docs.produtos.identQtd;
-					$scope.venda				= docs.produtos.venda;
-					$scope.vendaLocalKg			= docs.produtos.vendaLocalKg;
-					$scope.totalFatUSD			= docs.produtos.totalFatUSD;
-					$scope.margemR				= docs.produtos.margemR;
-					$scope.preUSD				= docs.produtos.preUSD;
-					$scope.ofertaData			= docs.produtos.ofertaData;
-					$scope.probFechamento		= docs.produtos.probFechamento;
-					$scope.consumoAg			= docs.produtos.consumoAg;
-					$scope.chaveCp				= docs.produtos.chaveCp;
-					$scope.familia				= docs.produtos.familia;
-					$scope.concorrencia			= docs.produtos.concorrencia;
-					$scope.precoConc			= docs.produtos.precoConc;
-					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
-
+					for(docs of documentosClic){
+						$rootScope.produtos.push(docs.produtos)
+					}
+					
 				}else{
 					/*Informações sobre o produto*/
 					$rootScope.produtos			= docs.produtos;
@@ -1985,7 +1959,7 @@ angular
 
 		};
 
-		console.log("TESTE9")
+		console.log("TESTE10")
 			
 	});
 </script> 
