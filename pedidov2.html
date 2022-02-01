@@ -661,6 +661,9 @@ angular
 
 			let listAllDocs = result.data.parametros != null ? result.data.parametros.documentos : [];
 			console.log(listAllDocs, "docs")
+
+			$scope.agrupaProdutosPedido(listAllDocs)
+			
 			for(doc of listAllDocs){	
 				doc.jsonDocs = JSON.parse(doc.jsonDocs);
 			}
@@ -668,6 +671,13 @@ angular
 
 			return listAllDocs;
 		};
+
+		$scope.agrupaProdutosPedido = ($item) => {
+			
+			for(i = 0; i < $item.length; i++){
+				$rootScope.produtos.push($item[i].jsonDocs[0].produtos)
+			}
+		}
 
 		$rootScope.changeView = ($dados) => {
 			console.log($dados, "change view")
@@ -2018,7 +2028,7 @@ angular
 
 		};
 
-		console.log("TESTE7")
+		console.log("TESTE8")
 			
 	});
 </script> 
