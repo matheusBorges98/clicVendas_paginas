@@ -1139,7 +1139,6 @@ angular
 				$rootScope.numPedidoClic	= '';
 				$scope.sincronizado			= "DOCUMENTO_NAO_SINCRONIZADO";
 
-				$scope.$apply();
 				// $scope.atualizaTabelaProdutos();
 
 			}else{
@@ -1224,8 +1223,9 @@ angular
 					$scope.precoConc			= docs.produtos.precoConc;
 					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
 				}
-				$scope.$apply();					
+								
 			};	
+			$scope.$apply();	
 		};
 
 		$scope.adicionarProduto = ($item) =>{
@@ -1990,7 +1990,7 @@ angular
 
 		};
 
-		console.log("TESTE20")
+		console.log("TESTE21")
 			
 	});
 </script> 
