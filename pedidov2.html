@@ -650,9 +650,9 @@ angular
 		$rootScope.cliente			= {};
 
 		$scope.agrupaProdutosPedido = ($item) => {
-			
+			console.log($item)
 			for(let i = 0; i < $item.length; i++){
-				console.log($item[i].jsonDocs[0].produtos)
+				console.log($item[i].jsonDocs[0])
 				$rootScope.produtos.push($item[i].jsonDocs[0].produtos)
 			}
 		}
@@ -2029,7 +2029,7 @@ angular
 
 		};
 
-		console.log("TESTE11")
+		console.log("TESTE12")
 			
 	});
 </script> 
