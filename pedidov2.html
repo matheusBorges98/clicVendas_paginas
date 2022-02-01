@@ -1192,6 +1192,8 @@ angular
 					let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 					
 					$rootScope.produtos			= $scope.agruparProdutos(documentosClic);
+
+					$scope.$apply();
 										
 				}else{
 					/*Informações sobre o produto*/
@@ -1223,12 +1225,8 @@ angular
 					$scope.concorrencia			= docs.produtos.concorrencia;
 					$scope.precoConc			= docs.produtos.precoConc;
 					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
-				}				
-				
-			};
-			
-			
-			
+				}					
+			};	
 		};
 
 		$scope.adicionarProduto = ($item) =>{

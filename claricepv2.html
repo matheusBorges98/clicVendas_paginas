@@ -716,6 +716,7 @@ angular
 		});
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 20) => {
+			console.log($json, "ENVIO PARA O ERP")
 			try {
 				let response;
 
@@ -724,7 +725,8 @@ angular
 					done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
 								
 				}, timeLimit * 1000); // limite em segundos
-			
+				
+				console.log(response.data, "RETORNO ERP")
 				return response.data;
 			}catch(err){
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
