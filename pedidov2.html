@@ -649,19 +649,7 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		$scope.agrupaProdutosPedido = ($item) => {
-			let produtos = [];
-			console.log($item)
-			for(let i = 0; i < $item.length; i++){
-				console.log($item[i].jsonDocs[0].produtos)
-			
-				produtos.push($item[i].jsonDocs[0].produtos)
-				
-			}
-			$rootScope.produtos = JSON.stringify(produtos);
-		}
-
-		$scope.consultaDocumento = async (hash, acao) => {
+		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
 
@@ -678,10 +666,6 @@ angular
 				doc.jsonDocs = JSON.parse(doc.jsonDocs);
 			}
 			$rootScope.listAllDocs = listAllDocs;
-
-			if(acao && acao === 2){
-				$scope.agrupaProdutosPedido($rootScope.listAllDocs);/*Ao editar um item, irá buscar produtos ligados ao mesmo pedido*/
-			}
 
 			return listAllDocs;
 		};
@@ -704,11 +688,10 @@ angular
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Pedido Nº "+$dados.jsonDocs[0].numPedidoClic;
 					
-					if($dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO"){
+					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO"){
 						$scope.inputDesabilitado  = false;
 						$scope.permiteEditar	  = true;
 
-						$scope.consultaDocumento($dados.jsonDocs[0].docCtrl, 2)
 					}else{
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
@@ -1192,38 +1175,44 @@ angular
 				/*Sincronização - Envio ERP*/
 				$scope.sincronizado			= docs.sincronizado;
 
-				/*Informações sobre o produto*/
-				$rootScope.produtos			= docs.produtos;
-				$scope.responsavel			= docs.produtos.responsavel;
-				$scope.cluster				= docs.produtos.cluster;
-				$scope.quantidade			= docs.produtos.quantidade;
-				$scope.codigoProduto		= docs.produtos.codigoProduto;
-				$scope.descricao			= docs.produtos.descricao;
-				$scope.consumoProdutoKgMes  = docs.produtos.consumoProdutoKgMes;
-				$scope.codExternoProduto	= docs.produtos.codExterno
-				$scope.situacao				= docs.produtos.situacao;
-				$scope.ofertaUnit			= docs.produtos.ofertaUnit;
-				$scope.dataStatus			= docs.produtos.dataStatus;
-				$scope.justificativa		= docs.produtos.justificativa;
-				$scope.potencial0XCM		= docs.produtos.potencial0XCM;
-				$scope.chaveCp				= docs.produtos.chaveCp;
-				$scope.identQtd				= docs.produtos.identQtd;
-				$scope.venda				= docs.produtos.venda;
-				$scope.vendaLocalKg			= docs.produtos.vendaLocalKg;
-				$scope.totalFatUSD			= docs.produtos.totalFatUSD;
-				$scope.margemR				= docs.produtos.margemR;
-				$scope.preUSD				= docs.produtos.preUSD;
-				$scope.ofertaData			= docs.produtos.ofertaData;
-				$scope.probFechamento		= docs.produtos.probFechamento;
-				$scope.consumoAg			= docs.produtos.consumoAg;
-				$scope.chaveCp				= docs.produtos.chaveCp;
-				$scope.familia				= docs.produtos.familia;
-				$scope.concorrencia			= docs.produtos.concorrencia;
-				$scope.precoConc			= docs.produtos.precoConc;
+				/*Valida situação e aplica regra*/
+				let result = await $scope.consultaDocumento($rootScope.hashDoc);
 
-				$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
+				if(docs.produtos.situacao.send === "EM_DIGITACAO"){
+					console.log(result, "RESULT")
+
+				}else{
+					/*Informações sobre o produto*/
+					$rootScope.produtos			= docs.produtos;
+					$scope.responsavel			= docs.produtos.responsavel;
+					$scope.cluster				= docs.produtos.cluster;
+					$scope.quantidade			= docs.produtos.quantidade;
+					$scope.codigoProduto		= docs.produtos.codigoProduto;
+					$scope.descricao			= docs.produtos.descricao;
+					$scope.consumoProdutoKgMes  = docs.produtos.consumoProdutoKgMes;
+					$scope.codExternoProduto	= docs.produtos.codExterno
+					$scope.situacao				= docs.produtos.situacao;
+					$scope.ofertaUnit			= docs.produtos.ofertaUnit;
+					$scope.dataStatus			= docs.produtos.dataStatus;
+					$scope.justificativa		= docs.produtos.justificativa;
+					$scope.potencial0XCM		= docs.produtos.potencial0XCM;
+					$scope.chaveCp				= docs.produtos.chaveCp;
+					$scope.identQtd				= docs.produtos.identQtd;
+					$scope.venda				= docs.produtos.venda;
+					$scope.vendaLocalKg			= docs.produtos.vendaLocalKg;
+					$scope.totalFatUSD			= docs.produtos.totalFatUSD;
+					$scope.margemR				= docs.produtos.margemR;
+					$scope.preUSD				= docs.produtos.preUSD;
+					$scope.ofertaData			= docs.produtos.ofertaData;
+					$scope.probFechamento		= docs.produtos.probFechamento;
+					$scope.consumoAg			= docs.produtos.consumoAg;
+					$scope.chaveCp				= docs.produtos.chaveCp;
+					$scope.familia				= docs.produtos.familia;
+					$scope.concorrencia			= docs.produtos.concorrencia;
+					$scope.precoConc			= docs.produtos.precoConc;
+					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
+				}				
 				
-				$scope.consultaDocumento($rootScope.hashDoc);
 			};
 			
 			$rootScope.changeView($dados);
@@ -2038,7 +2027,7 @@ angular
 
 		};
 
-		console.log("TESTE19")
+		console.log("TESTE1")
 			
 	});
 </script> 
