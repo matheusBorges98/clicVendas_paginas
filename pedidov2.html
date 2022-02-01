@@ -545,7 +545,7 @@
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' " ng-click="finalizarDocumento()"> Finalizar </button>
+						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' && dadosUserLogado.rTipoId === 3 " ng-click="finalizarDocumento()"> Finalizar </button>
 					</div>
 					<div class="btn-group dropup">
 						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
@@ -1187,7 +1187,7 @@ angular
 				/*Sincronização - Envio ERP*/
 				$scope.sincronizado			= docs.sincronizado;
 
-				/*Valida situação e aplica regra*/
+				/*Valida situação e aplica regra - Agrupa produtos pelo mesmo hashCode*/
 				if(docs.produtos.situacao && docs.produtos.situacao.send === "EM_DIGITACAO"){
 					let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 					
@@ -1388,9 +1388,23 @@ angular
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
 				$rootScope.produtos[i].hashDoc 	= hashDoc;
 				
-				if(situacao === "EM_DIGITACAO"){
-					$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
+				switch(situacao){
+					case 'EM_DIGITACAO':
+						$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
+						break;
+					
+					case 'EM_ANALISE':
+						$rootScope.produtos[i].situacao = {nome:"Em análise", send:situacao}
+						break;
+					
+					case 'EM_REVISAO':
+						$rootScope.produtos[i].situacao = {nome:"Em revisão", send:situacao}
+						break;
 				}
+				
+				// if(situacao === "EM_DIGITACAO"){
+				// 	$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
+				// }
 			}
 
 			dados.cnpj 				= {id: dadosUserLogado.cId};
@@ -1965,7 +1979,7 @@ angular
 
 		};
 
-		console.log("TESTE12")
+		console.log("TESTE13")
 			
 	});
 </script> 
