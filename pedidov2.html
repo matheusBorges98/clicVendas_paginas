@@ -1047,7 +1047,9 @@ angular
 
 		};
 
-		$scope.abreFormulario = ($dados) =>{
+		$scope.abreFormulario = async ($dados) =>{
+
+			let result = await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
@@ -1176,8 +1178,6 @@ angular
 				$scope.sincronizado			= docs.sincronizado;
 
 				/*Valida situação e aplica regra*/
-				let result = await $scope.consultaDocumento($rootScope.hashDoc);
-
 				if(docs.produtos.situacao.send === "EM_DIGITACAO"){
 					console.log(result, "RESULT")
 
@@ -2027,7 +2027,7 @@ angular
 
 		};
 
-		console.log("TESTE1")
+		console.log("TESTE2")
 			
 	});
 </script> 
