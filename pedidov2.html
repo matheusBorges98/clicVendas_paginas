@@ -1049,6 +1049,8 @@ angular
 
 		$scope.abreFormulario = async ($dados) =>{
 
+			$rootScope.changeView($dados);
+
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
 
@@ -1176,7 +1178,7 @@ angular
 
 				/*Valida situação e aplica regra*/
 				if(docs.produtos.situacao && docs.produtos.situacao.send === "EM_DIGITACAO"){
-					let documentosClic			= $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
+					let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 					
 					console.log(documentosClic, "RESULT")
 
@@ -1243,7 +1245,7 @@ angular
 				
 			};
 			
-			$rootScope.changeView($dados);
+			
 			
 		};
 
@@ -2055,7 +2057,7 @@ angular
 
 		};
 
-		console.log("TESTE7")
+		console.log("TESTE8")
 			
 	});
 </script> 
