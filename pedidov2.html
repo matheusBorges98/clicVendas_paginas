@@ -649,6 +649,14 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
+		$scope.agrupaProdutosPedido = ($item) => {
+			
+			for(let i = 0; i < $item.length; i++){
+				console.log($item[i].jsonDocs[0].produtos)
+				$rootScope.produtos.push($item[i].jsonDocs[0].produtos)
+			}
+		}
+
 		$scope.consultaDocumento = async (hash, acao) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
@@ -671,14 +679,6 @@ angular
 
 			return listAllDocs;
 		};
-
-		$scope.agrupaProdutosPedido = ($item) => {
-			
-			for(let i = 0; i < $item.length; i++){
-				console.log($item[i].jsonDocs[0].produtos)
-				$rootScope.produtos.push($item[i].jsonDocs[0].produtos)
-			}
-		}
 
 		$rootScope.changeView = ($dados) => {
 			console.log($dados, "change view")
@@ -2029,7 +2029,7 @@ angular
 
 		};
 
-		console.log("TESTE10")
+		console.log("TESTE11")
 			
 	});
 </script> 
