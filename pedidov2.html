@@ -1049,8 +1049,6 @@ angular
 
 		$scope.abreFormulario = async ($dados) =>{
 
-			let result = await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
-
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
 
@@ -1131,7 +1129,7 @@ angular
 				// $scope.atualizaTabelaProdutos();
 
 			}else{
-				
+				let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 				let docs 					= $dados.jsonDocs[0];
 
 				$rootScope.hashDoc			= docs.docCtrl;
@@ -1178,8 +1176,8 @@ angular
 				$scope.sincronizado			= docs.sincronizado;
 
 				/*Valida situação e aplica regra*/
-				if(docs.produtos.situacao.send === "EM_DIGITACAO"){
-					console.log(result, "RESULT")
+				if(docs.produtos.situacao && docs.produtos.situacao.send === "EM_DIGITACAO"){
+					console.log(documentosClic, "RESULT")
 
 				}else{
 					/*Informações sobre o produto*/
@@ -2027,7 +2025,7 @@ angular
 
 		};
 
-		console.log("TESTE2")
+		console.log("TESTE3")
 			
 	});
 </script> 
