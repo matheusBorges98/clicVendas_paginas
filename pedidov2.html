@@ -688,7 +688,7 @@ angular
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Pedido Nº "+$dados.jsonDocs[0].numPedidoClic;
 					
-					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos[0].situacao.send === "EM_DIGITACAO"){
+					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO"){
 						$scope.inputDesabilitado  = false;
 						$scope.permiteEditar	  = true;
 
@@ -2057,7 +2057,7 @@ angular
 
 		};
 
-		console.log("TESTE8")
+		console.log("TESTE9")
 			
 	});
 </script> 
