@@ -545,7 +545,7 @@
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 " ng-click="finalizarDocumento()"> Finalizar </button>
+						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' " ng-click="finalizarDocumento()"> Finalizar </button>
 					</div>
 					<div class="btn-group dropup">
 						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
@@ -622,7 +622,7 @@
 
 <script>
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
-
+console.log(dadosUserLogado)
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
 	.controller("MainController",
