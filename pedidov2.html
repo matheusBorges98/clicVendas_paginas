@@ -1511,6 +1511,8 @@ angular
 					
 					dados.jsonDocs 		= JSON.stringify(json); 
 
+					console.log(dados.jsonDocs,"docs salvar")
+
 					let response 		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
 				};
 
@@ -2034,7 +2036,7 @@ angular
 
 		};
 
-		console.log("TESTE16")
+		console.log("TESTE17")
 			
 	});
 </script> 
