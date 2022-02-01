@@ -679,7 +679,9 @@ angular
 			}
 			$rootScope.listAllDocs = listAllDocs;
 
-			$scope.agrupaProdutosPedido(listAllDocs);/*Ao editar um item, irá buscar produtos ligados ao mesmo pedido*/
+			if(acao && acao === 2){
+				$scope.agrupaProdutosPedido($rootScope.listAllDocs);/*Ao editar um item, irá buscar produtos ligados ao mesmo pedido*/
+			}
 
 			return listAllDocs;
 		};
@@ -2036,7 +2038,7 @@ angular
 
 		};
 
-		console.log("TESTE18")
+		console.log("TESTE19")
 			
 	});
 </script> 
