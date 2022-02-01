@@ -688,7 +688,7 @@ angular
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Pedido Nº "+$dados.jsonDocs[0].numPedidoClic;
 					
-					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO"){
+					if($dados.jsonDocs[0].produtos.length > 1 && $dados.jsonDocs[0].produtos[0].situacao.send === "EM_DIGITACAO"){
 						$scope.inputDesabilitado  = false;
 						$scope.permiteEditar	  = true;
 
@@ -1129,7 +1129,6 @@ angular
 				// $scope.atualizaTabelaProdutos();
 
 			}else{
-				let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 				let docs 					= $dados.jsonDocs[0];
 
 				$rootScope.hashDoc			= docs.docCtrl;
@@ -1177,7 +1176,10 @@ angular
 
 				/*Valida situação e aplica regra*/
 				if(docs.produtos.situacao && docs.produtos.situacao.send === "EM_DIGITACAO"){
+					let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
+					
 					console.log(documentosClic, "RESULT")
+
 					$rootScope.produtos			= docs.produtos;
 					$scope.responsavel			= docs.produtos.responsavel;
 					$scope.cluster				= docs.produtos.cluster;
@@ -2053,7 +2055,7 @@ angular
 
 		};
 
-		console.log("TESTE5")
+		console.log("TESTE6")
 			
 	});
 </script> 
