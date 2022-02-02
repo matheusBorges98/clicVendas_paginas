@@ -1554,9 +1554,9 @@ angular
 				for(i = 0; i < $rootScope.produtos.length; i++){
 
 					/*Se o pedido estiver "EM_DIGITACAO" - Irá remover os registros salvos e gravar novamente.*/
-					if($rootScope.produtos[i].situacao.send === "EM_DIGITACAO" && id > 0){
-						await $scope.removerProduto($rootScope.produtos[i])
-					}
+					// if($rootScope.produtos[i].situacao.send === "EM_DIGITACAO" && id > 0){
+					// 	await $scope.removerProduto($rootScope.produtos[i])
+					// }
 
 					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
 					json[0].produtos 		= $rootScope.produtos[i];
@@ -2001,7 +2001,7 @@ angular
 
 		};
 
-		console.log("TESTE4")
+		console.log("TESTE5")
 			
 	});
 </script> 
