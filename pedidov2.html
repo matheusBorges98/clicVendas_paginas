@@ -1299,7 +1299,7 @@ angular
 		$scope.removerProduto = async ($item) => {
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
 
-			if($item.situacao.send && $item.situacao.send === "EM_DIGITACAO"){
+			if($item.situacao && $item.situacao.send === "EM_DIGITACAO"){
 				let docs 		= await $scope.consultaDocumento($item.hashDoc)
 				let docToRemove = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
 
@@ -2001,7 +2001,7 @@ angular
 
 		};
 
-		console.log("TESTE1")
+		console.log("TESTE2")
 			
 	});
 </script> 
