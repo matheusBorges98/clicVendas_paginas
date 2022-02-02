@@ -1490,7 +1490,7 @@ angular
 
 			};
 	
-			if(id > 0 && json[0].produtos.situacao != "EM_DIGITACAO"){
+			if(id > 0 && json[0].produtos.situacao.send != "EM_DIGITACAO"){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){
@@ -1995,7 +1995,7 @@ angular
 
 		};
 
-		console.log("TESTE7")
+		console.log("TESTE8")
 			
 	});
 </script> 
