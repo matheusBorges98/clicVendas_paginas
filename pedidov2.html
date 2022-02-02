@@ -1303,9 +1303,9 @@ angular
 			if($item.situacao.send && $item.situacao.send === "EM_DIGITACAO"){
 				let docs = await $scope.consultaDocumento($item.hashDoc)
 
-				let idDoc = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
+				let docToRemove = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
 
-				console.log(idDoc, "idddd")
+				$scope.removerDocumento(docToRemove[0]);
 			}
 			// $scope.atualizaTabelaProdutos();
 		};
@@ -1998,7 +1998,7 @@ angular
 
 		};
 
-		console.log("TESTE3")
+		console.log("TESTE4")
 			
 	});
 </script> 
