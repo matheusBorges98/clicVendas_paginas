@@ -1,60 +1,72 @@
-<!DOCTYPE html>  
-<html ng-app="appV2">  
-<head> 
-	<meta charset="utf-8"/>
+<!DOCTYPE html>
+<html ng-app="appV2">
+
+<head>
+	<meta charset="utf-8" />
 	<!-- Imports CSS-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+		crossorigin="anonymous">
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/jquery.dataTables.min.css">
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/angular-datatables.min.css">
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.colVis.css">
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/dataTables.tableTools.css">
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.css">
-	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
+	<link rel="stylesheet"
+		href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/datatables.bootstrap.min.css">
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/isteven-multi-select.css">
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/font-awesome/css/all.min.css">
 	<link rel="stylesheet" href="https://sistema.clicvenda.com.br/clicVendas/plugins/angCSS/buttons.dataTables.min.css">
 	<!-- Imports CSS-->
 
-<!-- View --> 
-</head>  
+	<!-- View -->
+</head>
+
 <body>
 	<div class="container" ng-controller="MainController">
-		
-		<!--Primeira p�gina-->
+
+		<!--Primeira pagina-->
 		<div ng-show="exibeListaDocumentos">
-		
+
 			<!-- Sidebar Menu FILTRO -->
 			<div id="mySidebar" class="sidebar">
 
 				<div class="header-filtro-tabela">
-					<p style="text-align: center; color:white; font-weight: 900; ">Filtro<span ng-click="openNav()" style="color: white; margin-left:70%" class="glyphicon glyphicon-minus"></span></p>
+					<p style="text-align: center; color:white; font-weight: 900; ">Filtro<span ng-click="openNav()"
+							style="color: white; margin-left:70%" class="glyphicon glyphicon-minus"></span></p>
 				</div>
 
 				<form style="margin-top:5px">
 					<div class="form-group">
 						<label for="filFornecedores">Pesquisar</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filPesquisaGeral" ng-model="filPesquisaGeral" autocomplete="off" aria-describedby=" " placeholder="Digite a palavra chave. Ex: '123'">
+						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filPesquisaGeral"
+							ng-model="filPesquisaGeral" autocomplete="off" aria-describedby=" "
+							placeholder="Digite a palavra chave. Ex: '123'">
 					</div>
 					<!-- <div class="form-group">
 						<label for="filFornecedores">Representante</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filRepresentante" ng-model="filRepresentante" aria-describedby=" " placeholder=" ">
 					</div> -->
-					
+
 					<div class="form-group">
 						<label for="filCliente">Cliente</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCliente" autocomplete="off" ng-model="filCliente" aria-describedby=" " placeholder=" ">
-					</div>
-																			
-					<div class="form-group">
-						<label for="filCarteira">Data Emiss�o</label>
-						<input type="text" style="width: 220px;" ui-mask="99/99/9999" class="form-control spacer-input" autocomplete="off" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
+						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filCliente"
+							autocomplete="off" ng-model="filCliente" aria-describedby=" " placeholder=" ">
 					</div>
 
 					<div class="form-group">
-						<label for="projeto">Sincroniza��o</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" ng-value="filSincronizado.nome" ng-model="filSincronizado" id="filSincronizado" uib-typeahead="(sincronizado.nome) for sincronizado in getFilScinronizacao($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectFilSincronizacao($item, $model, $label)">
+						<label for="filCarteira">Data Emissão</label>
+						<input type="text" style="width: 220px;" ui-mask="99/99/9999" class="form-control spacer-input"
+							autocomplete="off" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
 					</div>
-									
+
+					<div class="form-group">
+						<label for="projeto">Sincronização</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input"
+							ng-value="filSincronizado.nome" ng-model="filSincronizado" id="filSincronizado"
+							uib-typeahead="(sincronizado.nome) for sincronizado in getFilScinronizacao($viewValue)"
+							autocomplete="off" typeahead-min-length="0"
+							typeahead-on-select="onSelectFilSincronizacao($item, $model, $label)">
+					</div>
 				</form>
 
 				<div class="text-center" style="height: 50px;">
@@ -68,16 +80,17 @@
 
 			</div>
 			<!--Sidebar Menu FILTRO-->
-		
+
 			<!-- Tabela -->
 			<div id="main">
 				<!-- Tabela Simplificada -->
 				<div class="col-sm-12 col-md-12 col-xs-12">
-					<table id="listDocuments"  dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border responsive hover"></table>					
+					<table id="listDocuments" dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance"
+						class="row-border responsive hover"></table>
 				</div>
 			</div>
 			<!-- Tabela -->
-		
+
 		</div>
 		<!--Primeira p�gina-->
 
@@ -88,49 +101,54 @@
 			<div class="divider-titulo row">
 				<div class="spacer titulo vcenter col-sm-12">
 					<div class="col-sm-6 itens-titulo">
-						<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"><span class="glyphicon glyphicon-menu-left"></span>  Voltar</button>
-						<button style="text-align: center; width: 120px;" class="btn btn_acao_header btn_cor_padrao" ng-hide="exibeHistoricos" ng-click="abreHistoricos()"><span class="glyphicon glyphicon-list-alt"></span> Hist�rico </button>
+						<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"><span
+								class="glyphicon glyphicon-menu-left"></span> Voltar</button>
+						<button style="text-align: center; width: 120px;" class="btn btn_acao_header btn_cor_padrao"
+							ng-hide="exibeHistoricos" ng-click="abreHistoricos()"><span
+								class="glyphicon glyphicon-list-alt"></span> Histórico </button>
 					</div>
 
 					<div class="col-sm-6">
 						<h5 style="margin-top: 0; margin-left:-15%; font-size: 14px;">{{tipoFormulario}}</h5>
 					</div>
-				</div>			
+				</div>
 			</div>
 			<!-- Header formulario -->
-			
+
 			<!-- Capa do pedido -->
 			<div class="row">
 
 				<form name="cadastroPedido">
-				
+
 					<div ng-hide="exibeHistoricos" class="col-sm-12 spacer">
 
-						<!-- Informa��es resumidas do pedido -->
+						<!-- Informações resumidas do pedido -->
 
 						<div class="row">
-							
+
 							<div ng-show="sincronizado === 'DOCUMENTO_SINCRONIZADO'" class="form-group col-md-12">
 								<div style="background-color: #FBFBFB">
 									<div class="col-sm-6">
 										<h5>Cliente</h5>
-										<p>{{frmCliente.nome}}<p>
+										<p>{{frmCliente.nome}}
+										<p>
 									</div>
 									<div class="col-sm-6">
-										<h5>Endere�o de entrega</h5>
+										<h5>Endereço de entrega</h5>
 										<p>{{frmEndEntrega}}</p>
 									</div>
 
 									<div class="col-sm-2 spacer">
-										<h5>Data de emiss�o</h5>
+										<h5>Data de emissão</h5>
 										<p>{{dataEmissaoFormat}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
-										<h5>Previs�o de entrega</h5>
-										<p ng-show="dataPrevEntregaFormatada != 'Invalid Date'" >{{dataPrevEntregaFormatada}}</p>
+										<h5>Previsão de entrega</h5>
+										<p ng-show="dataPrevEntregaFormatada != 'Invalid Date'">
+											{{dataPrevEntregaFormatada}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
-										<h5>Condi��o de pagamento</h5>
+										<h5>Condição de pagamento</h5>
 										<p>{{condPagamento.nome}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
@@ -140,14 +158,14 @@
 									<div class="col-sm-2 spacer">
 										<h5>Total</h5>
 										<p>{{valorTotal | currency:'R$ '}}</p>
-									</div>	
+									</div>
 									<div class="col-sm-2 spacer">
 										<h5>Representante</h5>
 										<p>{{representante}}</p>
 									</div>
-									
+
 								</div>
-								
+
 								<div style="margin-top: 2%; padding:0;" class="col-sm-12 spacer">
 									<table style="margin-top: 1%;" id="tabelaProdutos" class="table">
 										<thead>
@@ -155,17 +173,28 @@
 												<th>Produto</th>
 												<th>Quantidade</th>
 												<th>Valor und.</th>
-												<th>Desc. / Acr�sc.</th>
+												<th>Desc. / Acrésc.</th>
 												<th>Total item</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat = "produto in produtos">
+											<tr ng-repeat="produto in produtos">
 												<td>
 													<div class="col-sm-12">
-														<div ng-show="produto.codVariacao == ''" class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
-														<div ng-show="produto.codVariacao != ''" class='col-sm-1 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
-														<div class="col-sm-11">{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}}</div>
+														<div ng-show="produto.codVariacao == ''"
+															class='col-sm-1 thumbnail pull-left' style='margin:0'> <img
+																class='media-object'
+																ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg'
+																onerror='this.src="images/icon/semimagem.png"'
+																style='width: 80px;'></div>
+														<div ng-show="produto.codVariacao != ''"
+															class='col-sm-1 thumbnail pull-left' style='margin:0'> <img
+																class='media-object'
+																ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg'
+																onerror='this.src="images/icon/semimagem.png"'
+																style='width: 80px;'></div>
+														<div class="col-sm-11">{{produto.codExterno}} -
+															{{produto.descricao}} - {{produto.codVariacao}}</div>
 													</div>
 												</td>
 												<td>
@@ -175,10 +204,14 @@
 													{{produto.valorNegociado | currency:'R$ '}}
 												</td>
 												<td>
-													<p ng-show="produto.opcaoDescAcresc === 'DESCONTO' && produto.descAcresc != undefined ">- {{produto.descAcresc}}%</p>
-													<p ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' && produto.descAcresc != undefined">+ {{produto.descAcresc}}%</p>
+													<p
+														ng-show="produto.opcaoDescAcresc === 'DESCONTO' && produto.descAcresc != undefined ">
+														- {{produto.descAcresc}}%</p>
+													<p
+														ng-show="produto.opcaoDescAcresc === 'ACRESCIMO' && produto.descAcresc != undefined">
+														+ {{produto.descAcresc}}%</p>
 													<p ng-show="produto.descAcresc == undefined"></p>
-													
+
 												</td>
 												<td>
 													{{produto.valorTotalItem | currency:'R$ '}}
@@ -189,179 +222,339 @@
 								</div>
 							</div>
 
-							<!--ALTERAÇÂO SAMUEL-->
+							<div style="margin-top:-25px" ng-show="sincronizado != 'DOCUMENTO_SINCRONIZADO' "
+								class="form-group col-md-12">
 
-							<div style="margin-top:-25px" ng-show="sincronizado != 'DOCUMENTO_SINCRONIZADO' "  class="form-group col-md-12">
-								
-								<!--TIPO DE ORÇAMENTO-->
 								<div class="col-sm-6 spacer ">
 									<label for="tipoOrcamento">Tipo de orçamento</label>
-									<input type="text" class="form-control" ng-model="tipoOrcamento" id="tipoOrcamento">
+									<input type="text" class="form-control" ng-model="tipoOrcamento">
 								</div>
 
-								<!-- FILIAl-->
 								<div class="col-sm-6 spacer ">
 									<label for="filial">Filial</label>
-									<input type="text" class="form-control" ng-model="filial" id="filial">
+									<input type="text" class="form-control" ng-model="filial">
 								</div>
 
-								<!-- TABELA DE PREÇO-->
 								<div class="col-sm-6 spacer ">
 									<label for="tabPreco">Tabela de preço</label>
-									<input type="text" class="form-control" ng-model="tabPreco" id="tabPreco">
+									<input type="text" class="form-control" ng-model="tabPreco">
 								</div>
 
-								<!--Cliente-->
 								<div class="col-sm-6 spacer ">
 									<label for="cliente">Cliente</label>
-									<input type="text" class="form-control" ng-model="cliente" id="cliente">
+									<input type="text" class="form-control" ng-model="frmCliente"
+										uib-typeahead="teste.nome for teste in getClientes($viewValue)"
+										typeahead-min-lenght="2"
+										typeahead-on-select="onSelectCli($item, $model, $label)">
 								</div>
 
-								<!--FRETE-->
 								<div class="col-sm-6 spacer ">
 									<label for="frete">Frete</label>
-									<input type="text" class="form-control" ng-model="frete" id="frete">
-								</div>
-								
-								<!--TOTAL FRETE-->
-								<div class="col-sm-6 spacer ">
-									<label for="totalFrete">Total de frete</label>
-									<input type="text" class="form-control" ng-model="totalFrete" id="totalFrete">
-								</div>
-								
-								<!--TABELA FRETE-->
-								<div class="col-sm-6 spacer ">
-									<label for="tabelaFrete">Tabela de frete</label>
-									<input type="text" class="form-control" ng-model="tabelaFrete" id="tabelaFrete">
+									<input type="text" class="form-control" ng-model="frete">
 								</div>
 
-								<!--VALIDADAE DE ORÇAMENTO-->
+
+								<div class="col-sm-6 spacer ">
+									<label for="totalFrete">Total de frete</label>
+									<input type="text" class="form-control" ng-model="totalFrete">
+								</div>
+
+
+								<div class="col-sm-6 spacer ">
+									<label for="tabelaFrete">Tabela de frete</label>
+									<input type="text" class="form-control" ng-model="tabelaFrete">
+								</div>
 
 								<div class="col-sm-6 spacer ">
 									<label for="validadeOrcamento">Validade do orçamento</label>
-									<input type="date" class="form-control" ng-model="validadeOrcamento" id="validadeOrcamento">
+									<input type="date" class="form-control" ng-model="validadeOrcamento">
 								</div>
-
-								<!--EMISSÂO DO ORÇAMENTO-->
 
 								<div class="col-sm-6 spacer ">
 									<label for="emissaoOrcamento">Emissão do orçamento</label>
-									<input type="date" class="form-control" ng-model="emissaoOrcamento" id="emissaoOrcamento">
+									<input type="date" class="form-control" ng-model="emissaoOrcamento">
 								</div>
 
-								<!--SITUAÇÂO-->
-								<div class="col-sm-6 spacer ">									
+								<div class="col-sm-6 spacer ">
 									<label for="situacao">Situação</label>
-									<input type="text" class="form-control" name="situacao" ng-model="situacao" id="situacao">
+									<input type="text" class="form-control" ng-model="situacao">
 								</div>
-	
-								<!--PREVISÂO DO CLIENTE-->
-								<div class="col-sm-3 spacer ">									
+
+								<div class="col-sm-3 spacer ">
 									<label for="prevEntregCli">Previsão de entrega do cliente</label>
-									<input type="date" class="form-control" name="prevEntregCli" ng-model="prevEntregCli" id="prevEntregCli">
+									<input type="date" class="form-control" ng-model="prevEntregCli">
 								</div>
 
-								<!--DATA PREVISTA (ORIGINAL)-->
-								<div class="col-sm-3 spacer ">									
+								<div class="col-sm-3 spacer ">
 									<label for="prevEntregCli">Data prevista PCP(original)</label>
-									<input type="date" class="form-control" name="prevEntregCli" ng-model="prevEntregCli" id="prevEntregCli">
+									<input type="date" class="form-control" ng-model="prevEntregCli">
 								</div>
 
-								<!--CAMPO CLEAN-->
 								<div class="col-sm-6 spacer ">
 									<label for="representante">Representante</label>
-									<input type="text" class="form-control" ng-model="representante" id="representante">
+									<input type="text" class="form-control" ng-model="representante">
 								</div>
 
-								<!--CONDIÇÂO DE PAGAMENTO-->
 								<div class="col-sm-6 spacer ">
 									<label for="condicaoPagamento">Condição de pagamento</label>
-									<input type="text" class="form-control" ng-model="condicaoPagamento" id="condicaoPagamento">
+									<input type="text" class="form-control" ng-model="condicaoPagamento"
+										uib-typeahead="teste.nome for teste in getCondicaoPagamentoERP($viewValue)"
+										typeahead-min-lenght="2">
 								</div>
 
-								<!--FORMA DE PAGAMENTO-->
 								<div class="col-sm-6 spacer ">
 									<label for="formaPagamento">Forma de pagamento</label>
-									<input type="text" class="form-control" ng-model="formaPagamento" id="formaPagamento">
+									<input type="text" class="form-control" ng-model="formaPagamento"
+										uib-typeahead="teste.nome for teste in getFormasPagamentoERP($viewValue)"
+										typeahead-min-lenght="3">
 								</div>
-							
-								<!--OBSERVAÇÂO-->
+
 								<div class="col-sm-6 spacer ">
 									<label for="observação">Observação</label>
-									<textarea class="form-control spacer-input ng-pristine ng-valid ng-empty ng-touched" ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
+									<textarea class="form-control spacer-input ng-pristine ng-valid ng-empty ng-touched"
+										ng-model="obsOportunidade" rows="3"></textarea>
 								</div>
 
-								<!--OC/PO-->
 								<div class="col-sm-6 spacer ">
 									<label for="numPedCliente">Numero pedido do cliente (OC/PO)</label>
-									<input type="text" class="form-control" ng-model="numPedCliente" id="numPedCliente">
+									<input type="text" class="form-control" ng-model="numPedCliente">
 								</div>
 
-								<!--ALTERAÇÂO SAMUEL-->
+								<div class="col-sm-12 spacer ">
+									<button class="btn btn_grid btn_cor_padrao" ng-click="getInfoTabela()"> Buscar informações </button>
+								</div>
+
 								<div style="margin-top:5px" class="form-group col-md-12">
-									<div style="padding:0;" class="col-sm-12 spacer">
-									
-										<table id ="tabelaProdutos" class="table">
+									<div style="padding:0;" class="col-xl-12 spacer">
+										<!--Pre para barra de rolagem inferior -->
+										<pre>
+										<table id ="tabelaProdutos" class="table-bordered">
 											<thead>
 												<tr>
-													<th>Produto</th>
-													<th>Pre�o Tab.</th>
-													<th>Quantidade</th>
-													<th>Vlr Negoc. (R$)</th>
-													<th>Desc./Acr�sc. %</th>
-													<th>Valor total</th>
-													<th></th>
+													<th>Seq.                  </th>
+													<th>OC/PO                 </th>
+													<th>it.OC/PO              </th>
+													<th>Cod.Prod.Cliente      </th>
+													<th>Descr.Produto.Cliente </th>
+													<th>Preço Venda(FOB)      </th>
+													<th>Preço do Frete        </th>
+													<th>Preço da venda(CIF)   </th>
+													<th>QTD.Pedida            </th>
+													<th>%Oferta Preço         </th>
+													<th>Preço Liquido         </th>
+													<th>Vlr.Liquido           </th>
+													<th>Peso(KG)              </th>
+													<th>Volume(M3)            </th>
+													<th>Qtd Emb               </th>
+													<th>Desc Emb              </th>
+													<th>Qtd.Sub.Emb           </th>
+													<th>Descr.Sub Emb         </th>
+													<th>Data(PCP)             </th>
+													<th>Data(ETD)             </th>
+													<th>%Acres.Preço          </th>
+													<th>%Desconto Fin         </th>
+													<th>Vlr. Desconto         </th>
+													<th>Vlr. Bruto            </th>
+													<th>Cod.Pro               </th>
+													<th>Deriv                 </th>
+													<th>UM                    </th>
+													<th>Previsao do cliente   </th>
+													<th>Emb					  </th>
+													<th>Sub Emb				  </th>
+													<th>Descr. Produto		  </th>
+													<th>Descr. Deriv         </th>
+													<th>Nr. Pedido</th>
+													<th>Seq. Ped</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr ng-repeat = "produto in produtos">
-													<td>
-														<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
-														<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
-														<p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}} <p>
-															
-														<p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p>
-														<p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p>
-													</td>
-													<td>
-														{{produto.precoTabela | currency:'R$ '}}
-													</td>
-													<td>
+													<td scope="row">
 														<div>
-															<input type="number" step="any" name="quantidadeProduto" min="1" class="inputTable" required ng-value="produto.quantidade" id="quantidadeProdutoAdd" ng-model="produto.quantidade">
+															{{produto.seq}}
 														</div>
 													</td>
 													<td>
 														<div>
-															<input type="number" step="any" name="valorNegociado" class="inputTable" required ng-model="produto.valorNegociado">
+															{{produto.ocpo}}
 														</div>
 													</td>
 													<td>
-														<div class="col-sm-12">
-															<button type='button' class='btn btn-default btn-number' ng-click='produto.opcaoDescAcresc === "DESCONTO" ? produto.opcaoDescAcresc = "ACRESCIMO" : produto.opcaoDescAcresc = "DESCONTO" '>																																								
-																<span ng-class="produto.opcaoDescAcresc === 'DESCONTO' ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus' "></span>																								
-															</button>		
-																<input step="any" style="margin-left:1px; width: 30%;" type="number" class="inputTable" ng-model="produto.descAcresc">
+														<div>
+															{{produto.itocpo}}
 														</div>
 													</td>
 													<td>
-														{{produto.valorTotalItem | currency:'R$ '}}
+														<div>
+															{{produto.codProCli}}
+														</div>
 													</td>
 													<td>
-														<div class="col-sm-12">
-															<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
-															<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
-														</div>		
+														<div>
+															{{produto.descrProCli}}
+														</div>
+													</td>
+													<td>
+														<div>
+														   {{produto.precoVendFOB}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.precoFrete}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.precoVendaCIF}}
+														</div>
+													</td>
+													<td>
+														<div>
+															<input
+															 	type="number"
+																class="inputNumberTable"
+															 	min="0" max="10000"
+																ng-model="produto.qtdPedida"
+    															type = "number">
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.ofertaPreco}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.precoLiquido}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.vlrLiquido}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.pesoKG}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.volumeM3}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.qtdEmb}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.descEmb}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.qtdSubEmb}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.descrSubEmb}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.dataPCP}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.dataETD}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.acresPreco}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.descontoFin}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.vlrDesconto}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.vlrBruto}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.codPro}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.derivacao}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.um}}
+														</div>
+													</td>
+													<td>
+														<div>
+															produto.previsaoCli
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.emb}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.subEmb}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.descrProduto}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.descrDeriv}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.nrPedido}}
+														</div>
+													</td>
+													<td>
+														<div>
+															{{produto.seqPed}}
+														</div>
 													</td>
 												</tr>
 											</tbody>
 										</table>
-		
+
+									</pre>
+
 									</div>
 
 									<div class="col-sm-12 spacer">
 										<h5>Total: </h5>{{valorTotal | currency:'R$ '}}
-									</div>	
+									</div>
 								</div>
 
 							</div>
@@ -372,8 +565,9 @@
 					<div ng-show="exibeHistoricos" class="col-sm-12">
 						<div class="form-row">
 							<div class="col-sm-12 spacer">
-									<label for="histOportunidade">Hist�rico</label>
-									<textarea readonly class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
+								<label for="histOportunidade">Histórico</label>
+								<textarea readonly class="form-control spacer-input" ng-disabled="inputDesabilitado"
+									ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
 							</div>
 						</div>
 						<div class="form-row">
@@ -383,45 +577,47 @@
 						</div>
 						<div class="form-row">
 							<div class="col-sm-11 spacer">
-								<label for="obsOportunidade">Observa��o</label>
-								<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
+								<label for="obsOportunidade">Observação</label>
+								<textarea class="form-control spacer-input" ng-model="obsOportunidade"
+									id="obsOportunidade" rows="3"></textarea>
 							</div>
 							<div class="col-sm-1 spacer" style="padding-top: 30px;">
-								<label for="obsOportunidade"> </label>							
+								<label for="obsOportunidade"> </label>
 								<div class="btn-group">
-									<button class="btn btn_grid btn_cor_padrao" ng-disabled="obsOportunidade=='' || obsOportunidade==undefined || isLoading" ng-click="addObservacaoHistorico()"> Incluir </button>
+									<button class="btn btn_grid btn_cor_padrao"
+										ng-disabled="obsOportunidade=='' || obsOportunidade==undefined || isLoading"
+										ng-click="addObservacaoHistorico()"> Incluir </button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</form>
-				
-			</div>	
-
+			</div>
 			<!-- Capa do pedido -->
-						
 			<hr class="divider">
-			<!-- A��es sob o formulario -->
+			<!-- Ações sob o formulario -->
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" title="O pedido ser� finalizado e enviado ao ERP" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-show="pedido == 0 " ng-click="finalizarDocumento()"> Finalizar </button>
-					</div>	
+						<button class="btn btn_grid btn-success" title="O pedido ser� finalizado e enviado ao ERP"
+							ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading"
+							ng-show="pedido == 0 " ng-click="finalizarDocumento()"> Finalizar </button>
+					</div>
 					<div class="btn-group">
 						<button class="btn" ng-click="changeView()"> Cancelar </button>
 					</div>
 					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" title="O pedido ser� salvo. Voc� ainda poder� editar e finalizar o pedido." ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-click="salvarDocumento(1)"> Salvar </button>
-					</div>	
+						<button class="btn btn_grid btn_cor_padrao"
+							title="O pedido ser� salvo. Voc� ainda poder� editar e finalizar o pedido."
+							ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading"
+							ng-click="salvarDocumento(1)"> Salvar </button>
+					</div>
 				</div>
 			</div>
-			<!-- A��es sob o formulario -->
-			<hr class="divider">	
-
+			<!-- Açõees sob o formulario -->
+			<hr class="divider">
 		</div>
-	
 	</div>
-
 	<script type="text/ng-template" id="templateAutoCompleteProduto">
 		<a>
 			<table>
@@ -448,21 +644,22 @@
 			</table>
 		</a>
 	 </script>
-	<!-- View --> 
-
-<!-- Scripts importados -->
+	<!-- View -->
+	<!-- Scripts importados -->
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/jquery-3.1.1.min.js"></script>
-	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/easytimer.min.js"></script>	
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/easytimer.min.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular.min.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-route.min.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-ui-router.min.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-cookies.min.js"></script>
-	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angular-ui-notification/angular-ui-notification.min.js"></script>  
+	<script
+		src="https://sistema.clicvenda.com.br/clicVendas/plugins/angular-ui-notification/angular-ui-notification.min.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/ui-bootstrap-tpls-2.5.0.min.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/dist/jquery.dataTables.min.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/dist/angular-datatables.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/bootstrap.min.js"></script>
-	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.bootstrap.min.js"></script>
+	<script
+		src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.bootstrap.min.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.factory.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-datatables.options.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/dataTables.buttons.min.js"></script>
@@ -474,1105 +671,1166 @@
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-locale_pt-br.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/angJS/angular-sanitize.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/fullcalendar-3.10.0/lib/moment.min.js"></script>	
+	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/fullcalendar-3.10.0/lib/moment.min.js"></script>
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/ui-mask-master/dist/mask.min.js"></script>
-<!-- Scripts importados -->	
+	<!-- Scripts importados -->
+	<script>
+		var dadosUserLogado = parent.dadosUserLogadoPersonalizado();
+		//TESTE DE CONTROLE DE ATT GITHUB
+		angular
+			.module("appV2", ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
+			.controller("MainController",
+				function (DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window) {
 
-<script>
-var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
+					$scope.exibeFormulario = false;
+					$scope.exibeListaDocumentos = true;
+					$scope.exibeHistoricos = false;
 
-angular
-	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
-	.controller("MainController",
-	function(DTOptionsBuilder, DTColumnDefBuilder, DTColumnBuilder, DTDefaultOptions, $scope, $rootScope, $compile, $http, $timeout, $window){
-		
-		$scope.exibeFormulario 		= false; 
-		$scope.exibeListaDocumentos = true;
-		$scope.exibeHistoricos		= false;
+					$rootScope.isLoading = false;
 
-		$rootScope.isLoading 		= false;
+					$rootScope.subdomain = dadosUserLogado.cSubdominio;
 
-		$rootScope.subdomain		= dadosUserLogado.cSubdominio;
-		
-		/* Inicializa filtros */
-		$scope.filCliente 			= "";
-		$scope.filRepresentante		= "";
-		$scope.filDataEmissao 		= "";
-		$scope.filPesquisaGeral		= "";
-		$scope.filSincronizado		= {nome:"", send:""};
+					/* Inicializa filtros */
+					$scope.filCliente = "";
+					$scope.filRepresentante = "";
+					$scope.filDataEmissao = "";
+					$scope.filPesquisaGeral = "";
+					$scope.filSincronizado = { nome: "", send: "" };
 
-		/*Incializa produtos*/
-		$rootScope.produtos 		= [];
-		
-		/*Incializa cliente*/
-		$rootScope.cliente			= {};
-	
-		$scope.consultaDocumento = async (hash) => {
-			/*Consulta na base ClicVenda - pedidov2*/
-			$rootScope.listAllDocs = [];
+					/*Incializa produtos*/
+					$rootScope.produtos = [];
 
-			let result = await $http({
-				method	: 'POST',
-				url		: '/clicVendas/rest/pedidov2/consulta',
-				data	: {param:{idCvTccnpj : dadosUserLogado.cId, id: hash}}	
-			});
+					/*Incializa cliente*/
+					$rootScope.cliente = {};
 
-			let listAllDocs = result.data.parametros.documentos;
+					$scope.consultaDocumento = async (hash) => {
+						/*Consulta na base ClicVenda - pedidov2*/
+						$rootScope.listAllDocs = [];
 
-			for(doc of listAllDocs){
-				doc.jsonDocs = JSON.parse(doc.jsonDocs);
-			}
-			$rootScope.listAllDocs = listAllDocs;
+						let result = await $http({
+							method: 'POST',
+							url: '/clicVendas/rest/pedidov2/consulta',
+							data: { param: { idCvTccnpj: dadosUserLogado.cId, id: hash } }
+						});
 
-			return listAllDocs;
-		};
+						let listAllDocs = result.data.parametros.documentos;
 
-		$rootScope.changeView = ($dados) => {
-			if($scope.exibeFormulario == false){
+						for (doc of listAllDocs) {
+							doc.jsonDocs = JSON.parse(doc.jsonDocs);
+						}
+						$rootScope.listAllDocs = listAllDocs;
 
-				$scope.exibeFormulario = true;
-				$scope.exibeListaDocumentos = false;
-				
-				if($dados == undefined){
-					$scope.tipoFormulario = 'Novo';
+						return listAllDocs;
+					};
 
-					$scope.inputDesabilitado  = false;
-					$scope.permiteEditar	  = true;
-					
-					$scope.$apply();
+					$rootScope.changeView = ($dados) => {
+						if ($scope.exibeFormulario == false) {
 
-				}else{
-					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedido : "Pedido Nº "+$dados.id
-					//$dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
-					
-					$scope.inputDesabilitado  = true;
-					$scope.permiteEditar	  = false;
-				};
-				
-			}else if($scope.exibeFormulario == true && !$scope.exibeHistoricos){
-				$scope.exibeFormulario = false;
-				$scope.exibeListaDocumentos = true;
-				$scope.atualizaTabela();
+							$scope.exibeFormulario = true;
+							$scope.exibeListaDocumentos = false;
 
-			}else if($scope.exibeFormulario == true && $scope.exibeHistoricos){
-				$scope.exibeHistoricos = false;
-			}
-		};
+							if ($dados == undefined) {
+								$scope.tipoFormulario = 'Novo';
 
-		$scope.abreHistoricos = (acao) => {
-			$scope.exibeHistoricos = true;
-		};
-	
-		$scope.getEndEntrega = function(val) {
-			if(angular.isUndefined($scope.frmCliente) || $scope.frmCliente == ""){
-				$scope.critInfClienteEe = true;
-			}else{
-				$scope.critInfClienteEe = false;
-				
-				return $http({
-					method	: 'GET',
-					url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.cliente.id,
-					params 	: {filtro : val || ''}
-				}).then(	
-				function(response) {    
-					//Sucesso
-					if(response.data.length == 1){				
-						var ee = response.data[0];		
-						$scope.endEntrega = ee;
-						$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
-					}
+								$scope.inputDesabilitado = false;
+								$scope.permiteEditar = true;
 
-					return response.data.map(function(item){
-						return item;
-					});
-				}, 
-				function(response) {					
-				});
-			}
-		};
+								$scope.$apply();
 
-		$scope.onSelectEE = function ($item, $model, $label) {			
-			$scope.endEntrega = $item;			
-		};
+							} else {
+								$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº ' + $dados.jsonDocs[0].pedido : "Pedido Nº " + $dados.id
+								//$dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
 
-		$scope.limpaEndEntrega = function(){
-			$scope.frmEndEntrega = "";
-			$scope.endEntrega	 = {};
-		};
-
-		// $scope.getCondicoesP = function(val) {
-		// 	return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
-		// 	params: {
-		// 		filtro		: val || '',
-		// 		idCvTccnpj	: dadosUserLogado.cId 
-		// 	}
-		// 	}).then(function(response){              
-		// 		return response.data.map(function(item){
-		// 			return item;
-		// 		});
-		// 	});
-		// };
-
-		$scope.getCondicaoPagamentoERP = async (consulta) => {
-			try{
-				let result = await $scope.executaRequisicaoExterna(
-					{
-						idCvtccnpj : dadosUserLogado.cId,
-						numreg	   : 750,
-						pRotina	   : 'filtrarCondPag',
-						pCodCli    : dadosUserLogado.rId,
-						pFilter    : {filtro:{filtroCondPag : consulta}},
-					}
-				);
-										
-				if(result != undefined && result.resultado !=undefined){
-					return result.resultado.map((item)=>{
-						return item
-					})
-				}else{
-					return [];
-				}
-			}catch(err){
-				console.log("Ocorreu um erro na requisição: ", err);
-			};
-
-		}
-
-		$scope.onSelectCond = function ($item, $model, $label) {		
-			$scope.condPagamento = $item;
-		};
-
-		$scope.limpaCondicaoPagamento = function(){
-			$scope.condPagamento = "";
-		}
-
-		// $scope.getFormasP = function(val) {			
-		// 	if	($scope.condPagamento != null){
-		// 		return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, {
-		// 			params: {
-		// 				filtro: val || '',
-		// 				idCvTccnpj	: dadosUserLogado.cId
-		// 			}
-		// 		}).then(function(response){
-		// 			return response.data.map(function(item){
-		// 				return item;
-		// 			});
-		// 		});
-		// 	} else {
-		// 		return "";
-		// 	}			
-		// };
-
-		$scope.getFormasPagamentoERP = async (consulta) => {
-
-			try{
-				let result = await $scope.executaRequisicaoExterna(
-					{
-						idCvtccnpj : dadosUserLogado.cId,
-						numreg	   : 750,
-						pRotina	   : 'filtrarFormaPag',
-						pCodCli    : dadosUserLogado.rId,
-						pFilter    : {filtro:{filtroFormaPag : consulta}},
-					},
-					1000
-				);
-		
-				if(result != undefined && result.resultado != undefined){
-					return result.resultado.map((item)=>{
-						return item
-					})
-				}else{
-					return [];
-				}
-			}catch(err){
-				console.log("Ocorreu um erro na requisição: ", err);
-			};
-
-		}
-
-		$scope.onSelectForma = function ($item, $model, $label) {					
-			$scope.formaPagamento = $item;			
-		};
-		
-		$scope.limpaFormaPagamento = function(){
-			$scope.formaPagamento = "";
-		}
-
-		$scope.getClientes = function(val) {
-			
-			var idRep = dadosUserLogado.rId;
-
-			return $http.post('/clicVendas/rest/Listas/cliente', {
-				params: {
-					filtro: val,
-					rId: idRep
-				}
-			}).then(function(response){
-				return response.data.map(function(item){
-					return item;
-				});
-			});
-		};
-
-		$scope.onSelectCli = ($item, $model, $label) => {
-			$rootScope.cliente = $item;	
-			$scope.codigoCliente = $rootScope.cliente.codExterno
-
-			$scope.getEndEntrega();
-		};
-
-		$scope.limpaCliente = () =>{
-			$scope.frmCliente 	 = '';
-			$scope.codigoCliente = '';
-			var cCliente		 = angular.element(document.querySelector('#frmCliente'));
-			
-			$timeout(function () {
-				cCliente.focus();
-			}, 200);
-		};
-
-		$scope.getFilScinronizacao = () =>{
-			$scope.listaFilSincronizacao = [ 
-				{
-					nome: 'Não sincronizados',
-					send: "DOCUMENTO_NAO_SINCRONIZADO"
-				},
-				{
-					nome: 'Sincronizados',
-					send: "DOCUMENTO_SINCRONIZADO"
-				},
-				{
-					nome: 'Falha na sincronização',
-					send: 'ERRO: '
-				},
-			];
-			return $scope.listaFilSincronizacao;
-		};
-
-		$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
-			$scope.filSincronizado	= $item;
-		};
-
-		/*Tempo limite para funções*/
-		const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
-			cb(resolve);
-			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
-		});
-
-		$scope.executaRequisicaoExterna = async ($json, timeLimit = 20) => {
-			try {
-				let response;
-
-				await setAsyncTimeout(async done => {		
-					response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-					done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
-								
-				}, timeLimit * 1000); // limite em segundos
-			
-				return response.data;
-			}catch(err){
-				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
-				console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
-			};
-		};
-
-		$scope.consultaPedidosERP = async () => {
-			
-			let pedidosGravadosERP 	= $rootScope.dadosGrid.filter(doc => doc && Number(doc.jsonDocs[0].pedido) > 0);
-			let consulta 			= [];
-			/*Ira consultar com base apenas no numero do pedido*/
-			for(i = 0; i < pedidosGravadosERP.length; i++){
-				consulta.push(
-					{
-						numPed: pedidosGravadosERP[i].jsonDocs[0].pedido
-					}
-				)
-			};
-			
-			let dialog = bootbox.dialog({
-				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Sincronizando com o ERP...</p></div>',
-				closeButton: false
-			});
-			$rootScope.isLoading = true;
-
-
-			let result = await $scope.executaRequisicaoExterna(
-				{
-					idCvtccnpj 	 : dadosUserLogado.cId,
-					numreg	   	 : 752,
-					pRotina	   	 : 'listarPedidosAmostras',
-					pCodCli    	 : dadosUserLogado.rId,
-					pListaPedido : {lista:{pedidos : consulta}},
-				},
-			);
-
-			dialog.modal('hide');
-			$rootScope.isLoading = false;
-		
-			if(result !="" && !isNaN(parseInt(result))){
-				for(k = 0; k < pedidosGravadosERP.length; k++){				
-					
-					let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido);
-				
-					if(dadosAtualizados && dadosAtualizados.length > 0){
-						for(l=0; l < $rootScope.dadosGrid.length; l++){
-							/*Verifica -
-								Codigo externo - Codigo variacao - Numero pedido ERP*/
-							if($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido){
-								
-								/*Itens que serão atualizados*/							
-								/*Atualiza informações do produto vinculado ao pedido*/
-								//pedidosGravadosERP[k].jsonDocs[0].produtos.		= "5"
-
-								continue;
+								$scope.inputDesabilitado = true;
+								$scope.permiteEditar = false;
 							};
+
+						} else if ($scope.exibeFormulario == true && !$scope.exibeHistoricos) {
+							$scope.exibeFormulario = false;
+							$scope.exibeListaDocumentos = true;
+							$scope.atualizaTabela();
+
+						} else if ($scope.exibeFormulario == true && $scope.exibeHistoricos) {
+							$scope.exibeHistoricos = false;
+						}
+					};
+
+					$scope.abreHistoricos = (acao) => {
+						$scope.exibeHistoricos = true;
+					};
+
+					$scope.getEndEntrega = function (val) {
+						if (angular.isUndefined($scope.frmCliente) || $scope.frmCliente == "") {
+							$scope.critInfClienteEe = true;
+						} else {
+							$scope.critInfClienteEe = false;
+
+							return $http({
+								method: 'GET',
+								url: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/' + $rootScope.cliente.id,
+								params: { filtro: val || '' }
+							}).then(
+								function (response) {
+									//Sucesso
+									if (response.data.length == 1) {
+										var ee = response.data[0];
+										$scope.endEntrega = ee;
+										$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
+									}
+
+									return response.data.map(function (item) {
+										return item;
+									});
+								},
+								function (response) {
+								});
+						}
+					};
+
+					$scope.onSelectEE = function ($item, $model, $label) {
+						$scope.endEntrega = $item;
+					};
+
+					$scope.limpaEndEntrega = function () {
+						$scope.frmEndEntrega = "";
+						$scope.endEntrega = {};
+					};
+
+					$scope.getCondicoesP = function (val) {
+						return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
+							params: {
+								filtro: val || '',
+								idCvTccnpj: dadosUserLogado.cId
+							}
+						}).then(function (response) {
+							return response.data.map(function (item) {
+								return item;
+							});
+						});
+					};
+
+					$scope.getInfoTabela = async () => {
+						let result = await $scope.executaRequisicaoExterna(
+							{
+								// infos padroes de
+								idCvtccnpj: dadosUserLogado.cId,
+								numreg: 750,
+								pRotina: 'filtrarInfoTabela',
+								pCodCli: dadosUserLogado.rId,
+							}
+						)
+						let newResult = result.resultado
+
+						for (let i = 0; i < newResult.length; i++) {
+							console.log("esta no loop")
+							console.log(newResult[i].resultado)
+							$scope.adicionarProduto(newResult[i])
+						}
+					}
+					$scope.getCondicaoPagamentoERP = async (consulta) => {
+						try {
+							let result = await $scope.executaRequisicaoExterna(
+								{
+									idCvtccnpj: dadosUserLogado.cId,
+									numreg: 750,
+									pRotina: 'filtrarCondPagamento',
+									pCodCli: dadosUserLogado.rId,
+									pFilter: { filtro: { filtroCondPag: consulta } },
+								}
+							);
+	
+							if (result.resultado != undefined) {
+								return result.resultado.slice(0, 8).map((item) => {
+									return item
+								})
+							} else {
+								return [];
+							}
+						} catch (err) {
+							console.log("Ocorreu um erro na requisição: ", err);
+						};
+
+					}
+
+					$scope.onSelectCond = function ($item, $model, $label) {
+						$scope.condPagamento = $item;
+					};
+
+					$scope.limpaCondicaoPagamento = function () {
+						$scope.condPagamento = "";
+					}
+
+					$scope.getFormasP = function (val) {
+						if ($scope.condPagamento != null) {
+							return $http.post('/clicVendas/rest/Listas/formaPagamento/' + $scope.condPagamento.id, {
+								params: {
+									filtro: val || '',
+									idCvTccnpj: dadosUserLogado.cId
+								}
+							}).then(function (response) {
+								return response.data.map(function (item) {
+									return item;
+								});
+							});
+						} else {
+							return "";
+						}
+					};
+					$scope.getFormasPagamentoERP = async (consulta) => {
+						console.log("CHEGOU NA FUNÇÂO")
+
+						try {
+							let result = await $scope.executaRequisicaoExterna(
+								{
+									idCvtccnpj: dadosUserLogado.cId,
+									numreg: 750,
+									pRotina: 'filtrarFormPagamento',
+									pCodCli: dadosUserLogado.rId,
+									pFilter: { filtro: { filtroFormaPag: consulta } },
+								}
+							);
+							console.log(result.resultado)
+
+							if (result.resultado != undefined) {
+								return result.resultado.map((item) => {
+									return item
+								})
+							} else {
+								return [];
+							}
+						} catch (err) {
+							console.log("Ocorreu um erro na requisição: ", err);
+						};
+
+					}
+
+					$scope.onSelectForma = function ($item, $model, $label) {
+						$scope.formaPagamento = $item;
+					};
+
+					$scope.limpaFormaPagamento = function () {
+						$scope.formaPagamento = "";
+					}
+					$scope.getClientes = function (val) {
+						console.log("CHEGOU NO GET CLIENTES")
+
+						var idRep = dadosUserLogado.rId;
+
+						return $http.post('/clicVendas/rest/Listas/cliente', {
+							params: {
+								filtro: val,
+								rId: idRep
+							}
+						}).then(function (response) {
+							return response.data.map(function (item) {
+								return item;
+							});
+						});
+					};
+
+					$scope.onSelectCli = ($item, $model, $label) => {
+
+						$rootScope.cliente = $item;
+
+						$scope.codigoCliente = $rootScope.cliente.codExterno
+						console.log($item)
+						console.log($scope.codigoCliente)
+						$scope.getEndEntrega();
+					};
+
+					$scope.limpaCliente = () => {
+						$scope.frmCliente = '';
+						$scope.codigoCliente = '';
+						var cCliente = angular.element(document.querySelector('#frmCliente'));
+
+						$timeout(function () {
+							cCliente.focus();
+						}, 200);
+					};
+
+					$scope.getFilScinronizacao = () => {
+						$scope.listaFilSincronizacao = [
+							{
+								nome: 'Não sincronizados',
+								send: "DOCUMENTO_NAO_SINCRONIZADO"
+							},
+							{
+								nome: 'Sincronizados',
+								send: "DOCUMENTO_SINCRONIZADO"
+							},
+							{
+								nome: 'Falha na sincronização',
+								send: 'ERRO: '
+							},
+						];
+						return $scope.listaFilSincronizacao;
+					};
+
+					$scope.onSelectFilSincronizacao = ($item, $model, $label) => {
+						$scope.filSincronizado = $item;
+					};
+
+					/*Tempo limite para funções*/
+					const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
+						cb(resolve);
+						setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
+					});
+
+					$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
+						try {
+							let response;
+
+							await setAsyncTimeout(async done => {
+								response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+								done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
+
+							}, timeLimit * 1000); // limite em segundos
+
+							return response.data;
+						} catch (err) {
+							$scope.geraNotificacao("Não foi possível se comunicar com o ERP. " + err + "", 5000, 'danger')
+							console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
 						};
 					};
-				};
-			}
-						
-			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
-		};
-		
-		$scope.gravaDocumentoERP = async ($item) => {
 
-			let dialog = bootbox.dialog({
-				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Enviando pedido para o ERP...</p></div>',
-				closeButton: false
-			});
+					$scope.consultaPedidosERP = async () => {
 
-			$rootScope.isLoading = true;
-			
-			let result = await $scope.executaRequisicaoExterna(
-				{
-					idCvtccnpj : dadosUserLogado.cId,
-					numreg	   : 752,
-					pRotina	   : 'criarPedidoAmostra',
-					pCodCli    : dadosUserLogado.rId,
-					pDocumento : {documento : $item}
-				},
-				25//limite tempo		
-			);
+						let pedidosGravadosERP = $rootScope.dadosGrid.filter(doc => doc && Number(doc.jsonDocs[0].pedido) > 0);
+						let consulta = [];
+						/*Ira consultar com base apenas no numero do pedido*/
+						for (i = 0; i < pedidosGravadosERP.length; i++) {
+							consulta.push(
+								{
+									numPed: pedidosGravadosERP[i].jsonDocs[0].pedido
+								}
+							)
+						};
 
-			$rootScope.isLoading = false;
-						
-			if(!isNaN(parseInt(result))){
-				dialog.modal('hide');
-				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP.', 2000, 'success')
-			}else{
-				dialog.modal('hide');
-				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
-			};
-							
-			return result
-		};
+						let dialog = bootbox.dialog({
+							message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Sincronizando com o ERP...</p></div>',
+							closeButton: false
+						});
+						$rootScope.isLoading = true;
 
-		$scope.getProdutosERP = async (consulta) => {
-			try{
-				let result = await $scope.executaRequisicaoExterna(
-					{
-						idCvtccnpj : dadosUserLogado.cId,
-						numreg	   : 750,
-						pRotina	   : 'filtrarProduto',
-						pCodCli    : dadosUserLogado.rId,
-						pFilter    : {filtro:{filtroProd : consulta}},
-					},
-				);
-										
-				if(result != undefined && result.resultado != undefined){
-					return result.resultado.slice(0, 8).map((item)=>{
-						return item
-					})
-				}else{
-					return [];
-				}
-			}catch(err){
-				console.log("Ocorreu um erro na requisição: ", err);
-			};
+						let result = await $scope.executaRequisicaoExterna(
+							{
+								idCvtccnpj: dadosUserLogado.cId,
+								numreg: 752,
+								pRotina: 'listarPedidosAmostras',
+								pCodCli: dadosUserLogado.rId,
+								pListaPedido: { lista: { pedidos: consulta } },
+							},
+							15//limite de espera em segundos
+						);
 
-		}
+						dialog.modal('hide');
+						$rootScope.isLoading = false;
 
-		$scope.limpaProduto = (acao) =>{
-			$scope.itemProd = '';
-			
-			var produto		= angular.element(document.querySelector('#itemProd'));
-			
-			$timeout(function () {
-				produto.focus();
-			}, 200);
+						if (result != "" && !isNaN(parseInt(result))) {
+							for (k = 0; k < pedidosGravadosERP.length; k++) {
 
-		};
+								let dadosAtualizados = result.resultado.filter(res => res.numped == pedidosGravadosERP[k].jsonDocs[0].pedido);
 
-		$scope.abreFormulario = ($dados) =>{
+								if (dadosAtualizados && dadosAtualizados.length > 0) {
+									for (l = 0; l < $rootScope.dadosGrid.length; l++) {
+										/*Verifica -
+											Codigo externo - Codigo variacao - Numero pedido ERP*/
+										if ($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido) {
 
-			if($dados == undefined){
-				
-				$rootScope.idDocumento 			= 0;
-				$scope.pedido			 		= 0,
-			
-				$rootScope.produtos 			= [];
+											/*Itens que serão atualizados*/
+											/*Atualiza informações do produto vinculado ao pedido*/
+											//pedidosGravadosERP[k].jsonDocs[0].produtos.		= "5"
 
-				$scope.condPagamento			= '';
-				$scope.formaPagamento			= '';
+											continue;
+										};
+									};
+								};
+							};
+						}
 
-				$scope.frmCliente				= '';
-				$scope.codigoCliente			= '';
-				$scope.frmEndEntrega			= '';
+						$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
+					};
 
-				$scope.prevEntrega				= '';
-				
-				$scope.codigoProduto			= '';
-				
-				$scope.representante			= dadosUserLogado.rNome;
+					$scope.gravaDocumentoERP = async ($item) => {
 
-				$scope.datEmiERP				= '';
-				
-				$scope.obsOportunidade			= '';
-				$scope.histOportunidade			= '';
-				$rootScope.hashDoc				= '';
-				$scope.sincronizado				= 'DOCUMENTO_NAO_SINCRONIZADO';
+						let dialog = bootbox.dialog({
+							message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Enviando pedido para o ERP...</p></div>',
+							closeButton: false
+						});
 
-				$scope.dataEmissaoFormat		= '';
-				$scope.dataPrevEntregaFormatada	= "";
-				// $scope.dataEmissaoErpFormatada	= "";
+						$rootScope.isLoading = true;
 
-				$scope.valorTotal				= 0;
+						let result = await $scope.executaRequisicaoExterna(
+							{
+								idCvtccnpj: dadosUserLogado.cId,
+								numreg: 752,
+								pRotina: 'criarPedidoAmostra',
+								pCodCli: dadosUserLogado.rId,
+								pDocumento: { documento: $item }
+							},
+							20//limite tempo		
+						);
 
-			}else{
-				
-				let docs 					= $dados.jsonDocs[0];
+						$rootScope.isLoading = false;
 
-				$rootScope.hashDoc			= docs.docCtrl;
-				$rootScope.idDocumento 		= $dados.id;
-				$rootScope.cliente			= docs.cliente;
+						if (!isNaN(parseInt(result))) {
+							dialog.modal('hide');
+							$scope.geraNotificacao('O pedido ' + result + ' foi gravado com sucesso no ERP.', 2000, 'success')
+						} else {
+							dialog.modal('hide');
+							$scope.geraNotificacao('Houve uma falha na gravação do pedido.', 2000, 'danger');
+						};
 
-				$scope.condPagamento		= docs.condPagamento;
-				$scope.formaPagamento		= docs.formaPagamento;
+						return result
+					};
 
-				$scope.frmCliente			= docs.cliente;
-				$scope.codigoCliente		= docs.cliente.codExterno;
-				$scope.nomeCliente			= docs.cliente.nome
+					$scope.getProdutosERP = async (consulta) => {
+						try {
+							let result = await $scope.executaRequisicaoExterna(
+								{
+									idCvtccnpj: dadosUserLogado.cId,
+									numreg: 752,
+									pRotina: 'filtrarProduto',
+									pCodCli: dadosUserLogado.rId,
+									pFilter: { filtro: { filtroProd: consulta } },
+								}
+							);
 
-				$scope.representante		= docs.representante.nome;
+							if (result != undefined && result.resultado != undefined) {
+								return result.resultado.slice(0, 8).map((item) => {
+									return item
+								})
+							} else {
+								return [];
+							}
+						} catch (err) {
+							console.log("Ocorreu um erro na requisição: ", err);
+						};
 
-				$scope.prevEntrega			= docs.prevEntrega != null ? new Date(docs.prevEntrega) : null
-
-				$scope.datEmiERP			= docs.datEmiERP;
-
-				$scope.dataEmissaoFormat	= docs.datEmiERP != null ? docs.datEmiERP.substr(0,10) : "";
-
-				$scope.obsOportunidade		= '';
-				$scope.histOportunidade		= docs.histOportunidade;
-
-				$scope.frmEndEntrega		= docs.endEntrega;
-
-				$scope.pedido				= docs.pedido;
-				$scope.sincronizado			= docs.sincronizado;
-
-				$scope.valorTotal			= docs.valorTotal;
-
-				/*Informações sobre o produto*/
-				$rootScope.produtos			= docs.produtos;
-				$scope.codigoProduto		= docs.produtos.codigoProduto;
-				$scope.descricao			= docs.produtos.descricao;
-				$scope.codExternoProduto	= docs.produtos.codExterno;
-			
-
-				$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
-				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada != "" ? $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br') : null;
-			};
-			
-			$rootScope.changeView($dados);
-			
-		};
-
-		$scope.calcularProdutos = () =>{
-
-			let valorTotalCalc 	= 0;
-			let valorTotalItem 	= 0;
-			let descontoAcresc 	= 0;
-			let calcDescAcresc	= 0;
-
-			for(let i=0; i < $rootScope.produtos.length; i++){
-
-				if(($rootScope.produtos[i].quantidade != null && $rootScope.produtos[i].quantidade > 0) && $rootScope.produtos[i].valorNegociado != null){
-					valorTotalItem 	= parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
-				
-					/*Verifica se há desconto*/
-					if($rootScope.produtos[i].descAcresc != undefined || $rootScope.produtos[i].descAcresc != null){
-						descontoAcresc	= parseFloat($rootScope.produtos[i].descAcresc)	/ 100;
-						calcDescAcresc	= valorTotalItem * descontoAcresc;
-						valorTotalItem 	= $rootScope.produtos[i].opcaoDescAcresc === 'DESCONTO' ? valorTotalItem - calcDescAcresc : valorTotalItem + calcDescAcresc;
 					}
-					
-					/*Grava o valor total do item*/
-					$rootScope.produtos[i].valorTotalItem = valorTotalItem;
 
-					valorTotalCalc += $rootScope.produtos[i].valorTotalItem		
-				}else{
-					$scope.geraNotificacao('Informe o valor e quantidade do produto.', 2000, 'warning')
-					valorTotalCalc = parseFloat($scope.valorTotal);
-				}
-			}
-			
-			$scope.valorTotal = valorTotalCalc.toFixed(2);
+					$scope.limpaProduto = (acao) => {
+						$scope.itemProd = '';
 
-			$('#valorTotalPedido').css({'font-weight':'800','color':'black', 'fontSize':'19px', }).fadeOut(400)
-			setTimeout(()=>{
-				$('#valorTotalPedido').css({'font-weight':'600','color':'#787878', 'fontSize':'17px', }).fadeIn(300)
-			}, 350)
+						var produto = angular.element(document.querySelector('#itemProd'));
 
-		}
-		
-		$scope.calculoValidacaoProdutoERP = async ($dados) =>{
-			
-			try{
-				// let result = await $scope.executaRequisicaoExterna(
-				// 	{
-				// 		idCvtccnpj : dadosUserLogado.cId,
-				// 		numreg	   : 752,
-				// 		pRotina	   : 'calculo',
-				// 		pCodCli    : dadosUserLogado.rId,
-				// 		filter 	   : {valores : $dados}
-				// 	}
-				// );
+						$timeout(function () {
+							produto.focus();
+						}, 200);
 
-				//return result /*Verdadeiro ou falso para prosseguir inserção do produto*/
+					};
 
-				// let result = {
-				// 	erro: "O produto X está fora da margem de lucro",
-				// 	aprovado:false,
-				// }
+					$scope.abreFormulario = ($dados) => {
 
-				/*Retorna sempre true - 
-					TO DO: Calculo de validação no ERP
-				*/
+						if ($dados == undefined) {
 
-				result = {
-					erro: "",
-					aprovado:true,
-				}
+							$rootScope.idDocumento = 0;
+							$scope.pedido = 0,
 
-				$rootScope.pedidoAprovado = {
-					erro: result.erro,
-					aprovado: result.aprovado
-				}
+								$rootScope.produtos = [];
 
-				return $rootScope.pedidoAprovado
+							$scope.condPagamento = '';
+							$scope.formaPagamento = '';
 
-			}catch(err){
-				console.log("Ocorreu um erro na requisição: ", err);
-			};
-		}
-		
-		$scope.adicionarProduto = ($item) =>{
-			$rootScope.produtos.unshift(
-				{ 
-					descricao			: $item.nome,
-					codigoProduto		: $item.id,
-					codVariacao			: $item.codVariacao,
-					codExterno			: $item.codExterno,
-					opcaoDescAcresc		: 'DESCONTO',
-					quantidade			: 1,
-					valorNegociado		: parseFloat($item.preco),
-					precoTabela			: $item.preco,
-					unidMedida			: $item.unimed,
-					estoque				: $item.qtdeEstoque,
-					codTpr				: $item.codTpr,
-					hashDoc				: '',
-				}
-			);
-			
-			var buscaProduto		= angular.element(document.querySelector('#itemProd'));
-			
-			$timeout(function () {
-				buscaProduto.blur();
-				$scope.itemProd = '';
+							$scope.frmCliente = '';
+							$scope.codigoCliente = '';
+							$scope.frmEndEntrega = '';
 
-				$("table tbody tr:first-child").addClass("new-row-enter");
-				$("table tbody tr:first-child input#quantidadeProdutoAdd").focus();
-			}, 200);
+							$scope.prevEntrega = '';
 
-			$timeout(()=>{
-				$("table tbody tr:first-child").removeClass("new-row-enter");
-			}, 1000)
+							$scope.codigoProduto = '';
 
-			$scope.calcularProdutos();
-		};
+							$scope.representante = dadosUserLogado.rNome;
 
-		$scope.removerProduto = ($item) => {
-			$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno !== $item.codExterno && item.codVariacao !== $item.codVariacao);
+							$scope.datEmiERP = '';
 
-			$scope.calcularProdutos();
-		};
+							$scope.obsOportunidade = '';
+							$scope.histOportunidade = '';
+							$rootScope.hashDoc = '';
+							$scope.sincronizado = 'DOCUMENTO_NAO_SINCRONIZADO';
 
-		$scope.addObservacaoHistorico = () => {
-			/*Data*/
-			var dataAtual 	= new Date();
+							$scope.dataEmissaoFormat = '';
+							$scope.dataPrevEntregaFormatada = "";
+							// $scope.dataEmissaoErpFormatada	= "";
 
-			var horas 		= (dataAtual.getHours()<10?'0':'') + dataAtual.getHours()
-			var minutos 	= (dataAtual.getMinutes()<10?'0':'') + dataAtual.getMinutes()
+							$scope.valorTotal = 0;
 
-			let strHistorico = [];
+						} else {
 
-			strHistorico.push({
-				item: $scope.obsOportunidade
-			});
+							let docs = $dados.jsonDocs[0];
 
-			for(let i = 0; i < strHistorico.length; i++){
-				$scope.histOportunidade += `
+							$rootScope.hashDoc = docs.docCtrl;
+							$rootScope.idDocumento = $dados.id;
+							$rootScope.cliente = docs.cliente;
+
+							$scope.condPagamento = docs.condPagamento;
+							$scope.formaPagamento = docs.formaPagamento;
+
+							$scope.frmCliente = docs.cliente;
+							$scope.codigoCliente = docs.cliente.codExterno;
+							$scope.nomeCliente = docs.cliente.nome
+
+							$scope.representante = docs.representante.nome;
+
+							$scope.prevEntrega = docs.prevEntrega != null ? new Date(docs.prevEntrega) : null
+
+							$scope.datEmiERP = docs.datEmiERP;
+
+							$scope.dataEmissaoFormat = docs.datEmiERP != null ? docs.datEmiERP.substr(0, 10) : "";
+
+							$scope.obsOportunidade = '';
+							$scope.histOportunidade = docs.histOportunidade;
+
+							$scope.frmEndEntrega = docs.endEntrega;
+
+							$scope.pedido = docs.pedido;
+							$scope.sincronizado = docs.sincronizado;
+
+							$scope.valorTotal = docs.valorTotal;
+
+							/*Informações sobre o produto*/
+							$rootScope.produtos = docs.produtos;
+							$scope.codigoProduto = docs.produtos.codigoProduto;
+							$scope.descricao = docs.produtos.descricao;
+							$scope.codExternoProduto = docs.produtos.codExterno;
+
+
+							$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
+							$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada != "" ? $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br') : null;
+						};
+
+						$rootScope.changeView($dados);
+
+					};
+
+					$scope.calcularProdutos = () => {
+
+						let valorTotalCalc = 0;
+						let valorTotalItem = 0;
+						let descontoAcresc = 0;
+						let calcDescAcresc = 0;
+
+						for (let i = 0; i < $rootScope.produtos.length; i++) {
+
+							if (($rootScope.produtos[i].quantidade != null && $rootScope.produtos[i].quantidade > 0) && $rootScope.produtos[i].valorNegociado != null) {
+								valorTotalItem = parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
+
+								/*Verifica se há desconto*/
+								if ($rootScope.produtos[i].descAcresc != undefined || $rootScope.produtos[i].descAcresc != null) {
+									descontoAcresc = parseFloat($rootScope.produtos[i].descAcresc) / 100;
+									calcDescAcresc = valorTotalItem * descontoAcresc;
+									valorTotalItem = $rootScope.produtos[i].opcaoDescAcresc === 'DESCONTO' ? valorTotalItem - calcDescAcresc : valorTotalItem + calcDescAcresc;
+								}
+
+								/*Grava o valor total do item*/
+								$rootScope.produtos[i].valorTotalItem = valorTotalItem;
+
+								valorTotalCalc += $rootScope.produtos[i].valorTotalItem
+							} else {
+								$scope.geraNotificacao('Informe o valor e quantidade do produto.', 2000, 'warning')
+								valorTotalCalc = parseFloat($scope.valorTotal);
+							}
+						}
+
+						$scope.valorTotal = valorTotalCalc.toFixed(2);
+
+						$('#valorTotalPedido').css({ 'font-weight': '800', 'color': 'black', 'fontSize': '19px', }).fadeOut(400)
+						setTimeout(() => {
+							$('#valorTotalPedido').css({ 'font-weight': '600', 'color': '#787878', 'fontSize': '17px', }).fadeIn(300)
+						}, 350)
+
+					}
+
+					$scope.calculoValidacaoProdutoERP = async ($dados) => {
+
+						try {
+							// let result = await $scope.executaRequisicaoExterna(
+							// 	{
+							// 		idCvtccnpj : dadosUserLogado.cId,
+							// 		numreg	   : 752,
+							// 		pRotina	   : 'calculo',
+							// 		pCodCli    : dadosUserLogado.rId,
+							// 		filter 	   : {valores : $dados}
+							// 	}
+							// );
+
+							//return result /*Verdadeiro ou falso para prosseguir inserção do produto*/
+
+							// let result = {
+							// 	erro: "O produto X está fora da margem de lucro",
+							// 	aprovado:false,
+							// }
+
+							/*Retorna sempre true - 
+								TO DO: Calculo de validação no ERP
+							*/
+
+							result = {
+								erro: "",
+								aprovado: true,
+							}
+
+							$rootScope.pedidoAprovado = {
+								erro: result.erro,
+								aprovado: result.aprovado
+							}
+
+							return $rootScope.pedidoAprovado
+
+						} catch (err) {
+							console.log("Ocorreu um erro na requisição: ", err);
+						};
+					}
+
+					$scope.adicionarProduto = (resultTest) => {
+						console.log("chegou na adicionar produto")
+						console.log(resultTest)
+						$rootScope.produtos.unshift(
+							{
+								seq: resultTest.seq,
+								ocpo: resultTest.ocpo,
+								itocpo: resultTest.itocpo,
+								codProCli: resultTest.codProCli,
+								descrProCli: resultTest.descrProCli,
+								precoVendFOB: resultTest.precoVendFOB,
+								precoFrete: resultTest.precoFrete,
+								precoVendaCIF: resultTest.precoVendaCIF,
+								qtdPedida: resultTest.qtdPedida,
+								ofertaPreco: resultTest.ofertaPreco,
+								precoLiquido: resultTest.precoLiquido,
+								vlrLiquido: resultTest.vlrLiquido,
+								pesoKG: resultTest.pesoKG,
+								volumeM3: resultTest.volumeM3,
+								qtdEmb: resultTest.qtdEmb,
+								descEmb: resultTest.descEmb,
+								qtdSubEmb: resultTest.qtdSubEmb,
+								descrSubEmb: resultTest.descrSubEmb,
+								dataPCP: resultTest.dataPCP,
+								dataETD: resultTest.dataETD,
+								acresPreco: resultTest.acresPreco,
+								descontoFin: resultTest.descontoFin,
+								vlrDesconto: resultTest.vlrDesconto,
+								vlrBruto: resultTest.vlrBruto,
+								codPro: resultTest.codPro,
+								derivacao: resultTest.derivacao,
+								um: resultTest.um,
+								previsaoCli: resultTest.previsaoCli,
+								emb: resultTest.emb,
+								subEmb: resultTest.subEmb,
+								descrProduto: resultTest.descrProduto,
+								descrDeriv: resultTest.descrDeriv,
+								nrPedido: resultTest.nrPedido,
+								seqPed: resultTest.seqPed
+
+							}
+						);
+
+						var buscaProduto = angular.element(document.querySelector('#itemProd'));
+
+						$timeout(function () {
+							buscaProduto.blur();
+							$scope.itemProd = '';
+
+							$("table tbody tr:first-child").addClass("new-row-enter");
+							$("table tbody tr:first-child input#quantidadeProdutoAdd").focus();
+						}, 200);
+
+						$timeout(() => {
+							$("table tbody tr:first-child").removeClass("new-row-enter");
+						}, 1000)
+
+						//$scope.calcularProdutos();
+					};
+
+					$scope.removerProduto = ($item) => {
+						$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno !== $item.codExterno && item.codVariacao !== $item.codVariacao);
+
+						$scope.calcularProdutos();
+					};
+
+					$scope.addObservacaoHistorico = () => {
+						/*Data*/
+						var dataAtual = new Date();
+
+						var horas = (dataAtual.getHours() < 10 ? '0' : '') + dataAtual.getHours()
+						var minutos = (dataAtual.getMinutes() < 10 ? '0' : '') + dataAtual.getMinutes()
+
+						let strHistorico = [];
+
+						strHistorico.push({
+							item: $scope.obsOportunidade
+						});
+
+						for (let i = 0; i < strHistorico.length; i++) {
+							$scope.histOportunidade += `
 				
 - Descrição: ${strHistorico[i].item}
 - Registrado em: ${dataAtual.toLocaleDateString('pt-BR')} às ${horas}:${minutos}`
-			}
-		
-			$scope.obsOportunidade = "";
-		};
-
-		$scope.confirmaFinalizarDocumento = () => {
-			
-			bootbox.confirm({
-				message:'<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a finalização do pedido?</p></div>',
-				closeButton: false,
-				callback: function(confirmacao){
-					if (confirmacao){
-						$scope.salvarDocumento(2);
-					}
-				},
-				buttons: {
-					confirm: {label: 'Confirmar',className:'btn_grid btn_cor_padrao'},
-					cancel: {label: 'Cancelar',className:'btn-default'},
-				},
-			}); 
-		}
-
-		$scope.salvarDocumento = async (rotina) => {
-			/*
-			Rotinas:
-				1 - Salvar (Mantém apenas no ClicVenda)
-				2 - Finalizar (Envia o pedido para ERP)
-			*/			
-			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;						
-			let id 					= $rootScope.idDocumento;
-			let jsonDocs			= [];
-			let dados 				= {};
-
-			$scope.messageNotific	= '';
-			
-			dados.cnpj 				= {id: dadosUserLogado.cId};
-
-			jsonDocs = [{
-				/*Historico*/
-				obsOportunidade	: $scope.obsOportunidade,
-				histOportunidade: $scope.histOportunidade,
-
-				condPagamento	: $scope.condPagamento,
-				formaPagamento	: $scope.formaPagamento,
-
-				endEntrega		: $scope.frmEndEntrega,
-				prevEntrega		: $scope.prevEntrega != "" || $scope.prevEntrega != undefined ? $scope.prevEntrega : null,
-				
-				//Metodos
-				docCtrl			: hashDoc,
-				pedido			: $scope.pedido,
-				sincronizado	: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
-				
-				representante	: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome},
-
-				datEmiERP		: $scope.datEmiERP,
-				
-				//Produtos
-				produtos		: $rootScope.produtos,
-				valorTotal		: parseFloat($scope.valorTotal),
-
-				//Cliente
-				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
-				
-			}];
-			
-			dados.jsonDocs 		= JSON.stringify(jsonDocs);
-			/*Recebe dados e para que sejam feitas as alterações necessarias*/
-			var json 			= JSON.parse(dados.jsonDocs);
-			
-			if(rotina == 2){					
-				let sendToERP 				= JSON.parse(dados.jsonDocs);
-
-				$rootScope.pedidoAprovado	= await $scope.calculoValidacaoProdutoERP(sendToERP[0]);
-
-				if(!$rootScope.pedidoAprovado.aprovado){
-					$scope.geraNotificacao("O pedido não foi aprovado: "+$rootScope.pedidoAprovado.erro, 2500, 'warning')
-					json[0].sincronizado = "ERRO: "+$rootScope.pedidoAprovado.erro;
-					json[0].pedido		 = 0;
-				}else{
-					$rootScope.documentoERP 	= await $scope.gravaDocumentoERP(sendToERP[0]);
-				
-					/*Atualiza numero do pedido*/
-					if(!isNaN(parseInt($rootScope.documentoERP))){
-						let dataFormat			= new Date();
-						json[0].sincronizado	= "DOCUMENTO_SINCRONIZADO";
-						json[0].datEmiERP		= dataFormat.toLocaleDateString("pt-BR")+" EMI";
-						json[0].pedido			= $rootScope.documentoERP;
-					}else{
-						json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
-						json[0].pedido		 = 0;
-					}
-				}
-			};
-	
-			if(id > 0){
-				dados.jsonDocs 	= JSON.stringify(json); 
-				let response 	= await $http.post('/clicVendas/rest/pedidov2/salvar/'+id, dados);
-				
-				if(rotina == 1){
-					$scope.messageNotific = 'Registro alterado com sucesso';
-					$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
-				}
-			}else{
-				dados.jsonDocs 			= JSON.stringify(json);
-				let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
-
-				if(rotina == 1){
-					$scope.messageNotific 	= 'Registro inserido com sucesso';
-					$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
-				}
-				
-			};
-			
-			$scope.atualizaTabela();
-						
-			$scope.exibeFormulario 		= false;
-			$scope.exibeListaDocumentos = true;
-		};
-
-		$scope.limparFiltros = () =>{
-			
-			$scope.filCliente 			= '';
-			$scope.filRepresentante		= '';
-			$scope.filDataEmissao 		= '';
-			$scope.filPesquisaGeral		= '';
-			$scope.filSincronizado		= {nome:"", send:""};
-			
-			$scope.atualizaTabela();
-		};
-
-		$scope.aplicarFiltros = (valor) => {
-			
-			$scope.filDataEmissao		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7)+" EMI";
-			$scope.filCliente 			= $scope.filCliente; 		
-			$scope.filRepresentante		= $scope.filRepresentante;
-			$scope.filPesquisaGeral		= $scope.filPesquisaGeral;	
-			$scope.filSincronizado		= $scope.filSincronizado;	
-
-			$scope.openNav();
-		};
-	
-		$scope.atualizaTabela = async (modo) =>{
-			$scope.dtOptions = DTOptionsBuilder.newOptions()            
-			.withOption('ajax', {
-				url	: '/clicVendas/rest/pedidov2/lista',
-				type	: 'POST',
-				data	: function(d) {   
-							var param = {idCvTccnpj	: dadosUserLogado.cId};
-							var filter = {
-								fil1:  $scope.filCliente.toUpperCase(),
-								fil2:  $scope.filRepresentante,
-								fil3:  $scope.filPesquisaGeral,
-								fil4:  $scope.filSincronizado.send,
-								fil5:  "",
-								fil6:  $scope.filDataEmissao,
-								fil7:  dadosUserLogado.rId, /*Lista pedidos apenas do representante que o fez*/
-								fil8:  dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
-								fil9:  "",
-								fil10: "",
-								fil11: ""
-							};
-							d.param = param;
-							d.filter = filter;
-							return JSON.stringify(d);
-						},
-					dataSrc: function(json) {
-
-						/*Modo 1 - 
-							Atualiza tabela com valores do ERP quando o pedido há número
-						*/
-						if (modo != 1){
-							$rootScope.dadosGrid = json.data;
-
-							for(ped of $rootScope.dadosGrid){
-								ped.jsonDocs  = JSON.parse(ped.jsonDocs);
-							};
-
-							$scope.consultaPedidosERP($rootScope.dadosGrid);
-						}	
-
-						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
-					}
-				})
-					.withDataProp('data')
-					.withOption('processing', true)
-					.withOption('serverSide', true)
-					.withOption('bFilter', false)
-					.withOption('searchDelay', 1000)
-					.withOption('scrollY', '100%')
-					.withPaginationType('full_numbers')            
-					.withDisplayLength(20)
-					.withDOM('ftrip')
-					.withButtons([
-				{
-					text: 'Novo',
-					key: '1',
-					className: 'btn_grid btn_cor_padrao',
-					action: function (e, dt, node, config) {									
-						$scope.abreFormulario();					
-					}
-				},		
-				{
-					text: 'Filtrar',
-					key: '2',
-					className: 'btn_grid btn_cor_padrao',
-					action: function (e, dt, node, config) {									
-						$scope.openNav();				
-					}
-				},			
-				{
-					text: 'Atualizar',
-					key: '4',
-					className: 'btn_grid btn_cor_padrao',
-					action: function () {									
-						$scope.atualizaTabela();					
-					}
-				},								
-			]);	
-
-
-			defPD = {	'id'								:	{i:0, vsbl: true,	tlt: 'Nº Pedido',   	width:''	},
-						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
-						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-				};
-
-
-			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
-			var montaColunas = [];
-
-			angular.forEach(defPD, function(value, key) {
-				montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
-			});
-
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
-				var btnhtmlData 	  = '';
-
-				let dataFormat= row.jsonDocs[0].datEmiERP != undefined ? row.jsonDocs[0].datEmiERP.substr(0,10) : ""
-
-				btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+dataFormat+"</div>";
-							
-				return btnhtmlData;
-			}));
-
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function(data, type, row) {
-				var btnhtmlValor = '';
-				let formatedValue = row.jsonDocs[0].valorTotal!="" ? row.jsonDocs[0].valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) : ""
-
-				btnhtmlValor += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>"+formatedValue+"</div>";
-							
-				return btnhtmlValor;
-			}));
-			
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Sinc.').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-				var btnhtml1 = '';				
-				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
-					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
-				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
-					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+row.jsonDocs[0].pedido+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
-				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
-					btnhtml1 += "<div class='glyphicon glyphicon-exclamation-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
-				}
-				
-				return btnhtml1;
-			}));
-
-			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-				var btnhtml = '';				
-				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
-				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
-				return btnhtml;
-			}));
-
-			$scope.dtColumns = montaColunas;
-											
-			angular.element('#listDocuments').attr('datatable', '');
-			$compile(angular.element('#listDocuments'))($scope);
-
-			$scope.dtOptions.withOption('fnRowCallback',
-				
-			function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-				$compile(nRow)($scope);
-			});
-
-		};
-
-		$scope.atualizaTabela();
-
-		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
-			/* Utiliza o Alert Bootstrap
-				light   - padrao
-				danger 	- aviso erro
-				warning	- aviso informativo 
-				success - sucesso
-			*/
-			$rootScope.isLoading = true;
-
-			var dialog = bootbox.dialog({
-				message: '<div class="alert alert-'+tipo+' popup"role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">'+message+'</p></div>',
-				closeButton: false
-			});
-			
-			setTimeout(() => {
-				dialog.modal('hide');
-				$rootScope.isLoading = false;
-			}, time);
-		};	
-		
-		$scope.removerDocumento = ($dados) =>{	
-			var id = $dados.id;
-
-			if($dados.jsonDocs[0].pedido != 0 &&  !isNaN(parseInt($dados.jsonDocs[0].pedido))){
-				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500, 'warning');
-			}else{
-				bootbox.confirm({
-					message:'<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a exclusão do pedido?</p></div>',
-					closeButton: false,
-					onHidden: function(e) {
-						$scope.atualizaTabela();
-					},
-					callback: function(confirmacao){
-
-						if (confirmacao){
-							$http.delete('/clicVendas/rest/pedidov2/deleta/'+id); 
-							setTimeout(() => {
-								$scope.atualizaTabela();
-							}, 1500);
 						}
-					},
-					buttons: {
-						confirm: {label: 'Confirmar',className:'btn_grid btn_cor_padrao'},
-						cancel: {label: 'Cancelar',className:'btn-default'},
-					},
-				}); 
-			};
-		};
 
-		$scope.openNav = () => {
-			if(document.getElementById("mySidebar").style.width =="250px"){
-				document.getElementById("mySidebar").style.width = "0";
-				document.getElementById("mySidebar").style.height = "0";
-				document.getElementById("main").style.marginLeft = "0";
-				
-				setTimeout(()=>{
-					$scope.atualizaTabela()
-				}, 250)
-			}else{
-				
-				document.getElementById("mySidebar").style.width = "250px";
-				document.getElementById("mySidebar").style.height = "500px";
-				document.getElementById("main").style.marginLeft = "255px";
-			};
+						$scope.obsOportunidade = "";
+					};
 
-		};
-			
-	});
-</script> 
+					$scope.finalizarDocumento = () => {
+
+						bootbox.confirm({
+							message: '<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a finalização do pedido?</p></div>',
+							closeButton: false,
+							callback: function (confirmacao) {
+								if (confirmacao) {
+									$scope.salvarDocumento(2);
+								}
+							},
+							buttons: {
+								confirm: { label: 'Confirmar', className: 'btn_grid btn_cor_padrao' },
+								cancel: { label: 'Cancelar', className: 'btn-default' },
+							},
+						});
+					}
+
+					$scope.salvarDocumento = async (rotina) => {
+						/*
+						Rotinas:
+							1 - Salvar (Mantém apenas no ClicVenda)
+							2 - Finalizar (Envia o pedido para ERP)
+						*/
+						let hashDoc = $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
+						let id = $rootScope.idDocumento;
+						let jsonDocs = [];
+						let dados = {};
+
+						$scope.messageNotific = '';
+
+						dados.cnpj = { id: dadosUserLogado.cId };
+
+						jsonDocs = [{
+							/*Historico*/
+							obsOportunidade: $scope.obsOportunidade,
+							histOportunidade: $scope.histOportunidade,
+
+							condPagamento: $scope.condPagamento,
+							formaPagamento: $scope.formaPagamento,
+
+							endEntrega: $scope.frmEndEntrega,
+							prevEntrega: $scope.prevEntrega != "" || $scope.prevEntrega != undefined ? $scope.prevEntrega : null,
+
+							//Metodos
+							docCtrl: hashDoc,
+							pedido: $scope.pedido,
+							sincronizado: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
+
+							representante: { rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome },
+
+							datEmiERP: $scope.datEmiERP,
+
+							//Produtos
+							produtos: $rootScope.produtos,
+							valorTotal: parseFloat($scope.valorTotal),
+
+							//Cliente
+							cliente: { id: $rootScope.cliente.id, codExterno: $rootScope.cliente.codExterno, nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat },
+
+						}];
+
+						dados.jsonDocs = JSON.stringify(jsonDocs);
+						/*Recebe dados e para que sejam feitas as alterações necessarias*/
+						var json = JSON.parse(dados.jsonDocs);
+
+						if (rotina == 2) {
+							let sendToERP = JSON.parse(dados.jsonDocs);
+
+							$rootScope.pedidoAprovado = await $scope.calculoValidacaoProdutoERP(sendToERP[0]);
+
+							if (!$rootScope.pedidoAprovado.aprovado) {
+								$scope.geraNotificacao("O pedido não foi aprovado: " + $rootScope.pedidoAprovado.erro, 2500, 'warning')
+								json[0].sincronizado = "ERRO: " + $rootScope.pedidoAprovado.erro;
+								json[0].pedido = 0;
+							} else {
+								$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
+
+								/*Atualiza numero do pedido*/
+								if (!isNaN(parseInt($rootScope.documentoERP))) {
+									let dataFormat = new Date();
+									json[0].sincronizado = "DOCUMENTO_SINCRONIZADO";
+									json[0].datEmiERP = dataFormat.toLocaleDateString("pt-BR") + " EMI";
+									json[0].pedido = $rootScope.documentoERP;
+								} else {
+									json[0].sincronizado = "ERRO: " + $rootScope.documentoERP;
+									json[0].pedido = 0;
+								}
+							}
+						};
+
+						if (id > 0) {
+							dados.jsonDocs = JSON.stringify(json);
+							let response = await $http.post('/clicVendas/rest/pedidov2/salvar/' + id, dados);
+
+							if (rotina == 1) {
+								$scope.messageNotific = 'Registro alterado com sucesso';
+								$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
+							}
+						} else {
+							dados.jsonDocs = JSON.stringify(json);
+							let response = await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
+
+							if (rotina == 1) {
+								$scope.messageNotific = 'Registro inserido com sucesso';
+								$scope.geraNotificacao($scope.messageNotific, 1500, 'success');
+							}
+
+						};
+
+						$scope.atualizaTabela();
+
+						$scope.exibeFormulario = false;
+						$scope.exibeListaDocumentos = true;
+					};
+
+					$scope.limparFiltros = () => {
+
+						$scope.filCliente = '';
+						$scope.filRepresentante = '';
+						$scope.filDataEmissao = '';
+						$scope.filPesquisaGeral = '';
+						$scope.filSincronizado = { nome: "", send: "" };
+
+						$scope.atualizaTabela();
+					};
+
+					$scope.aplicarFiltros = (valor) => {
+
+						$scope.filDataEmissao = $scope.filDataEmissao == "" ? "" : $scope.filDataEmissao.substr(0, 2) + "/" + $scope.filDataEmissao.substr(2, 2) + "/" + $scope.filDataEmissao.substr(4, 7) + " EMI";
+						$scope.filCliente = $scope.filCliente;
+						$scope.filRepresentante = $scope.filRepresentante;
+						$scope.filPesquisaGeral = $scope.filPesquisaGeral;
+						$scope.filSincronizado = $scope.filSincronizado;
+
+						$scope.openNav();
+					};
+
+					$scope.atualizaTabela = async (modo) => {
+						$scope.dtOptions = DTOptionsBuilder.newOptions()
+							.withOption('ajax', {
+								url: '/clicVendas/rest/pedidov2/lista',
+								type: 'POST',
+								data: function (d) {
+									var param = { idCvTccnpj: dadosUserLogado.cId };
+									var filter = {
+										fil1: $scope.filCliente.toUpperCase(),
+										fil2: $scope.filRepresentante,
+										fil3: $scope.filPesquisaGeral,
+										fil4: $scope.filSincronizado.send,
+										fil5: "",
+										fil6: $scope.filDataEmissao,
+										fil7: dadosUserLogado.rId, /*Lista pedidos apenas do representante que o fez*/
+										fil8: dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
+										fil9: "",
+										fil10: "",
+										fil11: ""
+									};
+									d.param = param;
+									d.filter = filter;
+									return JSON.stringify(d);
+								},
+								dataSrc: function (json) {
+
+									/*Modo 1 - 
+										Atualiza tabela com valores do ERP quando o pedido há número
+									*/
+									if (modo != 1) {
+										$rootScope.dadosGrid = json.data;
+
+										for (ped of $rootScope.dadosGrid) {
+											ped.jsonDocs = JSON.parse(ped.jsonDocs);
+										};
+
+										$scope.consultaPedidosERP($rootScope.dadosGrid);
+									}
+
+									return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);
+								}
+							})
+							.withDataProp('data')
+							.withOption('processing', true)
+							.withOption('serverSide', true)
+							.withOption('bFilter', false)
+							.withOption('searchDelay', 1000)
+							.withOption('scrollY', '100%')
+							.withPaginationType('full_numbers')
+							.withDisplayLength(20)
+							.withDOM('ftrip')
+							.withButtons([
+								{
+									text: 'Novo',
+									key: '1',
+									className: 'btn_grid btn_cor_padrao',
+									action: function (e, dt, node, config) {
+										$scope.abreFormulario();
+									}
+								},
+								{
+									text: 'Filtrar',
+									key: '2',
+									className: 'btn_grid btn_cor_padrao',
+									action: function (e, dt, node, config) {
+										$scope.openNav();
+									}
+								},
+								{
+									text: 'Atualizar',
+									key: '4',
+									className: 'btn_grid btn_cor_padrao',
+									action: function () {
+										$scope.atualizaTabela();
+									}
+								},
+							]);
+
+
+						defPD = {
+							'id': { i: 0, vsbl: true, tlt: 'Nº Pedido', width: '' },
+							'jsonDocs[0].pedido': { i: 1, vsbl: true, tlt: 'Nº Pedido ERP', width: '' },
+							'jsonDocs[0].cliente.nome': { i: 1, vsbl: true, tlt: 'Cliente', width: '' },
+						};
+
+
+						DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
+						var montaColunas = [];
+
+						angular.forEach(defPD, function (value, key) {
+							montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withOption('sortable', false).withOption('sWidth', value.width));
+						});
+
+						montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Data emissão').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function (data, type, row) {
+							var btnhtmlData = '';
+
+							let dataFormat = row.jsonDocs[0].datEmiERP != undefined ? row.jsonDocs[0].datEmiERP.substr(0, 10) : ""
+
+							btnhtmlData += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>" + dataFormat + "</div>";
+
+							return btnhtmlData;
+						}));
+
+						montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Valor Total').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '150px').renderWith(function (data, type, row) {
+							var btnhtmlValor = '';
+							let formatedValue = row.jsonDocs[0].valorTotal != "" ? row.jsonDocs[0].valorTotal.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : ""
+
+							btnhtmlValor += "<div style='font-size:1.0em; color:black;  display:inline-block; vertical-align: middle; cursor:pointer;'>" + formatedValue + "</div>";
+
+							return btnhtmlValor;
+						}));
+
+						montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Sinc.').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function (data, type, row) {
+							var btnhtml1 = '';
+							if (row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO") {
+								btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+							} else if (row.jsonDocs[0].sincronizado === "DOCUMENTO_SINCRONIZADO") {
+								btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº" + row.jsonDocs[0].pedido + "' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+							} else if (row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
+								btnhtml1 += "<div class='glyphicon glyphicon-exclamation-sign' title='" + row.jsonDocs[0].sincronizado + "' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+							}
+
+							return btnhtml1;
+						}));
+
+						montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function (data, type, row) {
+							var btnhtml = '';
+							btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario(" + JSON.stringify(row) + ")'></div>";
+							btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento(" + JSON.stringify(row) + ")' ></div>";
+							return btnhtml;
+						}));
+
+						$scope.dtColumns = montaColunas;
+
+						angular.element('#listDocuments').attr('datatable', '');
+						$compile(angular.element('#listDocuments'))($scope);
+
+						$scope.dtOptions.withOption('fnRowCallback',
+
+							function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+								$compile(nRow)($scope);
+							});
+
+					};
+
+					$scope.atualizaTabela();
+
+					$scope.geraNotificacao = (message, time = 1200, tipo = 'light') => {
+						/* Utiliza o Alert Bootstrap
+							light   - padrao
+							danger 	- aviso erro
+							warning	- aviso informativo 
+							success - sucesso
+						*/
+						$rootScope.isLoading = true;
+
+						var dialog = bootbox.dialog({
+							message: '<div class="alert alert-' + tipo + ' popup"role="alert"><p style="text-center; font-size:1.0em; font-weight:bold; text-align:center; padding:20px;">' + message + '</p></div>',
+							closeButton: false
+						});
+
+						setTimeout(() => {
+							dialog.modal('hide');
+							$rootScope.isLoading = false;
+						}, time);
+					};
+
+					$scope.removerDocumento = ($dados) => {
+						var id = $dados.id;
+
+						if ($dados.jsonDocs[0].pedido != 0 && !isNaN(parseInt($dados.jsonDocs[0].pedido))) {
+							$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500, 'warning');
+						} else {
+							bootbox.confirm({
+								message: '<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a exclusão do pedido?</p></div>',
+								closeButton: false,
+								onHidden: function (e) {
+									$scope.atualizaTabela();
+								},
+								callback: function (confirmacao) {
+
+									if (confirmacao) {
+										$http.delete('/clicVendas/rest/pedidov2/deleta/' + id);
+										setTimeout(() => {
+											$scope.atualizaTabela();
+										}, 1500);
+									}
+								},
+								buttons: {
+									confirm: { label: 'Confirmar', className: 'btn_grid btn_cor_padrao' },
+									cancel: { label: 'Cancelar', className: 'btn-default' },
+								},
+							});
+						};
+					};
+
+					$scope.openNav = () => {
+						if (document.getElementById("mySidebar").style.width == "250px") {
+							document.getElementById("mySidebar").style.width = "0";
+							document.getElementById("mySidebar").style.height = "0";
+							document.getElementById("main").style.marginLeft = "0";
+
+							setTimeout(() => {
+								$scope.atualizaTabela()
+							}, 250)
+						} else {
+
+							document.getElementById("mySidebar").style.width = "250px";
+							document.getElementById("mySidebar").style.height = "500px";
+							document.getElementById("main").style.marginLeft = "255px";
+						};
+
+					};
+
+				});
+	</script>
 
 </body>
 
 </html>
 
 <style>
-
-:root {
+	:root {
 		--cor_principal: #006c38;
 	}
 
-	ul{
-		overflow-y: auto; 
+	ul {
+		overflow-y: auto;
 		max-height: 420px;
 	}
 
-	h5{
+	h5 {
 		font-weight: bold;
 		font-size: 1.1em;
-		color:#747474;
+		color: #747474;
 	}
 
-	p{
+	p {
 		font-size: 13px;
-    	font-weight: 400;
+		font-weight: 400;
 	}
 
-	tr{
+	tr {
 		height: 55px;
 	}
 
+	table {
+		margin-top: -20px;
+	}
+
 	.table>thead>tr>th {
-    	vertical-align: inherit;
+		vertical-align: inherit;
 	}
 
 	#tabelaProdutos {
 		border-radius: 4px;
-		border-top: 1.5px solid rgb(236, 236, 236);;
+		border-top: 1.5px solid rgb(236, 236, 236);
+		;
 	}
 
 	#tabelaProdutos tr>th {
-   		box-shadow: 4px 7px 7px #ededed;
+		box-shadow: 4px 7px 7px #ededed;
 	}
 
 	#tabelaProdutos tr>td {
 		font-size: 13px;
-    	font-weight: 400;
+		font-weight: 400;
 	}
 
-	#tabelaProdutos td, th{
+	#tabelaProdutos td,
+	th {
 		vertical-align: inherit;
 	}
 
-	#tabelaProdutos tr:hover{
+	#tabelaProdutos tr:hover {
 		background-color: rgb(248, 248, 248);
 		border-radius: 8px;
 	}
 
-	th, td, a{
+	th,
+	td,
+	a {
 		font-size: 12px;
 		white-space: nowrap;
+		padding-right: 6vh;
+		padding-left: 2vh;
 	}
 
-	th{
+	th {
 		background-color: #FAFAFA;
 		border-radius: 2px;
+		padding-right: 3vh;
+		padding-left: 1vh
 	}
 
-	.dataTables_wrapper .dataTables_info{
+	#tabelaProdutos>th {
+		padding-right: 30px
+	}
+
+	.dataTables_wrapper .dataTables_info {
 		font-size: 12px;
 	}
 
 	.dataTables {
-		border-bottom:0;
+		border-bottom: 0;
 	}
 
-	.header-filtro-tabela{
-		background-color: var(--cor_principal);	
-		border-radius: 3px; 
-		margin-top: -10px; 
-		margin-top: -25%; 
-		height: 35px; 
-		padding:5px
+	.header-filtro-tabela {
+		background-color: var(--cor_principal);
+		border-radius: 3px;
+		margin-top: -10px;
+		margin-top: -25%;
+		height: 35px;
+		padding: 5px
 	}
-				
-	.btn_grid{
+
+	.btn_grid {
 		background-image: none !important;
 		color: #fff !important;
 		font-weight: 600;
 	}
 
-	.btn_acao_header{
+	.btn_acao_header {
 		background-image: none !important;
 		color: #fff !important;
 		font-weight: 600;
@@ -1583,41 +1841,41 @@ angular
 
 	.btn_cor_padrao {
 		background-color: var(--cor_principal) !important;
-		border-color: var(--cor_principal) !important; 
+		border-color: var(--cor_principal) !important;
 	}
 
-	.container{
-		flex:1;
+	.container {
+		flex: 1;
 		width: -webkit-fill-available;
 	}
 
-	.divider{
+	.divider {
 		border-top: 1px solid rgb(230, 230, 230);
 	}
-	
-	.divider-titulo{
+
+	.divider-titulo {
 		border-top: 0.8px solid rgb(230, 230, 230);
 		border-bottom: 0.8px solid rgb(230, 230, 230);
 		height: 50px;
-		background-color:#FAFAFA;
+		background-color: #FAFAFA;
 		border-radius: 3px;
 		box-shadow: 5px 1px 4px grey;
 	}
 
-	.itens-titulo{
-		margin-top:-15px;
+	.itens-titulo {
+		margin-top: -15px;
 	}
 
-	.spacer{
-		margin-top:20px;
+	.spacer {
+		margin-top: 20px;
 	}
 
-	.spacer-input{
-		margin-top:10px;
-		margin-left:8px;
+	.spacer-input {
+		margin-top: 10px;
+		margin-left: 8px;
 	}
 
-	.titulo{
+	.titulo {
 		font-size: 14px;
 		font-weight: bolder;
 	}
@@ -1628,120 +1886,153 @@ angular
 	}
 
 	#mySidebar {
-	  height: 100%; /* 100% Full-height */
-	  width: 0; /* 0 width - change this with JavaScript */
-	  position: absolute; /* Stay in place */
-	  z-index: 1; /* Stay on top */
-	  top: 50;
-	  left: 50;
-	  background-color: rgba(255, 255, 255, 1); 
-	  overflow-x: hidden; /* Disable horizontal scroll */
-	  padding-top: 60px; /* Place content 60px from the top */
-	  transition: 0.2s; /* 0.5 second transition effect to slide in the sidebar */ 
-	  box-shadow: 0 5px 5px 0 rgba(0,0,0,0.50);
-  
+		height: 100%;
+		/* 100% Full-height */
+		width: 0;
+		/* 0 width - change this with JavaScript */
+		position: absolute;
+		/* Stay in place */
+		z-index: 1;
+		/* Stay on top */
+		top: 50;
+		left: 50;
+		background-color: rgba(255, 255, 255, 1);
+		overflow-x: hidden;
+		/* Disable horizontal scroll */
+		padding-top: 60px;
+		/* Place content 60px from the top */
+		transition: 0.2s;
+		/* 0.5 second transition effect to slide in the sidebar */
+		box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.50);
+
 	}
 
 	#mySidebar label {
-	  padding: 5px 5px 5px 10px;
-	  text-decoration: none;
-	  font-size: 14px;
-	  color: #000;
-	  display: block;
-	  transition: 0.2s;
-	}
-	
-	#mySidebar input {
-	  padding: 5px 5px 5px 10px;
-	  margin-left: 10px;
+		padding: 5px 5px 5px 10px;
+		text-decoration: none;
+		font-size: 14px;
+		color: #000;
+		display: block;
+		transition: 0.2s;
 	}
 
-	.navbar-header, label {
-	  display: inline !important
+	#mySidebar input {
+		padding: 5px 5px 5px 10px;
+		margin-left: 10px;
 	}
-	
+
+	.navbar-header,
+	label {
+		display: inline !important
+	}
+
 	/* When you mouse over the navigation links, change their color */
 	#mySidebar a:hover {
-	  color: rgb(216, 216, 216);
+		color: rgb(216, 216, 216);
 	}
 
 	/* The button used to open the sidebar */
 	.openbtn {
-	  font-size: 20px;
-	  cursor: pointer;
-	  background-color: #111;
-	  color: white;
-	  padding: 10px 15px;
-	  border: none;
+		font-size: 20px;
+		cursor: pointer;
+		background-color: #111;
+		color: white;
+		padding: 10px 15px;
+		border: none;
 	}
 
-	.inputTable{
+	pre {
+		padding: 6px;
+	}
+
+	.divTextTable {
+		width: 10vh;
+	}
+
+	.inputTableBigger {
+		margin-top: -5vh;
+
+	}
+
+	.inputTable {
 		outline: 0;
 		border-width: 0 0 0.5px;
 		border-color: rgb(184, 184, 184);
-		width: 50%;
+		width: 80%;
 		height: 35px;
 		border-style: dashed;
 	}
 
-	.inputTable:focus{
+	.inputTable:focus {
 		border-color: rgb(0, 0, 0);
 		border-style: solid;
 	}
 
-	.inputTable:invalid{
+	.inputTable:invalid {
 		border-style: dashed;
 		border-color: rgba(243, 3, 3, 0.568);
 	}
 
 	.openbtn:hover {
-	  background-color: #444;
+		background-color: #444;
 	}
 
 	/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 	#main {
-	  transition: margin-left .2s; /* If you want a transition effect */
-	  padding: 0px;
-	  height: 100%;
+		transition: margin-left .2s;
+		/* If you want a transition effect */
+		padding: 0px;
+		height: 100%;
 	}
 
-	.modal-body{
-		padding:0;
-		margin-top:15%;
+	.modal-body {
+		padding: 0;
+		margin-top: 15%;
 	}
 
-	.modal-content{
-		margin-top:20%;
+	.modal-content {
+		margin-top: 20%;
 		background-color: rgb(247, 247, 247);
-		border:0;
+		border: 0;
 	}
 
-	.modal{
-		margin-left:-5%;
+	.modal {
+		margin-left: -5%;
 	}
 
-	.bootbox-body{
+	.bootbox-body {
 		height: 50px;
 		font-size: 1.1em;
 		text-align: center;
 		font-weight: 500;
 	}
 
-	.popup{
+	.popup {
 		height: 100px;
 	}
 
-	.modal-backdrop{
-		visibility:hidden;
+	.modal-backdrop {
+		visibility: hidden;
 	}
 
-	.new-row-enter{
+	.new-row-enter {
 		background-color: rgb(253, 249, 243);
 	}
 
 	/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 	@media screen and (max-height: 450px) {
-	  .sidebar {padding-top: 15px;}
-	  .sidebar a {font-size: 18px;}
+		.sidebar {
+			padding-top: 15px;
+		}
+
+		.sidebar a {
+			font-size: 18px;
+		}
 	}
-	</style>
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+</style>
