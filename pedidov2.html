@@ -1299,6 +1299,14 @@ angular
 		$scope.removerProduto = ($item) => {
 			console.log($item, "item")
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
+
+			if($item.situacao.send && $item.situacao.send === "EM_DIGITACAO"){
+				let docs = $scope.consultaDocumento($item.hashDoc)
+
+				let idDoc = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
+
+				console.log(idDoc, "idddd")
+			}
 			// $scope.atualizaTabelaProdutos();
 		};
 		
@@ -1990,7 +1998,7 @@ angular
 
 		};
 
-		console.log("TESTE1")
+		console.log("TESTE21")
 			
 	});
 </script> 
