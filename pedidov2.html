@@ -1303,9 +1303,9 @@ angular
 			if($item.situacao.send && $item.situacao.send === "EM_DIGITACAO"){
 				let docs = await $scope.consultaDocumento($item.hashDoc)
 
-				let [id] = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
+				let docToRemove = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
 
-				$http.delete('/clicVendas/rest/pedidov2/deleta/'+ id); 
+				$http.delete('/clicVendas/rest/pedidov2/deleta/'+ docToRemove[0].id); 
 				//$scope.removerDocumento(docToRemove[0]);
 			}
 		};
@@ -1998,7 +1998,7 @@ angular
 
 		};
 
-		console.log("TESTE5")
+		console.log("TESTE6")
 			
 	});
 </script> 
