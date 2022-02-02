@@ -1296,12 +1296,12 @@ angular
 			// $scope.atualizaTabelaProdutos();
 		};
 
-		$scope.removerProduto = ($item) => {
+		$scope.removerProduto = async ($item) => {
 			console.log($item, "item")
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
 
 			if($item.situacao.send && $item.situacao.send === "EM_DIGITACAO"){
-				let docs = $scope.consultaDocumento($item.hashDoc)
+				let docs = await $scope.consultaDocumento($item.hashDoc)
 
 				let idDoc = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
 
@@ -1998,7 +1998,7 @@ angular
 
 		};
 
-		console.log("TESTE21")
+		console.log("TESTE3")
 			
 	});
 </script> 
