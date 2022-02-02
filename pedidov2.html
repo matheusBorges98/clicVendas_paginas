@@ -1303,11 +1303,11 @@ angular
 			if($item.situacao.send && $item.situacao.send === "EM_DIGITACAO"){
 				let docs = await $scope.consultaDocumento($item.hashDoc)
 
-				let docToRemove = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
+				let [id] = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
 
-				$scope.removerDocumento(docToRemove[0]);
+				$http.delete('/clicVendas/rest/pedidov2/deleta/'+ id); 
+				//$scope.removerDocumento(docToRemove[0]);
 			}
-			// $scope.atualizaTabelaProdutos();
 		};
 		
 		$scope.addObservacaoHistorico = () => {
@@ -1955,7 +1955,7 @@ angular
 				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500, "warning");
 			}else{
 				bootbox.confirm({
-					message:'<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a exclusão do pedido?</p></div>',
+					message:'<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a exclusão?</p></div>',
 					closeButton: false,
 					onHidden: function(e) {
 						$scope.atualizaTabela();
@@ -1998,7 +1998,7 @@ angular
 
 		};
 
-		console.log("TESTE4")
+		console.log("TESTE5")
 			
 	});
 </script> 
