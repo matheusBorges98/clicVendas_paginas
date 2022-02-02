@@ -1297,16 +1297,13 @@ angular
 		};
 
 		$scope.removerProduto = async ($item) => {
-			console.log($item, "item")
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
 
 			if($item.situacao.send && $item.situacao.send === "EM_DIGITACAO"){
-				let docs = await $scope.consultaDocumento($item.hashDoc)
-
+				let docs 		= await $scope.consultaDocumento($item.hashDoc)
 				let docToRemove = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
 
 				$http.delete('/clicVendas/rest/pedidov2/deleta/'+ docToRemove[0].id); 
-				//$scope.removerDocumento(docToRemove[0]);
 			}
 		};
 		
@@ -1493,7 +1490,7 @@ angular
 
 			};
 	
-			if(id > 0){
+			if(id > 0 && json[0].produtos.situacao != "EM_DIGITACAO"){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){
@@ -1556,7 +1553,7 @@ angular
 			}else{
 				for(i = 0; i < $rootScope.produtos.length; i++){
 					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
-					json[0].produtos 				= $rootScope.produtos[i];
+					json[0].produtos 		= $rootScope.produtos[i];
 
 					dados.jsonDocs 			= JSON.stringify(json);
 
@@ -1998,7 +1995,7 @@ angular
 
 		};
 
-		console.log("TESTE6")
+		console.log("TESTE7")
 			
 	});
 </script> 
