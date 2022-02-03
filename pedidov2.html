@@ -146,7 +146,7 @@
 									<div class="col-sm-3 spacer ">
 										<label for="vendedor">Vendedor</label>
 										<div class="spacer">
-											<input type="text" readonly class="form-control" ng-model="vendedor" id="vendedor">
+											<input type="text" readonly class="form-control" ng-value="vendedor.nome" ng-model="vendedor" id="vendedor">
 										</div>
 									</div>
 								</div>
@@ -297,7 +297,7 @@
 									
 									<div class="col-sm-3 spacer ">
 										<label for="vendedor">Vendedor</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendedor" id="vendedor">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-value="vendedor.nome" ng-model="vendedor" id="vendedor">
 									</div>
 									
 									<div class="col-sm-3 spacer ">
@@ -1114,7 +1114,7 @@ angular
 				$scope.responsavel			= '';
 				$scope.projeto				= '';				
 				$scope.uf					= '';
-				$scope.vendedor				= dadosUserLogado.rNome;
+				$scope.vendedor				= {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
 				$scope.segmento				= '';
 				$scope.subsegmento			= '';
 				$scope.bu					= '';
@@ -1167,7 +1167,7 @@ angular
 				$scope.anoFat				= docs.ano;
 				$scope.projeto				= docs.projeto;
 				$scope.uf					= docs.uf;
-				$scope.vendedor				= docs.vendedor.nome;
+				$scope.vendedor				= docs.vendedor;
 				$scope.segmento				= docs.segmento;
 				$scope.subsegmento			= docs.subsegmento;
 				$scope.bu					= docs.bu;
@@ -1419,7 +1419,7 @@ angular
 				responsavel			: $scope.responsavel,
 				projeto     		: $scope.projeto,
 				uf 					: $scope.uf,
-				vendedor			: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
+				vendedor			: $scope.usuarioAprovador ? $scope.vendedor : {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
 				segmento			: $scope.segmento,
 				subsegmento 		: $scope.subsegmento,
 				bu 					: $scope.bu,
@@ -2016,7 +2016,7 @@ angular
 
 		};
 
-		console.log("TESTE7")
+		console.log("TESTE8")
 			
 	});
 </script> 
