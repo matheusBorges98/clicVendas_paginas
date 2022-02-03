@@ -621,6 +621,13 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
+		console.log("TESTE 1")
+
+		$scope.abreConsultaEstoque = () =>{
+			$scope.exibeListaDocumentos = false
+			$scope.exibeConsultaEstoque = true	
+		}
+
 		$scope.consultaEstoque = async () =>{
 			
 			/*A fazer
@@ -677,7 +684,8 @@ angular
 			}else if($scope.exibeFormulario == true && $scope.exibeHistoricos){
 				$scope.exibeHistoricos = false;
 			}else if($scope.exibeConsultaEstoque == true){
-				$scope.exibeConsultaEstoque == false
+				$scope.exibeConsultaEstoque = false;
+				$scope.exibeListaDocumentos = true;
 			}
 		};
 
@@ -1475,7 +1483,7 @@ angular
 					key: '5',
 					className: 'btn_grid btn_cor_padrao',
 					action: function () {									
-						$scope.exibeConsultaEstoque = true;		
+						$scope.abreConsultaEstoque();
 					}
 				},				
 			]);	
