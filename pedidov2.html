@@ -519,7 +519,7 @@
 			<div class="divider-titulo row">
 				<div class="spacer titulo vcenter col-sm-12">
 					<div class="col-sm-6 itens-titulo">
-						<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"><span class="glyphicon glyphicon-menu-left"></span> Voltar</button>
+						<button class="btn btn_acao_header btn_cor_padrao" ng-click="abreConsultaEstoque()"><span class="glyphicon glyphicon-menu-left"></span> Voltar</button>
 					</div>
 
 					<div class="col-sm-6">
@@ -621,16 +621,15 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTE 4")
+		console.log("TESTE 5")
 
 		$scope.abreConsultaEstoque = () =>{
-			$scope.exibeListaDocumentos = false
-			$scope.exibeConsultaEstoque = true
-			
+			$scope.exibeListaDocumentos = $scope.exibeListaDocumentos ? false : true
+			$scope.exibeConsultaEstoque = $scope.exibeConsultaEstoque ? false : true
 			$scope.$apply();
 		}
 
-		$scope.consultaEstoque = async () =>{
+		$scope.consultarEstoqueERP = async () =>{
 			
 			/*A fazer
 				Requisição para o ERP trazendo as informações 
@@ -658,11 +657,6 @@ angular
 		};
 
 		$rootScope.changeView = ($dados) => {
-			if(!$scope.exibeListaDocumentos && $scope.exibeConsultaEstoque){
-				$scope.exibeConsultaEstoque = false;
-				$scope.exibeListaDocumentos = true;
-			};
-
 			if($scope.exibeFormulario == false && !$scope.exibeConsultaEstoque){
 
 				$scope.exibeFormulario = true;
