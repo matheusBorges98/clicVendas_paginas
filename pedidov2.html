@@ -621,7 +621,7 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTE 1")
+		console.log("TESTE 2")
 
 		$scope.abreConsultaEstoque = () =>{
 			$scope.exibeListaDocumentos = false
@@ -676,6 +676,10 @@ angular
 					$scope.permiteEditar	  = false;
 				};
 				
+			}else if($scope.exibeConsultaEstoque == true && !$scope.exibeFormulario){
+				$scope.exibeConsultaEstoque = false;
+				$scope.exibeListaDocumentos = true;
+
 			}else if($scope.exibeFormulario == true && !$scope.exibeHistoricos){
 				$scope.exibeFormulario = false;
 				$scope.exibeListaDocumentos = true;
@@ -683,9 +687,6 @@ angular
 
 			}else if($scope.exibeFormulario == true && $scope.exibeHistoricos){
 				$scope.exibeHistoricos = false;
-			}else if($scope.exibeConsultaEstoque == true){
-				$scope.exibeConsultaEstoque = false;
-				$scope.exibeListaDocumentos = true;
 			}
 		};
 
