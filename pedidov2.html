@@ -1100,6 +1100,8 @@ angular
 				$scope.totalFatUSD			= '';
 				$scope.margemR				= '';
 				$scope.preUSD				= '';
+				$scope.statusAcao			= '';
+				$scope.acoes				= '';
 
 				$scope.mesIniConsumo		= '';
 
@@ -1136,9 +1138,7 @@ angular
 				$scope.ultVendaTabdin		= '';
 				$scope.primVendaTabdin		= '';
 				$scope.anoPrimVenda			= '';
-				$scope.statusAcao			= '';
-				$scope.acoes				= '';
-
+			
 				/*Historico*/
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= '';
@@ -1234,6 +1234,8 @@ angular
 					$scope.concorrencia			= docs.produtos.concorrencia;
 					$scope.precoConc			= docs.produtos.precoConc;
 					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
+					$scope.statusAcao			= docs.produtos.statusAcao;
+					$scope.acoes				= docs.produtos.acao;
 
 					$scope.consultaDocumento($rootScope.hashDoc);
 				}
@@ -1279,7 +1281,9 @@ angular
 					familia				: $scope.familia,
 					concorrencia		: $scope.concorrencia,
 					precoConc			: $scope.precoConc,
-					mesIniConsumo		: $scope.mesIniConsumo,			
+					mesIniConsumo		: $scope.mesIniConsumo,
+					statusAcao			: $scope.statusAcao,			
+					acoes				: $scope.acoes,				
 					hashDoc				: '',
 				}
 			);
@@ -1527,7 +1531,9 @@ angular
 						json[0].produtos.familia		= $scope.familia,
 						json[0].produtos.concorrencia	= $scope.concorrencia,
 						json[0].produtos.precoConc		= $scope.precoConc,
-						json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo	
+						json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo,
+						json[0].produtos.acoes			= $scope.acoes,
+						json[0].produtos.statusAcao		= $scope.statusAcao	
 
 						switch(situacao){
 							case 'EM_DIGITACAO':
@@ -1875,8 +1881,8 @@ angular
 						'jsonDocs[0].con2022Local'    				:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:'130px'	},
 						'jsonDocs[0].produtos.probFechamento'  		:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:'130px'	},
 						'jsonDocs[0].produtos.concorrencia'    		:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:'130px'	},
-						'jsonDocs[0].acoes'	      					:	{i:31, vsbl: true,	tlt: 'Ações',					width:'130px'	},
-						'jsonDocs[0].statusAcao'      				:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:'130px'	},
+						'jsonDocs[0].produtos.acoes'	 			:	{i:31, vsbl: true,	tlt: 'Ações',					width:'130px'	},
+						'jsonDocs[0].produtos.statusAcao'			:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:'130px'	},
 						'jsonDocs[0].dataAtu'      					:	{i:33, vsbl: true,	tlt: 'Data Atu.',				width:'130px'	},
 						'jsonDocs[0].produtos.ofertaData'			:	{i:34, vsbl: true,	tlt: 'Data Oferta',				width:'130px'	},
 						'jsonDocs[0].produtos.ofertaUnit'      		:	{i:35, vsbl: true,	tlt: 'Oferta Unitário. (US$)',	width:'130px'	},
@@ -2016,7 +2022,7 @@ angular
 
 		};
 
-		console.log("TESTE8")
+		console.log("TESTE1")
 			
 	});
 </script> 
