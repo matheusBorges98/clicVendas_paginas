@@ -1197,7 +1197,7 @@ angular
 				$scope.sincronizado			= docs.sincronizado;
 
 				/*Valida situação e aplica regra - Agrupa produtos pelo mesmo hashCode*/
-				if(docs.produtos.situacao && docs.produtos.situacao.send === "EM_DIGITACAO"){
+				if(docs.produtos.situacao && (docs.produtos.situacao.send === "EM_DIGITACAO" || docs.produtos.situacao.send === "EM_REVISAO")){
 					let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 					$rootScope.produtos			= $scope.agruparProdutos(documentosClic);
 
@@ -2016,7 +2016,7 @@ angular
 
 		};
 
-		console.log("TESTE6")
+		console.log("TESTE7")
 			
 	});
 </script> 
