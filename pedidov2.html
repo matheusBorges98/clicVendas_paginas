@@ -621,11 +621,13 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTE 2")
+		console.log("TESTE 3")
 
 		$scope.abreConsultaEstoque = () =>{
 			$scope.exibeListaDocumentos = false
-			$scope.exibeConsultaEstoque = true	
+			$scope.exibeConsultaEstoque = true
+			
+			$scope.$apply();
 		}
 
 		$scope.consultaEstoque = async () =>{
@@ -676,10 +678,6 @@ angular
 					$scope.permiteEditar	  = false;
 				};
 				
-			}else if($scope.exibeConsultaEstoque == true && !$scope.exibeFormulario){
-				$scope.exibeConsultaEstoque = false;
-				$scope.exibeListaDocumentos = true;
-
 			}else if($scope.exibeFormulario == true && !$scope.exibeHistoricos){
 				$scope.exibeFormulario = false;
 				$scope.exibeListaDocumentos = true;
