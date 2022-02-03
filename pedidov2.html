@@ -870,6 +870,8 @@ angular
 
 		$scope.agruparPedidosAprovador = () =>{
 			let pedidosAprovacao	= $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
+
+			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		}
 
 		$scope.consultaPedidosERP = async () => {
@@ -2009,7 +2011,7 @@ angular
 
 		};
 
-		console.log("TESTE1")
+		console.log("TESTE2")
 			
 	});
 </script> 
