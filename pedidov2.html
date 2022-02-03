@@ -1460,6 +1460,7 @@ angular
 				/* Lista todos os documentos e aplica o filtro pelo HashDoc, caso o documento já exista na base Clic, adiciona os produtos ao pedido que sejam do mesmo HashDoc*/
 				
 				if(id > 0){
+					console.log($rootScope.listAllDocs, "lsit")
 					let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
 					for(i = 0; i < allDocs.length; i++){
@@ -2010,7 +2011,7 @@ angular
 
 		};
 
-		console.log("TESTE3")
+		console.log("TESTE4")
 			
 	});
 </script> 
