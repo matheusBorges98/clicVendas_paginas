@@ -519,7 +519,7 @@
 			<div class="divider-titulo row">
 				<div class="spacer titulo vcenter col-sm-12">
 					<div class="col-sm-6 itens-titulo">
-						<button class="btn btn_acao_header btn_cor_padrao" ng-click="abreConsultaEstoque()"><span class="glyphicon glyphicon-menu-left"></span> Voltar</button>
+						<button class="btn btn_acao_header btn_cor_padrao" ng-click="exibirConsultaEstoque()"><span class="glyphicon glyphicon-menu-left"></span> Voltar</button>
 					</div>
 					<div class="col-sm-6">
 						<h5 style="margin-top: 0; margin-left:-15%; font-size: 14px;">Consulta Estoque</h5>
@@ -624,9 +624,9 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTE 7")
+		console.log("TESTE 8")
 
-		$scope.abreConsultaEstoque = () =>{
+		$scope.exibirConsultaEstoque = () =>{
 			$scope.exibeListaDocumentos = $scope.exibeListaDocumentos ? false : true
 			$scope.exibeConsultaEstoque = $scope.exibeConsultaEstoque ? false : true
 			$scope.$ApplyAsync();
@@ -1484,7 +1484,7 @@ angular
 					key: '5',
 					className: 'btn_grid btn_cor_padrao',
 					action: function () {									
-						$scope.abreConsultaEstoque();
+						$scope.exibirConsultaEstoque();
 					}
 				},				
 			]);	
