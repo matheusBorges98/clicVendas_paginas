@@ -513,6 +513,25 @@
 			<hr class="divider">	
 
 		</div>
+
+		<div ng-show="exibeConsultaEstoque">
+			<!-- Header Consulta estoque -->
+			<div class="divider-titulo row">
+				<div class="spacer titulo vcenter col-sm-12">
+					<div class="col-sm-6 itens-titulo">
+						<button class="btn btn_acao_header btn_cor_padrao" ng-click="changeView()"><span class="glyphicon glyphicon-menu-left"></span> Voltar</button>
+					</div>
+
+					<div class="col-sm-6">
+						<h5 style="margin-top: 0; margin-left:-15%; font-size: 14px;">Consulta Estoque</h5>
+					</div>
+				</div>			
+			</div>
+
+			<div class="row spacer">
+				<h5>Cheguei aqui</h5>
+			</div>
+		</div>
 	
 	</div>
 
@@ -583,6 +602,7 @@ angular
 		$scope.exibeFormulario 		= false; 
 		$scope.exibeListaDocumentos = true;
 		$scope.exibeHistoricos		= false;
+		$scope.exibeConsultaEstoque = false;
 
 		$rootScope.isLoading 		= false;
 
@@ -600,6 +620,13 @@ angular
 		
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
+
+		$scope.consultaEstoque = async () =>{
+			
+			/*A fazer
+				Requisição para o ERP trazendo as informações 
+			*/
+		}
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -637,8 +664,7 @@ angular
 
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedido : "Pedido Nº "+$dados.id
-					//$dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
-					
+										
 					$scope.inputDesabilitado  = true;
 					$scope.permiteEditar	  = false;
 				};
@@ -650,6 +676,8 @@ angular
 
 			}else if($scope.exibeFormulario == true && $scope.exibeHistoricos){
 				$scope.exibeHistoricos = false;
+			}else if($scope.exibeConsultaEstoque == true){
+				$scope.exibeConsultaEstoque == false
 			}
 		};
 
@@ -1447,7 +1475,7 @@ angular
 					key: '5',
 					className: 'btn_grid btn_cor_padrao',
 					action: function () {									
-						$scope.consultaEstoque();					
+						$scope.exibeConsultaEstoque = true;		
 					}
 				},				
 			]);	
