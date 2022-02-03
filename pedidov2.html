@@ -553,8 +553,8 @@
 							<span class="caret caret-up"></span>
 						</button>
 						<ul style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
-							<li ng-show="dadosUserLogado.rTipoId !== 3"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
-							<li ng-show="dadosUserLogado.rTipoId !== 3"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>
+							<li ng-hide="dadosUserLogado.rTipoId === 3"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
+							<li ng-hide="dadosUserLogado.rTipoId === 3"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>
 							<li ng-show="dadosUserLogado.rTipoId === 3"><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
 							<li ng-show="dadosUserLogado.rTipoId === 3"><a title="Salvar e enviar para revisão" ng-click="salvarDocumento(1, 'EM_REVISAO')">Enviar para revisão</a></li>          
 						</ul>
@@ -2006,7 +2006,7 @@ angular
 
 		};
 
-		console.log("TESTE5")
+		console.log("TESTE6")
 			
 	});
 </script> 
