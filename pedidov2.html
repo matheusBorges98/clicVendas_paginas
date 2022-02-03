@@ -84,7 +84,7 @@
 					<table id="listDocuments"  dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border responsive hover table-striped table-bordered"></table>					
 				</div>
 				<!-- Tabela completa -->
-				<div ng-hide="!tabelaCompleta || dadosUserLogado.rTipoId != 3 " class="col-sm-12">
+				<div ng-hide="!tabelaCompleta" class="col-sm-12">
 					<table id="listDocumentsFull"  dt-options="dtOptionsFull" dt-columns="dtColumnsFull" dt-instance="dtInstanceFull" class="tabelaCompleta row-border responsive hover table-striped table-bordered"></table>					
 				</div>
 			</div>
@@ -869,7 +869,7 @@ angular
 		};
 
 		$scope.agruparPedidosAprovador = () =>{
-			let pedidosAprovacao	= $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
+			$rootScope.dadosGrid = $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
 
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		}
@@ -2016,7 +2016,7 @@ angular
 
 		};
 
-		console.log("TESTE3")
+		console.log("TESTE4")
 			
 	});
 </script> 
