@@ -624,12 +624,12 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTE 9")
+		console.log("TESTE")
 
 		$scope.exibirConsultaEstoque = () =>{
 			$scope.exibeListaDocumentos = $scope.exibeListaDocumentos ? false : true
 			$scope.exibeConsultaEstoque = $scope.exibeConsultaEstoque ? false : true
-			$scope.$Apply();
+			$scope.$applyAsync();
 		}
 
 		$scope.consultarEstoqueERP = async () =>{
