@@ -621,7 +621,7 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
-		console.log("TESTE 3")
+		console.log("TESTE 4")
 
 		$scope.abreConsultaEstoque = () =>{
 			$scope.exibeListaDocumentos = false
@@ -658,7 +658,12 @@ angular
 		};
 
 		$rootScope.changeView = ($dados) => {
-			if($scope.exibeFormulario == false){
+			if(!$scope.exibeListaDocumentos && $scope.exibeConsultaEstoque){
+				$scope.exibeConsultaEstoque = false;
+				$scope.exibeListaDocumentos = true;
+			};
+
+			if($scope.exibeFormulario == false && !$scope.exibeConsultaEstoque){
 
 				$scope.exibeFormulario = true;
 				$scope.exibeListaDocumentos = false;
