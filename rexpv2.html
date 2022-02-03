@@ -191,13 +191,71 @@
 
 							<div style="margin-top:-25px" ng-show="sincronizado != 'DOCUMENTO_SINCRONIZADO' "  class="form-group col-md-12">
 								
-								<div class="col-sm-6 spacer">
+								<div class="col-sm-8 spacer">
 									<label for="nomeCliente">Cliente <span style="color: red;" ng-show="cadastroPedido.frmCliente.$error.required">*</span></label>
 									<div class="input-group spacer">
 										<input type="text" ng-model="frmCliente" name="frmCliente" required id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
+								
+								<div class="col-sm-4 spacer">
+									<label for="tipoVenda">Tipo de Venda / Transação <span style="color: red;" ng-show="cadastroPedido.tipoVenda.$error.required">*</span></label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="tipoVenda" name="tipoVenda" required id="tipoVenda" placeholder="Informe o tipo de Venda / Transação" uib-typeahead="tipven.nome for tipven in getTipoVenda($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTipVen($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTipoVenda()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+								
+								
+								
+								
+								<div class="col-sm-4 spacer ">
+									<label for="predCliente">Pedido / O.C. do Cliente </label>
+									<input type="text" placeholder="Número do pedido do cliente" class="form-control spacer" name="predCliente" ng-model="predCliente" id="predCliente">
+								</div>
+								
+								<div class="col-sm-2 spacer ">
+									<label for="pedMoeda">Moeda </label>
+									<input type="text" placeholder="Selecione a moeda" class="form-control spacer" name="predMoeda" ng-model="predMoeda" id="predMoeda">
+								</div>
+								
+								<div class="col-sm-2 spacer ">
+									<label for="predDatEmi">Data do Pedido</label>
+									<input type="date" class="form-control spacer" name="predDatEmi" ng-model="predDatEmi" id="predDatEmi">
+								</div>
+								
+								<div class="col-sm-4 spacer ">
+									<label for="representante">Responsável</label>
+									<input type="text" readonly class="form-control spacer" ng-model="representante" id="representante">
+								</div>
+								
+								
+								<div class="col-sm-6 spacer">
+									<label for="transportadora">Transportadora <span style="color: red;" ng-show="cadastroPedido.transportadora.$error.required">*</span></label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="transportadora" name="transportadora" required id="transportadora" placeholder="Informe a Transportadora" uib-typeahead="transportadora.nome for transportadora in getTransportadora($viewValue)" typeahead-loading="loadingTransportadora" typeahead-no-results="noResultsTransportadora"  typeahead-on-select="onSelectTransportadora($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTransportadora()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+								
+								<div class="col-sm-6 spacer">
+									<label for="redespacho">Redespacho <span style="color: red;" ng-show="cadastroPedido.redespacho.$error.required">*</span></label>
+									<div class="input-group spacer">
+										<input type="text" ng-model="redespacho" name="redespacho" required id="redespacho" placeholder="Informe o Redespacho" uib-typeahead="redespacho.nome for redespacho in getRedespacho($viewValue)" typeahead-loading="loadingRedespacho" typeahead-no-results="noResultsRedespacho"  typeahead-on-select="onSelectRedespacho($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaRedespacho()"><i class="glyphicon glyphicon-remove"></i></span>
+									</div>
+								</div>
+								
 								<div class="col-sm-6 spacer">
 									<label for="nomeCliente">Endereço de entrega</label>
 									<div class="input-group spacer">
@@ -205,45 +263,98 @@
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaEndEntrega()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
-
-								<div class="col-sm-6 spacer ">
-									<label for="prevEntrega">Previsão de entrega </label>
-									<input type="date" class="form-control" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
+								
+								<div class="col-sm-2 spacer ">
+									<label for="tipFrete">Tipo de Frete </label>
+									<div class="input-group spacer">
+										<form>
+											<label class="radio-inline">
+											  <input type="radio" name="tipFrete" value="C" checked> CIF
+											</label>
+											<label class="radio-inline">
+											  <input type="radio" name="tipFrete" value="F"> FOB
+											</label>
+										</form>
+									</div>
 								</div>
-								<div class="col-sm-6 spacer ">
-									<label for="representante">Representante</label>
-									<input type="text" readonly class="form-control" ng-model="representante" id="representante">
+								
+								<div class="col-sm-2 spacer ">
+									<label for="valFrete">Valor do Frete </label>
+									<input type="text" placeholder="Informe o valor do frete" class="form-control spacer" name="valFrete" ng-model="valFrete" id="valFrete">
+								</div>
+								
+								<div class="col-sm-2 spacer ">
+									<label for="prevEntrega">Previsão de entrega </label>
+									<input type="date" class="form-control spacer" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
 								</div>
 							
 								<div class="col-sm-6 spacer">
 									<label for="condPagamento">Condição de pagamento <span style="color: red;" ng-show="cadastroPedido.condPagamento.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
-										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="1">
+										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCondicaoPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
-									<i ng-show="loadingCond" class="glyphicon glyphicon-refresh"></i>
-									<div ng-show="noResultsCond">
-										<i class="glyphicon glyphicon-remove"></i> Sem Resultados
-									</div>	
 								</div>
+								
 								<div class="col-sm-6 spacer">
 									<label for="nomeCliente">Forma de pagamento  <span style="color: red;" ng-show="cadastroPedido.formaPagamento.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<!-- <input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingFormaPag" typeahead-no-results="noResultsFormaPag"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
-										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingFormaPag" typeahead-no-results="noResultsFormaPag"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="1">
+										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+
+										<!-- <input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaFormaPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
-									<i ng-show="loadingFormaPag" class="glyphicon glyphicon-refresh"></i>
-									<div ng-show="noResultsFormaPag">
-										<i class="glyphicon glyphicon-remove"></i> Sem Resultados
-									</div>	
 								</div>
+								
+								
+								<div class="col-sm-6 spacer ">
+									<label for="opcoes">Opções </label>
+									<div class="input-group spacer">
+										<form>
+											<label class="checkbox-inline">
+											  <input type="checkbox" id="emiteCertificado" value="emiteCertificado"> Emite Certificado
+											</label>
+											<label class="checkbox-inline">
+											  <input type="checkbox" id="emitePPAP" value="emitePPAP"> Emite PPAP
+											</label>
+											<label class="checkbox-inline">
+											  <input type="checkbox" id="mantemSaldo" value="mantemSaldo"> Mantém Saldo
+											</label>
+											<label class="checkbox-inline">
+											  <input type="checkbox" id="aceitaParcial" value="aceitaParcial"> Aceita Recebimento Parcial
+											</label>
+										</form>
+									</div>
+								</div>
+								
+								<div class="col-sm-2 spacer ">
+									<label for="valMinFat">Valor Mín Faturamento </label>
+									<input type="text" placeholder=" " class="form-control spacer" name="valMinFat" ng-model="valMinFat" id="valMinFat">
+								</div>
+								
+								<div class="col-sm-2 spacer ">
+									<label for="valMinDup">Valor Mínimo Duplicata </label>
+									<input type="text" placeholder=" " class="form-control spacer" name="valMinDup" ng-model="valMinDup" id="valMinDup">
+								</div>
+								
+								<div class="col-sm-2 spacer ">
+									<label for="validade">Validade Orçamento </label>
+									<input type="text" placeholder=" " class="form-control spacer" name="validade" ng-model="valFrete" id="validade">
+								</div>
+								
+								<div class="col-sm-12 spacer">
+									<label for="obsPed">Observação</label>
+									<textarea class="form-control spacer-input"  ng-model="obsPed" placeholder="Máximo de 250 caracteres" id="obsPed" rows="3"></textarea>
+								</div>
+								
 
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="2" typeahead-template-url="templateAutoCompleteProduto" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 									<i ng-show="loadingProd" class="glyphicon glyphicon-refresh"></i>
@@ -260,55 +371,83 @@
 											<thead>
 												<tr>
 													<th>Produto</th>
-													<th>Preço Tab.</th>
 													<th>Quantidade</th>
-													<th>Vlr Negoc. (R$)</th>
-													<th>Desc./Acrésc. %</th>
+													<th>Unid. Medida</th>
+													<th>Preço Bruto</th>
+													<th>Faixa 1</th>
+													<th>Faixa 2</th>
+													<th>Faixa 3</th>
+													<th>Faixa 4</th>
 													<th>Valor total</th>
 													<th></th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr ng-repeat = "produto in produtos">
-													<td>
-														<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
-														<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
-														<p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}} <p>
+													<div>
+														<td>
+															<!-- <div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div> -->
+															<!-- <div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div> -->
+															<p style="white-space: normal;">{{produto.codExterno}}<p>
+															<p style="white-space: normal;">{{produto.codVariacao}}<p>
+															<p style="white-space: normal;">{{produto.descricao}}<p>
+															<p style="white-space: normal;">{{produto.estoque}}<p>
+															<!-- <p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}} <p> -->
+																
+															<!--<p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p>
+															 <p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p> -->
+														</td>
+														
+														<td>
+															<div>
+																<input type="number" step="any" name="quantidadeProduto" min="1" class="inputTable" required ng-value="produto.quantidade" id="quantidadeProdutoAdd" ng-model="produto.quantidade">
+															</div>
+														</td>
+														<td>
+															{{produto.unidMedida}}
+														</td>
+														<td>
+															<div>
+																<input type="number" readonly step="any" name="valorNegociado" class="inputTable" required ng-model="produto.valorNegociado">
+															</div>
+														</td>
+														<form>
 															
-														<p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p>
-														<p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p>
-													</td>
-													<td>
-														{{produto.precoTabela | currency:'R$ '}}
-													</td>
-													<td>
-														<div>
-															<input type="number" step="any" name="quantidadeProduto" min="1" class="inputTable" required ng-value="produto.quantidade" id="quantidadeProdutoAdd" ng-model="produto.quantidade">
-														</div>
-													</td>
-													<td>
-														<div>
-															<input type="number" step="any" name="valorNegociado" class="inputTable" required ng-model="produto.valorNegociado">
-														</div>
-													</td>
-													<td>
-														<div class="col-sm-12">
-															<button type='button' class='btn btn-default btn-number' ng-click='produto.opcaoDescAcresc === "DESCONTO" ? produto.opcaoDescAcresc = "ACRESCIMO" : produto.opcaoDescAcresc = "DESCONTO" '>																																								
-																<span ng-class="produto.opcaoDescAcresc === 'DESCONTO' ? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus' "></span>																								
-															</button>		
-																<input step="any" style="margin-left:1px; width: 30%;" type="number" class="inputTable" ng-model="produto.descAcresc">
-														</div>
-													</td>
-													<td>
-														{{produto.valorTotalItem | currency:'R$ '}}
-													</td>
-													<td>
-														<div class="col-sm-12">
-															<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
-															<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
-														</div>		
-													</td>
+															
+															<td>
+																<input type="radio" name="valorFaixa" value="produto.valorFaixa1"> {{produto.valorNegociado}}
+															</td>
+															<td>
+																<input type="radio" name="valorFaixa" value="produto.valorFaixa2"> {{produto.valorNegociado}}
+															</td>
+															<td>
+																<input type="radio" name="valorFaixa" value="produto.valorFaixa3"> {{produto.valorNegociado}}
+															</td>
+															<td>
+																<input type="radio" name="valorFaixa" value="produto.valorFaixa4"> {{produto.valorNegociado}}
+															</td>
+														</form>
+														
+			
+														<td>
+															{{produto.valorTotalItem | currency:'R$ '}}
+														</td>
+														<td>
+															<div class="col-sm-12">
+																<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
+																<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
+															</div>		
+														</td>
+													</div>
+													<div>
+													
+													<p style="white-space: normal;">{{produto.codExterno}}<p>
+													<p style="white-space: normal;">{{produto.codVariacao}}<p>
+													
+													</div>
 												</tr>
+												
+												
 											</tbody>
 										</table>
 		
@@ -358,21 +497,42 @@
 			<hr class="divider">
 			<!-- Ações sob o formulario -->
 			<div class="row spacer">
-				
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
-						<button class="btn btn_grid btn-success" title="O pedido será finalizado e enviado ao ERP" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-show="pedido == 0 " ng-click="confirmaFinalizarDocumento()"> Finalizar </button>
-					</div>	
-					<div class="btn-group">
-						<button class="btn btn_grid btn_cor_padrao" title="O pedido será salvo. Você ainda poderá editar e finalizar o pedido." ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-click="salvarDocumento(1)"> Salvar </button>
+						<button class="btn btn_grid btn-success" title="O pedido será finalizado e enviado ao ERP" ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-show="pedido == 0 " ng-click="finalizarDocumento()"> Finalizar </button>
 					</div>	
 					<div class="btn-group">
 						<button class="btn" ng-click="changeView()"> Cancelar </button>
 					</div>
+					<div class="btn-group">
+						<button class="btn btn_grid btn_cor_padrao" title="O pedido será salvo. Você ainda poderá editar e finalizar o pedido." ng-disabled="produtos.length == 0 || cadastroPedido.$error.required || isLoading" ng-click="salvarDocumento(1)"> Salvar </button>
+					</div>	
 				</div>
 			</div>
 			<!-- Ações sob o formulario -->
 			<hr class="divider">	
+
+		</div>
+
+		<div ng-show="exibeConsultaEstoque">
+			<!-- Header Consulta estoque -->
+			<div class="divider-titulo row">
+				<div class="spacer titulo vcenter col-sm-12">
+					<div class="col-sm-6 itens-titulo">
+						<button class="btn btn_acao_header btn_cor_padrao" ng-click="exibirConsultaEstoque()"><span class="glyphicon glyphicon-menu-left"></span> Voltar</button>
+					</div>
+					<div class="col-sm-6">
+						<h5 style="margin-top: 0; margin-left:-15%; font-size: 14px;">Consulta Estoque</h5>
+					</div>
+				</div>			
+			</div>
+			<!-- Body -->
+			<div class="row spacer">
+				<div class="col-sm-12">
+					<!-- Conteúdo página -->
+					<h5>Cheguei aqui</h5>
+				</div>
+			</div>
 
 		</div>
 	
@@ -445,6 +605,7 @@ angular
 		$scope.exibeFormulario 		= false; 
 		$scope.exibeListaDocumentos = true;
 		$scope.exibeHistoricos		= false;
+		$scope.exibeConsultaEstoque = false;
 
 		$rootScope.isLoading 		= false;
 
@@ -462,6 +623,19 @@ angular
 		
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
+
+		$scope.exibirConsultaEstoque = () =>{
+			$scope.exibeListaDocumentos = $scope.exibeListaDocumentos ? false : true
+			$scope.exibeConsultaEstoque = $scope.exibeConsultaEstoque ? false : true
+			$scope.$applyAsync();
+		}
+
+		$scope.consultarEstoqueERP = async () =>{
+			
+			/*A fazer
+				Requisição para o ERP trazendo as informações 
+			*/
+		}
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -484,7 +658,7 @@ angular
 		};
 
 		$rootScope.changeView = ($dados) => {
-			if($scope.exibeFormulario == false){
+			if($scope.exibeFormulario == false && !$scope.exibeConsultaEstoque){
 
 				$scope.exibeFormulario = true;
 				$scope.exibeListaDocumentos = false;
@@ -499,8 +673,7 @@ angular
 
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedido : "Pedido Nº "+$dados.id
-					//$dados.jsonDocs[0].pedido != '' ? 'Pedido Nº '+ $dados.jsonDocs[0].pedido : 'Edição';
-					
+										
 					$scope.inputDesabilitado  = true;
 					$scope.permiteEditar	  = false;
 				};
@@ -556,18 +729,18 @@ angular
 			$scope.endEntrega	 = {};
 		};
 
-		// $scope.getCondicoesP = function(val) {
-		// 	return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
-		// 	params: {
-		// 		filtro		: val || '',
-		// 		idCvTccnpj	: dadosUserLogado.cId 
-		// 	}
-		// 	}).then(function(response){              
-		// 		return response.data.map(function(item){
-		// 			return item;
-		// 		});
-		// 	});
-		// };
+		$scope.getCondicoesP = function(val) {
+			return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
+			params: {
+				filtro		: val || '',
+				idCvTccnpj	: dadosUserLogado.cId 
+			}
+			}).then(function(response){              
+				return response.data.map(function(item){
+					return item;
+				});
+			});
+		};
 
 		$scope.getCondicaoPagamentoERP = async (consulta) => {
 			try{
@@ -575,13 +748,13 @@ angular
 					{
 						idCvtccnpj : dadosUserLogado.cId,
 						numreg	   : 750,
-						pRotina	   : 'filtrarCondPag',
+						pRotina	   : 'filtrarCondPagamento',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroCondPag : consulta}},
 					}
 				);
 										
-				if(result != undefined && result.resultado !=undefined){
+				if(result.resultado != undefined){
 					return result.resultado.map((item)=>{
 						return item
 					})
@@ -602,22 +775,22 @@ angular
 			$scope.condPagamento = "";
 		}
 
-		// $scope.getFormasP = function(val) {			
-		// 	if	($scope.condPagamento != null){
-		// 		return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, {
-		// 			params: {
-		// 				filtro: val || '',
-		// 				idCvTccnpj	: dadosUserLogado.cId
-		// 			}
-		// 		}).then(function(response){
-		// 			return response.data.map(function(item){
-		// 				return item;
-		// 			});
-		// 		});
-		// 	} else {
-		// 		return "";
-		// 	}			
-		// };
+		$scope.getFormasP = function(val) {			
+			if	($scope.condPagamento != null){
+				return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, {
+					params: {
+						filtro: val || '',
+						idCvTccnpj	: dadosUserLogado.cId
+					}
+				}).then(function(response){
+					return response.data.map(function(item){
+						return item;
+					});
+				});
+			} else {
+				return "";
+			}			
+		};
 
 		$scope.getFormasPagamentoERP = async (consulta) => {
 
@@ -626,14 +799,13 @@ angular
 					{
 						idCvtccnpj : dadosUserLogado.cId,
 						numreg	   : 750,
-						pRotina	   : 'filtrarFormaPag',
+						pRotina	   : 'filtrarFormaPagamento',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroFormaPag : consulta}},
-					},
-					1000
+					}
 				);
-		
-				if(result != undefined && result.resultado != undefined){
+										
+				if(result.resultado != undefined){
 					return result.resultado.map((item)=>{
 						return item
 					})
@@ -715,7 +887,10 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		$scope.executaRequisicaoExterna = async ($json, timeLimit = 20) => {
+		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
+		
+			console.log($json);
+			
 			try {
 				let response;
 
@@ -725,6 +900,7 @@ angular
 								
 				}, timeLimit * 1000); // limite em segundos
 			
+				console.log(response);
 				return response.data;
 			}catch(err){
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
@@ -755,11 +931,12 @@ angular
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj 	 : dadosUserLogado.cId,
-					numreg	   	 : 752,
-					pRotina	   	 : 'listarPedidosAmostras',
+					numreg	   	 : 750,
+					pRotina	   	 : 'listarPedidosERP',
 					pCodCli    	 : dadosUserLogado.rId,
 					pListaPedido : {lista:{pedidos : consulta}},
 				},
+				15//limite de espera em segundos
 			);
 
 			dialog.modal('hide');
@@ -802,12 +979,12 @@ angular
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj : dadosUserLogado.cId,
-					numreg	   : 752,
-					pRotina	   : 'criarPedidoAmostra',
+					numreg	   : 750,
+					pRotina	   : 'criarPedidoERP',
 					pCodCli    : dadosUserLogado.rId,
 					pDocumento : {documento : $item}
 				},
-				25//limite tempo		
+				20//limite tempo		
 			);
 
 			$rootScope.isLoading = false;
@@ -832,8 +1009,10 @@ angular
 						pRotina	   : 'filtrarProduto',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroProd : consulta}},
-					},
+					}
 				);
+				
+				console.log(result);
 										
 				if(result != undefined && result.resultado != undefined){
 					return result.resultado.slice(0, 8).map((item)=>{
@@ -1085,7 +1264,7 @@ angular
 			$scope.obsOportunidade = "";
 		};
 
-		$scope.confirmaFinalizarDocumento = () => {
+		$scope.finalizarDocumento = () => {
 			
 			bootbox.confirm({
 				message:'<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a finalização do pedido?</p></div>',
@@ -1297,7 +1476,15 @@ angular
 					action: function () {									
 						$scope.atualizaTabela();					
 					}
-				},								
+				},
+				{
+					text: 'Consultar Estoque',
+					key: '5',
+					className: 'btn_grid btn_cor_padrao',
+					action: function () {									
+						$scope.exibirConsultaEstoque();
+					}
+				},				
 			]);	
 
 
