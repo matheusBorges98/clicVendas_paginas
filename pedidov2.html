@@ -1058,9 +1058,8 @@ angular
 			for(let i = 0; i < $item.length; i++){
 				allProducts.push($item[i].jsonDocs[0].produtos)
 			}
-			console.log(allProducts, "all")
+			
 			return allProducts
-
 		}
 
 		$scope.abreFormulario = async ($dados) =>{
@@ -1289,16 +1288,6 @@ angular
 				$("table tbody tr:first-child").removeClass("new-row-enter");
 			}, 1000)
 			
-			// $scope.aplicacao			= '';
-			// $scope.consumoProdutoKgMes  = '';
-			// $scope.quantidadeProduto 	= '';
-			// $scope.descricaoProd 		= '';
-			// $scope.codVariacao	 		= '';
-			// $scope.codExterno	 		= '';
-			// $scope.codigoProduto 		= '';
-			
-			//$scope.limpaProduto('noFocus');
-			// $scope.atualizaTabelaProdutos();
 		};
 
 		$scope.removerProduto = async ($item) => {
@@ -1768,8 +1757,8 @@ angular
 								fil1: $scope.filCliente,
 								fil2: "",
 								fil3: $scope.filPesquisaGeral,
-								fil4: dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
-								fil5: dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
+								fil4: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rNome : "",/*Lista pedidos apenas do representante que o fez*/
+								fil5: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rId : "",/*Lista pedidos apenas do representante que o fez*/
 								fil6: $scope.filDataEmissao,
 								fil7: $scope.filStatusAmostra,
 								fil8: $scope.filSegmento,
