@@ -84,7 +84,7 @@
 					<table id="listDocuments"  dt-options="dtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="row-border responsive hover table-striped table-bordered"></table>					
 				</div>
 				<!-- Tabela completa -->
-				<div ng-hide="!tabelaCompleta" class="col-sm-12">
+				<div ng-hide="!tabelaCompleta || dadosUserLogado.rTipoId != 3 " class="col-sm-12">
 					<table id="listDocumentsFull"  dt-options="dtOptionsFull" dt-columns="dtColumnsFull" dt-instance="dtInstanceFull" class="tabelaCompleta row-border responsive hover table-striped table-bordered"></table>					
 				</div>
 			</div>
@@ -802,7 +802,6 @@ angular
 					id: 4
 				},
 				{
-					nome: 'CAMPANHA',
 					id: 5
 				}
 			];
@@ -868,6 +867,10 @@ angular
 				console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
 			};
 		};
+
+		$scope.agruparPedidosAprovador = () =>{
+			let pedidosAprovacao	= $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
+		}
 
 		$scope.consultaPedidosERP = async () => {
 			
@@ -1404,8 +1407,7 @@ angular
 					case 'EM_REVISAO':
 						$rootScope.produtos[i].situacao = {nome:"Em revisão", send:situacao}
 						break;
-				}
-				
+				}	
 			}
 
 			dados.cnpj 				= {id: dadosUserLogado.cId};
@@ -1618,8 +1620,8 @@ angular
 								fil1: $scope.filCliente,
 								fil2: "",
 								fil3: $scope.filPesquisaGeral,
-								fil4: dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
-								fil5: dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
+								fil4: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rNome : "",/*Lista pedidos apenas do representante que o fez*/
+								fil5: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rId : "",/*Lista pedidos apenas do representante que o fez*/
 								fil6: $scope.filDataEmissao,
 								fil7: $scope.filStatusAmostra,
 								fil8: $scope.filSegmento,
@@ -1645,6 +1647,10 @@ angular
 							};
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
+
+							if(dadosUserLogado.rTipoId === 3){
+								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
+							}
 						}	
 
 						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);					
@@ -1677,7 +1683,8 @@ angular
 						$scope.openNav();					
 					}
 				},		
-				{
+				{	
+					enabled: dadosUserLogado.rTipoId === 3,
 					text: 'Tabela Completa',
 					key: '3',
 					className: 'btn_grid btn_cor_padrao',
@@ -2002,7 +2009,7 @@ angular
 
 		};
 
-		console.log("TESTE3")
+		console.log("TESTE1")
 			
 	});
 </script> 
