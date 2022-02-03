@@ -688,7 +688,7 @@ angular
 					$scope.inputDesabilitado  = false;
 					$scope.permiteEditar	  = true;
 					
-					//$scope.$apply();
+					$scope.$apply();
 
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Pedido Nº "+$dados.jsonDocs[0].numPedidoClic;
@@ -1200,7 +1200,10 @@ angular
 				if(docs.produtos.situacao && docs.produtos.situacao.send === "EM_DIGITACAO"){
 					let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 					$rootScope.produtos			= $scope.agruparProdutos(documentosClic);
-														
+
+					console.log($rootScope.produtos, "PROD")
+
+					$scope.$apply();					
 				}else{
 					/*Informações sobre o produto*/
 					$rootScope.produtos			= docs.produtos;
@@ -1236,7 +1239,7 @@ angular
 				}
 								
 			};	
-			$scope.$applyAsync();	
+		//	$scope.$applyAsync();	
 		};
 
 		$scope.adicionarProduto = ($item) =>{
@@ -2013,7 +2016,7 @@ angular
 
 		};
 
-		console.log("TESTE5")
+		console.log("TESTE6")
 			
 	});
 </script> 
