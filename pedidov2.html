@@ -544,19 +544,19 @@
 			<!-- Ações sob o formulario -->
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
-					<div class="btn-group">
+					<!-- <div class="btn-group">
 						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' && dadosUserLogado.rTipoId === 3 " ng-click="finalizarDocumento()"> Enviar para o ERP </button>
-					</div>
+					</div> -->
 					<div class="btn-group dropup">
 						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
 							Salvar
 							<span class="caret caret-up"></span>
 						</button>
-						<ul ng-show="dadosUserLogado.rTipoId != '3'" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
+						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<li><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
 						</ul>
-						<ul ng-show="dadosUserLogado.rTipoId == '3'" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
+						<ul ng-show="usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
 							<li><a title="Salvar e enviar para revisão" ng-click="salvarDocumento(1, 'EM_REVISAO')">Enviar para revisão</a></li>          
 						</ul>
@@ -651,6 +651,8 @@ angular
 		$rootScope.produtos 		= [];
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
+
+		$scope.usuarioAprovador = dadosUserLogado.rTipoId != 3 ? false : true;  
 
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -2008,7 +2010,7 @@ angular
 
 		};
 
-		console.log("TESTE2")
+		console.log("TESTE3")
 			
 	});
 </script> 
