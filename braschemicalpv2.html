@@ -146,7 +146,7 @@
 									<div class="col-sm-3 spacer ">
 										<label for="vendedor">Vendedor</label>
 										<div class="spacer">
-											<input type="text" readonly class="form-control" ng-model="vendedor" id="vendedor">
+											<input type="text" readonly class="form-control" ng-value="vendedor.nome" ng-model="vendedor" id="vendedor">
 										</div>
 									</div>
 								</div>
@@ -166,7 +166,7 @@
 										</div>	
 									</div>
 
-									<div class="col-sm-5 spacer">
+									<!-- <div class="col-sm-5 spacer">
 										<label for="despro">Descrição</label>
 										<input type="text" readonly ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="descricaoProd" id="descricaoProd">
 									</div>
@@ -190,7 +190,7 @@
 										<div class="btn-group">
 											<button ng-disabled="descricaoProd == '' || consumoProdutoKgMes == ''|| quantidadeProduto == '' || aplicacao  == '' " class="btn btn_grid btn_cor_padrao" ng-click="adicionarProduto()"> + </button>
 										</div>
-									</div>
+									</div> -->
 								</div>
 								
 								<div class="form-group col-md-12">
@@ -237,7 +237,7 @@
 												<td>
 													<div class="col-sm-12">
 														<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
-														<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
+														<!-- <div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div> -->
 													</div>		
 												</td>
 											</tr>
@@ -297,7 +297,7 @@
 									
 									<div class="col-sm-3 spacer ">
 										<label for="vendedor">Vendedor</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendedor" id="vendedor">
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-value="vendedor.nome" ng-model="vendedor" id="vendedor">
 									</div>
 									
 									<div class="col-sm-3 spacer ">
@@ -544,12 +544,26 @@
 			<!-- Ações sob o formulario -->
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
-					<div class="btn-group">
-						<button class="btn btn_grid btn-success" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 " ng-click="finalizarDocumento()"> Finalizar </button>
+					<!-- <div class="btn-group">
+						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' && dadosUserLogado.rTipoId === 3 " ng-click="finalizarDocumento()"> Enviar para o ERP </button>
+					</div> -->
+					<div class="btn-group dropup">
+						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
+							Salvar
+							<span class="caret caret-up"></span>
+						</button>
+						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
+							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
+							<li><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
+						</ul>
+						<ul ng-show="usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
+							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
+							<li><a title="Salvar e enviar para revisão" ng-click="salvarDocumento(1, 'EM_REVISAO')">Enviar para revisão</a></li>          
+						</ul>
 					</div>	
-					<div class="btn-group">
+					<!-- <div class="btn-group">
 						<button class="btn btn_grid btn_cor_padrao" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' "  ng-click="salvarDocumento(1)"> Salvar </button>
-					</div>
+					</div> -->
 					<div class="btn-group">
 						<button class="btn btn_grid btn_cor_padrao" ng-click="changeView()"> Cancelar </button>
 					</div>	
@@ -611,7 +625,7 @@
 
 <script>
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
-
+console.log(dadosUserLogado)
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
 	.controller("MainController",
@@ -638,6 +652,8 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente			= {};
 
+		$scope.usuarioAprovador = dadosUserLogado.rTipoId != 3 ? false : true;  
+
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
@@ -649,8 +665,9 @@ angular
 			});
 
 			let listAllDocs = result.data.parametros != null ? result.data.parametros.documentos : [];
-
-			for(doc of listAllDocs){
+			console.log(listAllDocs, "docs")
+			
+			for(doc of listAllDocs){	
 				doc.jsonDocs = JSON.parse(doc.jsonDocs);
 			}
 			$rootScope.listAllDocs = listAllDocs;
@@ -659,6 +676,7 @@ angular
 		};
 
 		$rootScope.changeView = ($dados) => {
+			console.log($dados, "change view")
 			if($scope.exibeFormulario == false){
 
 				$scope.exibeFormulario = true;
@@ -675,8 +693,16 @@ angular
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Pedido Nº "+$dados.jsonDocs[0].numPedidoClic;
 					
-					$scope.inputDesabilitado  = true;
-					$scope.permiteEditar	  = false;
+					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO" || $dados.jsonDocs[0].produtos.situacao.send === "EM_REVISAO"){
+						$scope.inputDesabilitado  = false;
+						$scope.permiteEditar	  = true;
+
+					}else{
+						$scope.inputDesabilitado  = true;
+						$scope.permiteEditar	  = false;
+					}
+
+					
 				};
 				
 			}else if($scope.exibeFormulario == true){
@@ -713,49 +739,25 @@ angular
 		$scope.getSituacaoAmostra = () => {
 			$scope.listaSituacaoAmostra = [
 				{
-					nome:'SOLICITAÇÃO DE AMOSTRA',
-					id:1
+					nome:'Em digitação',
+					send:'EM_DIGITACAO'
 				},
 				{
-					nome:'ENVIADA',
-					id:2
+					nome:'Análise',
+					send:'EM_ANALISE'
 				},
 				{
-					nome:'TESTE',
-					id:3
+					nome:'Revisão',
+					send:'EM_REVISAO'
 				},
 				{
-					nome:'TESTE INDUSTRIAL',
-					id:4
+					nome:'Integrado',
+					send:'STATUS_INTEGRADO'
 				},
 				{
-					nome:'CATÁLOGO',
-					id:5
-				},
-				{
-					nome:'REPROVADA TECNICAMENTE',
-					id:6
-				},
-				{
-					nome:'APROVADA TECNICAMENTE',
-					id:7
-				},
-				{
-					nome:'REPROVADA COMERCIALMENTE',
-					id:8
-				},
-				{
-					nome:'APROV. TEC E REP. COMERCIAL',
-					id:9
-				},
-				{
-					nome:'STAND BY',
-					id:10
-				},
-				{
-					nome:'CANCELADA',
-					id:11
-				},
+					nome:'Fechada',
+					send:'STATUS_FECHADA'
+				}
 			];
 			return $scope.listaSituacaoAmostra;
 		};
@@ -805,7 +807,6 @@ angular
 					id: 4
 				},
 				{
-					nome: 'CAMPANHA',
 					id: 5
 				}
 			];
@@ -871,6 +872,12 @@ angular
 				console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
 			};
 		};
+
+		$scope.agruparPedidosAprovador = () =>{
+			$rootScope.dadosGrid = $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
+
+			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
+		}
 
 		$scope.consultaPedidosERP = async () => {
 			
@@ -986,9 +993,6 @@ angular
 				}		
 			);
 
-			
-
-
 			$rootScope.isLoading = false;
 			
 			if(!isNaN(parseInt(result))){
@@ -1008,7 +1012,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 41943; //17431/*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 17431//41943; //17431/*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -1052,8 +1056,20 @@ angular
 			};
 
 		};
+		
+		$scope.agruparProdutos = ($item) => {
+			let allProducts = [];
+			
+			for(let i = 0; i < $item.length; i++){
+				allProducts.push($item[i].jsonDocs[0].produtos)
+			}
 
-		$scope.abreFormulario = ($dados) =>{
+			return allProducts
+		}
+
+		$scope.abreFormulario = async ($dados) =>{
+
+			$rootScope.changeView($dados);
 
 			if($dados == undefined){
 				$rootScope.idDocumento 		= 0;
@@ -1098,7 +1114,7 @@ angular
 				$scope.responsavel			= '';
 				$scope.projeto				= '';				
 				$scope.uf					= '';
-				$scope.vendedor				= dadosUserLogado.rNome;
+				$scope.vendedor				= {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
 				$scope.segmento				= '';
 				$scope.subsegmento			= '';
 				$scope.bu					= '';
@@ -1132,10 +1148,9 @@ angular
 				$rootScope.numPedidoClic	= '';
 				$scope.sincronizado			= "DOCUMENTO_NAO_SINCRONIZADO";
 
-				$scope.atualizaTabelaProdutos();
+				// $scope.atualizaTabelaProdutos();
 
 			}else{
-				
 				let docs 					= $dados.jsonDocs[0];
 
 				$rootScope.hashDoc			= docs.docCtrl;
@@ -1152,7 +1167,7 @@ angular
 				$scope.anoFat				= docs.ano;
 				$scope.projeto				= docs.projeto;
 				$scope.uf					= docs.uf;
-				$scope.vendedor				= docs.vendedor.nome;
+				$scope.vendedor				= docs.vendedor;
 				$scope.segmento				= docs.segmento;
 				$scope.subsegmento			= docs.subsegmento;
 				$scope.bu					= docs.bu;
@@ -1181,42 +1196,50 @@ angular
 				/*Sincronização - Envio ERP*/
 				$scope.sincronizado			= docs.sincronizado;
 
-				/*Informações sobre o produto*/
-				$rootScope.produtos			= docs.produtos;
-				$scope.responsavel			= docs.produtos.responsavel;
-				$scope.cluster				= docs.produtos.cluster;
-				$scope.quantidade			= docs.produtos.quantidade;
-				$scope.codigoProduto		= docs.produtos.codigoProduto;
-				$scope.descricao			= docs.produtos.descricao;
-				$scope.consumoProdutoKgMes  = docs.produtos.consumoProdutoKgMes;
-				$scope.codExternoProduto	= docs.produtos.codExterno
-				$scope.situacao				= docs.produtos.situacao;
-				$scope.ofertaUnit			= docs.produtos.ofertaUnit;
-				$scope.dataStatus			= docs.produtos.dataStatus;
-				$scope.justificativa		= docs.produtos.justificativa;
-				$scope.potencial0XCM		= docs.produtos.potencial0XCM;
-				$scope.chaveCp				= docs.produtos.chaveCp;
-				$scope.identQtd				= docs.produtos.identQtd;
-				$scope.venda				= docs.produtos.venda;
-				$scope.vendaLocalKg			= docs.produtos.vendaLocalKg;
-				$scope.totalFatUSD			= docs.produtos.totalFatUSD;
-				$scope.margemR				= docs.produtos.margemR;
-				$scope.preUSD				= docs.produtos.preUSD;
-				$scope.ofertaData			= docs.produtos.ofertaData;
-				$scope.probFechamento		= docs.produtos.probFechamento;
-				$scope.consumoAg			= docs.produtos.consumoAg;
-				$scope.chaveCp				= docs.produtos.chaveCp;
-				$scope.familia				= docs.produtos.familia;
-				$scope.concorrencia			= docs.produtos.concorrencia;
-				$scope.precoConc			= docs.produtos.precoConc;
+				/*Valida situação e aplica regra - Agrupa produtos pelo mesmo hashCode*/
+				if(docs.produtos.situacao && (docs.produtos.situacao.send === "EM_DIGITACAO" || docs.produtos.situacao.send === "EM_REVISAO")){
+					let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
+					$rootScope.produtos			= $scope.agruparProdutos(documentosClic);
 
-				$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
-				
-				$scope.consultaDocumento($rootScope.hashDoc);
-			};
-			
-			$rootScope.changeView($dados);
-			
+					console.log($rootScope.produtos, "PROD")
+
+					$scope.$apply();					
+				}else{
+					/*Informações sobre o produto*/
+					$rootScope.produtos			= docs.produtos;
+					$scope.responsavel			= docs.produtos.responsavel;
+					$scope.cluster				= docs.produtos.cluster;
+					$scope.quantidade			= docs.produtos.quantidade;
+					$scope.codigoProduto		= docs.produtos.codigoProduto;
+					$scope.descricao			= docs.produtos.descricao;
+					$scope.consumoProdutoKgMes  = docs.produtos.consumoProdutoKgMes;
+					$scope.codExternoProduto	= docs.produtos.codExterno
+					$scope.situacao				= docs.produtos.situacao;
+					$scope.ofertaUnit			= docs.produtos.ofertaUnit;
+					$scope.dataStatus			= docs.produtos.dataStatus;
+					$scope.justificativa		= docs.produtos.justificativa;
+					$scope.potencial0XCM		= docs.produtos.potencial0XCM;
+					$scope.chaveCp				= docs.produtos.chaveCp;
+					$scope.identQtd				= docs.produtos.identQtd;
+					$scope.venda				= docs.produtos.venda;
+					$scope.vendaLocalKg			= docs.produtos.vendaLocalKg;
+					$scope.totalFatUSD			= docs.produtos.totalFatUSD;
+					$scope.margemR				= docs.produtos.margemR;
+					$scope.preUSD				= docs.produtos.preUSD;
+					$scope.ofertaData			= docs.produtos.ofertaData;
+					$scope.probFechamento		= docs.produtos.probFechamento;
+					$scope.consumoAg			= docs.produtos.consumoAg;
+					$scope.chaveCp				= docs.produtos.chaveCp;
+					$scope.familia				= docs.produtos.familia;
+					$scope.concorrencia			= docs.produtos.concorrencia;
+					$scope.precoConc			= docs.produtos.precoConc;
+					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
+
+					$scope.consultaDocumento($rootScope.hashDoc);
+				}
+								
+			};	
+		//	$scope.$applyAsync();	
 		};
 
 		$scope.adicionarProduto = ($item) =>{
@@ -1226,7 +1249,7 @@ angular
 			$scope.codExterno	 = $item.produto.codExterno;
 			$scope.codigoProduto = $item.produto.id;
 			
-			$rootScope.produtos.push(
+			$rootScope.produtos.unshift(
 				{ 
 					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
 					descricao			: $item.produto.nome,//$scope.descricaoProd,
@@ -1238,7 +1261,7 @@ angular
 					/*Grava durante a edição  do pedido*/
 					cluster				: $scope.cluster,
 					responsavel			: $scope.responsavel,
-					situacao			: $scope.situacao,
+					//situacao			: {nome:"Em digitação", send:"EM_DIGITACAO"},//$scope.situacao,
 					ofertaUnit			: $scope.ofertaUnit,
 					dataStatus			: $scope.dataStatus,
 					justificativa		: $scope.justificativa,
@@ -1261,22 +1284,31 @@ angular
 				}
 			);
 			
-			$scope.aplicacao			= '';
-			$scope.consumoProdutoKgMes  = '';
-			$scope.quantidadeProduto 	= '';
-			$scope.descricaoProd 		= '';
-			$scope.codVariacao	 		= '';
-			$scope.codExterno	 		= '';
-			$scope.codigoProduto 		= '';
+			var buscaProduto		= angular.element(document.querySelector('#itemProd'));
 			
-			$scope.limpaProduto('noFocus');
-			$scope.atualizaTabelaProdutos();
+			$timeout(function () {
+				buscaProduto.blur();
+				$scope.itemProd = '';
+
+				$("table tbody tr:first-child").addClass("new-row-enter");
+				$("table tbody tr:first-child input#quantidadeProdutoAdd").focus();
+			}, 200);
+
+			$timeout(()=>{
+				$("table tbody tr:first-child").removeClass("new-row-enter");
+			}, 1000)
+			
 		};
 
-		$scope.removerProduto = ($item) => {
-			
+		$scope.removerProduto = async ($item) => {
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codigoProduto !== $item.codigoProduto);
-			$scope.atualizaTabelaProdutos();
+
+			if($item.situacao && $item.situacao.send === "EM_DIGITACAO"){
+				let docs 		= await $scope.consultaDocumento($item.hashDoc)
+				let docToRemove = docs.filter(item => item.jsonDocs[0].produtos.codigoProduto === $item.codigoProduto);
+
+				$http.delete('/clicVendas/rest/pedidov2/deleta/'+ docToRemove[0].id); 
+			}
 		};
 		
 		$scope.addObservacaoHistorico = () => {
@@ -1332,11 +1364,14 @@ angular
 
 		}
 
-		$scope.salvarDocumento = async (rotina) => {
+		$scope.salvarDocumento = async (rotina, situacao) => {
 			/*
 			Rotinas:
 				1 - Salvar (Mantém apenas no ClicVenda)
 				2 - Finalizar (Envia o pedido para ERP)
+
+			Situação: 
+				Em digitação - EM_DIGITACAO: Primeira etapa do fluxo
 			*/
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
@@ -1359,10 +1394,23 @@ angular
 
 			for(i = 0; i < $rootScope.produtos.length; i++){
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
-				$rootScope.produtos[i].hashDoc 	= hashDoc;	
+				$rootScope.produtos[i].hashDoc 	= hashDoc;
+				
+				switch(situacao){
+					case 'EM_DIGITACAO':
+						$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
+						break;
+					
+					case 'EM_ANALISE':
+						$rootScope.produtos[i].situacao = {nome:"Em análise", send:situacao}
+						break;
+					
+					case 'EM_REVISAO':
+						$rootScope.produtos[i].situacao = {nome:"Em revisão", send:situacao}
+						break;
+				}	
 			}
 
-			
 			dados.cnpj 				= {id: dadosUserLogado.cId};
 			
 			jsonDocs = [{
@@ -1371,7 +1419,7 @@ angular
 				responsavel			: $scope.responsavel,
 				projeto     		: $scope.projeto,
 				uf 					: $scope.uf,
-				vendedor			: {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
+				vendedor			: $scope.usuarioAprovador ? $scope.vendedor : {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
 				segmento			: $scope.segmento,
 				subsegmento 		: $scope.subsegmento,
 				bu 					: $scope.bu,
@@ -1417,6 +1465,7 @@ angular
 				/* Lista todos os documentos e aplica o filtro pelo HashDoc, caso o documento já exista na base Clic, adiciona os produtos ao pedido que sejam do mesmo HashDoc*/
 				
 				if(id > 0){
+					console.log($rootScope.listAllDocs, "lsit")
 					let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
 					for(i = 0; i < allDocs.length; i++){
@@ -1445,7 +1494,8 @@ angular
 
 			};
 	
-			if(id > 0){
+			// if(id > 0 && json[0].produtos[0].situacao.send != "EM_DIGITACAO"){
+				if(id > 0){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){
@@ -1458,7 +1508,7 @@ angular
 						json[0].produtos.potencial0XCM 	= $scope.potencial0XCM;
 						json[0].produtos.consumoAg		= $scope.consumoAg;
 						json[0].produtos.cluster		= $scope.cluster,
-						json[0].produtos.situacao		= $scope.situacao,
+						//json[0].produtos.situacao		= $scope.situacao,
 						json[0].produtos.ofertaUnit		= $scope.ofertaUnit,
 						json[0].produtos.dataStatus		= $scope.dataStatus,
 						json[0].produtos.justificativa	= $scope.justificativa,
@@ -1478,9 +1528,26 @@ angular
 						json[0].produtos.concorrencia	= $scope.concorrencia,
 						json[0].produtos.precoConc		= $scope.precoConc,
 						json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo	
+
+						switch(situacao){
+							case 'EM_DIGITACAO':
+								json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
+								break;
+							
+							case 'EM_ANALISE':
+								json[0].produtos.situacao = {nome:"Em análise", send:situacao}
+								break;
+							
+							case 'EM_REVISAO':
+								json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
+								break;
+						}
+
 					}
 					
 					dados.jsonDocs 		= JSON.stringify(json); 
+
+					console.log(dados.jsonDocs,"docs salvar")
 
 					let response 		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
 				};
@@ -1490,8 +1557,14 @@ angular
 
 			}else{
 				for(i = 0; i < $rootScope.produtos.length; i++){
+
+					/*Se o pedido estiver "EM_DIGITACAO" - Irá remover os registros salvos e gravar novamente.*/
+					// if($rootScope.produtos[i].situacao.send === "EM_DIGITACAO" && id > 0){
+					// 	await $scope.removerProduto($rootScope.produtos[i])
+					// }
+
 					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
-					json[0].produtos 				= $rootScope.produtos[i];
+					json[0].produtos 		= $rootScope.produtos[i];
 
 					dados.jsonDocs 			= JSON.stringify(json);
 
@@ -1549,8 +1622,8 @@ angular
 								fil1: $scope.filCliente,
 								fil2: "",
 								fil3: $scope.filPesquisaGeral,
-								fil4: dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
-								fil5: dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
+								fil4: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rNome : "",/*Lista pedidos apenas do representante que o fez*/
+								fil5: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rId : "",/*Lista pedidos apenas do representante que o fez*/
 								fil6: $scope.filDataEmissao,
 								fil7: $scope.filStatusAmostra,
 								fil8: $scope.filSegmento,
@@ -1575,7 +1648,12 @@ angular
 								ped.jsonDocs = JSON.parse(ped.jsonDocs);
 							};
 
+							if(dadosUserLogado.rTipoId === 3){
+								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
+							}
+
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
+
 						}	
 
 						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);					
@@ -1608,7 +1686,8 @@ angular
 						$scope.openNav();					
 					}
 				},		
-				{
+				{	
+					enabled: dadosUserLogado.rTipoId === 3,
 					text: 'Tabela Completa',
 					key: '3',
 					className: 'btn_grid btn_cor_padrao',
@@ -1629,10 +1708,10 @@ angular
 
 			defPD = {	'jsonDocs[0].numPedidoClic'			:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  		width:''	},
 						'jsonDocs[0].pedNumped'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
-						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs[0].vendedor.nome'			:	{i:2, vsbl: true,	tlt: 'Vendedor',		width:''	},
-						'jsonDocs[0].produtos.descricao'    :	{i:3, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs[0].produtos.situacao'		:	{i:5, vsbl: true,	tlt: 'Status Amostra',	width:''	},
+						'jsonDocs[0].produtos.situacao.nome':	{i:2, vsbl: true,	tlt: 'Status Amostra',	width:''	},
+						'jsonDocs[0].cliente.nome'			:	{i:3, vsbl: true,	tlt: 'Cliente',			width:''	},
+						'jsonDocs[0].vendedor.nome'			:	{i:4, vsbl: true,	tlt: 'Vendedor',		width:''	},
+						'jsonDocs[0].produtos.descricao'    :	{i:5, vsbl: true,	tlt: 'Produto',			width:''	},
 						'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
 				};
 
@@ -1689,8 +1768,8 @@ angular
 								fil1: $scope.filCliente,
 								fil2: "",
 								fil3: $scope.filPesquisaGeral,
-								fil4: dadosUserLogado.rNome,/*Lista pedidos apenas do representante que o fez*/
-								fil5: dadosUserLogado.rId,/*Lista pedidos apenas do representante que o fez*/
+								fil4: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rNome : "",/*Lista pedidos apenas do representante que o fez*/
+								fil5: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rId : "",/*Lista pedidos apenas do representante que o fez*/
 								fil6: $scope.filDataEmissao,
 								fil7: $scope.filStatusAmostra,
 								fil8: $scope.filSegmento,
@@ -1710,6 +1789,10 @@ angular
 							for(ped of $rootScope.dadosGrid){
 								ped.jsonDocs = JSON.parse(ped.jsonDocs);
 							};
+
+							if(dadosUserLogado.rTipoId === 3){
+								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
+							}
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						};			
@@ -1765,6 +1848,7 @@ angular
 			
 			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  				width:'130px'	},
 						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Nº Pedido ERP',			width:'130px'},
+						'jsonDocs[0].produtos.situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Situação',				width:'130px'	},
 						'jsonDocs[0].responsavel'					:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:'130px'},
 						'jsonDocs[0].produtos.descricao'			:	{i:4,  vsbl: true,	tlt: 'Produto',					width:'130px'},
 						'jsonDocs[0].produtos.codExterno'    		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'},
@@ -1782,7 +1866,6 @@ angular
 						'jsonDocs[0].desagr'						:	{i:17, vsbl: true,	tlt: 'Agrupamento Comercial',	width:'130px'	},
 						'jsonDocs[0].produtos.quantidade'			:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:'130px'	},
 						'jsonDocs[0].produtos.dataStatus'			:	{i:19, vsbl: true,	tlt: 'Data Status',				width:'130px'	},
-						'jsonDocs[0].produtos.situacao'				:	{i:20, vsbl: true,	tlt: 'Situação',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:'130px'	},
 						'jsonDocs[0].prioridade.nome'				:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoAg'      		:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:'130px'	},
@@ -1852,78 +1935,6 @@ angular
 
 		};
 		
-		/*Tabela de produtos*/
-		// $scope.atualizaTabelaProdutos = () =>{
-					
-		// 	setTimeout(()=>{
-		// 		$scope.dtOptionsProd = DTOptionsBuilder.newOptions()            
-		// 			.withOption('data', $rootScope.produtos)	
-		// 			.withDataProp('data')
-		// 			.withOption('processing', true)
-		// 			.withOption('serverSide', false)
-		// 			.withOption('searchDelay', 1000)
-		// 			.withOption('scrollY', '40vh')    
-		// 			.withOption('scrollCollapse', true)  
-		// 			.withOption('paging', false)        
-		// 			.withOption('scrollX', '100%')       
-		// 			.withDisplayLength(20)
-		// 			.withDOM('tr');
-					
-		// 		defPD = {	'descricao' 								:	{i:1, vsbl: false,	tlt: 'Produto',			width:''},
-		// 					'codigoProduto'								:	{i:2, vsbl: true,	tlt: 'Cód. Produto',	width:''},
-		// 					'quantidade'								:	{i:3, vsbl: true,	tlt: 'Quantidade',		width:''},
-		// 					'consumoProdutoKgMes'						:	{i:4, vsbl: true,	tlt: 'Consumo Kg/Mês',	width:''},
-		// 					'aplicacao'									:	{i:5, vsbl: true,	tlt: 'Aplicação',		width:''}	
-		// 			};
-
-
-		// 		DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
-		// 		var montaColunas = [];
-
-		// 		montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Produto').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-		// 			let img = row.codExterno.replace('/','')+".jpg";
-					
-		// 			if (row.codVariacao.length > 0){
-		// 				img = row.codExterno.replace('/','') + "_" + row.codVariacao.replace('/','') + ".jpg";
-		// 			}
-					
-		// 			var imgProdutoHtml = '';
-
-		// 			imgProdutoHtml += "<div style='width:350px' class='col-sm-12'>"
-		// 			imgProdutoHtml += "<div class='col-sm-3 thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/"+$rootScope.subdomain+"/"+img+"' onerror='this.src=\"images/icon/semimagem.png\"' style='width: 80px;'></div>";
-		// 			imgProdutoHtml += "<div class='col-sm-9'><p style='margin-top:25px; white-space:normal;'>"+row.codExterno+" - "+row.descricao+" - "+row.codVariacao+"</p></div>";
-		// 			imgProdutoHtml += "</div>"
-					
-					
-		// 			return imgProdutoHtml;
-		// 		}));
-
-			
-		// 		angular.forEach(defPD, function(value, key) {
-		// 			montaColunas.push(DTColumnBuilder.newColumn(key).withTitle(value.tlt).withOption('visible', value.vsbl).withClass('responsive').withOption('sWidth', value.width));
-		// 		});
-
-		// 		montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
-		// 			var btnhtml = '';				
-		// 			btnhtml += "<div class='glyphicon glyphicon-remove' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerProduto("+JSON.stringify(row)+")' ></div>";
-		// 			return btnhtml;
-		// 		}));
-
-		// 		$scope.dtColumnsProd = montaColunas;
-												
-		// 		angular.element('#listDocumentsProdutos').attr('datatable', '');
-		// 		$compile(angular.element('#listDocumentsProdutos'))($scope);
-
-		// 		$scope.dtOptionsProd.withOption('fnRowCallback',
-					
-		// 			function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-		// 				$compile(nRow)($scope);
-		// 		});
-
-		// 	}, 500)
-			
-		// };
-
 		$scope.geraNotificacao = (message, time = 1200, tipo = 'light') =>{
 			/* Utiliza o Alert Bootstrap
 				light   - padrao
@@ -1962,7 +1973,7 @@ angular
 				$scope.geraNotificacao("Este pedido já está no ERP, não é possível excluí-lo.", 2500, "warning");
 			}else{
 				bootbox.confirm({
-					message:'<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a exclusão do pedido?</p></div>',
+					message:'<div class="alert alert-light" "role="alert"><p style="text-center; font-size:1.0em; text-align:center; padding:5px;">Confirma a exclusão?</p></div>',
 					closeButton: false,
 					onHidden: function(e) {
 						$scope.atualizaTabela();
@@ -2005,7 +2016,7 @@ angular
 
 		};
 
-		console.log("TESTE")
+		console.log("TESTE8")
 			
 	});
 </script> 
