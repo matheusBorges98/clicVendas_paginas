@@ -370,6 +370,7 @@
 										<table id ="tabelaProdutos" class="table">
 											<thead>
 												<tr>
+													<th></th>
 													<th>Produto</th>
 													<th>Quantidade</th>
 													<th>Unid. Medida</th>
@@ -1606,13 +1607,13 @@ angular
 			$timeout(function () {
 				buscaProduto.blur();
 				$scope.itemProd = '';
-
-				$("table tbody tr.parent:first-child").addClass("new-row-enter");
-				$("table tbody tr.parent:first-child input#quantidadeProdutoAdd").focus();
+				/*Com adição da child não está funcionando corretamente, validar*/
+				// $("table tbody tr.parent:first-child").addClass("new-row-enter");
+				// $("table tbody tr.parent:first-child input#quantidadeProdutoAdd").focus();
 			}, 200);
 
 			$timeout(()=>{
-				$("table tbody tr.parent:first-child").removeClass("new-row-enter");
+				// $("table tbody tr.parent:first-child").removeClass("new-row-enter");
 			}, 1000)
 
 			$scope.calcularProdutos();
