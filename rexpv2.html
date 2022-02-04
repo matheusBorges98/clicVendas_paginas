@@ -526,17 +526,343 @@
 					</div>
 				</div>			
 			</div>
+			
 			<!-- Body -->
 			<div class="row spacer">
 				<div class="col-sm-12">
 					<!-- Conteúdo página -->
-					<h5>Cheguei aqui</h5>
+					
+					<div class="panel panel-default">
+					  <div class="panel-body">
+						<div style="margin-top:1.5%" class="col-sm-12">
+							<div class="col-sm-1">
+								<label for="codProEst">Produto</label>
+							</div>
+							<div class="col-sm-11">
+								<div class="input-group">
+									<input type="text" ng-model="codProEst" name="codProEst" id="codProEst" placeholder="Localize o produto por código, nome ou referência" uib-typeahead="retorno.produto.codErp + ' - ' + retorno.produto.descricao for retorno in getEstoqueProdutoERP($viewValue)" typeahead-loading="loadingEst" typeahead-no-results="noResults"  typeahead-on-select="onSelectDadosEstoque($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" >
+									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProdutoEstoque()"><i class="glyphicon glyphicon-remove"></i></span>
+								</div>
+							</div>
+							<i ng-show="loadingEst" class="glyphicon glyphicon-refresh"></i>
+							<div ng-show="noResults">
+								<i class="glyphicon glyphicon-remove"></i> Sem Resultados
+							</div>	
+						</div>
+					  </div>
+					</div>
+					
+					
 				</div>
-			</div>
+				
+				<div style="margin-top:5px" ng-show="produtoEstoque != undefined" class="form-group col-md-12">
+				
+				
+					<div class="panel panel-default spacer">
+					
+						<div class="panel-heading">
+							<h3 class="panel-title">{{produtoEstoque.produto.descricao}}</h3>
+						</div>
+						<div class="panel-body">
+							<div class="form-group col-md-4">
+								<label class="spacer" for="codProEst">Derivação:</label> {{produtoEstoque.produto.derivacao}}
+							</div>
+							<div class="form-group col-md-4">
+								<label class="spacer" for="codProEst">Preço Bruto:</label> {{produtoEstoque.produto.precoBruto}}
+							</div>
+							<div class="form-group col-md-4">
+								<label class="spacer" for="codProEst"> Peso:</label> {{produtoEstoque.produto.peso}}	
+							</div>
+							<div class="form-group col-md-4">
+								<label class="spacer" for="codProEst">Unidade de Medida:</label> {{produtoEstoque.produto.uniMed}}	
+							</div>
+							<div class="form-group col-md-4">
+								<label class="spacer" for="codProEst">Qtd. Embalagem:</label> {{produtoEstoque.produto.qtdEmb}}	
+							</div>
+							<div class="form-group col-md-4">
+								<label class="spacer" for="codProEst">Código Sapiens:</label> {{produtoEstoque.produto.codErp}}	
+							</div>
+							<div class="form-group col-md-4">
+								<label class="spacer" for="codProEst">Classificação Fiscal:</label> {{produtoEstoque.produto.claFiscal}}	
+							</div>
+						
+					
+					
+							<div style="margin-top:5px" class="form-group col-md-12">
+								<div style="padding:0;" class="col-sm-12 spacer">
+								
+									<div class="panel panel-default">
+										<!-- Default panel contents -->
+										<div class="panel-heading">Depósitos</div>
+										<div class="panel-body">Estoque do produto por depósito</div>
 
-		</div>
+										<!-- Table -->
+										<table id ="tabelaDepositos" class="table">
+											<thead>
+												<tr>
+													<th>Depósito</th>
+													<th>Estoque</th>
+													<th>Res. Pedidos</th>
+													<th>Res. Pré-Fatura</th>
+													<th>Tot. Disponível</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat = "depositos in produtoEstoque.produto.depositos">
+													<div>
+														<td>
+															{{depositos.deposito}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{depositos.estoque}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{depositos.reserva}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{depositos.prefatura}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{depositos.disponivel}}
+														</td>
+													</div>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+					
+							<div style="margin-top:5px" class="form-group col-md-12">
+								<div style="padding:0;" class="col-sm-12 spacer">
+									
+									<div class="panel panel-default">
+										<!-- Default panel contents -->
+										<div class="panel-heading">Ordens de Produção do Produto</div>
+										<div class="panel-body"></div>
+
+										<!-- Table -->
+										<table id ="tabelaOrdensProducao" class="table">
+											<thead>
+												<tr>
+													<th>Numero OP</th>
+													<th>Emissão</th>
+													<th>Prev. Ini</th>
+													<th>Prev. Fim</th>
+													<th>Realiz. Ini</th>
+													<th>Realiz. Fim</th>
+													<th>Qtde Prev</th>
+													<th>Qtde Realiz</th>
+													<th>Saldo</th>
+													<th>Situação</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat = "ops in produtoEstoque.produto.ordensProducao">
+													<div>
+														<td>
+															{{ops.numeroOP}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{ops.datEmissao}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{ops.prevIni}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{ops.prevFim}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{ops.realizadoIni}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{ops.realizadoFim}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{ops.qtdPrev}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{ops.qtdReal}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{ops.saldo}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{ops.situacao}}
+														</td>
+													</div>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+					
+							<!-- <div style="margin-top:5px" class="form-group col-md-12"> -->
+								<!-- <div style="padding:0;" class="col-sm-12 spacer"> -->
+									<!-- <h5>Roteiros da OP {{produtoEstoque.produto.ordensProducao[0].numeroOP}}</h5> -->
+									<!-- <table id ="tabelaRoteiroOp" class="table"> -->
+										<!-- <thead> -->
+											<!-- <tr> -->
+												<!-- <th>Estágio</th> -->
+												<!-- <th>Operação</th> -->
+												<!-- <th>Início</th> -->
+												<!-- <th>Término</th> -->
+												<!-- <th>Previsto</th> -->
+												<!-- <th>Realizado</th> -->
+												<!-- <th>Saldo</th> -->
+											<!-- </tr> -->
+										<!-- </thead> -->
+										<!-- <tbody> -->
+											<!-- <tr ng-repeat = "roteiro in produtoEstoque.produto.ordensProducao[0].roteiroOp"> -->
+												<!-- <div> -->
+													<!-- <td> -->
+														<!-- {{roteiro.estagio}} -->
+													<!-- </td> -->
+												<!-- </div> -->
+												<!-- <div> -->
+													<!-- <td> -->
+														<!-- {{roteiro.operacao}} -->
+													<!-- </td> -->
+												<!-- </div> -->
+												<!-- <div> -->
+													<!-- <td> -->
+														<!-- {{roteiro.inicio}} -->
+													<!-- </td> -->
+												<!-- </div> -->
+												<!-- <div> -->
+													<!-- <td> -->
+														<!-- {{roteiro.termino}} -->
+													<!-- </td> -->
+												<!-- </div> -->
+												<!-- <div> -->
+													<!-- <td> -->
+														<!-- {{roteiro.previsto}} -->
+													<!-- </td> -->
+												<!-- </div> -->
+												<!-- <div> -->
+													<!-- <td> -->
+														<!-- {{roteiro.realizado}} -->
+													<!-- </td> -->
+												<!-- </div> -->
+												<!-- <div> -->
+													<!-- <td> -->
+														<!-- {{roteiro.saldo}} -->
+													<!-- </td> -->
+												<!-- </div> -->
+											<!-- </tr> -->
+										<!-- </tbody> -->
+									<!-- </table> -->
+								<!-- </div> -->
+							<!-- </div> -->
+					
+							<div style="margin-top:5px" class="form-group col-md-12">
+								<div style="padding:0;" class="col-sm-12 spacer">
+									<div class="panel panel-default">
+										<!-- Default panel contents -->
+										<div class="panel-heading">Derivações do Produto
+										</div>
+										
+										<div class="panel-body">
+										</div>
+
+										<!-- Table -->
+										<table id ="tabelaDerivacoes" class="table">
+											<thead>
+												<tr>
+													<th>Código</th>
+													<th>Derivação</th>
+													<th>Matriz [04]</th>
+													<th>MG [12]</th>
+													<th>Consignado</th>
+													<th>Res. Pedidos</th>
+													<th>Res. Pré-Fat.</th>
+													<th>Disponível</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat = "derivacoes in produtoEstoque.produto.derivacoes">
+													<div>
+														<td>
+															{{derivacoes.codigo}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{derivacoes.derivacao}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{derivacoes.matriz}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{derivacoes.mg}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{derivacoes.consignado}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{derivacoes.resPedidos}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{derivacoes.resPreFat}}
+														</td>
+													</div>
+													<div>
+														<td>
+															{{derivacoes.disponivel}}
+														</td>
+													</div>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+						</div> <!--  Fecha o panel body principal -->
+					</div><!--  Painel que contem todo mundo -->
+
+				</div>
+
+			</div>
 	
-	</div>
+		</div> 
 
 	<script type="text/ng-template" id="templateAutoCompleteProduto">
 		<a>
@@ -805,6 +1131,37 @@ angular
 					}
 				);
 										
+				if(result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						return item
+					})
+				}else{
+					return [];
+				}
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+
+		}
+		
+		
+		//Minha nova função para obter estoque do produto
+		
+		$scope.getEstoqueProdutoERP = async (consulta) => {
+
+			try{
+				
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 750,
+						pRotina	   : 'listaEstoqueERP',
+						pCodCli    : dadosUserLogado.rId,
+						pFilter    : {filtro:{filtroProduto : consulta}},
+					}
+				);
+				
+				
 				if(result.resultado != undefined){
 					return result.resultado.map((item)=>{
 						return item
@@ -1199,6 +1556,25 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
+		
+		// Carrega dados de Estoque 
+		
+		$scope.onSelectDadosEstoque = ($item) =>{
+			console.log("XXX");
+			console.log($item);
+			
+			$scope.produtoEstoque = $item;
+			
+			console.log($scope.produtoEstoque);
+		}
+		
+		
+		
+		
+		
+		
+
+		
 		
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
