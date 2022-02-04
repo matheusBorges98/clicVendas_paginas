@@ -382,8 +382,13 @@
 													<th></th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr ng-repeat = "produto in produtos">
+											<tbody ng-repeat = "produto in produtos">
+												<tr class="parent">
+													
+													<td>
+														<i class="glyphicon glyphicon-chevron-down"></i>
+													</td>
+
 													<div>
 														<td>
 															<!-- <div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div> -->
@@ -446,7 +451,16 @@
 													
 													</div>
 												</tr>
-												
+												<!-- Detalhes item -->
+												<tr class="cchild">
+													<td colspan ="10">
+														<div class="col-sm-12">
+															<div class="col-sm-4">
+																Código Sapiens: {{produto.codExterno}}
+															</div>
+														</div>
+													</td>
+												</tr>
 												
 											</tbody>
 										</table>
@@ -1569,13 +1583,6 @@ angular
 		}
 		
 		
-		
-		
-		
-		
-
-		
-		
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
 				{ 
@@ -1600,12 +1607,12 @@ angular
 				buscaProduto.blur();
 				$scope.itemProd = '';
 
-				$("table tbody tr:first-child").addClass("new-row-enter");
-				$("table tbody tr:first-child input#quantidadeProdutoAdd").focus();
+				$("table tbody tr.parent:first-child").addClass("new-row-enter");
+				$("table tbody tr.parent:first-child input#quantidadeProdutoAdd").focus();
 			}, 200);
 
 			$timeout(()=>{
-				$("table tbody tr:first-child").removeClass("new-row-enter");
+				$("table tbody tr.parent:first-child").removeClass("new-row-enter");
 			}, 1000)
 
 			$scope.calcularProdutos();
@@ -1997,6 +2004,12 @@ angular
 			};
 
 		};
+
+		
+		/*Tabela produtos - Abre \ fecha dados complementares*/
+		$('table').on('click', 'tr.parent .glyphicon-chevron-down', function(){
+			$(this).closest('tbody').toggleClass('open');
+		});
 			
 	});
 </script> 
@@ -2262,5 +2275,29 @@ angular
 	@media screen and (max-height: 450px) {
 	  .sidebar {padding-top: 15px;}
 	  .sidebar a {font-size: 18px;}
+	}
+
+	/*Tabela produtos - Child rows*/
+	.parent ~ .cchild {
+		display: none;
+	}
+	.open .parent ~ .cchild {
+		display: table-row;
+	}
+	.parent {
+		cursor: pointer;
+	}
+	tbody {
+		color: #212121;
+	}
+	.parent i {
+		transform: rotate(0deg);
+		transition: transform .3s cubic-bezier(.4,0,.2,1);
+		margin: -.5rem;
+		padding: .5rem;
+	
+	}
+	.open .parent i {
+		transform: rotate(180deg)
 	}
 	</style>
