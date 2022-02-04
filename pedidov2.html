@@ -1318,12 +1318,12 @@ angular
 				buscaProduto.blur();
 				$scope.itemProd = '';
 
-				$("table tbody tr:first-child").addClass("new-row-enter");
-				$("table tbody tr:first-child input#quantidadeProdutoAdd").focus();
+				$("table tbody tr.parent:first-child ").addClass("new-row-enter");
+				$("table tbody tr.parent:first-child input#quantidadeProdutoAdd").focus();
 			}, 200);
 
 			$timeout(()=>{
-				$("table tbody tr:first-child").removeClass("new-row-enter");
+				$("table tbody tr.parent:first-child").removeClass("new-row-enter");
 			}, 1000)
 			
 		};
@@ -2062,7 +2062,7 @@ angular
 
 		};
 
-		console.log("teste5")
+		console.log("teste6")
 			
 	});
 </script> 
