@@ -200,6 +200,7 @@
 									<table id ="listDocumentsProdutos" class="table">
 										<thead>
 											<tr>
+												<th></th>
 												<th>Produto</th>
 												<th>Quantidade</th>
 												<th>Aplicação</th>
@@ -210,6 +211,10 @@
 										</thead>
 										<tbody>
 											<tr ng-repeat = "produto in produtos">
+												<td ng-click="openChildRow()">
+													<a class="showhr" href="#">SIM</a></td>
+												</td>
+
 												<td>
 													<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
@@ -658,6 +663,12 @@ angular
 		$rootScope.cliente			= {};
 
 		$scope.usuarioAprovador = dadosUserLogado.rTipoId != 3 ? false : true;  
+
+		$scope.openChildRow = () =>{
+			$(".showhr").click(function() {
+				$(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+			});
+		}
 
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -2043,7 +2054,7 @@ angular
 
 		};
 
-		console.log("teste6")
+		console.log("teste7")
 			
 	});
 </script> 
