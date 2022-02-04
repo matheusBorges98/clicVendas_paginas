@@ -1404,7 +1404,7 @@ angular
 			for(i = 0; i < $rootScope.produtos.length; i++){
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
 				$rootScope.produtos[i].hashDoc 	= hashDoc;
-				
+				console.log(situacao, "sit")
 				switch(situacao){
 					case 'EM_DIGITACAO':
 						json[0].produtos.situacao = {nome:"Em digitação", send:'EM_DIGITACAO'}
@@ -2043,7 +2043,7 @@ angular
 
 		};
 
-		console.log("teste2")
+		console.log("teste3")
 			
 	});
 </script> 
