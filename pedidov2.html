@@ -556,7 +556,7 @@
 							<span class="caret caret-up"></span>
 						</button>
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
-							<li ng-hide="produtos.situacao!= '' && produtos.situacao.send !='EM_DIGITACAO'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
+							<li ng-hide="idDocumento > 0 && produtos.situacao.send !='EM_DIGITACAO'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<li><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
 						</ul>
 						<ul ng-show="usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
@@ -2042,7 +2042,7 @@ angular
 
 		};
 
-		console.log("18")
+		console.log("teste")
 			
 	});
 </script> 
