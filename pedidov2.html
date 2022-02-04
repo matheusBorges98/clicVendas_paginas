@@ -211,8 +211,8 @@
 										</thead>
 										<tbody>
 											<tr ng-repeat = "produto in produtos">
-												<td ng-click="openChildRow()">
-													<a class="showhr" href="#">SIM</a></td>
+												<td>
+													<a class="showhr">SIM</a></td>
 												</td>
 
 												<td>
@@ -664,11 +664,10 @@ angular
 
 		$scope.usuarioAprovador = dadosUserLogado.rTipoId != 3 ? false : true;  
 
-		$scope.openChildRow = () =>{
-			$(".showhr").click(function() {
-				$(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
-			});
-		}
+		$(".showhr").click(function() {
+			$(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+		});
+		
 
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -2054,7 +2053,7 @@ angular
 
 		};
 
-		console.log("teste7")
+		console.log("teste8")
 			
 	});
 </script> 
