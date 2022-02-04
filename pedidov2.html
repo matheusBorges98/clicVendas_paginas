@@ -210,14 +210,11 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat = "produto in produtos">
+											<tr class="parent" ng-repeat = "produto in produtos">
 												<td>
-													<a class="showhr">SIM</a></td>
+													<i class="fa fa-chevron-down"></i>
 												</td>
-												<td class="aser">
-													TESTEXXXXX
-												</td>
-
+										
 												<td>
 													<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
@@ -251,6 +248,12 @@
 														<!-- <div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div> -->
 													</div>		
 												</td>
+											</tr>
+											<tr class="cchild">
+												<td>10</td>
+												<td>M</td>
+												<td>Child</td>
+												<td colspan="2">UK</td>
 											</tr>
 										</tbody>
 									</table>
@@ -667,10 +670,9 @@ angular
 
 		$scope.usuarioAprovador = dadosUserLogado.rTipoId != 3 ? false : true;  
 
-		$(".showhr").click(function() {
-			$(this).closest('tr').nextUntil("tr:has(.showhr)").toggle("slow", function() {});
+		$('table').on('click', 'tr.parent .fa-chevron-down', function(){
+			$(this).closest('tbody').toggleClass('open');
 		});
-		
 
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -2056,7 +2058,7 @@ angular
 
 		};
 
-		console.log("teste10")
+		console.log("teste1")
 			
 	});
 </script> 
@@ -2326,5 +2328,40 @@ angular
 	@media screen and (max-height: 450px) {
 	  .sidebar {padding-top: 15px;}
 	  .sidebar a {font-size: 18px;}
+	}
+
+	/*Tabela produtos - Child rows*/
+	.parent ~ .cchild {
+		display: none;
+	}
+	.open .parent ~ .cchild {
+		display: table-row;
+	}
+	.parent {
+		cursor: pointer;
+	}
+	tbody {
+		color: #212121;
+	}
+	.open {
+		background-color: #e6e6e6;
+	}
+
+	.open .cchild {
+		background-color: #999;
+		color: white;
+	}
+	.parent > *:last-child {
+		width: 30px;
+	}
+	.parent i {
+		transform: rotate(0deg);
+		transition: transform .3s cubic-bezier(.4,0,.2,1);
+		margin: -.5rem;
+		padding: .5rem;
+	
+	}
+	.open .parent i {
+		transform: rotate(180deg)
 	}
 	</style>
