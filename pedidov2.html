@@ -556,9 +556,9 @@
 							<span class="caret caret-up"></span>
 						</button>
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
-							<li ng-show="produtos.situacao.send =='EM_DIGITACAO'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
+							<li ng-hide="produtos.situacao.send =='EM_ANALISE' || produtos.situacao.send =='AM_FECHADA' || produtos.situacao.send =='AM_INTEGRADA'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<!-- <li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li> -->
-							<li><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
+							<li ng-hide="produtos.situacao.send =='AM_FECHADA' || produtos.situacao.send =='AM_INTEGRADA'"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
 						</ul>
 						<ul ng-show="usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
@@ -2053,7 +2053,7 @@ angular
 
 		};
 
-		console.log("teste5")
+		console.log("teste1")
 			
 	});
 </script> 
