@@ -989,15 +989,17 @@ angular
 
 			$rootScope.isLoading = true;
 
-			let result = await $scope.executaRequisicaoExterna(
-				{
-					idCvtccnpj : dadosUserLogado.cId,
-					numreg	   : 752,
-					pRotina	   : 'criarPedidoAmostra',
-					pCodCli    : dadosUserLogado.rId,
-					pDocumento : {documento : $item}
-				}		
-			);
+			// let result = await $scope.executaRequisicaoExterna(
+			// 	{
+			// 		idCvtccnpj : dadosUserLogado.cId,
+			// 		numreg	   : 752,
+			// 		pRotina	   : 'criarPedidoAmostra',
+			// 		pCodCli    : dadosUserLogado.rId,
+			// 		pDocumento : {documento : $item}
+			// 	}		
+			// );
+
+			result = '123456'
 
 			$rootScope.isLoading = false;
 			
@@ -2057,7 +2059,7 @@ angular
 
 		};
 
-		console.log("teste")
+		console.log("teste1")
 			
 	});
 </script> 
