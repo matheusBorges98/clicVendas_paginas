@@ -1374,8 +1374,11 @@ angular
 
 		}
 
-		$scope.atualizaProdutosPedido = async ($item) => {
-
+		$scope.atualizaProdutosPedido = async () => {
+			/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
+			for(i = 0; i < $scope.documentosClic.length; i++){
+				await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
+			}
 		}
 
 		$scope.salvarDocumento = async (rotina, situacao) => {
@@ -1516,7 +1519,7 @@ angular
 
 			};
 	
-			if(id > 0 && json[0].produtos[0].situacao.send != "EM_DIGITACAO"){
+			if(id > 0 && (json[0].produtos[0].situacao.send != "EM_DIGITACAO" || json[0].produtos[0].situacao.send != "EM_ANALISE")){
 			//if(id > 0){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
@@ -1589,11 +1592,9 @@ angular
 
 			}else{
 				if($scope.novoProdutoAdicionado && id > 0){
-					console.log($scope.documentosClic, "DOCS-GRAVADOS")
-					for(i = 0; i < $scope.documentosClic.length; i++){
-						await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
-					}
+					await atualizaProdutosPedido()
 				}
+
 				for(i = 0; i < $rootScope.produtos.length; i++){
 
 					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
@@ -2051,7 +2052,7 @@ angular
 
 		};
 
-		console.log("teste4")
+		console.log("teste1")
 			
 	});
 </script> 
