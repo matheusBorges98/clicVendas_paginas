@@ -1485,7 +1485,7 @@ angular
 			/*Recebe dados e para que sejam feitas as alterações necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
 
-			let amostrasPedido  = json[0].produtos;
+			let amostrasPedido  = $scope.usuarioAprovador ? json[0].produtos : json[0].produtos[0];
 
 			console.log(amostrasPedido)
 			
@@ -2057,7 +2057,7 @@ angular
 
 		};
 
-		console.log("teste1")
+		console.log("teste")
 			
 	});
 </script> 
