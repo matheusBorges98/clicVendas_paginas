@@ -1533,7 +1533,7 @@ angular
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){						
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 
-					if(rotina == 2){
+					if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
 						json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
 					}else{
 						switch(situacao){
@@ -1555,7 +1555,6 @@ angular
 						}
 					}
 					
-
 					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
 					if(json[0].produtos.codigoProduto == $scope.codigoProduto){
 						
@@ -2058,7 +2057,7 @@ angular
 
 		};
 
-		console.log("teste7")
+		console.log("teste1")
 			
 	});
 </script> 
