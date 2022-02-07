@@ -1523,7 +1523,7 @@ angular
 				if($scope.novoProdutoAdicionado){
 					console.log($rootScope.docsToEdit)
 					for(i = 0; i < $rootScope.docsToEdit.length; i++){
-						await $scope.removerDocumento($rootScope.docsToEdit[i].id)
+						await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $rootScope.docsToEdit[i].id);
 					}
 				}
 
@@ -2052,7 +2052,7 @@ angular
 
 		};
 
-		console.log("teste1")
+		console.log("teste2")
 			
 	});
 </script> 
