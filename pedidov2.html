@@ -1542,7 +1542,7 @@ angular
 						json[0].produtos.potencial0XCM 	= $scope.potencial0XCM;
 						json[0].produtos.consumoAg		= $scope.consumoAg;
 						json[0].produtos.cluster		= $scope.cluster,
-						json[0].produtos.situacao		= $scope.situacao,
+						json[0].produtos.situacao		= rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
 						json[0].produtos.ofertaUnit		= $scope.ofertaUnit,
 						json[0].produtos.dataStatus		= $scope.dataStatus,
 						json[0].produtos.justificativa	= $scope.justificativa,
@@ -1565,27 +1565,27 @@ angular
 						json[0].produtos.acoes			= $scope.acoes,
 						json[0].produtos.statusAcao		= $scope.statusAcao	
 
-						switch(situacao){
-							case 'EM_DIGITACAO':
-								json[0].produtos.situacao = {nome:"Em digitação", send: situacao}
-								break;
+						// switch(situacao){
+						// 	case 'EM_DIGITACAO':
+						// 		json[0].produtos.situacao = {nome:"Em digitação", send: situacao}
+						// 		break;
 							
-							case 'EM_ANALISE':
-								json[0].produtos.situacao = {nome:"Em análise", send: situacao}
-								break;
+						// 	case 'EM_ANALISE':
+						// 		json[0].produtos.situacao = {nome:"Em análise", send: situacao}
+						// 		break;
 							
-							case 'EM_REVISAO':
-								json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
-								break;
+						// 	case 'EM_REVISAO':
+						// 		json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
+						// 		break;
 
-							case 'AM_INTEGRADA':
-								json[0].produtos.situacao = {nome:"Integrado", send:situacao}
-								break;
+						// 	case 'AM_INTEGRADA':
+						// 		json[0].produtos.situacao = {nome:"Integrado", send:situacao}
+						// 		break;
 								
-							case 'AM_FECHADA':
-								json[0].produtos.situacao = {nome:"Fechado", send:situacao}
-								break;
-						}
+						// 	case 'AM_FECHADA':
+						// 		json[0].produtos.situacao = {nome:"Fechado", send:situacao}
+						// 		break;
+						// }
 
 					}
 					
@@ -2061,7 +2061,7 @@ angular
 
 		};
 
-		console.log("teste1")
+		console.log("teste2")
 			
 	});
 </script> 
