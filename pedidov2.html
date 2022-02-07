@@ -1532,9 +1532,9 @@ angular
 
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){						
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
-					console.log($scope.situacao, "SITU")
+					console.log(amostrasPedido.situacao, "SITU")
 					if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
-						json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
+						json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
 					}else if(json[0].produtos.situacao.send != 'EM_ANALISE'){
 						switch(situacao){
 							case 'EM_DIGITACAO':
@@ -1554,7 +1554,7 @@ angular
 								break;
 						}
 					}else{
-						json[0].produtos.situacao = $scope.situacao
+						json[0].produtos.situacao = amostrasPedido.situacao
 					}
 					
 					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
@@ -2059,7 +2059,7 @@ angular
 
 		};
 
-		console.log("4teste")
+		console.log("teste")
 			
 	});
 </script> 
