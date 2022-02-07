@@ -1388,7 +1388,8 @@ angular
 				2 - Finalizar (Envia o pedido para ERP)
 
 			Situação: 
-				Em digitação - EM_DIGITACAO: Primeira etapa do fluxo
+				Em digitação - EM_DIGITACAO: Primeira etapa do fluxo | É possível editar e adicionar novos produtos ao pedido
+				Em análise	 -
 			*/
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
@@ -1412,7 +1413,6 @@ angular
 			for(i = 0; i < $rootScope.produtos.length; i++){
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
 				$rootScope.produtos[i].hashDoc 	= hashDoc;
-				console.log(situacao, "sit")
 				switch(situacao){
 					case 'EM_DIGITACAO':
 						$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
@@ -1519,7 +1519,7 @@ angular
 
 			};
 	
-			if(id > 0 && (json[0].produtos[0].situacao.send != "EM_DIGITACAO" || json[0].produtos[0].situacao.send != "EM_ANALISE")){
+			if(id > 0 && json[0].produtos[0].situacao.send != "EM_DIGITACAO"){
 			//if(id > 0){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
@@ -2052,7 +2052,7 @@ angular
 
 		};
 
-		console.log("teste1")
+		console.log("teste2")
 			
 	});
 </script> 
