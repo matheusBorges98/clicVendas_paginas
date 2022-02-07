@@ -1516,17 +1516,9 @@ angular
 
 			};
 	
-			// if(id > 0 && json[0].produtos[0].situacao.send != "EM_DIGITACAO"){
-			if(id > 0){
+			if(id > 0 && json[0].produtos[0].situacao.send != "EM_DIGITACAO"){
+			//if(id > 0){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
-
-				if($scope.novoProdutoAdicionado){
-					console.log($scope.documentosClic, "DOCS")
-					// let produtosGravados = await $scope.consultaDocumento()
-					// for(i = 0; i < $rootScope.docsToEdit.length; i++){
-					// 	await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $rootScope.docsToEdit[i].id);
-					// }
-				}
 
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){
 										
@@ -1596,6 +1588,13 @@ angular
 				$scope.geraNotificacao($scope.messageNotific, 1200, "success");
 
 			}else{
+				if($scope.novoProdutoAdicionado){
+					console.log($scope.documentosClic, "DOCS-GRAVADOS")
+					// let produtosGravados = await $scope.consultaDocumento()
+					// for(i = 0; i < $rootScope.docsToEdit.length; i++){
+					// 	await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $rootScope.docsToEdit[i].id);
+					// }
+				}
 				for(i = 0; i < $rootScope.produtos.length; i++){
 
 					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
@@ -2053,7 +2052,7 @@ angular
 
 		};
 
-		console.log("teste1")
+		console.log("teste3")
 			
 	});
 </script> 
