@@ -1203,8 +1203,8 @@ angular
 
 				/*Valida situação e aplica regra - Agrupa produtos pelo mesmo hashCode*/
 				if(docs.produtos.situacao && (docs.produtos.situacao.send === "EM_DIGITACAO" || docs.produtos.situacao.send === "EM_REVISAO")){
-					let documentosClic			= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
-					$rootScope.produtos			= $scope.agruparProdutos(documentosClic);
+					$scope.documentosClic		= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
+					$rootScope.produtos			= $scope.agruparProdutos($scope.documentosClic);
 
 					console.log($rootScope.produtos, "PROD")
 
@@ -1521,10 +1521,11 @@ angular
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
 				if($scope.novoProdutoAdicionado){
-					console.log($rootScope.docsToEdit)
-					for(i = 0; i < $rootScope.docsToEdit.length; i++){
-						await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $rootScope.docsToEdit[i].id);
-					}
+					console.log($scope.documentosClic, "DOCS")
+					// let produtosGravados = await $scope.consultaDocumento()
+					// for(i = 0; i < $rootScope.docsToEdit.length; i++){
+					// 	await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $rootScope.docsToEdit[i].id);
+					// }
 				}
 
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){
@@ -2052,7 +2053,7 @@ angular
 
 		};
 
-		console.log("teste2")
+		console.log("teste3")
 			
 	});
 </script> 
