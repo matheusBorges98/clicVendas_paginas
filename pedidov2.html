@@ -1194,8 +1194,8 @@ angular
 				$scope.ultVendaTabdin		= docs.produtos.ultVendaTabdin;
 				$scope.primVendaTabdin		= docs.produtos.primVendaTabdin;
 				$scope.anoPrimVenda			= docs.anoPrimVenda;
-				$scope.statusAcao			= docs.statusAcao;
-				$scope.acoes				= docs.acoes;
+				// $scope.statusAcao			= docs.statusAcao;
+				// $scope.acoes				= docs.acoes;
 
 				/*Historico*/
 				$scope.obsOportunidade		= '';
@@ -1519,11 +1519,9 @@ angular
 					json[0].sincronizado    	= "DOCUMENTO_SINCRONIZADO";
 					json[0].pedDatEmi			= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
 					json[0].pedNumped			= $rootScope.documentoERP;
-					//json[0].produtos.situacao	= {nome:"Integrado", send:situacao} 
 				}else{
 					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
 					json[0].pedNumped	 = 0;
-					//json[0].situacao	 = {nome:"Integrado", send:situacao} 
 				}
 
 			};
@@ -1532,12 +1530,11 @@ angular
 			//if(id > 0){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
-				for(j = 0; j < $rootScope.docsToEdit.length; j++){
-										
+				for(j = 0; j < $rootScope.docsToEdit.length; j++){						
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 
 					if(rotina == 2){
-						json[0].produtos.situacao		= rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
+						json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
 					}else{
 						switch(situacao){
 							case 'EM_DIGITACAO':
@@ -2061,7 +2058,7 @@ angular
 
 		};
 
-		console.log("teste4")
+		console.log("teste6")
 			
 	});
 </script> 
