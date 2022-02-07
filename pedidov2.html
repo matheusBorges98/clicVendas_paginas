@@ -1532,7 +1532,7 @@ angular
 
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){						
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
-
+					console.log($scope.situacao, "SITU")
 					if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
 						json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
 					}else if(json[0].produtos.situacao.send != 'EM_ANALISE'){
@@ -2059,7 +2059,7 @@ angular
 
 		};
 
-		console.log("teste4")
+		console.log("4teste")
 			
 	});
 </script> 
