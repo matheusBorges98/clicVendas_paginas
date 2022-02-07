@@ -1375,12 +1375,12 @@ angular
 
 		}
 
-		// $scope.atualizaProdutosPedido = async () => {
-		// 	/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
-		// 	for(i = 0; i < $scope.documentosClic.length; i++){
-		// 		await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
-		// 	}
-		// }
+		$scope.atualizaProdutosPedido = async () => {
+			/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
+			for(i = 0; i < $scope.documentosClic.length; i++){
+				await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
+			}
+		}
 
 		$scope.salvarDocumento = async (rotina, situacao) => {
 			/*
@@ -2053,7 +2053,7 @@ angular
 
 		};
 
-		console.log("teste3")
+		console.log("teste4")
 			
 	});
 </script> 
