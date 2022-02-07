@@ -555,7 +555,7 @@
 							Salvar
 							<span class="caret caret-up"></span>
 						</button>
-						<ul ng-show="!usuarioAprovador || produtos.situacao.send =='AM_INTEGRADA' || produtos.situacao.send =='AM_FECHADA || produtos.situacao.send =='EM_ANALISE'" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
+						<ul ng-show="!usuarioAprovador || produtos.situacao.send =='AM_INTEGRADA' || produtos.situacao.send =='AM_FECHADA' || produtos.situacao.send =='EM_ANALISE'" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li ng-hide="produtos.situacao.send =='EM_REVISAO'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<!-- <li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li> -->
 							<li><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
