@@ -644,21 +644,21 @@ angular
 		$rootScope.isLoading 		= false;
 		
 		/* Inicializa filtros */
-		$scope.filSegmento			= "";
-		$scope.filDataEmissao 		= "";
-		$scope.filCliente 			= "";
-		$scope.filStatusAmostra		= "";
-		$scope.filPrioridade		= "";
-		$scope.filProduto			= "";
-		$scope.filSincronizado		= {nome:"", send:""};
-		$scope.filPesquisaGeral		= "";
+		$scope.filSegmento				= "";
+		$scope.filDataEmissao 			= "";
+		$scope.filCliente 				= "";
+		$scope.filStatusAmostra			= "";
+		$scope.filPrioridade			= "";
+		$scope.filProduto				= "";
+		$scope.filSincronizado			= {nome:"", send:""};
+		$scope.filPesquisaGeral			= "";
 		/*Incializa produtos*/
-		$rootScope.produtos 		= [];
+		$rootScope.produtos 			= [];
+		$scope.novoProdutoAdicionado	= false  
 		/*Incializa cliente*/
-		$rootScope.cliente			= {};
-
-		$scope.usuarioAprovador = dadosUserLogado.rTipoId != 3 ? false : true;  
-
+		$rootScope.cliente				= {};
+		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
+	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
 			$rootScope.listAllDocs = [];
@@ -1251,10 +1251,11 @@ angular
 
 		$scope.adicionarProduto = ($item) =>{
 
-			$scope.descricaoProd = $item.produto.nome;
-			$scope.codVariacao	 = $item.produto.codVariacao;
-			$scope.codExterno	 = $item.produto.codExterno;
-			$scope.codigoProduto = $item.produto.id;
+			$scope.novoProdutoAdicionado	= true;
+			$scope.descricaoProd 			= $item.produto.nome;
+			$scope.codVariacao	 			= $item.produto.codVariacao;
+			$scope.codExterno	 			= $item.produto.codExterno;
+			$scope.codigoProduto 			= $item.produto.id;
 			
 			$rootScope.produtos.unshift(
 				{ 
@@ -1370,6 +1371,10 @@ angular
 			}else{
 				return true;
 			}
+
+		}
+
+		$scope.atualizaProdutosPedido = async ($item) => {
 
 		}
 
@@ -1512,8 +1517,15 @@ angular
 			};
 	
 			// if(id > 0 && json[0].produtos[0].situacao.send != "EM_DIGITACAO"){
-				if(id > 0){
+			if(id > 0){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
+
+				if($scope.novoProdutoAdicionado){
+					console.log($rootScope.docsToEdit)
+					for(i = 0; i < $rootScope.docsToEdit.length; i++){
+						await $scope.removerDocumento($rootScope.docsToEdit[i].id)
+					}
+				}
 
 				for(j = 0; j < $rootScope.docsToEdit.length; j++){
 										
@@ -1584,11 +1596,6 @@ angular
 
 			}else{
 				for(i = 0; i < $rootScope.produtos.length; i++){
-
-					/*Se o pedido estiver "EM_DIGITACAO" - Irá remover os registros salvos e gravar novamente.*/
-					// if($rootScope.produtos[i].situacao.send === "EM_DIGITACAO" && id > 0){
-					// 	await $scope.removerProduto($rootScope.produtos[i])
-					// }
 
 					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
 					json[0].produtos 		= $rootScope.produtos[i];
@@ -1698,6 +1705,7 @@ angular
 					.withDOM('ftrip')
 					.withButtons([
 				{
+					enabled: dadosUserLogado.rTipoId != 3,
 					text: 'Novo',
 					key: '1',
 					className: 'btn_grid btn_cor_padrao',
@@ -1839,6 +1847,7 @@ angular
 					.withDOM('ftrip')
 					.withButtons([
 				{
+					enabled: dadosUserLogado.rTipoId != 3,
 					text: 'Novo',
 					key: '1',
 					className: 'btn_grid btn_cor_padrao',
@@ -2043,7 +2052,7 @@ angular
 
 		};
 
-		console.log("teste6")
+		console.log("teste1")
 			
 	});
 </script> 
