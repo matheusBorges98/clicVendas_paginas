@@ -556,7 +556,7 @@
 							<span class="caret caret-up"></span>
 						</button>
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
-							<li ng-hide="produtos.situacao.send =='EM_ANALISE' || produtos.situacao.send =='AM_FECHADA' || produtos.situacao.send =='AM_INTEGRADA'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
+							<li ng-hide="produtos.situacao.send =='EM_ANALISE' || produtos.situacao.send =='EM_REVISAO'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<!-- <li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li> -->
 							<li ng-hide="produtos.situacao.send =='AM_FECHADA' || produtos.situacao.send =='AM_INTEGRADA'"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
 						</ul>
@@ -1536,10 +1536,28 @@ angular
 										
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 
-					/*Valores de produtos que devem ser alterados globalmente - Em todos os hashCodes*/
-					json[0].produtos.situacao		= rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
-					json[0].produtos.acoes			= $scope.acoes,
-					json[0].produtos.statusAcao		= $scope.statusAcao	
+					if(rotina == 2){
+						json[0].produtos.situacao		= rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
+					}else{
+						switch(situacao){
+							case 'EM_DIGITACAO':
+								$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
+								break;
+							
+							case 'EM_ANALISE':
+								$rootScope.produtos[i].situacao = {nome:"Em análise", send:situacao}
+								break;
+							
+							case 'EM_REVISAO':
+								$rootScope.produtos[i].situacao = {nome:"Em revisão", send:situacao}
+								break;
+								
+							case 'AM_FECHADA':
+								$rootScope.produtos[i].situacao = {nome:"Fechado", send:situacao}
+								break;
+						}
+					}
+					
 
 					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
 					if(json[0].produtos.codigoProduto == $scope.codigoProduto){
@@ -1566,8 +1584,8 @@ angular
 						json[0].produtos.concorrencia	= $scope.concorrencia,
 						json[0].produtos.precoConc		= $scope.precoConc,
 						json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo
-						// json[0].produtos.acoes			= $scope.acoes,
-						// json[0].produtos.statusAcao		= $scope.statusAcao	
+						json[0].produtos.acoes			= $scope.acoes,
+						json[0].produtos.statusAcao		= $scope.statusAcao	
 
 					}
 					
@@ -2043,7 +2061,7 @@ angular
 
 		};
 
-		console.log("teste1")
+		console.log("teste2")
 			
 	});
 </script> 

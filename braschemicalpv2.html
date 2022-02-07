@@ -556,7 +556,7 @@
 							<span class="caret caret-up"></span>
 						</button>
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
-							<li ng-hide="produtos.situacao.send =='EM_ANALISE' || produtos.situacao.send =='AM_FECHADA' || produtos.situacao.send =='AM_INTEGRADA'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
+							<li ng-hide="produtos.situacao.send =='EM_ANALISE' || produtos.situacao.send =='EM_REVISAO'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<!-- <li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li> -->
 							<li ng-hide="produtos.situacao.send =='AM_FECHADA' || produtos.situacao.send =='AM_INTEGRADA'"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
 						</ul>
@@ -1515,13 +1515,15 @@ angular
 				
 				/*Atualiza numero do pedido*/
 				if(!isNaN(parseInt($rootScope.documentoERP))){
-					let dataFormat			= new Date();
-					json[0].sincronizado    = "DOCUMENTO_SINCRONIZADO";
-					json[0].pedDatEmi		= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
-					json[0].pedNumped		= $rootScope.documentoERP;
+					let dataFormat				= new Date();
+					json[0].sincronizado    	= "DOCUMENTO_SINCRONIZADO";
+					json[0].pedDatEmi			= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
+					json[0].pedNumped			= $rootScope.documentoERP;
+					//json[0].produtos.situacao	= {nome:"Integrado", send:situacao} 
 				}else{
 					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
 					json[0].pedNumped	 = 0;
+					//json[0].situacao	 = {nome:"Integrado", send:situacao} 
 				}
 
 			};
@@ -1534,13 +1536,17 @@ angular
 										
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 
+					/*Valores de produtos que devem ser alterados globalmente - Em todos os hashCodes*/
+					json[0].produtos.situacao		= rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
+					json[0].produtos.acoes			= $scope.acoes,
+					json[0].produtos.statusAcao		= $scope.statusAcao	
+
 					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
 					if(json[0].produtos.codigoProduto == $scope.codigoProduto){
 						
 						json[0].produtos.potencial0XCM 	= $scope.potencial0XCM;
 						json[0].produtos.consumoAg		= $scope.consumoAg;
 						json[0].produtos.cluster		= $scope.cluster,
-						//json[0].produtos.situacao		= $scope.situacao,
 						json[0].produtos.ofertaUnit		= $scope.ofertaUnit,
 						json[0].produtos.dataStatus		= $scope.dataStatus,
 						json[0].produtos.justificativa	= $scope.justificativa,
@@ -1559,31 +1565,9 @@ angular
 						json[0].produtos.familia		= $scope.familia,
 						json[0].produtos.concorrencia	= $scope.concorrencia,
 						json[0].produtos.precoConc		= $scope.precoConc,
-						json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo,
-						json[0].produtos.acoes			= $scope.acoes,
-						json[0].produtos.statusAcao		= $scope.statusAcao	
-
-						switch(situacao){
-							case 'EM_DIGITACAO':
-								json[0].produtos.situacao = {nome:"Em digitação", send: situacao}
-								break;
-							
-							case 'EM_ANALISE':
-								json[0].produtos.situacao = {nome:"Em análise", send: situacao}
-								break;
-							
-							case 'EM_REVISAO':
-								json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
-								break;
-
-							case 'AM_INTEGRADA':
-								json[0].produtos.situacao = {nome:"Integrado", send:situacao}
-								break;
-								
-							case 'AM_FECHADA':
-								json[0].produtos.situacao = {nome:"Fechado", send:situacao}
-								break;
-						}
+						json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo
+						// json[0].produtos.acoes			= $scope.acoes,
+						// json[0].produtos.statusAcao		= $scope.statusAcao	
 
 					}
 					
