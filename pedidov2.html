@@ -1588,7 +1588,7 @@ angular
 				$scope.geraNotificacao($scope.messageNotific, 1200, "success");
 
 			}else{
-				if($scope.novoProdutoAdicionado){
+				if($scope.novoProdutoAdicionado && id > 0){
 					console.log($scope.documentosClic, "DOCS-GRAVADOS")
 					for(i = 0; i < $scope.documentosClic.length; i++){
 						await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
@@ -2051,7 +2051,7 @@ angular
 
 		};
 
-		console.log("teste5")
+		console.log("teste4")
 			
 	});
 </script> 
