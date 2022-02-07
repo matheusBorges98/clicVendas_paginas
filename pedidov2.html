@@ -1590,10 +1590,9 @@ angular
 			}else{
 				if($scope.novoProdutoAdicionado){
 					console.log($scope.documentosClic, "DOCS-GRAVADOS")
-					// let produtosGravados = await $scope.consultaDocumento()
-					// for(i = 0; i < $rootScope.docsToEdit.length; i++){
-					// 	await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $rootScope.docsToEdit[i].id);
-					// }
+					for(i = 0; i < $scope.documentosClic.length; i++){
+						await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
+					}
 				}
 				for(i = 0; i < $rootScope.produtos.length; i++){
 
@@ -2052,7 +2051,7 @@ angular
 
 		};
 
-		console.log("teste3")
+		console.log("teste5")
 			
 	});
 </script> 
