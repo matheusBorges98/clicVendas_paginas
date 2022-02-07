@@ -1519,9 +1519,11 @@ angular
 					json[0].sincronizado    = "DOCUMENTO_SINCRONIZADO";
 					json[0].pedDatEmi		= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
 					json[0].pedNumped		= $rootScope.documentoERP;
+					json[0].situacao		= {nome:"Integrado", send:situacao} 
 				}else{
 					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
 					json[0].pedNumped	 = 0;
+					//json[0].situacao	 = {nome:"Integrado", send:situacao} 
 				}
 
 			};
@@ -2059,7 +2061,7 @@ angular
 
 		};
 
-		console.log("teste1")
+		console.log("teste2")
 			
 	});
 </script> 
