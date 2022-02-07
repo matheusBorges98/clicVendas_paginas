@@ -555,10 +555,10 @@
 							Salvar
 							<span class="caret caret-up"></span>
 						</button>
-						<ul ng-show="!usuarioAprovador || produtos.situacao.send =='AM_INTEGRADA' || produtos.situacao.send =='AM_FECHADA' || produtos.situacao.send =='EM_ANALISE'" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
-							<li ng-hide="produtos.situacao.send =='EM_REVISAO'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
+						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
+							<li ng-hide="produtos.situacao.send =='EM_ANALISE' || produtos.situacao.send =='EM_REVISAO'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<!-- <li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li> -->
-							<li><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
+							<li ng-hide="produtos.situacao.send =='AM_FECHADA' || produtos.situacao.send =='AM_INTEGRADA'"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
 						</ul>
 						<ul ng-show="usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
@@ -1487,8 +1487,7 @@ angular
 			/*Recebe dados e para que sejam feitas as alterações necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
 
-			// let amostrasPedido  = $scope.usuarioAprovador || $scope.situacao.send == 'AM_INTEGRADA' ? json[0].produtos : json[0].produtos[0];
-			let amostrasPedido  = $scope.usuarioAprovador ? json[0].produtos : json[0].produtos[0];
+			let amostrasPedido  = $scope.usuarioAprovador || $scope.situacao.send == 'AM_INTEGRADA' ? json[0].produtos : json[0].produtos[0];
 
 			console.log(amostrasPedido)
 			
@@ -1536,7 +1535,7 @@ angular
 
 					if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
 						json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
-					}else{
+					}else if(json[0].produtos.situacao.send != 'EM_ANALISE'){
 						switch(situacao){
 							case 'EM_DIGITACAO':
 								json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
@@ -1554,6 +1553,8 @@ angular
 								json[0].produtos.situacao = {nome:"Fechado", send:situacao}
 								break;
 						}
+					}else{
+						json[0].produtos.situacao = $scope.situacao
 					}
 					
 					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
@@ -2058,7 +2059,7 @@ angular
 
 		};
 
-		console.log("test32")
+		console.log("teste23")
 			
 	});
 </script> 
