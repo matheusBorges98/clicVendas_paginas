@@ -1515,11 +1515,11 @@ angular
 				
 				/*Atualiza numero do pedido*/
 				if(!isNaN(parseInt($rootScope.documentoERP))){
-					let dataFormat			= new Date();
-					json[0].sincronizado    = "DOCUMENTO_SINCRONIZADO";
-					json[0].pedDatEmi		= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
-					json[0].pedNumped		= $rootScope.documentoERP;
-					json[0].situacao		= {nome:"Integrado", send:situacao} 
+					let dataFormat				= new Date();
+					json[0].sincronizado    	= "DOCUMENTO_SINCRONIZADO";
+					json[0].pedDatEmi			= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
+					json[0].pedNumped			= $rootScope.documentoERP;
+					json[0].produtos.situacao	= {nome:"Integrado", send:situacao} 
 				}else{
 					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
 					json[0].pedNumped	 = 0;
@@ -2061,7 +2061,7 @@ angular
 
 		};
 
-		console.log("teste2")
+		console.log("teste4")
 			
 	});
 </script> 
