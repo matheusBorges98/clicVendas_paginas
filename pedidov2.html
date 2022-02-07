@@ -461,12 +461,12 @@
 										<input type="text" class="form-control spacer-input" ng-model="consumoAg" id="consumoAg">
 									</div>
 									<div class="col-sm-2 spacer">
-										<label for="con2021Ident">Consumo 2021 ident</label>
-										<input type="text" class="form-control spacer-input" ng-model="con2021Ident" id="con2021Ident">
+										<label for="con2021Ident">Consumo indent</label>
+										<input type="text" class="form-control spacer-input" ng-model="conIndent" id="conIndent">
 									</div>	
 									<div class="col-sm-2 spacer">
-										<label for="con2022Local">Consumo 2022 local</label>
-										<input type="text" class="form-control spacer-input" ng-model="con2022Local" id="con2022Local" >
+										<label for="conLocal">Consumo local</label>
+										<input type="text" class="form-control spacer-input" ng-model="conLocal" id="conLocal" >
 									</div>		
 									<div class="col-sm-2 spacer">
 										<label for="mesIniConsumo">Mes Início Consumo</label>
@@ -1135,10 +1135,10 @@ angular
 				$scope.dataStatus			= '';
 				$scope.prioridade			= '';
 				
-				$scope.con2021Ident			= '';
+				$scope.conIndent			= '';
 				$scope.con2021n				= '';
 				$scope.con2022n				= '';
-				$scope.con2022Local			= '';
+				$scope.conLocal				= '';
 				$scope.dataAtu				= '';
 				$scope.potVolAg				= '';
 				$scope.ultVendaTabdin		= '';
@@ -1182,10 +1182,10 @@ angular
 				$scope.pedNumped			= docs.pedNumped;
 				$scope.desagr				= docs.desagr;
 				$scope.prioridade			= docs.prioridade;
-				$scope.con2021Ident			= docs.con2021Ident;
+				$scope.conIndent			= docs.conIndent;
 				$scope.con2021n				= docs.con2021n;
 				$scope.con2022n				= docs.con2022n;
-				$scope.con2022Local			= docs.con2022Local;
+				$scope.conLocal				= docs.conLocal;
 
 				$scope.dataAtu				= docs.dataAtu;
 				$scope.potVolAg				= docs.potVolAg;
@@ -1452,10 +1452,10 @@ angular
 				pedDatEmi			: $scope.pedDatEmi,
 				desagr				: $scope.desagr,
 				prioridade			: $scope.prioridade,
-				con2021Ident		: $scope.con2021Ident,
+				conIndent			: $scope.conIndent,
 				con2021n			: $scope.con2021n,
 				con2022n			: $scope.con2022n,
-				con2022Local		: $scope.con2022Local,
+				conLocal			: $scope.conLocal,
 				dataAtu				: $scope.dataAtu,
 				potVolAg			: $scope.potVolAg,
 				ultVendaTabdin  	: $scope.ultVendaTabdin,
@@ -1744,7 +1744,7 @@ angular
 
 			defPD = {	'jsonDocs[0].numPedidoClic'			:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  		width:''	},
 						'jsonDocs[0].pedNumped'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
-						'jsonDocs[0].produtos.situacao.nome':	{i:2, vsbl: true,	tlt: 'Status Amostra',	width:''	},
+						'jsonDocs[0].produtos.situacao.nome':	{i:2, vsbl: true,	tlt: 'Situação Amostra',width:''	},
 						'jsonDocs[0].cliente.nome'			:	{i:3, vsbl: true,	tlt: 'Cliente',			width:''	},
 						'jsonDocs[0].vendedor.nome'			:	{i:4, vsbl: true,	tlt: 'Vendedor',		width:''	},
 						'jsonDocs[0].produtos.descricao'    :	{i:5, vsbl: true,	tlt: 'Produto',			width:''	},
@@ -1906,10 +1906,10 @@ angular
 						'jsonDocs[0].produtos.consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:'130px'	},
 						'jsonDocs[0].prioridade.nome'				:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoAg'      		:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:'130px'	},
-						'jsonDocs[0].con2021Ident'     				:	{i:25, vsbl: true,	tlt: 'Con. 2021 ident',			width:'130px'	},
+						'jsonDocs[0].conIndent'     				:	{i:25, vsbl: true,	tlt: 'Con. indent',				width:'130px'	},
 						'jsonDocs[0].con2021n'      				:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:'130px'	},
 						'jsonDocs[0].con2022n'      				:	{i:27, vsbl: true,	tlt: 'Con. 2022(em nº)',		width:'130px'	},
-						'jsonDocs[0].con2022Local'    				:	{i:28, vsbl: true,	tlt: 'Con. 2022 local',			width:'130px'	},
+						'jsonDocs[0].conLocal'    					:	{i:28, vsbl: true,	tlt: 'Con. local',				width:'130px'	},
 						'jsonDocs[0].produtos.probFechamento'  		:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:'130px'	},
 						'jsonDocs[0].produtos.concorrencia'    		:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:'130px'	},
 						'jsonDocs[0].produtos.acoes'	 			:	{i:31, vsbl: true,	tlt: 'Ações',					width:'130px'	},
@@ -2053,7 +2053,7 @@ angular
 
 		};
 
-		console.log("teste3")
+		console.log("teste4")
 			
 	});
 </script> 
