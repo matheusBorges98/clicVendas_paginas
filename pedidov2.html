@@ -272,10 +272,10 @@
 										<label for="anoFat">Ano Faturamento</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoFat" id="anoFat" >
 									</div>
-									<div class="col-sm-3 spacer ">
+									<!-- <div class="col-sm-3 spacer ">
 										<label for="responsavel">Responsável</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="responsavel" id="responsavel">
-									</div>
+									</div> -->
 									<div class="col-sm-2 spacer ">
 										<label for="projeto">Projeto</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
@@ -444,10 +444,10 @@
 										<label for="projeto">Projeto</label>
 										<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 									</div>
-									<div class="col-sm-2 spacer ">
+									<!-- <div class="col-sm-2 spacer ">
 										<label for="responsavel">Responsável</label>
 										<input type="text" class="form-control spacer-input" ng-model="responsavel" id="responsavel" >
-									</div>
+									</div> -->
 									<div class="col-sm-2 spacer">
 										<label for="prioridade">Prioridade</label>
 										<input type="text" class="form-control spacer-input" ng-model="prioridade" id="prioridade" uib-typeahead="(prioridades.nome) for prioridades in getPrioridades($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectPrioridade($item, $model, $label)">
@@ -812,6 +812,7 @@ angular
 					id: 4
 				},
 				{
+					nome:"OUTROS",
 					id: 5
 				}
 			];
@@ -949,7 +950,7 @@ angular
 								pedidosGravadosERP[k].jsonDocs[0].produtos.justificativa			= dadosAtualizados[0].produto[0].ipdObsAmo;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaData				= dadosAtualizados[0].produto[0].ofrDatEmi;
 								
-								pedidosGravadosERP[k].jsonDocs[0].produtos.responsavel				= dadosAtualizados[0].produto[0].proResFor;
+								// pedidosGravadosERP[k].jsonDocs[0].produtos.responsavel				= dadosAtualizados[0].produto[0].proResFor;
 								
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.potencial0XCM			= dadosAtualizados[0].produto[0].
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.chaveCp				= dadosAtualizados[0].produto[0].
@@ -1118,7 +1119,7 @@ angular
 				/*Documento*/
 				$scope.chave 				= '';
 				$scope.anoFat 		    	= '';
-				$scope.responsavel			= '';
+				// $scope.responsavel			= '';
 				$scope.projeto				= '';				
 				$scope.uf					= '';
 				$scope.vendedor				= {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
@@ -1212,7 +1213,7 @@ angular
 				}else{
 					/*Informações sobre o produto*/
 					$rootScope.produtos			= docs.produtos;
-					$scope.responsavel			= docs.produtos.responsavel;
+					// $scope.responsavel			= docs.produtos.responsavel;
 					$scope.cluster				= docs.produtos.cluster;
 					$scope.quantidade			= docs.produtos.quantidade;
 					$scope.codigoProduto		= docs.produtos.codigoProduto;
@@ -1268,7 +1269,7 @@ angular
 					codExterno			: $item.produto.codExterno,//$scope.codExterno,
 					/*Grava durante a edição  do pedido*/
 					cluster				: $scope.cluster,
-					responsavel			: $scope.responsavel,
+					// responsavel			: $scope.responsavel,
 					//situacao			: {nome:"Em digitação", send:"EM_DIGITACAO"},//$scope.situacao,
 					ofertaUnit			: $scope.ofertaUnit,
 					dataStatus			: $scope.dataStatus,
@@ -1374,12 +1375,12 @@ angular
 
 		}
 
-		$scope.atualizaProdutosPedido = async () => {
-			/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
-			for(i = 0; i < $scope.documentosClic.length; i++){
-				await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
-			}
-		}
+		// $scope.atualizaProdutosPedido = async () => {
+		// 	/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
+		// 	for(i = 0; i < $scope.documentosClic.length; i++){
+		// 		await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
+		// 	}
+		// }
 
 		$scope.salvarDocumento = async (rotina, situacao) => {
 			/*
@@ -1441,7 +1442,7 @@ angular
 			jsonDocs = [{
 				chave 				: $scope.chave,
 				anoFat	  			: $scope.anoFat,
-				responsavel			: $scope.responsavel,
+				// responsavel			: $scope.responsavel,
 				projeto     		: $scope.projeto,
 				uf 					: $scope.uf,
 				vendedor			: $scope.usuarioAprovador ? $scope.vendedor : {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
@@ -1543,7 +1544,7 @@ angular
 						json[0].produtos.venda			= $scope.venda,
 						json[0].produtos.vendaLocalKg	= $scope.vendaLocalKg,
 						json[0].produtos.totalFatUSD	= $scope.totalFatUSD,
-						json[0].produtos.responsavel	= $scope.responsavel,
+						// json[0].produtos.responsavel	= $scope.responsavel,
 						json[0].produtos.margemR		= $scope.margemR,
 						json[0].produtos.preUSD			= $scope.preUSD,
 						json[0].produtos.ofertaData		= $scope.ofertaData,
@@ -1592,7 +1593,7 @@ angular
 
 			}else{
 				if($scope.novoProdutoAdicionado && id > 0){
-					await atualizaProdutosPedido()
+					await $scope.atualizaProdutosPedido()
 				}
 
 				for(i = 0; i < $rootScope.produtos.length; i++){
@@ -1885,7 +1886,7 @@ angular
 			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  				width:'130px'	},
 						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Nº Pedido ERP',			width:'130px'},
 						'jsonDocs[0].produtos.situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Situação',				width:'130px'	},
-						'jsonDocs[0].responsavel'					:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:'130px'},
+						// 'jsonDocs[0].responsavel'					:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:'130px'},
 						'jsonDocs[0].produtos.descricao'			:	{i:4,  vsbl: true,	tlt: 'Produto',					width:'130px'},
 						'jsonDocs[0].produtos.codExterno'    		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'},
 						'jsonDocs[0].cliente.nome'					:	{i:6,  vsbl: true,	tlt: 'Nome Cliente',			width:'350px'},
@@ -2052,7 +2053,7 @@ angular
 
 		};
 
-		console.log("teste2")
+		console.log("teste3")
 			
 	});
 </script> 
