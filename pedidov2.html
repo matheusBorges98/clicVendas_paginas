@@ -1519,7 +1519,7 @@ angular
 					json[0].sincronizado    	= "DOCUMENTO_SINCRONIZADO";
 					json[0].pedDatEmi			= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
 					json[0].pedNumped			= $rootScope.documentoERP;
-					json[0].produtos.situacao	= {nome:"Integrado", send:situacao} 
+					//json[0].produtos.situacao	= {nome:"Integrado", send:situacao} 
 				}else{
 					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
 					json[0].pedNumped	 = 0;
@@ -1542,7 +1542,7 @@ angular
 						json[0].produtos.potencial0XCM 	= $scope.potencial0XCM;
 						json[0].produtos.consumoAg		= $scope.consumoAg;
 						json[0].produtos.cluster		= $scope.cluster,
-						//json[0].produtos.situacao		= $scope.situacao,
+						json[0].produtos.situacao		= $scope.situacao,
 						json[0].produtos.ofertaUnit		= $scope.ofertaUnit,
 						json[0].produtos.dataStatus		= $scope.dataStatus,
 						json[0].produtos.justificativa	= $scope.justificativa,
@@ -2061,7 +2061,7 @@ angular
 
 		};
 
-		console.log("teste4")
+		console.log("teste1")
 			
 	});
 </script> 
