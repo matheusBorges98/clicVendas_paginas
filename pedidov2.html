@@ -698,10 +698,13 @@ angular
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Prospecção ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Prospecção Nº "+$dados.jsonDocs[0].numPedidoClic;
 					
-					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO" || $dados.jsonDocs[0].produtos.situacao.send === "EM_REVISAO"){
+					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO"){
 						$scope.inputDesabilitado  = false;
 						$scope.permiteEditar	  = true;
 
+					}else if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send === "EM_REVISAO"){
+						$scope.inputDesabilitado  = true;
+						$scope.permiteEditar	  = true;
 					}else{
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
@@ -1729,7 +1732,7 @@ angular
 					enabled: dadosUserLogado.rTipoId != 3,
 					text: 'Novo',
 					key: '1',
-					className: 'btn_grid btn_cor_padrao',
+					className: dadosUserLogado.rTipoId != 3 ? 'btn_grid btn_cor_padrao' : 'btn_grid btn_cor_disabled',
 					action: function (e, dt, node, config) {									
 						$scope.abreFormulario();					
 					}
@@ -1746,7 +1749,7 @@ angular
 					enabled: dadosUserLogado.rTipoId === 3,
 					text: 'Tabela Completa',
 					key: '3',
-					className: 'btn_grid btn_cor_padrao',
+					className: dadosUserLogado.rTipoId === 3 ? 'btn_grid btn_cor_padrao' : 'btn_grid btn_cor_disabled',
 					action: function () {									
 						$scope.mostraTabelaCompleta();					
 					}
@@ -1871,7 +1874,7 @@ angular
 					enabled: dadosUserLogado.rTipoId != 3,
 					text: 'Novo',
 					key: '1',
-					className: 'btn_grid btn_cor_padrao',
+					className: dadosUserLogado.rTipoId != 3 ? 'btn_grid btn_cor_padrao' : 'btn_grid btn_cor_disabled',
 					action: function (e, dt, node, config) {									
 						$scope.abreFormulario();					
 					}
@@ -2073,7 +2076,7 @@ angular
 
 		};
 
-		console.log("teste3")
+		console.log("teste4")
 			
 	});
 </script> 
@@ -2086,6 +2089,11 @@ angular
 
 :root {
 		--cor_principal: #1a6c95;
+	}
+
+	.btn_cor_disabled {
+		background-color: #C0C0C0  !important;
+		border-color: #A9A9A9 !important;
 	}
 
 	ul{
