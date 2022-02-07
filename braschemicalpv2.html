@@ -698,10 +698,13 @@ angular
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Prospecção ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Prospecção Nº "+$dados.jsonDocs[0].numPedidoClic;
 					
-					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO" || $dados.jsonDocs[0].produtos.situacao.send === "EM_REVISAO"){
+					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send === "EM_DIGITACAO"){
 						$scope.inputDesabilitado  = false;
 						$scope.permiteEditar	  = true;
 
+					}else if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send === "EM_REVISAO"){
+						$scope.inputDesabilitado  = true;
+						$scope.permiteEditar	  = true;
 					}else{
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
@@ -1194,8 +1197,8 @@ angular
 				$scope.ultVendaTabdin		= docs.produtos.ultVendaTabdin;
 				$scope.primVendaTabdin		= docs.produtos.primVendaTabdin;
 				$scope.anoPrimVenda			= docs.anoPrimVenda;
-				$scope.statusAcao			= docs.statusAcao;
-				$scope.acoes				= docs.acoes;
+				// $scope.statusAcao			= docs.statusAcao;
+				// $scope.acoes				= docs.acoes;
 
 				/*Historico*/
 				$scope.obsOportunidade		= '';
@@ -1243,7 +1246,7 @@ angular
 					$scope.precoConc			= docs.produtos.precoConc;
 					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
 					$scope.statusAcao			= docs.produtos.statusAcao;
-					$scope.acoes				= docs.produtos.acao;
+					$scope.acoes				= docs.produtos.acoes;
 
 					$scope.consultaDocumento($rootScope.hashDoc);
 				}
@@ -1487,7 +1490,7 @@ angular
 			/*Recebe dados e para que sejam feitas as alterações necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
 
-			let amostrasPedido  = $scope.usuarioAprovador ? json[0].produtos : json[0].produtos[0];
+			let amostrasPedido  = $scope.usuarioAprovador || $scope.situacao && $scope.situacao.send == 'AM_INTEGRADA' ? json[0].produtos : json[0].produtos[0];
 
 			console.log(amostrasPedido)
 			
@@ -1519,11 +1522,9 @@ angular
 					json[0].sincronizado    	= "DOCUMENTO_SINCRONIZADO";
 					json[0].pedDatEmi			= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
 					json[0].pedNumped			= $rootScope.documentoERP;
-					//json[0].produtos.situacao	= {nome:"Integrado", send:situacao} 
 				}else{
 					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
 					json[0].pedNumped	 = 0;
-					//json[0].situacao	 = {nome:"Integrado", send:situacao} 
 				}
 
 			};
@@ -1532,33 +1533,29 @@ angular
 			//if(id > 0){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
-				for(j = 0; j < $rootScope.docsToEdit.length; j++){
-										
+				for(j = 0; j < $rootScope.docsToEdit.length; j++){						
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 
-					if(rotina == 2){
-						json[0].produtos.situacao		= rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
-					}else{
-						switch(situacao){
-							case 'EM_DIGITACAO':
-								json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
-								break;
-							
-							case 'EM_ANALISE':
-								json[0].produtos.situacao = {nome:"Em análise", send:situacao}
-								break;
-							
-							case 'EM_REVISAO':
-								json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
-								break;
-								
-							case 'AM_FECHADA':
-								json[0].produtos.situacao = {nome:"Fechado", send:situacao}
-								break;
-						}
+					if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
+						json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
 					}
-					
+						
+					// }
 
+					// if($scope.usuarioAprovador){
+					// 	json[0].produtos.situacao = amostrasPedido.situacao;
+					// }
+					
+					
+				
+					// if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
+					// 	json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
+					// }else if($scope.usuarioAprovador && json[0].produtos.situacao.send != 'EM_ANALISE'){
+						
+					// }else{
+					// 	json[0].produtos.situacao = amostrasPedido.situacao
+					// }
+					
 					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
 					if(json[0].produtos.codigoProduto == $scope.codigoProduto){
 						
@@ -1585,7 +1582,25 @@ angular
 						json[0].produtos.precoConc		= $scope.precoConc,
 						json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo
 						json[0].produtos.acoes			= $scope.acoes,
-						json[0].produtos.statusAcao		= $scope.statusAcao	
+						json[0].produtos.statusAcao		= $scope.statusAcao
+
+						switch(situacao){
+							case 'EM_DIGITACAO':
+								json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
+								break;
+							
+							case 'EM_ANALISE':
+								json[0].produtos.situacao = {nome:"Em análise", send:situacao}
+								break;
+							
+							case 'EM_REVISAO':
+								json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
+								break;
+								
+							case 'AM_FECHADA':
+								json[0].produtos.situacao = {nome:"Fechado", send:situacao}
+								break;
+						}
 
 					}
 					
@@ -1717,7 +1732,7 @@ angular
 					enabled: dadosUserLogado.rTipoId != 3,
 					text: 'Novo',
 					key: '1',
-					className: 'btn_grid btn_cor_padrao',
+					className: dadosUserLogado.rTipoId != 3 ? 'btn_grid btn_cor_padrao' : 'btn_grid btn_cor_disabled',
 					action: function (e, dt, node, config) {									
 						$scope.abreFormulario();					
 					}
@@ -1734,7 +1749,7 @@ angular
 					enabled: dadosUserLogado.rTipoId === 3,
 					text: 'Tabela Completa',
 					key: '3',
-					className: 'btn_grid btn_cor_padrao',
+					className: dadosUserLogado.rTipoId === 3 ? 'btn_grid btn_cor_padrao' : 'btn_grid btn_cor_disabled',
 					action: function () {									
 						$scope.mostraTabelaCompleta();					
 					}
@@ -1859,7 +1874,7 @@ angular
 					enabled: dadosUserLogado.rTipoId != 3,
 					text: 'Novo',
 					key: '1',
-					className: 'btn_grid btn_cor_padrao',
+					className: dadosUserLogado.rTipoId != 3 ? 'btn_grid btn_cor_padrao' : 'btn_grid btn_cor_disabled',
 					action: function (e, dt, node, config) {									
 						$scope.abreFormulario();					
 					}
@@ -2074,6 +2089,11 @@ angular
 
 :root {
 		--cor_principal: #1a6c95;
+	}
+
+	.btn_cor_disabled {
+		background-color: #C0C0C0  !important;
+		border-color: #A9A9A9 !important;
 	}
 
 	ul{
