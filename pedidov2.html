@@ -1484,6 +1484,10 @@ angular
 			dados.jsonDocs 		= JSON.stringify(jsonDocs);
 			/*Recebe dados e para que sejam feitas as alterações necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
+
+			let amostrasPedido  = json[0].produtos;
+
+			console.log(amostrasPediddo)
 			
 			if(rotina == 2){
 				/*Faz o envio dos produtos como um array para o ERP*/
@@ -1520,7 +1524,7 @@ angular
 
 			};
 	
-			if(id > 0 && json[0].produtos[0].situacao.send != "EM_DIGITACAO"){
+			if(id > 0 && amostrasPedido.situacao.send != "EM_DIGITACAO"){
 			//if(id > 0){
 				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
