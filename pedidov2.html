@@ -1536,13 +1536,15 @@ angular
 										
 					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 
+					json[0].produtos.situacao		= rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
+
 					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
 					if(json[0].produtos.codigoProduto == $scope.codigoProduto){
 						
 						json[0].produtos.potencial0XCM 	= $scope.potencial0XCM;
 						json[0].produtos.consumoAg		= $scope.consumoAg;
 						json[0].produtos.cluster		= $scope.cluster,
-						json[0].produtos.situacao		= rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
+						//json[0].produtos.situacao		= rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : $scope.situacao
 						json[0].produtos.ofertaUnit		= $scope.ofertaUnit,
 						json[0].produtos.dataStatus		= $scope.dataStatus,
 						json[0].produtos.justificativa	= $scope.justificativa,
@@ -2063,7 +2065,7 @@ angular
 
 		};
 
-		console.log("teste4")
+		console.log("teste5")
 			
 	});
 </script> 
