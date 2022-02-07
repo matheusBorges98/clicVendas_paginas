@@ -1541,19 +1541,19 @@ angular
 					}else{
 						switch(situacao){
 							case 'EM_DIGITACAO':
-								$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
+								json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
 								break;
 							
 							case 'EM_ANALISE':
-								$rootScope.produtos[i].situacao = {nome:"Em análise", send:situacao}
+								json[0].produtos.situacao = {nome:"Em análise", send:situacao}
 								break;
 							
 							case 'EM_REVISAO':
-								$rootScope.produtos[i].situacao = {nome:"Em revisão", send:situacao}
+								json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
 								break;
 								
 							case 'AM_FECHADA':
-								$rootScope.produtos[i].situacao = {nome:"Fechado", send:situacao}
+								json[0].produtos.situacao = {nome:"Fechado", send:situacao}
 								break;
 						}
 					}
@@ -2061,7 +2061,7 @@ angular
 
 		};
 
-		console.log("teste2")
+		console.log("teste3")
 			
 	});
 </script> 
