@@ -689,6 +689,9 @@ angular
 			return listAllDocs;
 		};
 
+
+		console.log("teste1")
+
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
 
@@ -701,7 +704,7 @@ angular
 					$scope.inputDesabilitado  = false;
 					$scope.permiteEditar	  = true;
 					
-					$scope.$apply();
+					$scope.$applyAsync();
 
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Prospecção ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Prospecção Nº "+$dados.jsonDocs[0].numPedidoClic;
@@ -1030,7 +1033,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431//41943; //17431/*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 41943//41943; //17431/*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
