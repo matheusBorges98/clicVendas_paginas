@@ -653,7 +653,7 @@ angular
 		$rootScope.isLoading 		= false;
 		
 		/* Inicializa filtros */
-		$scope.filStatusSituacao		= "";
+		$scope.filStatusSituacao		= {nome:"", send:""};
 		$scope.filSegmento				= "";
 		$scope.filDataEmissao 			= "";
 		$scope.filCliente 				= "";
@@ -1652,7 +1652,7 @@ angular
 		};
 
 		$scope.limparFiltros = () =>{
-			$scope.filStatusSituacao	= '';
+			$scope.filStatusSituacao	= {nome:"", send:""};
 			$scope.filCliente 			= '';
 			//$scope.filStatusAmostra		= '';
 			$scope.filPrioridade		= '';
@@ -1695,7 +1695,7 @@ angular
 								fil4: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rNome : "",/*Lista pedidos apenas do representante que o fez*/
 								fil5: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rId : "",/*Lista pedidos apenas do representante que o fez*/
 								fil6: $scope.filDataEmissao,
-								fil7: $scope.filStatusSituacao,
+								fil7: $scope.filStatusSituacao.send,
 								fil8: $scope.filSegmento,
 								fil9: $scope.filSincronizado.send,
 								fil10: $scope.filPrioridade,
@@ -1842,7 +1842,7 @@ angular
 								fil4: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rNome : "",/*Lista pedidos apenas do representante que o fez*/
 								fil5: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rId : "",/*Lista pedidos apenas do representante que o fez*/
 								fil6: $scope.filDataEmissao,
-								fil7: $scope.filStatusSituacao,
+								fil7: $scope.filStatusSituacao.send,
 								fil8: $scope.filSegmento,
 								fil9: $scope.filSincronizado.send,
 								fil10: $scope.filPrioridade,
@@ -2088,7 +2088,7 @@ angular
 
 		};
 
-		console.log("teste4")
+		console.log("teste5")
 			
 	});
 </script> 
