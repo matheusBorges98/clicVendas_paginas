@@ -689,6 +689,8 @@ angular
 			return listAllDocs;
 		};
 
+		console.log("teste")
+
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
 
@@ -701,7 +703,7 @@ angular
 					$scope.inputDesabilitado  = false;
 					$scope.permiteEditar	  = true;
 					
-					$scope.$apply();
+					$scope.$applyAsync();
 
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Prospecção ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Prospecção Nº "+$dados.jsonDocs[0].numPedidoClic;
