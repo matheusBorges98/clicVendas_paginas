@@ -38,6 +38,11 @@
 						<label for="filFornecedores">Pesquisar</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input"  id="filPesquisaGeral" ng-model="filPesquisaGeral" autocomplete="off" aria-describedby=" " placeholder="Digite a palavra chave. Ex: '123'">
 					</div>
+
+					<div class="form-group">
+						<label for="filCliente">Status Situação</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filStatusSituacao" ng-model="filStatusSituacao" aria-describedby=" " placeholder=" ">
+					</div>
 					
 					<div class="form-group">
 						<label for="filCliente">Cliente</label>
@@ -644,10 +649,11 @@ angular
 		$rootScope.isLoading 		= false;
 		
 		/* Inicializa filtros */
+		$scope.filStatusSituacao		= "";
 		$scope.filSegmento				= "";
 		$scope.filDataEmissao 			= "";
 		$scope.filCliente 				= "";
-		$scope.filStatusAmostra			= "";
+		//$scope.filStatusAmostra			= "";
 		$scope.filPrioridade			= "";
 		$scope.filProduto				= "";
 		$scope.filSincronizado			= {nome:"", send:""};
@@ -744,7 +750,7 @@ angular
 			$scope.filSincronizado	= $item;
 		};
 
-		$scope.getSituacaoAmostra = () => {
+		$scope.getStatusSituacaoAmostra = () => {
 			$scope.listaSituacaoAmostra = [
 				{
 					nome:'Em digitação',
@@ -760,17 +766,17 @@ angular
 				},
 				{
 					nome:'Integrado',
-					send:'STATUS_INTEGRADO'
+					send:'AM_INTEGRADA'
 				},
 				{
 					nome:'Fechada',
-					send:'STATUS_FECHADA'
+					send:'AM_FECHADA'
 				}
 			];
 			return $scope.listaSituacaoAmostra;
 		};
 
-		$scope.onSelectSituacaoAmostra = ($item, $model, $label) => {
+		$scope.onSelectStatusSituacaoAmostra = ($item, $model, $label) => {
 			$scope.situacao 	= $item;
 		};
 
@@ -1642,8 +1648,9 @@ angular
 		};
 
 		$scope.limparFiltros = () =>{
+			$scope.filStatusSituacao	= '';
 			$scope.filCliente 			= '';
-			$scope.filStatusAmostra		= '';
+			//$scope.filStatusAmostra		= '';
 			$scope.filPrioridade		= '';
 			$scope.filProduto			= '';
 			$scope.filSegmento			= '';
@@ -1656,8 +1663,9 @@ angular
 		};
 
 		$scope.aplicarFiltros = (valor) => {
+			$scope.filStatusSituacao	= $scope.filStatusSituacao;
 			$scope.filCliente 			= $scope.filCliente; 	
-			$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
+			//$scope.filStatusAmostra 	= $scope.filStatusAmostra; 		
 			$scope.filPrioridade 		= $scope.filPrioridade; 
 			$scope.filProduto 			= $scope.filProduto; 		
 			$scope.filDataEmissao 		= $scope.filDataEmissao == "" ? ""  : $scope.filDataEmissao.substr(0,2) + "/" + $scope.filDataEmissao.substr(2,2)+ "/" + $scope.filDataEmissao.substr(4,7)+ " EMI";	
@@ -1683,7 +1691,7 @@ angular
 								fil4: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rNome : "",/*Lista pedidos apenas do representante que o fez*/
 								fil5: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rId : "",/*Lista pedidos apenas do representante que o fez*/
 								fil6: $scope.filDataEmissao,
-								fil7: $scope.filStatusAmostra,
+								fil7: $scope.filStatusSituacao,
 								fil8: $scope.filSegmento,
 								fil9: $scope.filSincronizado.send,
 								fil10: $scope.filPrioridade,
@@ -1830,7 +1838,7 @@ angular
 								fil4: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rNome : "",/*Lista pedidos apenas do representante que o fez*/
 								fil5: dadosUserLogado.rTipoId != 3 ? dadosUserLogado.rId : "",/*Lista pedidos apenas do representante que o fez*/
 								fil6: $scope.filDataEmissao,
-								fil7: $scope.filStatusAmostra,
+								fil7: $scope.filStatusSituacao,
 								fil8: $scope.filSegmento,
 								fil9: $scope.filSincronizado.send,
 								fil10: $scope.filPrioridade,
