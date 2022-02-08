@@ -869,7 +869,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE 1")
+		console.log("TESTE 2")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1493,7 +1493,7 @@ angular
 			/*Recebe dados e para que sejam feitas as alterações necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
 
-			let amostrasPedido  = $scope.usuarioAprovador || $scope.situacao && $scope.situacao.send == 'AM_INTEGRADA' ? json[0].produtos : json[0].produtos[0];
+			let amostrasPedido  = $scope.situacao && $scope.situacao.send == 'AM_INTEGRADA' ? json[0].produtos : json[0].produtos[0];
 
 			if(rotina == 2){
 				/*Faz o envio dos produtos como um array para o ERP*/
