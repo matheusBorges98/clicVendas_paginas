@@ -40,8 +40,8 @@
 					</div>
 
 					<div class="form-group">
-						<label for="filCliente">Status Situação</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filStatusSituacao" ng-model="filStatusSituacao" aria-describedby=" " placeholder=" ">
+						<label for="filStatusSituacao">Status Situação</label>
+						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filStatusSituacao" ng-model="filStatusSituacao" aria-describedby=" " placeholder=" " uib-typeahead="(status.nome) for status in getStatusSituacaoAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectStatusSituacaoAmostra($item, $model, $label)">
 					</div>
 					
 					<div class="form-group">
@@ -777,7 +777,7 @@ angular
 		};
 
 		$scope.onSelectStatusSituacaoAmostra = ($item, $model, $label) => {
-			$scope.situacao 	= $item;
+			$scope.filStatusSituacao = $item;
 		};
 
 		$scope.getPrioridades = () => {
