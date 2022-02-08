@@ -271,22 +271,22 @@
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane" id="docEdit-info-projeto">
 
-							<div class="form-row ">
+							<!-- <div class="form-row ">
 								<div class="form-group col-md-12" >
 									<div class="col-sm-2 spacer hidden">
 										<label for="anoFat">Ano Faturamento</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoFat" id="anoFat" >
-									</div>
+									</div> -->
 									<!-- <div class="col-sm-3 spacer ">
 										<label for="responsavel">Responsável</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="responsavel" id="responsavel">
 									</div> -->
-									<div class="col-sm-2 spacer ">
+									<!-- <div class="col-sm-2 spacer ">
 										<label for="projeto">Projeto</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 									</div>
 								</div>
-							</div>
+							</div> -->
 				
 							<div class="form-row " >
 								<div class="form-group col-md-12">
@@ -319,6 +319,10 @@
 									<div class="col-sm-3 spacer ">
 										<label for="bu">BU</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="bu" id="bu">
+									</div>
+									<div class="col-sm-2 spacer ">
+										<label for="projeto">Projeto</label>
+										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 									</div>
 								</div>
 							</div>
