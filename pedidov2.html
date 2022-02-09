@@ -975,7 +975,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE1")
+		console.log("teste2")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1654,7 +1654,7 @@ angular
 					}
 
 				};
-		
+				console.log(amostrasPedido.situacao, "VARIAVEL")
 				if(id > 0 && amostrasPedido.situacao.send != "EM_DIGITACAO"){
 				//if(id > 0){
 					$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
@@ -1668,7 +1668,6 @@ angular
 							json[0].produtos.situacao = {nome:"Fechado", send:"AM_FECHADA"}
 						}
 							
-						
 						/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
 						if(json[0].produtos.codigoProduto == $scope.codigoProduto){
 							
@@ -1732,6 +1731,8 @@ angular
 					$scope.geraNotificacao($scope.messageNotific, 1200, "success");
 
 				}else{
+					console.log(amostrasPedido.situacao, "VARIAVEL")
+
 					if($scope.novoProdutoAdicionado && id > 0){
 						await $scope.atualizaProdutosPedido()
 					}
