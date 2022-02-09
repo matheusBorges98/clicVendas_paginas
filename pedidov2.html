@@ -975,7 +975,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("teste2")
+		console.log("teste3")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1321,7 +1321,7 @@ angular
 				$scope.sincronizado			= docs.sincronizado;
 
 				/*Valida situação e aplica regra - Agrupa produtos pelo mesmo hashCode*/
-				if(docs.produtos.situacao && (docs.produtos.situacao.send != "AM_INTEGRADA")){
+				if(docs.produtos.situacao && (docs.produtos.situacao.send != "AM_INTEGRADA" || docs.produtos.situacao.send != "AM_FECHADA")){
 					$scope.documentosClic		= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 					$rootScope.produtos			= $scope.agruparProdutos($scope.documentosClic);
 
