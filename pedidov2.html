@@ -975,7 +975,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("teste3")
+		console.log("teste5")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1656,7 +1656,7 @@ angular
 
 				};
 				console.log(amostrasPedido.situacao, "VARIAVEL")
-				if(id > 0 && amostrasPedido.situacao.send != "EM_DIGITACAO"){
+				if(id > 0 && (amostrasPedido.situacao.send === "AM_FINALIZADA" ||  amostrasPedido.situacao.send === "AM_INTEGRADA")){
 				//if(id > 0){
 					$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
@@ -1730,7 +1730,7 @@ angular
 				}else{
 					console.log(amostrasPedido.situacao, "VARIAVEL")
 
-					if($scope.novoProdutoAdicionado && id > 0){
+					if($scope.novoProdutoAdicionado || id > 0){
 						await $scope.atualizaProdutosPedido()
 					}
 
@@ -1832,7 +1832,9 @@ angular
 								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
 							}
 
-							$scope.consultaPedidosERP($rootScope.dadosGrid);
+							if(!$scope.usuarioAprovador){
+								$scope.consultaPedidosERP($rootScope.dadosGrid);
+							}
 
 						}	
 
@@ -1980,7 +1982,9 @@ angular
 								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
 							}
 
-							$scope.consultaPedidosERP($rootScope.dadosGrid);
+							if(!$scope.usuarioAprovador){
+								$scope.consultaPedidosERP($rootScope.dadosGrid);
+							}
 						};			
 						
 						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
