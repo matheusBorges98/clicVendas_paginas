@@ -975,7 +975,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE3")
+		console.log("TESTE1")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1700,6 +1700,9 @@ angular
 							json[0].produtos.anoAmostra			= $scope.anoAmostra,
 							json[0].produtos.trimestreAmostra	= $scope.trimestreAmostra
 
+							console.log(amostrasPedido.situacao, "VARIAVEL")
+							console.log(json[0].produtos.situacao.send, "A")
+							
 							if(json[0].produtos.situacao.send != 'AM_INTEGRADA' || json[0].produtos.situacao.send != 'AM_FECHADA'){
 								switch(situacao){
 									case 'EM_DIGITACAO':
