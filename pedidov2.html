@@ -473,11 +473,11 @@
 									</div> -->
 									<div class="col-sm-2 spacer">
 										<label for="prioridade">Ano</label>
-										<input type="text" class="form-control spacer-input" ng-model="anoAmosta" id="anoAmosta" uib-typeahead="(ano.nome) for ano in getAnoAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectAnoAmostra($item, $model, $label)">
+										<input type="text" class="form-control spacer-input" ng-value="anoAmostra.nome" ng-model="anoAmosta" id="anoAmosta" uib-typeahead="(ano.nome) for ano in getAnoAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectAnoAmostra($item, $model, $label)">
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="prioridade">Trimestre</label>
-										<input type="text" class="form-control spacer-input" ng-model="trimestreAmostra" id="trimestreAmostra" uib-typeahead="(trimestre.nome) for trimestre in getTrimestreAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectTrimestreAmostra($item, $model, $label)">
+										<input type="text" class="form-control spacer-input" ng-value="trimestreAmostra.nome" ng-model="trimestreAmostra" id="trimestreAmostra" uib-typeahead="(trimestre.nome) for trimestre in getTrimestreAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectTrimestreAmostra($item, $model, $label)">
 									</div>				  
 									<div class="col-sm-2 spacer">
 										<label for="potencial">Potencial</label>
@@ -971,7 +971,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE4")
+		console.log("TESTE5")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1354,6 +1354,8 @@ angular
 					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
 
 					$scope.situacaoAmostra		= docs.produtos.situacaoAmostra;
+					$scope.anoAmostra			= docs.produtos.anoAmostra;
+					$scope.trimestreAmostra		= docs.produtos.trimestreAmostra;
 					// $scope.statusAcao			= docs.produtos.statusAcao;
 					// $scope.acoes				= docs.produtos.acoes;
 
@@ -1569,6 +1571,8 @@ angular
 					chave 				: $scope.chave,
 					anoFat	  			: $scope.anoFat,
 					// responsavel			: $scope.responsavel,
+					// anoAmostra			: $scope.anoAmostra, //
+					// trimestreAmostra	: $scope.trimestreAmostra, //
 					projeto     		: $scope.projeto,
 					uf 					: $scope.uf,
 					vendedor			: $scope.usuarioAprovador ? $scope.vendedor : {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
@@ -1674,7 +1678,6 @@ angular
 							json[0].produtos.venda			= $scope.venda,
 							json[0].produtos.vendaLocalKg	= $scope.vendaLocalKg,
 							json[0].produtos.totalFatUSD	= $scope.totalFatUSD,
-							// json[0].produtos.responsavel	= $scope.responsavel,
 							json[0].produtos.margemR		= $scope.margemR,
 							json[0].produtos.preUSD			= $scope.preUSD,
 							json[0].produtos.ofertaData		= $scope.ofertaData,
@@ -1686,7 +1689,10 @@ angular
 							json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo
 							json[0].produtos.acoes			= $scope.acoes,
 							json[0].produtos.statusAcao		= $scope.statusAcao,
-							json[0].produtos.situacaoAmostra= $scope.situacaoAmostra
+							json[0].produtos.situacaoAmostra= $scope.situacaoAmostra,
+
+							json[0].produtos.anoAmostra			= $scope.anoAmostra,
+							json[0].produtos.trimestreAmostra	= $scope.trimestreAmostra
 
 							if(json[0].produtos.situacao.send != 'AM_INTEGRADA'){
 								switch(situacao){
