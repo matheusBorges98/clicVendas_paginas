@@ -975,7 +975,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("teste5")
+		console.log("teste1")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1730,7 +1730,7 @@ angular
 				}else{
 					console.log(amostrasPedido.situacao, "VARIAVEL")
 
-					if($scope.novoProdutoAdicionado || id > 0){
+					if(($scope.novoProdutoAdicionado || id > 0) && amostrasPedido.situacao.send !=="AM_FECHADA"){
 						await $scope.atualizaProdutosPedido()
 					}
 
