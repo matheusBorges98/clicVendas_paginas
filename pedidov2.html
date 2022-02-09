@@ -975,7 +975,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("teste1")
+		console.log("teste2")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1702,8 +1702,8 @@ angular
 
 							console.log(amostrasPedido.situacao, "VARIAVEL")
 							console.log(json[0].produtos.situacao.send, "A")
-							
-							if(json[0].produtos.situacao.send != 'AM_INTEGRADA' || json[0].produtos.situacao.send != 'AM_FECHADA'){
+
+							if(json[0].produtos.situacao.send === "EM_DIGITACAO" || json[0].produtos.situacao.send === "EM_ANALISE" || son[0].produtos.situacao.send === "EM_REVISAO"){
 								switch(situacao){
 									case 'EM_DIGITACAO':
 										json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
@@ -1715,10 +1715,6 @@ angular
 									
 									case 'EM_REVISAO':
 										json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
-										break;
-										
-									case 'AM_FECHADA':
-										json[0].produtos.situacao = {nome:"Fechado", send:situacao}
 										break;
 								}
 							}
