@@ -212,7 +212,7 @@
 												<th>Data Teste</th>
 												<th>Observação</th>
 												<!-- <th>Valor total</th> -->
-												<th></th>
+												<th ng-show="!usuarioAprovador"></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -257,7 +257,7 @@
 													</div>
 												</td>
 
-												<td>
+												<td ng-show="!usuarioAprovador">
 													<div class="col-sm-12">
 														<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
 													</div>		
@@ -883,7 +883,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE3")
+		console.log("TESTE4")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
