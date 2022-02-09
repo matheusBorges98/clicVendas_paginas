@@ -971,7 +971,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE2")
+		console.log("TESTE3")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1377,6 +1377,8 @@ angular
 					observacao			: $item.produto.observacao,
 					dataTeste			: $item.produto.dataTeste,
 					situacaoAmostra		: $scope.situacaoAmostra,
+					anoAmostra			: $scope.anoAmostra,
+					trimestreAmostra	: $scope.trimestreAmostra,
 
 					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
 					descricao			: $item.produto.nome,
@@ -1874,11 +1876,12 @@ angular
 
 			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  		width:''	},
 						'jsonDocs[0].pedNumped'						:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
-						'jsonDocs[0].produtos.situacao.nome'		:	{i:2, vsbl: true,	tlt: 'Situação Amostra',width:''	},
+						'jsonDocs[0].produtos.situacaoAmostra.nome'	:	{i:49,  vsbl: true,	tlt: 'Sit. Amostra',	width:''	},
 						'jsonDocs[0].cliente.nome'					:	{i:3, vsbl: true,	tlt: 'Cliente',			width:''	},
 						'jsonDocs[0].vendedor.nome'					:	{i:4, vsbl: true,	tlt: 'Vendedor',		width:''	},
 						'jsonDocs[0].produtos.descricao'    		:	{i:5, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs[0].produtos.situacaoAmostra.nome'	:	{i:49,  vsbl: true,	tlt: 'Sit. Amostra',	width:'130px'},
+						'jsonDocs[0].produtos.situacao.nome'		:	{i:2, vsbl: true,	tlt: 'Status',			width:''	}
+					
 				};
 
 
@@ -2019,7 +2022,7 @@ angular
 			
 			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  				width:'130px'	},
 						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Nº Pedido ERP',			width:'130px'	},
-						'jsonDocs[0].produtos.situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Situação',				width:'130px'	},
+						'jsonDocs[0].produtos.situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Status',					width:'130px'	},
 						'jsonDocs[0].produtos.descricao'			:	{i:4,  vsbl: true,	tlt: 'Produto',					width:'130px'	},
 						'jsonDocs[0].produtos.codExterno'    		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'	},
 						'jsonDocs[0].cliente.nome'					:	{i:6,  vsbl: true,	tlt: 'Nome Cliente',			width:'350px'	},
