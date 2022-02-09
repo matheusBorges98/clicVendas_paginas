@@ -730,7 +730,7 @@ angular
 						$scope.permiteEditar	  = true;
 					}
 
-					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "EM_DIGITACAO"){
+					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "" || $dados.jsonDocs[0].produtos.situacao.send == "EM_DIGITACAO"){
 						$scope.permiteAdicionarProdutos = true;
 					}
 	
@@ -887,7 +887,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE4")
+		console.log("TESTE5")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
