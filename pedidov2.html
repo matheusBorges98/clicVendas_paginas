@@ -883,7 +883,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE9")
+		console.log("TESTE1")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1440,6 +1440,7 @@ angular
 
 			for(i = 0; i < $rootScope.produtos.length; i++){
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
+				console.log($rootScope.produtos[i], "PRODUTOS VERIFICACAO")
 				if(situacao == "EM_ANALISE" && ($rootScope.produtos[i].aplicacao == "" || $rootScope.produtos[i].consumoProdutoKgMes == "" || $rootScope.produtos[i].dataTeste == "")){
 					console.log("ENTROU")
 					erroDadosFormularioProd = true;
