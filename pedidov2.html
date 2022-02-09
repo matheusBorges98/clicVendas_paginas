@@ -158,7 +158,7 @@
 								
 								<div class="form-group col-md-12">
 									
-									<div class="col-sm-12 spacer">
+									<div ng-show="!usuarioAprovador" class="col-sm-12 spacer">
 										<label for="codPro">Localizar Produto</label>
 										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 										<div class="input-group spacer">
@@ -971,7 +971,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE3")
+		console.log("TESTE4")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
