@@ -382,7 +382,7 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="situacao">Situação Amostra</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="situacao" id="situacao"  uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<input type="text" class="form-control spacer-input" ng-model="situacaoAmostra" id="situacaoAmostra" uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="consumo">Consumo (Kg/mês)</label>
@@ -767,6 +767,60 @@ angular
 			$scope.filSincronizado	= $item;
 		};
 
+		$scope.getSituacaoAmostra = () => {
+			$scope.listaSituacaoAmostra = [
+				{
+					nome:'SOLICITAÇÃO DE AMOSTRA',
+					id:1
+				},
+				{
+					nome:'ENVIADA',
+					id:2
+				},
+				{
+					nome:'TESTE',
+					id:3
+				},
+				{
+					nome:'TESTE INDUSTRIAL',
+					id:4
+				},
+				{
+					nome:'CATÁLOGO',
+					id:5
+				},
+				{
+					nome:'REPROVADA TECNICAMENTE',
+					id:6
+				},
+				{
+					nome:'APROVADA TECNICAMENTE',
+					id:7
+				},
+				{
+					nome:'REPROVADA COMERCIALMENTE',
+					id:8
+				},
+				{
+					nome:'APROV. TEC E REP. COMERCIAL',
+					id:9
+				},
+				{
+					nome:'STAND BY',
+					id:10
+				},
+				{
+					nome:'CANCELADA',
+					id:11
+				},
+			];
+			return $scope.listaSituacaoAmostra;
+		};
+
+		$scope.onSelectSituacaoAmostra = ($item, $model, $label) => {
+			$scope.situacaoAmostra = $item;
+		};
+
 		$scope.getStatusSituacaoAmostra = () => {
 			$scope.listaSituacaoAmostra = [
 				{
@@ -917,7 +971,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE1")
+		console.log("TESTE2")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1164,6 +1218,7 @@ angular
 				$scope.totalFatUSD			= '';
 				$scope.margemR				= '';
 				$scope.preUSD				= '';
+				$scope.situacaoAmostra		= '';
 			
 				$scope.mesIniConsumo		= '';
 
@@ -1297,6 +1352,8 @@ angular
 					$scope.concorrencia			= docs.produtos.concorrencia;
 					$scope.precoConc			= docs.produtos.precoConc;
 					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
+
+					$scope.situacaoAmostra		= docs.produtos.situacaoAmostra;
 					// $scope.statusAcao			= docs.produtos.statusAcao;
 					// $scope.acoes				= docs.produtos.acoes;
 
@@ -1319,18 +1376,17 @@ angular
 				{
 					observacao			: $item.produto.observacao,
 					dataTeste			: $item.produto.dataTeste,
+					situacaoAmostra		: $scope.situacaoAmostra,
 
 					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
-					descricao			: $item.produto.nome,//$scope.descricaoProd,
-					codigoProduto		: $item.produto.id,//$scope.codigoProduto,
-					aplicacao			: $item.produto.aplicacao,//$scope.aplicacao,
-					quantidade			: $item.produto.quantidadeProduto,//$scope.quantidadeProduto,
-					codVariacao			: $item.produto.codVariacao,//$scope.codVariacao,
-					codExterno			: $item.produto.codExterno,//$scope.codExterno,
+					descricao			: $item.produto.nome,
+					codigoProduto		: $item.produto.id,
+					aplicacao			: $item.produto.aplicacao,
+					quantidade			: $item.produto.quantidadeProduto,
+					codVariacao			: $item.produto.codVariacao,
+					codExterno			: $item.produto.codExterno,
 					/*Grava durante a edição  do pedido*/
 					cluster				: $scope.cluster,
-					// responsavel			: $scope.responsavel,
-					//situacao			: {nome:"Em digitação", send:"EM_DIGITACAO"},//$scope.situacao,
 					ofertaUnit			: $scope.ofertaUnit,
 					dataStatus			: $scope.dataStatus,
 					justificativa		: $scope.justificativa,
@@ -1627,7 +1683,8 @@ angular
 							json[0].produtos.precoConc		= $scope.precoConc,
 							json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo
 							json[0].produtos.acoes			= $scope.acoes,
-							json[0].produtos.statusAcao		= $scope.statusAcao
+							json[0].produtos.statusAcao		= $scope.statusAcao,
+							json[0].produtos.situacaoAmostra= $scope.situacaoAmostra
 
 							if(json[0].produtos.situacao.send != 'AM_INTEGRADA'){
 								switch(situacao){
@@ -1815,13 +1872,13 @@ angular
 			]);	
 
 
-			defPD = {	'jsonDocs[0].numPedidoClic'			:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  		width:''	},
-						'jsonDocs[0].pedNumped'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
-						'jsonDocs[0].produtos.situacao.nome':	{i:2, vsbl: true,	tlt: 'Situação Amostra',width:''	},
-						'jsonDocs[0].cliente.nome'			:	{i:3, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs[0].vendedor.nome'			:	{i:4, vsbl: true,	tlt: 'Vendedor',		width:''	},
-						'jsonDocs[0].produtos.descricao'    :	{i:5, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
+			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  		width:''	},
+						'jsonDocs[0].pedNumped'						:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
+						'jsonDocs[0].produtos.situacao.nome'		:	{i:2, vsbl: true,	tlt: 'Situação Amostra',width:''	},
+						'jsonDocs[0].cliente.nome'					:	{i:3, vsbl: true,	tlt: 'Cliente',			width:''	},
+						'jsonDocs[0].vendedor.nome'					:	{i:4, vsbl: true,	tlt: 'Vendedor',		width:''	},
+						'jsonDocs[0].produtos.descricao'    		:	{i:5, vsbl: true,	tlt: 'Produto',			width:''	},
+						'jsonDocs[0].produtos.situacaoAmostra.nome'	:	{i:49,  vsbl: true,	tlt: 'Sit. Amostra',	width:'130px'},
 				};
 
 
@@ -1961,14 +2018,13 @@ angular
 			]);
 			
 			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  				width:'130px'	},
-						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Nº Pedido ERP',			width:'130px'},
+						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Nº Pedido ERP',			width:'130px'	},
 						'jsonDocs[0].produtos.situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Situação',				width:'130px'	},
-						// 'jsonDocs[0].responsavel'					:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:'130px'},
-						'jsonDocs[0].produtos.descricao'			:	{i:4,  vsbl: true,	tlt: 'Produto',					width:'130px'},
-						'jsonDocs[0].produtos.codExterno'    		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'},
-						'jsonDocs[0].cliente.nome'					:	{i:6,  vsbl: true,	tlt: 'Nome Cliente',			width:'350px'},
-						'jsonDocs[0].uf'							:	{i:7,  vsbl: true,	tlt: 'UF',						width:'130px'},
-						'jsonDocs[0].vendedor.nome'					:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:'130px'},
+						'jsonDocs[0].produtos.descricao'			:	{i:4,  vsbl: true,	tlt: 'Produto',					width:'130px'	},
+						'jsonDocs[0].produtos.codExterno'    		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'	},
+						'jsonDocs[0].cliente.nome'					:	{i:6,  vsbl: true,	tlt: 'Nome Cliente',			width:'350px'	},
+						'jsonDocs[0].uf'							:	{i:7,  vsbl: true,	tlt: 'UF',						width:'130px'	},
+						'jsonDocs[0].vendedor.nome'					:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:'130px'	},
 						'jsonDocs[0].segmento'						:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:'130px'	},
 						'jsonDocs[0].subsegmento'					:	{i:10, vsbl: true,	tlt: 'Subsegmento',				width:'130px'	},
 						'jsonDocs[0].bu'							:	{i:11, vsbl: true,	tlt: 'BU',						width:'130px'	},
@@ -2006,7 +2062,8 @@ angular
 						'jsonDocs[0].produtos.margemR'	      		:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:'130px'	},
 						'jsonDocs[0].produtos.preUSD'	      		:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:'130px'	},
 						'jsonDocs[0].potVolAg'	      				:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:'130px'	},
-						'jsonDocs[0].projeto.nome'					:	{i:48,  vsbl: true,	tlt: 'Projeto',					width:'130px'},
+						'jsonDocs[0].projeto.nome'					:	{i:48,  vsbl: true,	tlt: 'Projeto',					width:'130px'	},
+						'jsonDocs[0].produtos.situacaoAmostra.nome'	:	{i:49,  vsbl: true,	tlt: 'Sit. Amostra',			width:'130px'	},
 				};
 		
 			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
