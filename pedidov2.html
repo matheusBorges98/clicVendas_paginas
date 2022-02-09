@@ -210,13 +210,12 @@
 												<th>Aplicação</th>
 												<th>Consumo</th>
 												<th>Data Teste</th>
-												<th>Observação</th>
 												<!-- <th>Valor total</th> -->
 												<th ng-show="!usuarioAprovador"></th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr ng-repeat = "produto in produtos">
+										<tbody ng-repeat = "produto in produtos">
+											<tr>
 												<td>
 													<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
@@ -251,16 +250,17 @@
 													</div>
 												</td>
 
-												<td>
-													<div>
-														<textarea type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao" rows="3"></textarea>
-													</div>
-												</td>
-
 												<td ng-show="!usuarioAprovador">
 													<div class="col-sm-12">
 														<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
 													</div>		
+												</td>
+											</tr>
+											<tr>
+												<td colspan ="5">
+													<div>
+														<input type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao">
+													</div>
 												</td>
 											</tr>
 										</tbody>
@@ -883,7 +883,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE7")
+		console.log("TESTE8")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
