@@ -975,7 +975,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("teste3")
+		console.log("teste4")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1656,7 +1656,7 @@ angular
 
 				};
 				console.log(amostrasPedido.situacao, "VARIAVEL")
-				if(id > 0 && amostrasPedido.situacao.send != "EM_DIGITACAO"){
+				if(id > 0 && amostrasPedido.situacao.send === "EM_ANALISE" ||  amostrasPedido.situacao.send === "AM_FINALIZADA" ||  amostrasPedido.situacao.send === "AM_INTEGRADA"){
 				//if(id > 0){
 					$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
