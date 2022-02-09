@@ -158,7 +158,7 @@
 								
 								<div class="form-group col-md-12">
 									
-									<div ng-show="permiteAdicionarProdutos" class="col-sm-12 spacer">
+									<div class="col-sm-12 spacer">
 										<label for="codPro">Localizar Produto</label>
 										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 										<div class="input-group spacer">
@@ -679,7 +679,7 @@ angular
 		/*Incializa produtos*/
 		$rootScope.produtos 			= [];
 		$scope.novoProdutoAdicionado	= false  
-		$scope.permiteAdicionarProdutos = false;
+
 		/*Incializa cliente*/
 		$rootScope.cliente				= {};
 		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
@@ -728,10 +728,6 @@ angular
 					}else{
 						$scope.inputDesabilitado  = false;
 						$scope.permiteEditar	  = true;
-					}
-
-					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "" || $dados.jsonDocs[0].produtos.situacao.send == "EM_DIGITACAO"){
-						$scope.permiteAdicionarProdutos = true;
 					}
 	
 				};
@@ -887,7 +883,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE5")
+		console.log("TESTE6")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
