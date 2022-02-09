@@ -257,9 +257,9 @@
 												</td>
 											</tr>
 											<tr>
-												<td colspan ="5">
+												<td colspan ="20">
 													<div>
-														<input type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao">
+														<textarea placeholder="Digite uma obervação para o item." style="width: 100%;" type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao">
 													</div>
 												</td>
 											</tr>
@@ -883,7 +883,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE8")
+		console.log("TESTE9")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
