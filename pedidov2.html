@@ -472,9 +472,13 @@
 										<input type="text" class="form-control spacer-input" ng-model="responsavel" id="responsavel" >
 									</div> -->
 									<div class="col-sm-2 spacer">
-										<label for="prioridade">Prioridade</label>
-										<input type="text" class="form-control spacer-input" ng-model="prioridade" id="prioridade" uib-typeahead="(prioridades.nome) for prioridades in getPrioridades($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectPrioridade($item, $model, $label)">
-									</div>			  
+										<label for="prioridade">Ano</label>
+										<input type="text" class="form-control spacer-input" ng-model="anoAmosta" id="anoAmosta" uib-typeahead="(ano.nome) for ano in getAnoAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectAnoAmostra($item, $model, $label)">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="prioridade">Trimestre</label>
+										<input type="text" class="form-control spacer-input" ng-model="trimestreAmostra" id="trimestreAmostra" uib-typeahead="(trimestre.nome) for trimestre in getTrimestreAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectTrimestreAmostra($item, $model, $label)">
+									</div>				  
 									<div class="col-sm-2 spacer">
 										<label for="potencial">Potencial</label>
 										<input type="text" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM" >
@@ -792,27 +796,57 @@ angular
 		$scope.onSelectStatusSituacaoAmostra = ($item, $model, $label) => {
 			$scope.filStatusSituacao = $item;
 		};
-
-		$scope.getPrioridades = () => {
-			$scope.listaPrioridades = [
+		
+		$scope.getTrimestreAmostra = () => {
+			$scope.listaTrimestreAmostra = [
 				{
-					nome:'BAIXA',
+					nome:'1º Trimestre',
 					id:1
 				},
 				{
-					nome:'MÉDIA',
+					nome:'2º Trimestre',
 					id:2
 				},
 				{
-					nome:'ALTA',
+					nome:'3º Trimestre',
 					id:3
+				},
+				{
+					nome:'4º Trimestre',
+					id:4
 				}
 			];
-			return $scope.listaPrioridades;
+			return $scope.listaTrimestreAmostra;
 		};
 
-		$scope.onSelectPrioridade = ($item, $model, $label) => {
-			$scope.prioridade 		= $item;
+		$scope.onSelectTrimestreAmostra = ($item, $model, $label) => {
+			$scope.trimestreAmostra = $item;
+		};
+
+		$scope.getAnoAmostra = () => {
+			$scope.listaAnoAmostra = [
+				{
+					nome:'2022',
+					id:1
+				},
+				{
+					nome:'2023',
+					id:2
+				},
+				{
+					nome:'2024',
+					id:3
+				},
+				{
+					nome:'2025',
+					id:4
+				}
+			];
+			return $scope.listaAnoAmostra;
+		};
+
+		$scope.onSelectAnoAmostra = ($item, $model, $label) => {
+			$scope.anoAmostra = $item;
 		};
 
 		$scope.getProjetos = () =>{
@@ -883,7 +917,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE10")
+		console.log("TESTE1")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
