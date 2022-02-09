@@ -221,10 +221,10 @@
 													<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} <p>
-													<div ng-show="produto.acoes != '' ">
+													<!-- <div ng-show="produto.acoes != '' ">
 														<span class='glyphicon glyphicon-exclamation-sign' style='font-size:1.2em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;' title="Revisar"></span>
 														{{produto.acoes}}
-													</div>													
+													</div>													 -->
 													<!-- <p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p> -->
 													<!-- <p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p> -->
 												</td>
@@ -253,7 +253,7 @@
 
 												<td>
 													<div>
-														<input type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao">
+														<textarea type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao" rows="3"></textarea>
 													</div>
 												</td>
 
@@ -882,7 +882,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE2")
+		console.log("TESTE3")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
@@ -1129,9 +1129,7 @@ angular
 				$scope.totalFatUSD			= '';
 				$scope.margemR				= '';
 				$scope.preUSD				= '';
-				$scope.statusAcao			= '';
-				$scope.acoes				= '';
-
+			
 				$scope.mesIniConsumo		= '';
 
 				/*Cliente*/
@@ -1167,6 +1165,9 @@ angular
 				$scope.ultVendaTabdin		= '';
 				$scope.primVendaTabdin		= '';
 				$scope.anoPrimVenda			= '';
+
+				$scope.statusAcao			= '';
+				$scope.acoes				= '';
 			
 				/*Historico*/
 				$scope.obsOportunidade		= '';
@@ -1215,8 +1216,8 @@ angular
 				$scope.ultVendaTabdin		= docs.produtos.ultVendaTabdin;
 				$scope.primVendaTabdin		= docs.produtos.primVendaTabdin;
 				$scope.anoPrimVenda			= docs.anoPrimVenda;
-				// $scope.statusAcao			= docs.statusAcao;
-				// $scope.acoes				= docs.acoes;
+				$scope.statusAcao			= docs.statusAcao;
+				$scope.acoes				= docs.acoes;
 
 				/*Historico*/
 				$scope.obsOportunidade		= '';
@@ -1261,8 +1262,8 @@ angular
 					$scope.concorrencia			= docs.produtos.concorrencia;
 					$scope.precoConc			= docs.produtos.precoConc;
 					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
-					$scope.statusAcao			= docs.produtos.statusAcao;
-					$scope.acoes				= docs.produtos.acoes;
+					// $scope.statusAcao			= docs.produtos.statusAcao;
+					// $scope.acoes				= docs.produtos.acoes;
 
 					$scope.consultaDocumento($rootScope.hashDoc);
 				}
@@ -1556,21 +1557,6 @@ angular
 						json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
 					}
 						
-					// }
-
-					// if($scope.usuarioAprovador){
-					// 	json[0].produtos.situacao = amostrasPedido.situacao;
-					// }
-					
-					
-				
-					// if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
-					// 	json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
-					// }else if($scope.usuarioAprovador && json[0].produtos.situacao.send != 'EM_ANALISE'){
-						
-					// }else{
-					// 	json[0].produtos.situacao = amostrasPedido.situacao
-					// }
 					
 					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
 					if(json[0].produtos.codigoProduto == $scope.codigoProduto){
