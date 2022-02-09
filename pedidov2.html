@@ -577,7 +577,7 @@
 					<!-- <div class="btn-group">
 						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' && dadosUserLogado.rTipoId === 3 " ng-click="finalizarDocumento()"> Enviar para o ERP </button>
 					</div> -->
-					<div ng-hide="!usuarioAprovador && produtos.situacao.send == 'EM_ANALISE'" class="btn-group dropup">
+					<div ng-show="!usuarioAprovador && produtos.situacao.send == 'EM_ANALISE' || produtos.situacao.send == 'AM_FECHADA'" class="btn-group dropup">
 						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
 							Salvar
 							<span class="caret caret-up"></span>
@@ -975,7 +975,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE9")
+		console.log("TESTE1")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
