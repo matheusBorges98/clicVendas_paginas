@@ -722,11 +722,11 @@ angular
 					console.log($dados.jsonDocs[0].produtos.situacao,"CHANGE VIEW")
 					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send != "AM_FINALIZADA"){
 						$scope.inputDesabilitado  = false;
-						$scope.permiteEditar	  = true;
+						$scope.permiteEditar	  = false;
 
 					}else{
 						$scope.inputDesabilitado  = true;
-						$scope.permiteEditar	  = false;
+						$scope.permiteEditar	  = true;
 					}
 
 					
@@ -883,7 +883,7 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE2")
+		console.log("TESTE3")
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
 			console.log($json, "REQUISICAO EXTERNA")
