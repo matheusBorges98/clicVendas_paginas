@@ -1498,10 +1498,11 @@ angular
 
 		}
 
-		console.log("aqui")
+		console.log("aqui1")
 
 		$scope.atualizaProdutosPedido = async () => {
 			/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
+			console.log($scope.documentosClic)
 			if($scope.documentosClic != undefined){
 				for(i = 0; i < $scope.documentosClic.length; i++){
 					await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
