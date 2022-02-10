@@ -724,7 +724,7 @@ angular
 
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Prospecção ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Prospecção Nº "+$dados.jsonDocs[0].numPedidoClic;
-					console.log($dados.jsonDocs[0].produtos.situacao,"CHANGE VIEW")
+				
 					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA" || $dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA"){
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
@@ -975,10 +975,8 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("teste1")
-
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
-			console.log($json, "REQUISICAO EXTERNA")
+			console.log($json, "REQUISICAO EXTERNA - Envio para o ERP")
 			try {
 				let response;
 
@@ -987,7 +985,8 @@ angular
 					done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
 								
 				}, timeLimit * 1000); // limite em segundos
-			
+				
+				console.log(reponse.data, "Retorno ERP")
 				return response.data;
 			}catch(err){
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
@@ -1134,7 +1133,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431//41943; //17431/*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 41943//41943; //17431/*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -1324,10 +1323,9 @@ angular
 				if(docs.produtos.situacao && (docs.produtos.situacao.send === "EM_DIGITACAO" || docs.produtos.situacao.send === "EM_ANALISE" || docs.produtos.situacao.send === "EM_REVISAO" )){
 					$scope.documentosClic		= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 					$rootScope.produtos			= $scope.agruparProdutos($scope.documentosClic);
-					console.log("A")
+				
 					$scope.$apply();					
 				}else{
-					console.log("B")
 					/*Informações sobre o produto*/
 					$rootScope.produtos			= docs.produtos;
 					// $scope.responsavel			= docs.produtos.responsavel;
@@ -1502,9 +1500,12 @@ angular
 
 		$scope.atualizaProdutosPedido = async () => {
 			/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
-			for(i = 0; i < $scope.documentosClic.length; i++){
-				await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
+			if($scope.documentosClic){
+				for(i = 0; i < $scope.documentosClic.length; i++){
+					await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
+				}
 			}
+		
 		}
 
 		$scope.salvarDocumento = async (rotina, situacao) => {
@@ -1539,9 +1540,7 @@ angular
 
 			for(i = 0; i < $rootScope.produtos.length; i++){
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
-				console.log($rootScope.produtos[i], "PRODUTOS VERIFICACAO")
 				if(situacao == "EM_ANALISE" && ($rootScope.produtos[i].aplicacao == undefined || $rootScope.produtos[i].consumoProdutoKgMes == undefined || $rootScope.produtos[i].dataTestes == undefined)){
-					console.log("ENTROU")
 					erroDadosFormularioProd = true;
 				}
 
@@ -1575,9 +1574,6 @@ angular
 				jsonDocs = [{
 					chave 				: $scope.chave,
 					anoFat	  			: $scope.anoFat,
-					// responsavel			: $scope.responsavel,
-					// anoAmostra			: $scope.anoAmostra, //
-					// trimestreAmostra	: $scope.trimestreAmostra, //
 					projeto     		: $scope.projeto,
 					uf 					: $scope.uf,
 					vendedor			: $scope.usuarioAprovador ? $scope.vendedor : {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
@@ -1655,7 +1651,6 @@ angular
 					}
 
 				};
-				console.log(amostrasPedido.situacao, "VARIAVEL")
 				if(id > 0 && (amostrasPedido.situacao.send === "AM_FINALIZADA" ||  amostrasPedido.situacao.send === "AM_INTEGRADA")){
 				//if(id > 0){
 					$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
@@ -1700,9 +1695,6 @@ angular
 							json[0].produtos.anoAmostra			= $scope.anoAmostra,
 							json[0].produtos.trimestreAmostra	= $scope.trimestreAmostra
 
-							console.log(amostrasPedido.situacao, "VARIAVEL")
-							console.log(json[0].produtos.situacao.send, "A")
-
 							if(json[0].produtos.situacao.send === "EM_DIGITACAO" || json[0].produtos.situacao.send === "EM_ANALISE" || json[0].produtos.situacao.send === "EM_REVISAO"){
 								switch(situacao){
 									case 'EM_DIGITACAO':
@@ -1728,8 +1720,6 @@ angular
 					$scope.geraNotificacao($scope.messageNotific, 1200, "success");
 
 				}else{
-					console.log(amostrasPedido.situacao, "VARIAVEL")
-
 					if(($scope.novoProdutoAdicionado || id > 0) && amostrasPedido.situacao.send !=="AM_FECHADA"){
 						await $scope.atualizaProdutosPedido()
 					}

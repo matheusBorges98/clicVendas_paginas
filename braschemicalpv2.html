@@ -158,7 +158,7 @@
 								
 								<div class="form-group col-md-12">
 									
-									<div class="col-sm-12 spacer">
+									<div ng-show="!usuarioAprovador" class="col-sm-12 spacer">
 										<label for="codPro">Localizar Produto</label>
 										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="codigoProduto" id="codPro"> -->
 										<div class="input-group spacer">
@@ -210,21 +210,20 @@
 												<th>Aplicação</th>
 												<th>Consumo</th>
 												<th>Data Teste</th>
-												<th>Observação</th>
 												<!-- <th>Valor total</th> -->
-												<th></th>
+												<th ng-show="!usuarioAprovador"></th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr ng-repeat = "produto in produtos">
+										<tbody ng-repeat = "produto in produtos">
+											<tr>
 												<td>
 													<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} <p>
-													<div ng-show="produto.acoes != '' ">
+													<!-- <div ng-show="produto.acoes != '' ">
 														<span class='glyphicon glyphicon-exclamation-sign' style='font-size:1.2em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;' title="Revisar"></span>
 														{{produto.acoes}}
-													</div>													
+													</div>													 -->
 													<!-- <p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p> -->
 													<!-- <p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p> -->
 												</td>
@@ -251,16 +250,17 @@
 													</div>
 												</td>
 
-												<td>
-													<div>
-														<input type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao">
-													</div>
-												</td>
-
-												<td>
+												<td ng-show="!usuarioAprovador">
 													<div class="col-sm-12">
 														<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
 													</div>		
+												</td>
+											</tr>
+											<tr>
+												<td colspan ="20">
+													<div>
+														<textarea placeholder="Digite uma obervação para o item." style="width: 100%;" type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao"></textarea>
+													</div>
 												</td>
 											</tr>
 										</tbody>
@@ -382,7 +382,7 @@
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="situacao">Situação Amostra</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="situacao" id="situacao"  uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<input type="text" class="form-control spacer-input" ng-model="situacaoAmostra" id="situacaoAmostra" uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 									</div>
 									<div class="col-sm-2 spacer">
 										<label for="consumo">Consumo (Kg/mês)</label>
@@ -472,9 +472,13 @@
 										<input type="text" class="form-control spacer-input" ng-model="responsavel" id="responsavel" >
 									</div> -->
 									<div class="col-sm-2 spacer">
-										<label for="prioridade">Prioridade</label>
-										<input type="text" class="form-control spacer-input" ng-model="prioridade" id="prioridade" uib-typeahead="(prioridades.nome) for prioridades in getPrioridades($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectPrioridade($item, $model, $label)">
-									</div>			  
+										<label for="prioridade">Ano</label>
+										<input type="text" class="form-control spacer-input" ng-value="anoAmostra.nome" ng-model="anoAmosta" id="anoAmosta" uib-typeahead="(ano.nome) for ano in getAnoAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectAnoAmostra($item, $model, $label)">
+									</div>
+									<div class="col-sm-2 spacer">
+										<label for="prioridade">Trimestre</label>
+										<input type="text" class="form-control spacer-input" ng-value="trimestreAmostra.nome" ng-model="trimestreAmostra" id="trimestreAmostra" uib-typeahead="(trimestre.nome) for trimestre in getTrimestreAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectTrimestreAmostra($item, $model, $label)">
+									</div>				  
 									<div class="col-sm-2 spacer">
 										<label for="potencial">Potencial</label>
 										<input type="text" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM" >
@@ -573,20 +577,20 @@
 					<!-- <div class="btn-group">
 						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' && dadosUserLogado.rTipoId === 3 " ng-click="finalizarDocumento()"> Enviar para o ERP </button>
 					</div> -->
-					<div ng-hide="!usuarioAprovador && produtos.situacao.send == 'EM_ANALISE'" class="btn-group dropup">
+					<div class="btn-group dropup">
 						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
 							Salvar
 							<span class="caret caret-up"></span>
 						</button>
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
-							<li ng-hide="produtos.situacao.send =='EM_ANALISE' || produtos.situacao.send =='EM_REVISAO'"><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
+							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<!-- <li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li> -->
-							<li ng-hide="produtos.situacao.send =='AM_FECHADA' || produtos.situacao.send =='AM_INTEGRADA'"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
+							<li ng-show="!inputDesabilitado"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
 						</ul>
 						<ul ng-show="usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
 							<li><a title="Salvar e enviar para revisão" ng-click="salvarDocumento(1, 'EM_REVISAO')">Enviar para revisão</a></li>     
-							<li><a title="Irá arquivar a amostra" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar amostra</a></li>      
+							<li><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>      
 						</ul>
 					</div>	
 					<!-- <div class="btn-group">
@@ -679,6 +683,7 @@ angular
 		/*Incializa produtos*/
 		$rootScope.produtos 			= [];
 		$scope.novoProdutoAdicionado	= false  
+
 		/*Incializa cliente*/
 		$rootScope.cliente				= {};
 		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
@@ -719,17 +724,20 @@ angular
 
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Prospecção ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Prospecção Nº "+$dados.jsonDocs[0].numPedidoClic;
-					console.log($dados.jsonDocs[0].produtos.situacao,"CHANGE VIEW")
-					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA"){
+				
+					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA" || $dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA"){
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
 
 					}else{
 						$scope.inputDesabilitado  = false;
 						$scope.permiteEditar	  = true;
-					}
 
-					
+						if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "EM_ANALISE"){
+							$scope.inputDesabilitado  = true;
+						}
+					}
+	
 				};
 				
 			}else if($scope.exibeFormulario == true){
@@ -763,6 +771,60 @@ angular
 			$scope.filSincronizado	= $item;
 		};
 
+		$scope.getSituacaoAmostra = () => {
+			$scope.listaSituacaoAmostra = [
+				{
+					nome:'SOLICITAÇÃO DE AMOSTRA',
+					id:1
+				},
+				{
+					nome:'ENVIADA',
+					id:2
+				},
+				{
+					nome:'TESTE',
+					id:3
+				},
+				{
+					nome:'TESTE INDUSTRIAL',
+					id:4
+				},
+				{
+					nome:'CATÁLOGO',
+					id:5
+				},
+				{
+					nome:'REPROVADA TECNICAMENTE',
+					id:6
+				},
+				{
+					nome:'APROVADA TECNICAMENTE',
+					id:7
+				},
+				{
+					nome:'REPROVADA COMERCIALMENTE',
+					id:8
+				},
+				{
+					nome:'APROV. TEC E REP. COMERCIAL',
+					id:9
+				},
+				{
+					nome:'STAND BY',
+					id:10
+				},
+				{
+					nome:'CANCELADA',
+					id:11
+				},
+			];
+			return $scope.listaSituacaoAmostra;
+		};
+
+		$scope.onSelectSituacaoAmostra = ($item, $model, $label) => {
+			$scope.situacaoAmostra = $item;
+		};
+
 		$scope.getStatusSituacaoAmostra = () => {
 			$scope.listaSituacaoAmostra = [
 				{
@@ -792,27 +854,57 @@ angular
 		$scope.onSelectStatusSituacaoAmostra = ($item, $model, $label) => {
 			$scope.filStatusSituacao = $item;
 		};
-
-		$scope.getPrioridades = () => {
-			$scope.listaPrioridades = [
+		
+		$scope.getTrimestreAmostra = () => {
+			$scope.listaTrimestreAmostra = [
 				{
-					nome:'BAIXA',
+					nome:'1º Trimestre',
 					id:1
 				},
 				{
-					nome:'MÉDIA',
+					nome:'2º Trimestre',
 					id:2
 				},
 				{
-					nome:'ALTA',
+					nome:'3º Trimestre',
 					id:3
+				},
+				{
+					nome:'4º Trimestre',
+					id:4
 				}
 			];
-			return $scope.listaPrioridades;
+			return $scope.listaTrimestreAmostra;
 		};
 
-		$scope.onSelectPrioridade = ($item, $model, $label) => {
-			$scope.prioridade 		= $item;
+		$scope.onSelectTrimestreAmostra = ($item, $model, $label) => {
+			$scope.trimestreAmostra = $item;
+		};
+
+		$scope.getAnoAmostra = () => {
+			$scope.listaAnoAmostra = [
+				{
+					nome:'2022',
+					id:1
+				},
+				{
+					nome:'2023',
+					id:2
+				},
+				{
+					nome:'2024',
+					id:3
+				},
+				{
+					nome:'2025',
+					id:4
+				}
+			];
+			return $scope.listaAnoAmostra;
+		};
+
+		$scope.onSelectAnoAmostra = ($item, $model, $label) => {
+			$scope.anoAmostra = $item;
 		};
 
 		$scope.getProjetos = () =>{
@@ -883,10 +975,8 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		console.log("TESTE5")
-
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
-			console.log($json, "REQUISICAO EXTERNA")
+			console.log($json, "REQUISICAO EXTERNA - Envio para o ERP")
 			try {
 				let response;
 
@@ -895,7 +985,8 @@ angular
 					done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
 								
 				}, timeLimit * 1000); // limite em segundos
-			
+				
+				console.log(reponse.data, "Retorno ERP")
 				return response.data;
 			}catch(err){
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
@@ -1042,7 +1133,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431//41943; //17431/*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 41943//41943; //17431/*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -1130,9 +1221,8 @@ angular
 				$scope.totalFatUSD			= '';
 				$scope.margemR				= '';
 				$scope.preUSD				= '';
-				$scope.statusAcao			= '';
-				$scope.acoes				= '';
-
+				$scope.situacaoAmostra		= '';
+			
 				$scope.mesIniConsumo		= '';
 
 				/*Cliente*/
@@ -1168,6 +1258,9 @@ angular
 				$scope.ultVendaTabdin		= '';
 				$scope.primVendaTabdin		= '';
 				$scope.anoPrimVenda			= '';
+
+				$scope.statusAcao			= '';
+				$scope.acoes				= '';
 			
 				/*Historico*/
 				$scope.obsOportunidade		= '';
@@ -1216,8 +1309,8 @@ angular
 				$scope.ultVendaTabdin		= docs.produtos.ultVendaTabdin;
 				$scope.primVendaTabdin		= docs.produtos.primVendaTabdin;
 				$scope.anoPrimVenda			= docs.anoPrimVenda;
-				// $scope.statusAcao			= docs.statusAcao;
-				// $scope.acoes				= docs.acoes;
+				$scope.statusAcao			= docs.statusAcao;
+				$scope.acoes				= docs.acoes;
 
 				/*Historico*/
 				$scope.obsOportunidade		= '';
@@ -1227,10 +1320,10 @@ angular
 				$scope.sincronizado			= docs.sincronizado;
 
 				/*Valida situação e aplica regra - Agrupa produtos pelo mesmo hashCode*/
-				if(docs.produtos.situacao && (docs.produtos.situacao.send != "AM_INTEGRADA")){
+				if(docs.produtos.situacao && (docs.produtos.situacao.send === "EM_DIGITACAO" || docs.produtos.situacao.send === "EM_ANALISE" || docs.produtos.situacao.send === "EM_REVISAO" )){
 					$scope.documentosClic		= await $scope.consultaDocumento($dados.jsonDocs[0].docCtrl);
 					$rootScope.produtos			= $scope.agruparProdutos($scope.documentosClic);
-
+				
 					$scope.$apply();					
 				}else{
 					/*Informações sobre o produto*/
@@ -1262,8 +1355,12 @@ angular
 					$scope.concorrencia			= docs.produtos.concorrencia;
 					$scope.precoConc			= docs.produtos.precoConc;
 					$scope.mesIniConsumo		= docs.produtos.mesIniConsumo;
-					$scope.statusAcao			= docs.produtos.statusAcao;
-					$scope.acoes				= docs.produtos.acoes;
+
+					$scope.situacaoAmostra		= docs.produtos.situacaoAmostra;
+					$scope.anoAmostra			= docs.produtos.anoAmostra;
+					$scope.trimestreAmostra		= docs.produtos.trimestreAmostra;
+					// $scope.statusAcao			= docs.produtos.statusAcao;
+					// $scope.acoes				= docs.produtos.acoes;
 
 					$scope.consultaDocumento($rootScope.hashDoc);
 				}
@@ -1281,18 +1378,22 @@ angular
 			$scope.codigoProduto 			= $item.produto.id;
 			
 			$rootScope.produtos.unshift(
-				{ 
+				{
+					observacao			: $item.produto.observacao,
+					dataTeste			: $item.produto.dataTeste,
+					situacaoAmostra		: $scope.situacaoAmostra,
+					anoAmostra			: $scope.anoAmostra,
+					trimestreAmostra	: $scope.trimestreAmostra,
+
 					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
-					descricao			: $item.produto.nome,//$scope.descricaoProd,
-					codigoProduto		: $item.produto.id,//$scope.codigoProduto,
-					aplicacao			: $item.produto.aplicacao,//$scope.aplicacao,
-					quantidade			: $item.produto.quantidadeProduto,//$scope.quantidadeProduto,
-					codVariacao			: $item.produto.codVariacao,//$scope.codVariacao,
-					codExterno			: $item.produto.codExterno,//$scope.codExterno,
+					descricao			: $item.produto.nome,
+					codigoProduto		: $item.produto.id,
+					aplicacao			: $item.produto.aplicacao,
+					quantidade			: $item.produto.quantidadeProduto,
+					codVariacao			: $item.produto.codVariacao,
+					codExterno			: $item.produto.codExterno,
 					/*Grava durante a edição  do pedido*/
 					cluster				: $scope.cluster,
-					// responsavel			: $scope.responsavel,
-					//situacao			: {nome:"Em digitação", send:"EM_DIGITACAO"},//$scope.situacao,
 					ofertaUnit			: $scope.ofertaUnit,
 					dataStatus			: $scope.dataStatus,
 					justificativa		: $scope.justificativa,
@@ -1399,9 +1500,12 @@ angular
 
 		$scope.atualizaProdutosPedido = async () => {
 			/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
-			for(i = 0; i < $scope.documentosClic.length; i++){
-				await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
+			if($scope.documentosClic){
+				for(i = 0; i < $scope.documentosClic.length; i++){
+					await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
+				}
 			}
+		
 		}
 
 		$scope.salvarDocumento = async (rotina, situacao) => {
@@ -1427,14 +1531,19 @@ angular
 				}
 			}
 						
-			let id 					= $rootScope.idDocumento;
-			let jsonDocs			= [];
-			let dados 				= {};
+			let id 						= $rootScope.idDocumento;
+			let jsonDocs				= [];
+			let dados 					= {};
+			let erroDadosFormularioProd	= false;
 						
 			$scope.messageNotific	= '';
 
 			for(i = 0; i < $rootScope.produtos.length; i++){
 				/*Adiciona o hash gerado para o pedido no array de produtos*/
+				if(situacao == "EM_ANALISE" && ($rootScope.produtos[i].aplicacao == undefined || $rootScope.produtos[i].consumoProdutoKgMes == undefined || $rootScope.produtos[i].dataTestes == undefined)){
+					erroDadosFormularioProd = true;
+				}
+
 				$rootScope.produtos[i].hashDoc 	= hashDoc;
 				switch(situacao){
 					case 'EM_DIGITACAO':
@@ -1459,198 +1568,187 @@ angular
 				}
 			}
 
-			dados.cnpj 				= {id: dadosUserLogado.cId};
+			if(!erroDadosFormularioProd){
+				dados.cnpj 				= {id: dadosUserLogado.cId};
 			
-			jsonDocs = [{
-				chave 				: $scope.chave,
-				anoFat	  			: $scope.anoFat,
-				// responsavel			: $scope.responsavel,
-				projeto     		: $scope.projeto,
-				uf 					: $scope.uf,
-				vendedor			: $scope.usuarioAprovador ? $scope.vendedor : {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
-				segmento			: $scope.segmento,
-				subsegmento 		: $scope.subsegmento,
-				bu 					: $scope.bu,
-				pedDatEmi			: $scope.pedDatEmi,
-				desagr				: $scope.desagr,
-				prioridade			: $scope.prioridade,
-				conIndent			: $scope.conIndent,
-				con2021n			: $scope.con2021n,
-				con2022n			: $scope.con2022n,
-				conLocal			: $scope.conLocal,
-				dataAtu				: $scope.dataAtu,
-				potVolAg			: $scope.potVolAg,
-				ultVendaTabdin  	: $scope.ultVendaTabdin,
-				primVendaTabdin 	: $scope.primVendaTabdin,
-				anoPrimVenda		: $scope.anoPrimVenda ,
-				statusAcao			: $scope.statusAcao,
-				acoes				: $scope.acoes,
-				obsOportunidade		: $scope.obsOportunidade,
-				histOportunidade	: $scope.histOportunidade,
-				
-				//Metodos
-				sincronizado	: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
-				idDocument		: $rootScope.idDocumento,
-				docCtrl			: hashDoc,
-				pedNumped		: $scope.pedNumped,	
-				numPedidoClic	: numPedidoClic,	
-				
-				//Produtos
-				produtos		: $rootScope.produtos,
-
-				//Cliente
-				cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
-				
-			}];
-			
-			dados.jsonDocs 		= JSON.stringify(jsonDocs);
-			/*Recebe dados e para que sejam feitas as alterações necessarias*/
-			var json 			= JSON.parse(dados.jsonDocs);
-
-			let amostrasPedido  = $scope.situacao && $scope.situacao.send == 'AM_INTEGRADA' ? json[0].produtos : json[0].produtos[0];
-
-			if(rotina == 2){
-				/*Faz o envio dos produtos como um array para o ERP*/
-				let produtos = [];
-				/* Lista todos os documentos e aplica o filtro pelo HashDoc, caso o documento já exista na base Clic, adiciona os produtos ao pedido que sejam do mesmo HashDoc*/
-				
-				if(id > 0){
-					let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
-
-					for(i = 0; i < allDocs.length; i++){
-						produtos.push(allDocs[i].jsonDocs[0].produtos);		
-					}
-				}
-	
-				let sendToERP 			= JSON.parse(dados.jsonDocs);
-
-				$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
-
-				if(id > 0){
-					sendToERP[0].produtos 	= produtos; /*Array de produtos*/
-				}
-				
-				/*Atualiza numero do pedido*/
-				if(!isNaN(parseInt($rootScope.documentoERP))){
-					let dataFormat				= new Date();
-					json[0].sincronizado    	= "DOCUMENTO_SINCRONIZADO";
-					json[0].pedDatEmi			= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
-					json[0].pedNumped			= $rootScope.documentoERP;
-				}else{
-					json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
-					json[0].pedNumped	 = 0;
-				}
-
-			};
-	
-			if(id > 0 && amostrasPedido.situacao.send != "EM_DIGITACAO"){
-			//if(id > 0){
-				$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
-
-				for(j = 0; j < $rootScope.docsToEdit.length; j++){						
-					json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
-
-					if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
-						json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
-					}
-						
-					// }
-
-					// if($scope.usuarioAprovador){
-					// 	json[0].produtos.situacao = amostrasPedido.situacao;
-					// }
+				jsonDocs = [{
+					chave 				: $scope.chave,
+					anoFat	  			: $scope.anoFat,
+					projeto     		: $scope.projeto,
+					uf 					: $scope.uf,
+					vendedor			: $scope.usuarioAprovador ? $scope.vendedor : {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
+					segmento			: $scope.segmento,
+					subsegmento 		: $scope.subsegmento,
+					bu 					: $scope.bu,
+					pedDatEmi			: $scope.pedDatEmi,
+					desagr				: $scope.desagr,
+					prioridade			: $scope.prioridade,
+					conIndent			: $scope.conIndent,
+					con2021n			: $scope.con2021n,
+					con2022n			: $scope.con2022n,
+					conLocal			: $scope.conLocal,
+					dataAtu				: $scope.dataAtu,
+					potVolAg			: $scope.potVolAg,
+					ultVendaTabdin  	: $scope.ultVendaTabdin,
+					primVendaTabdin 	: $scope.primVendaTabdin,
+					anoPrimVenda		: $scope.anoPrimVenda ,
+					statusAcao			: $scope.statusAcao,
+					acoes				: $scope.acoes,
+					obsOportunidade		: $scope.obsOportunidade,
+					histOportunidade	: $scope.histOportunidade,
 					
+					//Metodos
+					sincronizado	: $scope.sincronizado == "DOCUMENTO_SINCRONIZADO" ? "DOCUMENTO_SINCRONIZADO" : "DOCUMENTO_NAO_SINCRONIZADO",
+					idDocument		: $rootScope.idDocumento,
+					docCtrl			: hashDoc,
+					pedNumped		: $scope.pedNumped,	
+					numPedidoClic	: numPedidoClic,	
 					
-				
-					// if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
-					// 	json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
-					// }else if($scope.usuarioAprovador && json[0].produtos.situacao.send != 'EM_ANALISE'){
-						
-					// }else{
-					// 	json[0].produtos.situacao = amostrasPedido.situacao
-					// }
-					
-					/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
-					if(json[0].produtos.codigoProduto == $scope.codigoProduto){
-						
-						json[0].produtos.potencial0XCM 	= $scope.potencial0XCM;
-						json[0].produtos.consumoAg		= $scope.consumoAg;
-						json[0].produtos.cluster		= $scope.cluster,
-						json[0].produtos.ofertaUnit		= $scope.ofertaUnit,
-						json[0].produtos.dataStatus		= $scope.dataStatus,
-						json[0].produtos.justificativa	= $scope.justificativa,
-						json[0].produtos.potencial0XCM	= $scope.potencial0XCM, //
-						json[0].produtos.chaveCp		= $scope.chaveCp,
-						json[0].produtos.identQtd		= $scope.identQtd,
-						json[0].produtos.venda			= $scope.venda,
-						json[0].produtos.vendaLocalKg	= $scope.vendaLocalKg,
-						json[0].produtos.totalFatUSD	= $scope.totalFatUSD,
-						// json[0].produtos.responsavel	= $scope.responsavel,
-						json[0].produtos.margemR		= $scope.margemR,
-						json[0].produtos.preUSD			= $scope.preUSD,
-						json[0].produtos.ofertaData		= $scope.ofertaData,
-						json[0].produtos.probFechamento	= $scope.probFechamento,		
-						json[0].produtos.consumoAg		= $scope.consumoAg,	//
-						json[0].produtos.familia		= $scope.familia,
-						json[0].produtos.concorrencia	= $scope.concorrencia,
-						json[0].produtos.precoConc		= $scope.precoConc,
-						json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo
-						json[0].produtos.acoes			= $scope.acoes,
-						json[0].produtos.statusAcao		= $scope.statusAcao
+					//Produtos
+					produtos		: $rootScope.produtos,
 
-						if(json[0].produtos.situacao.send != 'AM_INTEGRADA'){
-							switch(situacao){
-								case 'EM_DIGITACAO':
-									json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
-									break;
-								
-								case 'EM_ANALISE':
-									json[0].produtos.situacao = {nome:"Em análise", send:situacao}
-									break;
-								
-								case 'EM_REVISAO':
-									json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
-									break;
-									
-								case 'AM_FECHADA':
-									json[0].produtos.situacao = {nome:"Fechado", send:situacao}
-									break;
-							}
+					//Cliente
+					cliente			: {id: $rootScope.cliente.id ,codExterno: $rootScope.cliente.codExterno , nome: $rootScope.cliente.nome, cpfCnpjFormat: $rootScope.cliente.cpfCnpjFormat},
+					
+				}];
+				
+				dados.jsonDocs 		= JSON.stringify(jsonDocs);
+				/*Recebe dados e para que sejam feitas as alterações necessarias*/
+				var json 			= JSON.parse(dados.jsonDocs);
+
+				let amostrasPedido  = $scope.situacao && ($scope.situacao.send == 'AM_INTEGRADA' || $scope.situacao.send == 'AM_FECHADA') ? json[0].produtos : json[0].produtos[0];
+
+				if(rotina == 2){
+					/*Faz o envio dos produtos como um array para o ERP*/
+					let produtos = [];
+					/* Lista todos os documentos e aplica o filtro pelo HashDoc, caso o documento já exista na base Clic, adiciona os produtos ao pedido que sejam do mesmo HashDoc*/
+					
+					if(id > 0){
+						let allDocs	= $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
+
+						for(i = 0; i < allDocs.length; i++){
+							produtos.push(allDocs[i].jsonDocs[0].produtos);		
 						}
 					}
-					
-					dados.jsonDocs 		= JSON.stringify(json); 
-					let response 		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
-				};
+		
+					let sendToERP 			= JSON.parse(dados.jsonDocs);
 
-				$scope.messageNotific = 'Registro alterado com sucesso';
-				$scope.geraNotificacao($scope.messageNotific, 1200, "success");
+					$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
 
-			}else{
-				if($scope.novoProdutoAdicionado && id > 0){
-					await $scope.atualizaProdutosPedido()
-				}
-
-				for(i = 0; i < $rootScope.produtos.length; i++){
-
-					/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
-					json[0].produtos 		= $rootScope.produtos[i];
-
-					dados.jsonDocs 			= JSON.stringify(json);
-
-					let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
-					if(rotina == 1){
-						$scope.messageNotific 	= 'Registro inserido com sucesso';
-						$scope.geraNotificacao($scope.messageNotific, 1200, "success");
+					if(id > 0){
+						sendToERP[0].produtos 	= produtos; /*Array de produtos*/
 					}
+					
+					/*Atualiza numero do pedido*/
+					if(!isNaN(parseInt($rootScope.documentoERP))){
+						let dataFormat				= new Date();
+						json[0].sincronizado    	= "DOCUMENTO_SINCRONIZADO";
+						json[0].pedDatEmi			= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
+						json[0].pedNumped			= $rootScope.documentoERP;
+					}else{
+						json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
+						json[0].pedNumped	 = 0;
+					}
+
 				};
-			};
+				if(id > 0 && (amostrasPedido.situacao.send === "AM_FINALIZADA" ||  amostrasPedido.situacao.send === "AM_INTEGRADA")){
+				//if(id > 0){
+					$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
+
+					for(j = 0; j < $rootScope.docsToEdit.length; j++){						
+						json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
+
+						if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
+							json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
+						}else if(json[0].produtos.situacao.send == 'AM_FECHADA'){
+							json[0].produtos.situacao = {nome:"Fechado", send:"AM_FECHADA"}
+						}
+							
+						/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
+						if(json[0].produtos.codigoProduto == $scope.codigoProduto){
+							
+							json[0].produtos.potencial0XCM 	= $scope.potencial0XCM;
+							json[0].produtos.consumoAg		= $scope.consumoAg;
+							json[0].produtos.cluster		= $scope.cluster,
+							json[0].produtos.ofertaUnit		= $scope.ofertaUnit,
+							json[0].produtos.dataStatus		= $scope.dataStatus,
+							json[0].produtos.justificativa	= $scope.justificativa,
+							json[0].produtos.potencial0XCM	= $scope.potencial0XCM, //
+							json[0].produtos.chaveCp		= $scope.chaveCp,
+							json[0].produtos.identQtd		= $scope.identQtd,
+							json[0].produtos.venda			= $scope.venda,
+							json[0].produtos.vendaLocalKg	= $scope.vendaLocalKg,
+							json[0].produtos.totalFatUSD	= $scope.totalFatUSD,
+							json[0].produtos.margemR		= $scope.margemR,
+							json[0].produtos.preUSD			= $scope.preUSD,
+							json[0].produtos.ofertaData		= $scope.ofertaData,
+							json[0].produtos.probFechamento	= $scope.probFechamento,		
+							json[0].produtos.consumoAg		= $scope.consumoAg,	//
+							json[0].produtos.familia		= $scope.familia,
+							json[0].produtos.concorrencia	= $scope.concorrencia,
+							json[0].produtos.precoConc		= $scope.precoConc,
+							json[0].produtos.mesIniConsumo	= $scope.mesIniConsumo
+							json[0].produtos.acoes			= $scope.acoes,
+							json[0].produtos.statusAcao		= $scope.statusAcao,
+							json[0].produtos.situacaoAmostra= $scope.situacaoAmostra,
+
+							json[0].produtos.anoAmostra			= $scope.anoAmostra,
+							json[0].produtos.trimestreAmostra	= $scope.trimestreAmostra
+
+							if(json[0].produtos.situacao.send === "EM_DIGITACAO" || json[0].produtos.situacao.send === "EM_ANALISE" || json[0].produtos.situacao.send === "EM_REVISAO"){
+								switch(situacao){
+									case 'EM_DIGITACAO':
+										json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
+										break;
+									
+									case 'EM_ANALISE':
+										json[0].produtos.situacao = {nome:"Em análise", send:situacao}
+										break;
+									
+									case 'EM_REVISAO':
+										json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
+										break;
+								}
+							}
+						}
 						
-			$scope.atualizaTabela();
-			$scope.atualizaTabelaCompleta();
+						dados.jsonDocs 		= JSON.stringify(json); 
+						let response 		= await $http.post('/clicVendas/rest/pedidov2/salvar/'+$rootScope.docsToEdit[j].id, dados);
+					};
+
+					$scope.messageNotific = 'Registro alterado com sucesso';
+					$scope.geraNotificacao($scope.messageNotific, 1200, "success");
+
+				}else{
+					if(($scope.novoProdutoAdicionado || id > 0) && amostrasPedido.situacao.send !=="AM_FECHADA"){
+						await $scope.atualizaProdutosPedido()
+					}
+
+					for(i = 0; i < $rootScope.produtos.length; i++){
+
+						/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
+						json[0].produtos 		= $rootScope.produtos[i];
+
+						dados.jsonDocs 			= JSON.stringify(json);
+
+						let response 			= await $http.post('/clicVendas/rest/pedidov2/salvar/', dados);
+						if(rotina == 1){
+							$scope.messageNotific 	= 'Registro inserido com sucesso';
+							$scope.geraNotificacao($scope.messageNotific, 1200, "success");
+						}
+					};
+				};
+							
+				$scope.atualizaTabela();
+				$scope.atualizaTabelaCompleta();
+				
+				$scope.exibeFormulario 		= false;
+				$scope.exibeListaDocumentos = true;
+			}else{
+				$scope.geraNotificacao("Para enviar para análise os campos aplicação, data teste e consumo devem estar preenchidos.", 1500, "warning")
+			}
+
 			
-			$scope.exibeFormulario 		= false;
-			$scope.exibeListaDocumentos = true;
 		};
 
 		$scope.limparFiltros = () =>{
@@ -1724,7 +1822,9 @@ angular
 								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
 							}
 
-							$scope.consultaPedidosERP($rootScope.dadosGrid);
+							if(!$scope.usuarioAprovador){
+								$scope.consultaPedidosERP($rootScope.dadosGrid);
+							}
 
 						}	
 
@@ -1779,13 +1879,14 @@ angular
 			]);	
 
 
-			defPD = {	'jsonDocs[0].numPedidoClic'			:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  		width:''	},
-						'jsonDocs[0].pedNumped'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
-						'jsonDocs[0].produtos.situacao.nome':	{i:2, vsbl: true,	tlt: 'Situação Amostra',width:''	},
-						'jsonDocs[0].cliente.nome'			:	{i:3, vsbl: true,	tlt: 'Cliente',			width:''	},
-						'jsonDocs[0].vendedor.nome'			:	{i:4, vsbl: true,	tlt: 'Vendedor',		width:''	},
-						'jsonDocs[0].produtos.descricao'    :	{i:5, vsbl: true,	tlt: 'Produto',			width:''	},
-						'jsonDocs[0].prioridade.nome'		:	{i:6, vsbl: true,	tlt: 'Prioridade',		width:''	}	
+			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  		width:''	},
+						'jsonDocs[0].pedNumped'						:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
+						'jsonDocs[0].produtos.situacaoAmostra.nome'	:	{i:49,  vsbl: true,	tlt: 'Sit. Amostra',	width:''	},
+						'jsonDocs[0].cliente.nome'					:	{i:3, vsbl: true,	tlt: 'Cliente',			width:''	},
+						'jsonDocs[0].vendedor.nome'					:	{i:4, vsbl: true,	tlt: 'Vendedor',		width:''	},
+						'jsonDocs[0].produtos.descricao'    		:	{i:5, vsbl: true,	tlt: 'Produto',			width:''	},
+						'jsonDocs[0].produtos.situacao.nome'		:	{i:2, vsbl: true,	tlt: 'Status',			width:''	}
+					
 				};
 
 
@@ -1795,7 +1896,11 @@ angular
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml = '';				
 				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
-				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
+				
+				if(!$scope.usuarioAprovador){
+					btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
+				}
+			
 				return btnhtml;
 			}));
 
@@ -1867,7 +1972,9 @@ angular
 								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
 							}
 
-							$scope.consultaPedidosERP($rootScope.dadosGrid);
+							if(!$scope.usuarioAprovador){
+								$scope.consultaPedidosERP($rootScope.dadosGrid);
+							}
 						};			
 						
 						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
@@ -1921,14 +2028,13 @@ angular
 			]);
 			
 			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  				width:'130px'	},
-						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Nº Pedido ERP',			width:'130px'},
-						'jsonDocs[0].produtos.situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Situação',				width:'130px'	},
-						// 'jsonDocs[0].responsavel'					:	{i:3,  vsbl: true,	tlt: 'Respons.',				width:'130px'},
-						'jsonDocs[0].produtos.descricao'			:	{i:4,  vsbl: true,	tlt: 'Produto',					width:'130px'},
-						'jsonDocs[0].produtos.codExterno'    		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'},
-						'jsonDocs[0].cliente.nome'					:	{i:6,  vsbl: true,	tlt: 'Nome Cliente',			width:'350px'},
-						'jsonDocs[0].uf'							:	{i:7,  vsbl: true,	tlt: 'UF',						width:'130px'},
-						'jsonDocs[0].vendedor.nome'					:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:'130px'},
+						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Nº Pedido ERP',			width:'130px'	},
+						'jsonDocs[0].produtos.situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Status',					width:'130px'	},
+						'jsonDocs[0].produtos.descricao'			:	{i:4,  vsbl: true,	tlt: 'Produto',					width:'130px'	},
+						'jsonDocs[0].produtos.codExterno'    		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'	},
+						'jsonDocs[0].cliente.nome'					:	{i:6,  vsbl: true,	tlt: 'Nome Cliente',			width:'350px'	},
+						'jsonDocs[0].uf'							:	{i:7,  vsbl: true,	tlt: 'UF',						width:'130px'	},
+						'jsonDocs[0].vendedor.nome'					:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:'130px'	},
 						'jsonDocs[0].segmento'						:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:'130px'	},
 						'jsonDocs[0].subsegmento'					:	{i:10, vsbl: true,	tlt: 'Subsegmento',				width:'130px'	},
 						'jsonDocs[0].bu'							:	{i:11, vsbl: true,	tlt: 'BU',						width:'130px'	},
@@ -1966,7 +2072,8 @@ angular
 						'jsonDocs[0].produtos.margemR'	      		:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:'130px'	},
 						'jsonDocs[0].produtos.preUSD'	      		:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:'130px'	},
 						'jsonDocs[0].potVolAg'	      				:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:'130px'	},
-						'jsonDocs[0].projeto.nome'					:	{i:48,  vsbl: true,	tlt: 'Projeto',					width:'130px'},
+						'jsonDocs[0].projeto.nome'					:	{i:48,  vsbl: true,	tlt: 'Projeto',					width:'130px'	},
+						'jsonDocs[0].produtos.situacaoAmostra.nome'	:	{i:49,  vsbl: true,	tlt: 'Sit. Amostra',			width:'130px'	},
 				};
 		
 			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
@@ -1975,7 +2082,10 @@ angular
 			montaColunasFull.push(DTColumnBuilder.newColumn(null).withTitle('Editar/Exluir').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '125px').renderWith(function(data, type, row) {
 				var btnhtml = '';				
 				btnhtml += "<div class='glyphicon glyphicon-edit' style='font-size:1.5em; color:var(--cor_principal);  display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='abreFormulario("+JSON.stringify(row)+")'></div>";
-				btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
+				
+				if(!$scope.usuarioAprovador){
+					btnhtml += "<div class='glyphicon glyphicon-ban-circle' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Cancelar item' ng-click='removerDocumento("+JSON.stringify(row)+")' ></div>";
+				}
 				return btnhtml;
 			}));
 
