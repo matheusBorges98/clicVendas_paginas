@@ -59,10 +59,10 @@
 						<input type="text" style="width: 220px;" class="form-control spacer-input" ui-mask="99/99/9999" id="filDataEmissao" ng-model="filDataEmissao">
 					</div>
 										
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="filCarteira">Prioridade</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filPrioridade" ng-model="filPrioridade" aria-describedby=" " placeholder=" ">
-					</div>
+					</div> -->
 					
 					<div class="form-group">
 						<label for="filCarteira">Produto</label>
@@ -1133,7 +1133,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431//41943; //17431/*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 41943//41943; //17431/*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -1498,11 +1498,8 @@ angular
 
 		}
 
-		console.log("aqui2")
-
 		$scope.atualizaProdutosPedido = async () => {
 			/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
-			console.log($scope.documentosClic)
 			if($scope.documentosClic != undefined){
 				for(i = 0; i < $scope.documentosClic.length; i++){
 					await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);

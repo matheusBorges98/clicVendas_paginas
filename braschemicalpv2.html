@@ -59,10 +59,10 @@
 						<input type="text" style="width: 220px;" class="form-control spacer-input" ui-mask="99/99/9999" id="filDataEmissao" ng-model="filDataEmissao">
 					</div>
 										
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="filCarteira">Prioridade</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filPrioridade" ng-model="filPrioridade" aria-describedby=" " placeholder=" ">
-					</div>
+					</div> -->
 					
 					<div class="form-group">
 						<label for="filCarteira">Produto</label>
@@ -986,7 +986,7 @@ angular
 								
 				}, timeLimit * 1000); // limite em segundos
 				
-				console.log(reponse.data, "Retorno ERP")
+				console.log(response.data, "Retorno ERP")
 				return response.data;
 			}catch(err){
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
@@ -1500,7 +1500,7 @@ angular
 
 		$scope.atualizaProdutosPedido = async () => {
 			/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
-			if($scope.documentosClic){
+			if($scope.documentosClic != undefined){
 				for(i = 0; i < $scope.documentosClic.length; i++){
 					await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
 				}
