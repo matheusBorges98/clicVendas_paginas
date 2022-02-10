@@ -1498,9 +1498,11 @@ angular
 
 		}
 
+		console.log("aqui")
+
 		$scope.atualizaProdutosPedido = async () => {
 			/*Quando um novo produto é adicionado a um pedido já existente, irá excluir os antigos e salvar novamente com o novo item.*/
-			if($scope.documentosClic){
+			if($scope.documentosClic != undefined){
 				for(i = 0; i < $scope.documentosClic.length; i++){
 					await $http.delete('/clicVendas/rest/pedidov2/deleta/'+ $scope.documentosClic[i].id);
 				}
