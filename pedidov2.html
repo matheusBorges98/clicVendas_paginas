@@ -697,7 +697,7 @@ angular
 		$rootScope.cliente				= {};
 		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
 
-		console.log("TESTE1")
+		console.log("TESTE2")
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -1731,9 +1731,12 @@ angular
 					$scope.geraNotificacao($scope.messageNotific, 1200, "success");
 
 				}else{
-					if(($scope.novoProdutoAdicionado || id > 0) && amostrasPedido.situacao.send !=="AM_FECHADA"){
+					if(($scope.novoProdutoAdicionado || id > 0)){
 						await $scope.atualizaProdutosPedido()
 					}
+					// if(($scope.novoProdutoAdicionado || id > 0) && amostrasPedido.situacao.send !=="AM_FECHADA"){
+					// 	await $scope.atualizaProdutosPedido()
+					// }
 
 					for(i = 0; i < $rootScope.produtos.length; i++){
 
