@@ -697,7 +697,7 @@ angular
 		$rootScope.cliente				= {};
 		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
 
-		console.log("TESTE")
+		console.log("TESTE1")
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -1144,7 +1144,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 41943//41943; //17431/*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 17431//41943; //17431/*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
