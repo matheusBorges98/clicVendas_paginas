@@ -696,6 +696,8 @@ angular
 		/*Incializa cliente*/
 		$rootScope.cliente				= {};
 		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
+
+		console.log("TESTE")
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
