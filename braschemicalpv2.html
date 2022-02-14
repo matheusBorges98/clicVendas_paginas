@@ -259,7 +259,7 @@
 											<tr>
 												<td colspan ="20">
 													<div>
-														<textarea placeholder="Digite uma observação para o item." style="width: 100%;" type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao"></textarea>
+														<textarea placeholder="Digite uma obervação para o item." style="width: 100%;" type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao"></textarea>
 													</div>
 												</td>
 											</tr>
@@ -322,7 +322,7 @@
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-value="vendedor.nome" ng-model="vendedor" id="vendedor">
 									</div>
 									
-									<div class="col-sm-3 spacer ">
+									<div class="col-sm-4 spacer ">
 										<label for="segmento">Segmento</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="segmento" id="segmento">
 									</div>
@@ -380,18 +380,18 @@
 										<label for="dataStatus">Data Status</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="dataStatus" id="dataStatus">
 									</div>
-									<div class="col-sm-2 spacer">
+									<!-- <div class="col-sm-2 spacer">
 										<label for="situacao">Situação Amostra</label>
 										<input type="text" class="form-control spacer-input" ng-model="situacaoAmostra" id="situacaoAmostra" uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-									</div>
+									</div> -->
 									<div class="col-sm-2 spacer">
 										<label for="consumo">Consumo (Kg/mês)</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoProdutoKgMes" id="consumoProdutoKgMes">
 									</div>
-									<div class="col-sm-8 spacer">
+									<!-- <div class="col-sm-8 spacer">
 										<label for="justificativa">Justificativa</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="justificativa" id="justificativa">
-									</div>				  		  
+									</div>				  		   -->
 									<!-- <div class="col-sm-2 spacer"> -->
 										<!-- <label for="con2021n">Con. 2021 (em nº)</label> -->
 										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021n" id="con2021n"> -->
@@ -515,6 +515,15 @@
 										<label for="dataAtu">Data Atualização</label>
 										<input type="date" class="form-control spacer-input" ng-model="dataAtu" id="dataAtu" >
 									</div>
+									
+									<div class="col-sm-2 spacer">
+										<label for="situacao">Situação Amostra</label>
+										<input type="text" class="form-control spacer-input" ng-model="situacaoAmostra" id="situacaoAmostra" uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+									</div>
+									<div class="col-sm-8 spacer">
+										<label for="justificativa">Justificativa</label>
+										<textarea type="text" class="form-control spacer-input" ng-model="justificativa" id="justificativa"></textarea>
+									</div>		
 								</div>
 							</div>
 							
@@ -1113,7 +1122,7 @@ angular
 			// 	}		
 			// );
 
-			result = "610"  /*Valor fixo para teste*/
+			result = "612"  /*Valor fixo para teste*/
 			$rootScope.isLoading = false;
 			
 			if(!isNaN(parseInt(result))){
@@ -1720,9 +1729,12 @@ angular
 					$scope.geraNotificacao($scope.messageNotific, 1200, "success");
 
 				}else{
-					if(($scope.novoProdutoAdicionado || id > 0) && amostrasPedido.situacao.send !=="AM_FECHADA"){
+					if(($scope.novoProdutoAdicionado || id > 0)){
 						await $scope.atualizaProdutosPedido()
 					}
+					// if(($scope.novoProdutoAdicionado || id > 0) && amostrasPedido.situacao.send !=="AM_FECHADA"){
+					// 	await $scope.atualizaProdutosPedido()
+					// }
 
 					for(i = 0; i < $rootScope.produtos.length; i++){
 
