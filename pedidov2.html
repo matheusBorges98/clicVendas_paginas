@@ -380,18 +380,18 @@
 										<label for="dataStatus">Data Status</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="dataStatus" id="dataStatus">
 									</div>
-									<div class="col-sm-2 spacer">
+									<!-- <div class="col-sm-2 spacer">
 										<label for="situacao">Situação Amostra</label>
 										<input type="text" class="form-control spacer-input" ng-model="situacaoAmostra" id="situacaoAmostra" uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-									</div>
+									</div> -->
 									<div class="col-sm-2 spacer">
 										<label for="consumo">Consumo (Kg/mês)</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoProdutoKgMes" id="consumoProdutoKgMes">
 									</div>
-									<div class="col-sm-8 spacer">
+									<!-- <div class="col-sm-8 spacer">
 										<label for="justificativa">Justificativa</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="justificativa" id="justificativa">
-									</div>				  		  
+									</div>				  		   -->
 									<!-- <div class="col-sm-2 spacer"> -->
 										<!-- <label for="con2021n">Con. 2021 (em nº)</label> -->
 										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021n" id="con2021n"> -->
@@ -515,6 +515,15 @@
 										<label for="dataAtu">Data Atualização</label>
 										<input type="date" class="form-control spacer-input" ng-model="dataAtu" id="dataAtu" >
 									</div>
+									
+									<div class="col-sm-2 spacer">
+										<label for="situacao">Situação Amostra</label>
+										<input type="text" class="form-control spacer-input" ng-model="situacaoAmostra" id="situacaoAmostra" uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+									</div>
+									<div class="col-sm-8 spacer">
+										<label for="justificativa">Justificativa</label>
+										<input type="text" class="form-control spacer-input" ng-model="justificativa" id="justificativa">
+									</div>		
 								</div>
 							</div>
 							
