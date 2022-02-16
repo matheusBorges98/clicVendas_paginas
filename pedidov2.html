@@ -1055,8 +1055,10 @@ angular
 
 			$scope.calcularProdutos();
 		};
-
+		console.log("TESTE")
 		$scope.removerProduto = ($item) => {
+			console.log($item, "item que é excluido")
+			console.log($rootScope.produtos)
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno !== $item.codExterno && item.codVariacao !== $item.codVariacao);
 
 			$scope.calcularProdutos();
