@@ -803,7 +803,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		console.log("TESTE2")
+		console.log("TESTE3")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
@@ -2344,9 +2344,7 @@ angular
 
 		/*Tabela produtos - Abre \ fecha dados complementares*/
 		$('table').on('click', 'tr.parent #abreTabManutencao', function(){
-			$(this).closest('tbody').toggleClass('open');
-			$(this).closest('tbody').delay(2500).fadeIn();
-
+			$(this).closest('tbody').toggleClass('open').delay(2500).fadeIn();
 		});
 
 			
