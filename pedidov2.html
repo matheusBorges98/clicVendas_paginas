@@ -122,13 +122,14 @@
 				<div class="col-sm-12">
 
 					<!-- Body formulario -->
-					<ul ng-show="idDocumento > 0 && exibeAbaManutencao" style="overflow: hidden; margin-top:10px" class="nav nav-tabs" role="tablist" id="myTab">
+					<!-- <ul ng-show="idDocumento > 0 && exibeAbaManutencao" style="overflow: hidden; margin-top:10px" class="nav nav-tabs" role="tablist" id="myTab">
 						<li role="presentation" class="active"><a href="#docAdd-cliente-tab" role="tab" data-toggle="tab">Dados</a></li>
 						<li role="presentation"><a href="#docEdit-manu-projeto" role="tab" data-toggle="tab">Manutenção</a></li>
-					</ul>
+					</ul> -->
 
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="docAdd-cliente-tab">
+						<!-- <div role="tabpanel" class="tab-pane active" id="docAdd-cliente-tab"> -->
+						<div role="tabpanel" class="tab-pane" id="docAdd-cliente-tab">
 						
 							<div id="docAdd-cliente" class="form-row">
 								<div class="form-group col-md-12">
@@ -242,7 +243,7 @@
 							
 						</div>
 						<!-- man -->
-						<div role="tabpanel" class="tab-pane fade in" id="docEdit-manu-projeto">
+						<!-- <div role="tabpanel" class="tab-pane fade in" id="docEdit-manu-projeto">
 					
 							<div class="form-row ">
 								<div class="form-group col-md-12">
@@ -250,10 +251,7 @@
 										<label for="projeto">Projeto</label>
 										<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 									</div>
-									<!-- <div class="col-sm-2 spacer ">
-										<label for="responsavel">Responsável</label>
-										<input type="text" class="form-control spacer-input" ng-model="responsavel" id="responsavel" >
-									</div> -->
+
 									<div class="col-sm-2 spacer">
 										<label for="prioridade">Ano</label>
 										<input type="text" class="form-control spacer-input" ng-value="anoAmostra.nome" ng-model="anoAmosta" id="anoAmosta" uib-typeahead="(ano.nome) for ano in getAnoAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectAnoAmostra($item, $model, $label)">
@@ -327,7 +325,7 @@
 								</div>
 							</div>
 							
-						</div>
+						</div> -->
 						<!-- man -->
 					</div>
 				</div>
