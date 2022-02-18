@@ -242,7 +242,7 @@
 							
 						</div>
 						<!-- man -->
-						<div role="tabpanel" class="tab-pane" id="docEdit-manu-projeto">
+						<div ng-show="exibeAbaManutencao" role="tabpanel" class="tab-pane" id="docEdit-manu-projeto">
 					
 							<div class="form-row ">
 								<div class="form-group col-md-12">
@@ -740,7 +740,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		console.log("TEST43")
+		console.log("TESTE5")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
@@ -791,6 +791,7 @@ angular
 
 					$scope.inputDesabilitado  = false;
 					$scope.permiteEditar	  = true;
+					$scope.exibeAbaManutencao = false;
 					
 					$scope.$applyAsync();
 
