@@ -241,7 +241,7 @@
 											</tr>
 											<tr class="cchild">
 												<td colspan ="20">
-													<div class="col-sm-12">
+													<div class="col-sm-12 fadeIn">
 														<div class="panel panel-default spacer">
 															<div class="panel-heading">Manutenção prospeção</div>
 																<div class="panel-body">
@@ -803,7 +803,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		console.log("TESTE1")
+		console.log("TESTE2")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
@@ -2359,6 +2359,13 @@ angular
 
 :root {
 		--cor_principal: #1a6c95;
+	}
+
+	.fadeIn {
+		-webkit-animation: fadeIn 3s ease-in-out;
+		-moz-animation: fadeIn 3s ease-in-out;
+		-o-animation: fadeIn 3s ease-in-out;
+		animation: fadeIn 3s ease-in-out;
 	}
 
 	/*Tabela produtos - Child rows*/
