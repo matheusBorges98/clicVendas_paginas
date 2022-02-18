@@ -241,7 +241,7 @@
 											</tr>
 											<tr class="cchild">
 												<td colspan ="20">
-													<div class="col-sm-12 fadeIn">
+													<div class="col-sm-12">
 														<div class="panel panel-default spacer">
 															<div class="panel-heading">Manutenção prospeção</div>
 																<div class="panel-body">
@@ -803,7 +803,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		console.log("TESTE2")
+		console.log("TESTE1")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
@@ -2344,7 +2344,8 @@ angular
 
 		/*Tabela produtos - Abre \ fecha dados complementares*/
 		$('table').on('click', 'tr.parent #abreTabManutencao', function(){
-			$(this).closest('tbody').toggleClass('open').fadeIn(800);
+			$(this).closest('tbody').toggleClass('open');
+			$('tr.parent').fadeIn(800);
 		});
 
 			
@@ -2359,13 +2360,6 @@ angular
 
 :root {
 		--cor_principal: #1a6c95;
-	}
-
-	.fadeIn {
-		-webkit-animation: fadeIn 3s ease-in-out;
-		-moz-animation: fadeIn 3s ease-in-out;
-		-o-animation: fadeIn 3s ease-in-out;
-		animation: fadeIn 3s ease-in-out;
 	}
 
 	/*Tabela produtos - Child rows*/
