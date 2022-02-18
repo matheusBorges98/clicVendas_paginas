@@ -460,88 +460,119 @@
 						</div>
 					
 						<div role="tabpanel" class="tab-pane active" id="docEdit-manu-projeto">
-					
+							
 							<div class="form-row ">
 								<div class="form-group col-md-12">
-									<div class="col-sm-2 spacer ">
-										<label for="projeto">Projeto</label>
-										<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
+									
+									<div class="col-sm-12">
+										<div class="panel panel-default spacer">
+											<div class="panel-heading">Atualização do Status da Amostra</div>
+											<div class="panel-body">
+												
+												<div class="col-sm-2 spacer">
+													<label for="situacao">Situação</label>
+													<input type="text" class="form-control spacer-input" ng-model="situacaoAmostra" id="situacaoAmostra" uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+												</div>
+												
+												<div class="col-sm-8 spacer">
+													<label for="justificativa">Justificativa</label>
+													<textarea type="text" class="form-control spacer-input" ng-model="justificativa" id="justificativa" rows="1"></textarea>
+												</div>
+						
+												
+												<div class="col-sm-2 spacer ">
+													<label for="projeto">Projeto</label>
+													<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
+												</div>											
+											</div>
+										</div>
 									</div>
-									<!-- <div class="col-sm-2 spacer ">
-										<label for="responsavel">Responsável</label>
-										<input type="text" class="form-control spacer-input" ng-model="responsavel" id="responsavel" >
-									</div> -->
-									<div class="col-sm-2 spacer">
-										<label for="prioridade">Ano</label>
-										<input type="text" class="form-control spacer-input" ng-value="anoAmostra.nome" ng-model="anoAmosta" id="anoAmosta" uib-typeahead="(ano.nome) for ano in getAnoAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectAnoAmostra($item, $model, $label)">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="prioridade">Trimestre</label>
-										<input type="text" class="form-control spacer-input" ng-value="trimestreAmostra.nome" ng-model="trimestreAmostra" id="trimestreAmostra" uib-typeahead="(trimestre.nome) for trimestre in getTrimestreAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectTrimestreAmostra($item, $model, $label)">
-									</div>				  
-									<div class="col-sm-2 spacer">
-										<label for="potencial">Potencial</label>
-										<input type="text" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM" >
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="consumoAg">Consumo Ano Ger.</label>
-										<input type="text" class="form-control spacer-input" ng-model="consumoAg" id="consumoAg">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="con2021Ident">Consumo indent</label>
-										<input type="text" class="form-control spacer-input" ng-model="conIndent" id="conIndent">
-									</div>	
-									<div class="col-sm-2 spacer">
-										<label for="conLocal">Consumo local</label>
-										<input type="text" class="form-control spacer-input" ng-model="conLocal" id="conLocal" >
-									</div>		
-									<div class="col-sm-2 spacer">
-										<label for="mesIniConsumo">Mes Início Consumo</label>
-										<input type="text" class="form-control spacer-input" ng-model="mesIniConsumo" id="mesIniConsumo" >
-									</div>											
-									<div class="col-sm-2 spacer">
-										<label for="probFechamento">% Prob. Fec.</label>
-										<input type="text" class="form-control spacer-input" ng-model="probFechamento" id="probFechamento" >
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="concorrencia">Concorrência</label>
-										<input type="text" class="form-control spacer-input" ng-model="concorrencia" id="concorrencia" >
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="precoConc">Preço Conc. US$</label>
-										<input type="text" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
-									</div>
-									<div class="col-sm-2 spacer hidden">
-										<label for="dataAtu">Data Atualização</label>
-										<input type="date" class="form-control spacer-input" ng-model="dataAtu" id="dataAtu" >
+								
+									<div class="col-sm-12">
+										<div class="panel panel-default spacer">
+											<div class="panel-heading">Prioridade</div>
+											<div class="panel-body">
+												<div class="col-sm-4 spacer">
+													<label for="prioridade">Ano</label>
+													<input type="text" class="form-control spacer-input" ng-value="anoAmostra.nome" ng-model="anoAmosta" id="anoAmosta" uib-typeahead="(ano.nome) for ano in getAnoAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectAnoAmostra($item, $model, $label)">
+												</div>
+												<div class="col-sm-4 spacer">
+													<label for="prioridade">Trimestre</label>
+													<input type="text" class="form-control spacer-input" ng-value="trimestreAmostra.nome" ng-model="trimestreAmostra" id="trimestreAmostra" uib-typeahead="(trimestre.nome) for trimestre in getTrimestreAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectTrimestreAmostra($item, $model, $label)">
+												</div>				  
+												<div class="col-sm-4 spacer">
+													<label for="probFechamento">% Probabilidade de Fechamento</label>
+													<input type="text" class="form-control spacer-input" ng-model="probFechamento" id="probFechamento" >
+												</div>	
+											</div>
+										</div>	
 									</div>
 									
-									<div class="col-sm-2 spacer">
-										<label for="situacao">Situação Amostra</label>
-										<input type="text" class="form-control spacer-input" ng-model="situacaoAmostra" id="situacaoAmostra" uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+									<div class="col-sm-6">
+										<div class="panel panel-default spacer">
+											<div class="panel-heading">Potencial do Cliente</div>
+											<div class="panel-body">
+												<div class="col-sm-4 spacer">
+													<label for="potencial">Volume (Kg/Ano)</label>
+													<input type="text" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM" >
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="col-sm-8 spacer">
-										<label for="justificativa">Justificativa</label>
-										<textarea type="text" class="form-control spacer-input" ng-model="justificativa" id="justificativa"></textarea>
-									</div>		
+											
+									
+									<div class="col-sm-6">
+										<div class="panel panel-default spacer">
+											<div class="panel-heading">Previsão de consumo</div>
+											<div class="panel-body">
+												<div class="col-sm-4 spacer">
+													<label for="con2021Ident">(Kg) INDENT Ano</label>
+													<input type="text" class="form-control spacer-input" ng-model="conIndent" id="conIndent">
+												</div>	
+												<div class="col-sm-4 spacer">
+													<label for="conLocal">(Kg) Local Ano</label>
+													<input type="text" class="form-control spacer-input" ng-model="conLocal" id="conLocal" >
+												</div>		
+												<div class="col-sm-4 spacer">
+													<label for="mesIniConsumo">Mes Início</label>
+													<input type="text" class="form-control spacer-input" ng-model="mesIniConsumo" id="mesIniConsumo" >
+												</div>	
+											</div>
+										</div>
+									</div>
+												
+									<div class="col-sm-12">
+										<div class="panel panel-default spacer">
+											<div class="panel-heading">Outras informações</div>
+											<div class="panel-body">
+												<div class="col-sm-2 spacer">
+													<label for="concorrencia">Concorrência</label>
+													<input type="text" class="form-control spacer-input" ng-model="concorrencia" id="concorrencia" >
+												</div>			  
+												<div class="col-sm-2 spacer">
+													<label for="precoConc">Preço (Dolar NET)</label>
+													<input type="text" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
+												</div>
+												  	   
+												<div class="col-sm-10 spacer">
+													<label for="acoes">Ações</label>
+													<textarea class="form-control spacer-input" ng-model="acoes" id="acoes" rows="1"></textarea>
+												</div>	
+												<div class="col-sm-2 spacer">
+													<label for="statusAcao">Status da Ação</label>
+													<input type="text" class="form-control spacer-input" ng-model="statusAcao" id="statusAcao" >
+												</div>		
+											</div>
+										</div>	
+									</div>
+										
 								</div>
 							</div>
 							
-							<div class="form-row col-md-12 spacer">
-									<hr class="divider"> 
-							</div>
+							
 								
 							<div class="form-row ">
-								<div class="form-group col-md-12">		  	   
-									<div class="col-sm-10 spacer">
-										<label for="acoes">Ações</label>
-										<textarea class="form-control spacer-input" ng-model="acoes" id="acoes" rows="3"></textarea>
-									</div>	
-									<div class="col-sm-2 spacer">
-										<label for="statusAcao">Status da Ação</label>
-										<input type="text" class="form-control spacer-input" ng-model="statusAcao" id="statusAcao" >
-									</div>		
-								</div>
+								
 							</div>
 							
 						</div>
