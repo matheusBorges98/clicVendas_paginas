@@ -188,13 +188,13 @@
 											</tr>
 										</thead>
 										<tbody ng-repeat = "produto in produtos">
-											<tr>
+											<tr class="parent">
 												<td>
 													<div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} <p>
 													<div>
-														<h5 ng-click="exibeTabManutencao == false ? true : false">Manutenção</h5>
+														<h5 style="cursor: pointer;" id="abreTabManutencao">Manutenção</h5>
 													</div>
 													<!-- <div ng-show="produto.acoes != '' ">
 														<span class='glyphicon glyphicon-exclamation-sign' style='font-size:1.2em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;' title="Revisar"></span>
@@ -232,14 +232,14 @@
 													</div>		
 												</td>
 											</tr>
-											<tr>
+											<tr class="parent">
 												<td colspan ="20">
 													<div>
 														<textarea placeholder="Digite uma obervação para o item." style="width: 100%;" type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao"></textarea>
 													</div>
 												</td>
 											</tr>
-											<tr ng-show="exibeTabManutencao">
+											<tr class="cchild">
 												<td colspan ="20">
 													<div class="col-sm-12">
 														<div class="panel panel-default spacer">
@@ -803,7 +803,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		console.log("TESTE2")
+		console.log("TESTE3")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
@@ -2342,6 +2342,11 @@ angular
 
 		};
 
+		/*Tabela produtos - Abre \ fecha dados complementares*/
+		$('table').on('click', 'tr.parent #abreTabManutencao', function(){
+			$(this).closest('tbody').toggleClass('open');
+		});
+
 			
 	});
 </script> 
@@ -2355,6 +2360,18 @@ angular
 :root {
 		--cor_principal: #1a6c95;
 	}
+
+	/*Tabela produtos - Child rows*/
+	.parent ~ .cchild {
+		display: none;
+	}
+	.open .parent ~ .cchild {
+		display: table-row;
+	}
+	.parent {
+		cursor: pointer;
+	}
+	/**/
 
 	.btn_cor_disabled {
 		background-color: #C0C0C0  !important;
