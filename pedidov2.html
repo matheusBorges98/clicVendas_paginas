@@ -122,7 +122,7 @@
 				<div class="col-sm-12">
 
 					<!-- Body formulario -->
-					<ul ng-show="idDocumento > 0" style="overflow: hidden;" class="nav nav-tabs" role="tablist" id="myTab">
+					<ul ng-show="idDocumento > 0 && exibeAbaManutencao" style="overflow: hidden;" class="nav nav-tabs" role="tablist" id="myTab">
 						<li role="presentation" class="active"><a href="#docAdd-cliente-tab" role="tab" data-toggle="tab">Dados</a></li>
 						<li role="presentation"><a href="#docEdit-manu-projeto" role="tab" data-toggle="tab">Manutenção</a></li>
 					</ul>
@@ -337,7 +337,7 @@
 				
 				<div class="col-sm-12">	
 				
-					<ul style="overflow: hidden;" class="nav nav-tabs" role="tablist" id="myTab">
+					<ul style="overflow: hidden; margin-top:10px;" class="nav nav-tabs" role="tablist" id="myTab">
 						<li role="presentation" class="active"><a href="#docEdit-manu-projeto" role="tab" data-toggle="tab">Manutenção</a></li>
 						<li role="presentation"><a href="#docEdit-info-projeto" role="tab" data-toggle="tab">Informações do projeto</a></li>
 						<li role="presentation"><a href="#docEdit-hist-projeto" role="tab" data-toggle="tab">Histórico / Observações</a></li>
@@ -740,7 +740,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		console.log("TESTE1")
+		console.log("TESTE3")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
@@ -800,10 +800,13 @@ angular
 					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA" || $dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA"){
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
+						$scope.exibeAbaManutencao = false;
 
 					}else{
 						$scope.inputDesabilitado  = false;
 						$scope.permiteEditar	  = true;
+
+						$scope.exibeAbaManutencao = true;
 
 						if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "EM_ANALISE"){
 							$scope.inputDesabilitado  = true;
