@@ -241,7 +241,7 @@
 														<div class="panel panel-default spacer">
 															<div class="panel-heading">Manutenção prospeção</div>
 																<div class="panel-body">
-																	<div class="col-sm-2 spacer ">
+																	<div class="col-sm-3 spacer ">
 																		<label for="projeto">Projeto</label>
 																		<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
 																	</div>
@@ -249,46 +249,47 @@
 																		<label for="prioridade">Ano</label>
 																		<input type="text" class="form-control spacer-input" ng-value="anoAmostra.nome" ng-model="anoAmosta" id="anoAmosta" uib-typeahead="(ano.nome) for ano in getAnoAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectAnoAmostra($item, $model, $label)">
 																	</div>
-																	<div class="col-sm-2 spacer">
+																	<div class="col-sm-3 spacer">
 																		<label for="prioridade">Trimestre</label>
 																		<input type="text" class="form-control spacer-input" ng-value="trimestreAmostra.nome" ng-model="trimestreAmostra" id="trimestreAmostra" uib-typeahead="(trimestre.nome) for trimestre in getTrimestreAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectTrimestreAmostra($item, $model, $label)">
 																	</div>	
-																	<div class="col-sm-4 spacer">
+																	<div class="col-sm-2 spacer">
 																		<label for="probFechamento">% Probabilidade de Fechamento</label>
-																		<input type="text" class="form-control spacer-input" ng-model="probFechamento" id="probFechamento" >
-																	</div>	
-																	<div class="col-sm-4 spacer">
-																		<label for="potencial">Volume (Kg/Ano)</label>
-																		<input type="text" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM" >
-																	</div>
-																	<div class="col-sm-4 spacer">
-																		<label for="con2021Ident">(Kg) INDENT Ano</label>
-																		<input type="text" class="form-control spacer-input" ng-model="conIndent" id="conIndent">
-																	</div>	
-																	<div class="col-sm-4 spacer">
-																		<label for="conLocal">(Kg) Local Ano</label>
-																		<input type="text" class="form-control spacer-input" ng-model="conLocal" id="conLocal" >
-																	</div>		
-																	<div class="col-sm-4 spacer">
-																		<label for="mesIniConsumo">Mes Início</label>
-																		<input type="text" class="form-control spacer-input" ng-model="mesIniConsumo" id="mesIniConsumo" >
+																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="probFechamento" id="probFechamento" >
 																	</div>	
 																	<div class="col-sm-2 spacer">
+																		<label for="potencial">Volume (Kg/Ano)</label>
+																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM" >
+																	</div>
+
+																	<div class="col-sm-2 spacer">
+																		<label for="con2021Ident">(Kg) INDENT Ano</label>
+																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="conIndent" id="conIndent">
+																	</div>	
+																	<div class="col-sm-3 spacer">
+																		<label for="conLocal">(Kg) Local Ano</label>
+																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="conLocal" id="conLocal" >
+																	</div>		
+																	<div class="col-sm-2 spacer">
+																		<label for="mesIniConsumo">Mes Início</label>
+																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="mesIniConsumo" id="mesIniConsumo" >
+																	</div>	
+																	<div class="col-sm-3 spacer">
 																		<label for="concorrencia">Concorrência</label>
-																		<input type="text" class="form-control spacer-input" ng-model="concorrencia" id="concorrencia" >
+																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="concorrencia" id="concorrencia" >
 																	</div>			  
 																	<div class="col-sm-2 spacer">
 																		<label for="precoConc">Preço (Dolar NET)</label>
-																		<input type="text" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
+																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
 																	</div>
 																			
 																	<div class="col-sm-10 spacer">
 																		<label for="acoes">Ações</label>
-																		<textarea class="form-control spacer-input" ng-model="acoes" id="acoes" rows="1"></textarea>
+																		<textarea autocomplete="false" class="form-control spacer-input" ng-model="acoes" id="acoes" rows="1"></textarea>
 																	</div>	
 																	<div class="col-sm-2 spacer">
 																		<label for="statusAcao">Status da Ação</label>
-																		<input type="text" class="form-control spacer-input" ng-model="statusAcao" id="statusAcao" >
+																		<input type="text" class="form-control spacer-input" ng-model="statusAcao" autocomplete="false" id="statusAcao" >
 																	</div>
 																</div>
 															</div>
@@ -798,7 +799,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		console.log("TESTE4")
+		console.log("TESTE5")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
