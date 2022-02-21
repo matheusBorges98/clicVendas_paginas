@@ -194,7 +194,6 @@
 													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} <p>
 													<div ng-show="exibeTabManutencao">
-														<!--<h5 style="cursor: pointer;" id="abreTabManutencao">Manutenção</h5>-->
 														<button style="cursor: pointer; margin-left:5px" id="abreTabManutencao" class="btn btn_grid btn_cor_padrao">Manutenção</button>
 													</div>
 													<!-- <div ng-show="produto.acoes != '' ">
@@ -743,19 +742,19 @@
 						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' && dadosUserLogado.rTipoId === 3 " ng-click="finalizarDocumento()"> Enviar para o ERP </button>
 					</div> -->
 					<div class="btn-group dropup">
-						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
+						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == ''" data-toggle="dropdown">
 							Salvar
 							<span class="caret caret-up"></span>
 						</button>
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
-							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
-							<!-- <li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li> -->
-							<li ng-show="!inputDesabilitado"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
+							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>  
+							<li ng-show="!inputDesabilitado"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li> 
+							<li><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>     
 						</ul>
-						<ul ng-show="usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
+						<ul ng-show="usuarioAprovador && amostraEmAnalise" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
 							<li><a title="Salvar e enviar para revisão" ng-click="salvarDocumento(1, 'EM_REVISAO')">Enviar para revisão</a></li>     
-							<li><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>      
+							<!-- <li><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>       -->
 						</ul>
 					</div>	
 					<!-- <div class="btn-group">
@@ -834,6 +833,8 @@ angular
 		$rootScope.subdomain		= dadosUserLogado.cSubdominio;
 
 		$rootScope.isLoading 		= false;
+
+		console.log("TESTE3")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
@@ -847,11 +848,12 @@ angular
 		$scope.filPesquisaGeral			= "";
 		/*Incializa produtos*/
 		$rootScope.produtos 			= [];
-		$scope.novoProdutoAdicionado	= false  
+		$scope.novoProdutoAdicionado	= false; 
 
 		/*Incializa cliente*/
 		$rootScope.cliente				= {};
 		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
+		$scope.amostraEmAnalise			= false;
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -876,9 +878,9 @@ angular
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
 
-				$scope.exibeFormulario = true;
+				$scope.exibeFormulario 		= true;
 				$scope.exibeListaDocumentos = false;
-				
+			
 				if($dados == undefined){
 					$scope.tipoFormulario = 'Novo';
 
@@ -904,6 +906,7 @@ angular
 
 						if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "EM_ANALISE"){
 							$scope.inputDesabilitado  = true;
+							$scope.amostraEmAnalise	  = true;
 						}
 					}
 	
@@ -1163,7 +1166,10 @@ angular
 		};
 
 		$scope.agruparPedidosAprovador = () =>{
-			$rootScope.dadosGrid = $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
+			//SOMENTE EM ANALISE $rootScope.dadosGrid = $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
+
+			/*Ordena primeiro os pedidos em análise*/
+			$rootScope.dadosGrid.sort((aprov) => (aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") ? -1 : 1);	
 
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		}
@@ -1685,7 +1691,10 @@ angular
 
 			Situação: 
 				Em digitação - EM_DIGITACAO: Primeira etapa do fluxo | É possível editar e adicionar novos produtos ao pedido
-				Em análise	 -
+				Em análise	 - EM_ANALISE: Quando o pedido é editável pelo Gerente e podendo retornar como revisão ou ser encaminhado ao ERP
+				Em revisão	 - EM_REVISAO: Quando o pedido retorna da análise, o processo só pode ser feito pelo Gerente
+				Finalizado	 - AM_FINALIZADA: Quando a prospecção foi aprovada e enviada parao ERP
+				Fechada	  	 - AM_FECHADA: Quando é fechada, arquivada.
 			*/
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
@@ -1994,9 +2003,10 @@ angular
 								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
 							}
 
-							if(!$scope.usuarioAprovador){
-								$scope.consultaPedidosERP($rootScope.dadosGrid);
-							}
+							// if(!$scope.usuarioAprovador){
+							// 	$scope.consultaPedidosERP($rootScope.dadosGrid);
+							// }
+							$scope.consultaPedidosERP($rootScope.dadosGrid);
 
 						}	
 
@@ -2144,9 +2154,10 @@ angular
 								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
 							}
 
-							if(!$scope.usuarioAprovador){
-								$scope.consultaPedidosERP($rootScope.dadosGrid);
-							}
+							// if(!$scope.usuarioAprovador){
+							// 	$scope.consultaPedidosERP($rootScope.dadosGrid);
+							// }
+							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						};			
 						
 						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
@@ -2219,7 +2230,7 @@ angular
 						'jsonDocs[0].produtos.quantidade'			:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:'130px'	},
 						'jsonDocs[0].produtos.dataStatus'			:	{i:19, vsbl: true,	tlt: 'Data Status',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:'130px'	},
-						'jsonDocs[0].prioridade.nome'				:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:'130px'	},
+						//'jsonDocs[0].prioridade.nome'				:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoAg'      		:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:'130px'	},
 						'jsonDocs[0].conIndent'     				:	{i:25, vsbl: true,	tlt: 'Con. indent',				width:'130px'	},
 						'jsonDocs[0].con2021n'      				:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:'130px'	},

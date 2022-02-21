@@ -194,7 +194,7 @@
 													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} <p>
 													<div ng-show="exibeTabManutencao">
-														<h5 style="cursor: pointer;" id="abreTabManutencao">Manutenção</h5>
+														<button style="cursor: pointer; margin-left:5px" id="abreTabManutencao" class="btn btn_grid btn_cor_padrao">Manutenção</button>
 													</div>
 													<!-- <div ng-show="produto.acoes != '' ">
 														<span class='glyphicon glyphicon-exclamation-sign' style='font-size:1.2em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;' title="Revisar"></span>
@@ -2003,9 +2003,10 @@ angular
 								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
 							}
 
-							if(!$scope.usuarioAprovador){
-								$scope.consultaPedidosERP($rootScope.dadosGrid);
-							}
+							// if(!$scope.usuarioAprovador){
+							// 	$scope.consultaPedidosERP($rootScope.dadosGrid);
+							// }
+							$scope.consultaPedidosERP($rootScope.dadosGrid);
 
 						}	
 
@@ -2153,9 +2154,10 @@ angular
 								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
 							}
 
-							if(!$scope.usuarioAprovador){
-								$scope.consultaPedidosERP($rootScope.dadosGrid);
-							}
+							// if(!$scope.usuarioAprovador){
+							// 	$scope.consultaPedidosERP($rootScope.dadosGrid);
+							// }
+							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						};			
 						
 						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
