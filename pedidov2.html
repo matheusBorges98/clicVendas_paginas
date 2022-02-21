@@ -741,7 +741,7 @@
 					<!-- <div class="btn-group">
 						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' && dadosUserLogado.rTipoId === 3 " ng-click="finalizarDocumento()"> Enviar para o ERP </button>
 					</div> -->
-					<div class="btn-group dropup">
+					<div ng-hide="usuarioAprovador && amostraEmAnalise"class="btn-group dropup">
 						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
 							Salvar
 							<span class="caret caret-up"></span>
@@ -834,7 +834,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		console.log("TESTE2")
+		console.log("TESTE3")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
