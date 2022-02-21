@@ -194,6 +194,7 @@
 													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} <p>
 													<div ng-show="exibeTabManutencao">
+														<!--<h5 style="cursor: pointer;" id="abreTabManutencao">Manutenção</h5>-->
 														<button style="cursor: pointer; margin-left:5px" id="abreTabManutencao" class="btn btn_grid btn_cor_padrao">Manutenção</button>
 													</div>
 													<!-- <div ng-show="produto.acoes != '' ">
@@ -259,24 +260,24 @@
 																	</div>	
 																	<div class="col-sm-3 spacer">
 																		<label for="probFechamento">% Probabilidade de Fechamento</label>
-																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="produto.probFechamento" id="probFechamento" >
+																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="produto.probFechamento" id="probFechamento" uib-typeahead="(probabilidade.nome) for probabilidade in getProbFechamento($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProbFechamento($item, $model, $label)">
 																	</div>	
 																	<div class="col-sm-2 spacer">
 																		<label for="potencial">Volume (Kg/Ano)</label>
-																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="produto.potencial0XCM" id="potencial0XCM" >
+																		<input autocomplete="false" type="number" class="form-control spacer-input" ng-model="produto.potencial0XCM" id="potencial0XCM" >
 																	</div>
 
 																	<div class="col-sm-2 spacer">
 																		<label for="con2021Ident">(Kg) INDENT Ano</label>
-																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="produto.conIndent" id="conIndent">
+																		<input autocomplete="false" type="number" class="form-control spacer-input" ng-model="produto.conIndent" id="conIndent">
 																	</div>	
 																	<div class="col-sm-3 spacer">
 																		<label for="conLocal">(Kg) Local Ano</label>
-																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="produto.conLocal" id="conLocal" >
+																		<input autocomplete="false" type="number" class="form-control spacer-input" ng-model="produto.conLocal" id="conLocal" >
 																	</div>		
 																	<div class="col-sm-2 spacer">
 																		<label for="mesIniConsumo">Mes Início</label>
-																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="produto.mesIniConsumo" id="mesIniConsumo" >
+																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="produto.mesIniConsumo" id="mesIniConsumo" uib-typeahead="(mes.nome) for mes in getMesInicio($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectMesInicio($item, $model, $label)">
 																	</div>	
 																	<div class="col-sm-3 spacer">
 																		<label for="concorrencia">Concorrência</label>
@@ -284,7 +285,7 @@
 																	</div>			  
 																	<div class="col-sm-2 spacer">
 																		<label for="precoConc">Preço (Dolar NET)</label>
-																		<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="produto.precoConc" id="precoConc" >
+																		<input autocomplete="false" type="number" class="form-control spacer-input" ng-model="produto.precoConc" id="precoConc" >
 																	</div>
 																			
 																	<div class="col-sm-10 spacer">
@@ -626,7 +627,7 @@
 												</div>				  
 												<div class="col-sm-4 spacer">
 													<label for="probFechamento">% Probabilidade de Fechamento</label>
-													<input type="text" class="form-control spacer-input" ng-model="probFechamento" id="probFechamento" >
+													<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="produto.probFechamento" id="probFechamento" uib-typeahead="(probabilidade.nome) for probabilidade in getProbFechamento($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProbFechamento($item, $model, $label)">
 												</div>	
 											</div>
 										</div>	
@@ -638,7 +639,7 @@
 											<div class="panel-body">
 												<div class="col-sm-4 spacer">
 													<label for="potencial">Volume (Kg/Ano)</label>
-													<input type="text" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM" >
+													<input type="number" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM" >
 												</div>
 											</div>
 										</div>
@@ -651,15 +652,15 @@
 											<div class="panel-body">
 												<div class="col-sm-4 spacer">
 													<label for="con2021Ident">(Kg) INDENT Ano</label>
-													<input type="text" class="form-control spacer-input" ng-model="conIndent" id="conIndent">
+													<input type="number" class="form-control spacer-input" ng-model="conIndent" id="conIndent">
 												</div>	
 												<div class="col-sm-4 spacer">
 													<label for="conLocal">(Kg) Local Ano</label>
-													<input type="text" class="form-control spacer-input" ng-model="conLocal" id="conLocal" >
+													<input type="number" class="form-control spacer-input" ng-model="conLocal" id="conLocal" >
 												</div>		
 												<div class="col-sm-4 spacer">
 													<label for="mesIniConsumo">Mes Início</label>
-													<input type="text" class="form-control spacer-input" ng-model="mesIniConsumo" id="mesIniConsumo" >
+													<input autocomplete="false" type="text" class="form-control spacer-input" ng-model="produto.mesIniConsumo" id="mesIniConsumo" uib-typeahead="(mes.nome) for mes in getMesInicio($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectMesInicio($item, $model, $label)">
 												</div>	
 											</div>
 										</div>
@@ -675,7 +676,7 @@
 												</div>			  
 												<div class="col-sm-2 spacer">
 													<label for="precoConc">Preço (Dolar NET)</label>
-													<input type="text" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
+													<input type="number" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
 												</div>
 												  	   
 												<div class="col-sm-10 spacer">
@@ -742,19 +743,18 @@
 						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' && dadosUserLogado.rTipoId === 3 " ng-click="finalizarDocumento()"> Enviar para o ERP </button>
 					</div> -->
 					<div class="btn-group dropup">
-						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == ''" data-toggle="dropdown">
+						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
 							Salvar
 							<span class="caret caret-up"></span>
 						</button>
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
-							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>  
+							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<li ng-show="!inputDesabilitado"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li> 
-							<li ng-show="!amostraIntegrada"><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>     
+							<li><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>          
 						</ul>
 						<ul ng-show="usuarioAprovador && amostraEmAnalise" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
 							<li><a title="Salvar e enviar para revisão" ng-click="salvarDocumento(1, 'EM_REVISAO')">Enviar para revisão</a></li>     
-							<!-- <li><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>       -->
 						</ul>
 					</div>	
 					<!-- <div class="btn-group">
@@ -846,13 +846,12 @@ angular
 		$scope.filPesquisaGeral			= "";
 		/*Incializa produtos*/
 		$rootScope.produtos 			= [];
-		$scope.novoProdutoAdicionado	= false; 
+		$scope.novoProdutoAdicionado	= false;  
 
 		/*Incializa cliente*/
 		$rootScope.cliente				= {};
 		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
 		$scope.amostraEmAnalise			= false;
-		$scope.amostraIntegrada			= false;
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -877,9 +876,9 @@ angular
 		$rootScope.changeView = ($dados) => {
 			if($scope.exibeFormulario == false){
 
-				$scope.exibeFormulario 		= true;
+				$scope.exibeFormulario = true;
 				$scope.exibeListaDocumentos = false;
-			
+				
 				if($dados == undefined){
 					$scope.tipoFormulario = 'Novo';
 
@@ -887,20 +886,17 @@ angular
 					$scope.permiteEditar	  = true;
 					$scope.exibeTabManutencao = false;
 					$scope.amostraEmAnalise	  = false;
-					$scope.amostraIntegrada	  = false;
 					
 					$scope.$applyAsync();
 
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Prospecção ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Prospecção Nº "+$dados.jsonDocs[0].numPedidoClic;
 					$scope.amostraEmAnalise	  = false;
-					$scope.amostraIntegrada	  = false;
 
 					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA" || $dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA"){
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
 						$scope.exibeTabManutencao = false;
-						$scope.amostraIntegrada	  = true;
 
 					}else{
 						$scope.inputDesabilitado  = false;
@@ -910,7 +906,7 @@ angular
 
 						if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "EM_ANALISE"){
 							$scope.inputDesabilitado  = true;
-							$scope.amostraIntegrada	  = false;
+
 							$scope.amostraEmAnalise	  = true;
 						}
 					}
@@ -926,9 +922,6 @@ angular
 			};
 		};
 
-		console.log("TESTE")
-
-		
 		$scope.getFilScinronizacao = () =>{
 			$scope.listaFilSincronizacao = [ 
 				{
@@ -1112,9 +1105,98 @@ angular
 			];
 			return $scope.listaProjetos;
 		};
-
+		
 		$scope.onSelectProjeto = ($item, $model, $label) => {
 			$scope.projeto 		= $item;
+		};
+		
+		$scope.getProbFechamento = () =>{
+			$scope.listaProbFec = [ 
+				{
+					nome: '30%',
+					id: 30
+				},
+				{
+					nome: '50%',
+					id: 50
+				},
+				{
+					nome: '70%',
+					id: 70
+				},
+				{
+					nome: '90%',
+					id: 90
+				},
+				{
+					nome:"100%",
+					id: 100
+				}
+			];
+			return $scope.listaProbFec;
+		};
+		
+		$scope.onSelectProbFechamento = ($item, $model, $label) => {
+			$scope.probFechamento 		= $item;
+		};
+		
+		$scope.getMesInicio = () =>{
+			$scope.listaProbFec = [ 
+				{
+					nome: '01',
+					id: 1
+				},
+				{
+					nome: '02',
+					id: 2
+				},
+				{
+					nome: '03',
+					id: 3
+				},
+				{
+					nome: '04',
+					id: 4
+				},
+				{
+					nome:"05",
+					id: 5
+				},
+				{
+					nome: '06',
+					id: 6
+				},
+				{
+					nome: '7',
+					id: 7
+				},
+				{
+					nome: '08',
+					id: 8
+				},
+				{
+					nome:"09",
+					id: 9
+				}
+				,
+				{
+					nome: '10',
+					id: 10
+				},
+				{
+					nome: '11',
+					id: 11
+				},
+				{
+					nome:"12",
+					id: 12
+				}
+			];
+			return $scope.listaProbFec;
+		};
+		
+		$scope.onSelectMesInicio = ($item, $model, $label) => {
+			$scope.mesIniConsumo 		= $item;
 		};
 
 		$scope.getClientes = function(val) {
@@ -1174,7 +1256,7 @@ angular
 		};
 
 		$scope.agruparPedidosAprovador = () =>{
-			//SOMENTE EM ANALISE $rootScope.dadosGrid = $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
+				//SOMENTE EM ANALISE $rootScope.dadosGrid = $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
 
 			/*Ordena primeiro os pedidos em análise*/
 			$rootScope.dadosGrid.sort((aprov) => (aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") ? -1 : 1);	
@@ -1316,7 +1398,7 @@ angular
 			var dados = {};
 			dados.filtro			= val|| '';
 			dados.idCvTccnpj		= dadosUserLogado.cId;
-			dados.idCvTolistapreco	= 17431//41943; //17431/*Lista de preço com ID fixo */
+			dados.idCvTolistapreco	= 41943//41943; //17431/*Lista de preço com ID fixo */
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
@@ -2011,7 +2093,7 @@ angular
 								$scope.agruparPedidosAprovador($rootScope.dadosGrid)
 							}
 
-							// if(!$scope.usuarioAprovador){
+								// if(!$scope.usuarioAprovador){
 							// 	$scope.consultaPedidosERP($rootScope.dadosGrid);
 							// }
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
