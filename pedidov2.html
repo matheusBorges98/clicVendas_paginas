@@ -741,17 +741,17 @@
 					<!-- <div class="btn-group">
 						<button class="btn btn_grid btn-success" title="O pedido será enviado para o ERP" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " ng-show="pedNumped == 0 && produtos.situacao.send ==='EM_ANALISE' && dadosUserLogado.rTipoId === 3 " ng-click="finalizarDocumento()"> Enviar para o ERP </button>
 					</div> -->
-					<div ng-hide="usuarioAprovador && amostraEmAnalise"class="btn-group dropup">
+					<div class="btn-group dropup">
 						<button type="button" class="btn btn-default dropdown-toggle" ng-disabled="produtos.length == 0 || isLoading || codigoCliente == '' " data-toggle="dropdown">
 							Salvar
 							<span class="caret caret-up"></span>
 						</button>
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
-							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
-							<li><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>   
-							<li ng-show="!inputDesabilitado"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li>     
+							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>  
+							<li ng-show="!inputDesabilitado"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li> 
+							<li><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>     
 						</ul>
-						<ul ng-show="usuarioAprovador && amostraEmAnalise" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
+						<ul ng-show="usuarioAprovador" ng-disabled="amostraEmAnalise" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
 							<li><a title="Salvar e enviar para revisão" ng-click="salvarDocumento(1, 'EM_REVISAO')">Enviar para revisão</a></li>     
 							<!-- <li><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>       -->
@@ -834,7 +834,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		console.log("TESTE3")
+		console.log("TESTE4")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
@@ -848,11 +848,12 @@ angular
 		$scope.filPesquisaGeral			= "";
 		/*Incializa produtos*/
 		$rootScope.produtos 			= [];
-		$scope.novoProdutoAdicionado	= false  
+		$scope.novoProdutoAdicionado	= false; 
 
 		/*Incializa cliente*/
 		$rootScope.cliente				= {};
 		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
+		$scope.amostraEmAnalise			= false;
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -879,8 +880,7 @@ angular
 
 				$scope.exibeFormulario 		= true;
 				$scope.exibeListaDocumentos = false;
-				$scope.amostraEmAnalise		= false;
-				
+			
 				if($dados == undefined){
 					$scope.tipoFormulario = 'Novo';
 
