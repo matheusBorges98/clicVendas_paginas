@@ -1164,7 +1164,10 @@ angular
 		};
 
 		$scope.agruparPedidosAprovador = () =>{
-			$rootScope.dadosGrid = $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
+			//SOMENTE EM ANALISE $rootScope.dadosGrid = $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
+
+			/*Ordena primeiro os pedidos em análise*/
+			$rootScope.dadosGrid.sort((a) => (aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") ? -1 : 1);	
 
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		}
@@ -2220,7 +2223,7 @@ angular
 						'jsonDocs[0].produtos.quantidade'			:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:'130px'	},
 						'jsonDocs[0].produtos.dataStatus'			:	{i:19, vsbl: true,	tlt: 'Data Status',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:'130px'	},
-						'jsonDocs[0].prioridade.nome'				:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:'130px'	},
+						//'jsonDocs[0].prioridade.nome'				:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoAg'      		:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:'130px'	},
 						'jsonDocs[0].conIndent'     				:	{i:25, vsbl: true,	tlt: 'Con. indent',				width:'130px'	},
 						'jsonDocs[0].con2021n'      				:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:'130px'	},
