@@ -833,8 +833,6 @@ angular
 		$rootScope.subdomain		= dadosUserLogado.cSubdominio;
 
 		$rootScope.isLoading 		= false;
-
-		console.log("TESTE3")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
@@ -887,12 +885,14 @@ angular
 					$scope.inputDesabilitado  = false;
 					$scope.permiteEditar	  = true;
 					$scope.exibeTabManutencao = false;
+					$scope.amostraEmAnalise	  = false;
 					
 					$scope.$applyAsync();
 
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Prospecção ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Prospecção Nº "+$dados.jsonDocs[0].numPedidoClic;
-				
+					$scope.amostraEmAnalise	  = false;
+
 					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA" || $dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA"){
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
@@ -906,6 +906,7 @@ angular
 
 						if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "EM_ANALISE"){
 							$scope.inputDesabilitado  = true;
+
 							$scope.amostraEmAnalise	  = true;
 						}
 					}
