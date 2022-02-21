@@ -749,7 +749,7 @@
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>  
 							<li ng-show="!inputDesabilitado"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li> 
-							<li><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>     
+							<li ng-show="!amostraIntegrada"><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>     
 						</ul>
 						<ul ng-show="usuarioAprovador && amostraEmAnalise" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
@@ -852,6 +852,7 @@ angular
 		$rootScope.cliente				= {};
 		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
 		$scope.amostraEmAnalise			= false;
+		$scope.amostraIntegrada			= false;
 	
 		$scope.consultaDocumento = async (hash) => {
 			/*Consulta na base ClicVenda - pedidov2*/
@@ -886,17 +887,20 @@ angular
 					$scope.permiteEditar	  = true;
 					$scope.exibeTabManutencao = false;
 					$scope.amostraEmAnalise	  = false;
+					$scope.amostraIntegrada	  = false;
 					
 					$scope.$applyAsync();
 
 				}else{
 					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Prospecção ERP Nº '+ $dados.jsonDocs[0].pedNumped : "Prospecção Nº "+$dados.jsonDocs[0].numPedidoClic;
 					$scope.amostraEmAnalise	  = false;
+					$scope.amostraIntegrada	  = false;
 
 					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA" || $dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA"){
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
 						$scope.exibeTabManutencao = false;
+						$scope.amostraIntegrada	  = true;
 
 					}else{
 						$scope.inputDesabilitado  = false;
@@ -906,7 +910,7 @@ angular
 
 						if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "EM_ANALISE"){
 							$scope.inputDesabilitado  = true;
-
+							$scope.amostraIntegrada	  = false;
 							$scope.amostraEmAnalise	  = true;
 						}
 					}
@@ -922,6 +926,9 @@ angular
 			};
 		};
 
+		console.log("TESTE")
+
+		
 		$scope.getFilScinronizacao = () =>{
 			$scope.listaFilSincronizacao = [ 
 				{
