@@ -834,7 +834,7 @@ angular
 
 		$rootScope.isLoading 		= false;
 
-		console.log("TESTE")
+		console.log("TESTE1")
 		
 		/* Inicializa filtros */
 		$scope.filStatusSituacao		= {nome:"", send:""};
@@ -1167,7 +1167,7 @@ angular
 			//SOMENTE EM ANALISE $rootScope.dadosGrid = $rootScope.dadosGrid.filter(aprov => aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") 
 
 			/*Ordena primeiro os pedidos em análise*/
-			$rootScope.dadosGrid.sort((a) => (aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") ? -1 : 1);	
+			$rootScope.dadosGrid.sort((aprov) => (aprov.jsonDocs[0].produtos.situacao && aprov.jsonDocs[0].produtos.situacao.send === "EM_ANALISE") ? -1 : 1);	
 
 			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
 		}
