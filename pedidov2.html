@@ -674,7 +674,7 @@
 										</table>
 									</div>
 								</div>
-								<div ng-show="exibeHistoricos" class="col-sm-12">
+								<!-- <div ng-show="exibeHistoricos" class="col-sm-12">
 									<div class="form-row">
 										<div class="col-sm-12 spacer">
 											<label for="histOportunidade">Histórico</label>
@@ -703,12 +703,47 @@
 											</div>
 										</div>
 									</div>
+								</div> -->
 								</div>
+							</div>
 						</form>
+					</div>
+					
 				<hr class="divider">
+				<div ng-show="exibeHistoricos" class="col-sm-12">
+					<div class="form-row">
+						<div class="col-sm-12 spacer">
+							<label for="histOportunidade">Histórico</label>
+							<textarea readonly class="form-control spacer-input"
+								ng-disabled="inputDesabilitado" ng-model="histOportunidade"
+								id="histOportunidade" rows="10"></textarea>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-sm-12 spacer">
+							<hr class="divider">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-sm-11 spacer">
+							<label for="obsOportunidade">Observação</label>
+							<textarea class="form-control spacer-input" ng-model="obsOportunidade"
+								id="obsOportunidade" rows="3"></textarea>
+						</div>
+						<div class="col-sm-1 spacer" style="padding-top: 30px;">
+							<label for="obsOportunidade"> </label>
+							<div class="btn-group">
+								<button class="btn btn_grid btn_cor_padrao"
+									ng-disabled="obsOportunidade=='' || obsOportunidade==undefined || isLoading"
+									ng-click="addObservacaoHistorico()"> Incluir </button>
+							</div>
+						</div>
+					</div>
+				</div>
 				<!-- Ações sob o formulario -->
+
 				<div class="row spacer">
-					<div class="pull-right" style="padding-right: 10px;">
+					<div class="pull-right" style="padding-right: 10px; margin-top:10px">
 						<div class="btn-group">
 							<button 
 								class = "btn" 
@@ -808,8 +843,7 @@
 	<script src="https://sistema.clicvenda.com.br/clicVendas/plugins/ui-mask-master/dist/mask.min.js"></script>
 	<!-- Scripts importados -->
 	<script>
-		//TESTE DE CONTROLE DE ATT GITHUB
-		alert("teste 357")
+
 		var dadosUserLogado = parent.dadosUserLogadoPersonalizado();
 		angular
 			.module("appV2", ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
@@ -1128,7 +1162,7 @@
 						}
 
 						//atribui os valores tratados
-						$scope.ofertaPreco 			= valorOfertaPreco
+						$scope.ofertaPreco 			= valorOfertaPreco == null ? 0 : valorOfertaPreco;
 						$scope.valorPrecoTotal 		= valorCalculoPrecoTotal.toFixed('2');
 						$scope.valorPrecoTotal 		= $scope.valorPrecoTotal.replace('.',',')
 						$scope.valorPesoTotal 		= valorCalculoPesoTotal.toFixed('3');
@@ -1317,6 +1351,7 @@
 					});
 
 					$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
+						console.log($json, "Documento enviado ao ERP")
 						try {
 							let response;
 							await setAsyncTimeout(async done => {
@@ -1400,7 +1435,7 @@
 						let result = await $scope.executaRequisicaoExterna(
 							{
 								idCvtccnpj: dadosUserLogado.cId,
-								numreg: 751,
+								numreg: 750,
 								pRotina: 'criarPedidoNovo',
 								pCodCli: dadosUserLogado.rId,
 								pDocumento: { documento: $item }
@@ -1408,6 +1443,8 @@
 							20//limite tempo
 
 						);
+
+						console.log(result, "GRAVADO ERP")
 
 						$rootScope.isLoading = false;
 
@@ -1589,6 +1626,7 @@
 								precoVendaCIF	: resultTest.precoVendaCIF,
 								qtdPedida		: resultTest.qtdPedida,
 								seqvpp			: resultTest.seqvpp,
+								idxpre			: resultTest.idxpre,
 								ofertaPreco		: resultTest.ofertaPreco,
 								precoLiquido	: resultTest.precoLiquido,
 								vlrLiquido		: resultTest.vlrLiquido,
@@ -1764,7 +1802,7 @@
 								json[0].pedido = 0;
 							} else {
 								$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
-
+								console.log($rootScope.documentoERP, "RETORNO AO SALVAR DOC")
 								/*Atualiza numero do pedido*/
 								if (!isNaN(parseInt($rootScope.documentoERP))) {
 									let dataFormat = new Date();

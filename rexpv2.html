@@ -192,9 +192,9 @@
 							<div style="margin-top:-25px" ng-show="sincronizado != 'DOCUMENTO_SINCRONIZADO' "  class="form-group col-md-12">
 								
 								<div class="col-sm-8 spacer">
-									<label for="nomeCliente">Cliente <span style="color: red;" ng-show="cadastroPedido.frmCliente.$error.required">*</span></label>
+									<label for="frmCliente">Cliente <span style="color: red;" ng-show="cadastroPedido.frmCliente.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="frmCliente" name="frmCliente" required id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.cpfCnpjFormat + ')') for cliente in getClientes($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCli($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="0" >
+										<input type="text" ng-model="frmCliente" name="frmCliente" required id="frmCliente" placeholder="Informe o cliente" uib-typeahead="(cliente.nome + ' (' + cliente.codExterno + ')') for cliente in getClienteERP($viewValue)" typeahead-loading="loadingCli" typeahead-no-results="noResultsCli"  typeahead-on-select="onSelectCliente($item, $model, $label)" class="form-control" required="true" autocomplete="off" typeahead-min-length="3" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCliente()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
@@ -202,15 +202,13 @@
 								<div class="col-sm-4 spacer">
 									<label for="tipoVenda">Tipo de Venda / Transação <span style="color: red;" ng-show="cadastroPedido.tipoVenda.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="tipoVenda" name="tipoVenda" required id="tipoVenda" placeholder="Informe o tipo de Venda / Transação" uib-typeahead="tipven.nome for tipven in getTipoVenda($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTipVen($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<input type="text" ng-model="tipoVenda" name="tipoVenda" required id="tipoVenda" placeholder="Informe o tipo de Venda / Transação" uib-typeahead="tipven.codExterno + ' - ' + tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoERP($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 										
 										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTipoVenda()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
-								
-								
 								
 								
 								<div class="col-sm-4 spacer ">
@@ -220,7 +218,7 @@
 								
 								<div class="col-sm-2 spacer ">
 									<label for="pedMoeda">Moeda </label>
-									<input type="text" placeholder="Selecione a moeda" class="form-control spacer" name="predMoeda" ng-model="predMoeda" id="predMoeda">
+									<input type="text" placeholder="Selecione a moeda" class="form-control spacer" name="pedMoeda" ng-model="pedMoeda" id="pedMoeda">
 								</div>
 								
 								<div class="col-sm-2 spacer ">
@@ -237,7 +235,7 @@
 								<div class="col-sm-6 spacer">
 									<label for="transportadora">Transportadora <span style="color: red;" ng-show="cadastroPedido.transportadora.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="transportadora" name="transportadora" required id="transportadora" placeholder="Informe a Transportadora" uib-typeahead="transportadora.nome for transportadora in getTransportadora($viewValue)" typeahead-loading="loadingTransportadora" typeahead-no-results="noResultsTransportadora"  typeahead-on-select="onSelectTransportadora($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<input type="text" ng-model="transportadora" name="transportadora" required id="transportadora" placeholder="Informe a Transportadora" uib-typeahead="transportadora.codExterno + ' - ' + transportadora.nome for transportadora in getTransportadoraERP($viewValue)" typeahead-loading="loadingTransportadora" typeahead-no-results="noResultsTransportadora"  typeahead-on-select="onSelectTransportadoraERP($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 										
 										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 
@@ -248,7 +246,7 @@
 								<div class="col-sm-6 spacer">
 									<label for="redespacho">Redespacho <span style="color: red;" ng-show="cadastroPedido.redespacho.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="redespacho" name="redespacho" required id="redespacho" placeholder="Informe o Redespacho" uib-typeahead="redespacho.nome for redespacho in getRedespacho($viewValue)" typeahead-loading="loadingRedespacho" typeahead-no-results="noResultsRedespacho"  typeahead-on-select="onSelectRedespacho($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<input type="text" ng-model="redespacho" name="redespacho" required id="redespacho" placeholder="Informe o Redespacho" uib-typeahead="redespacho.codExterno + ' - ' + redespacho.nome for redespacho in getTransportadoraERP($viewValue)" typeahead-loading="loadingRedespacho" typeahead-no-results="noResultsRedespacho"  typeahead-on-select="onSelectRedespachoERP($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 										
 										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 
@@ -257,10 +255,10 @@
 								</div>
 								
 								<div class="col-sm-6 spacer">
-									<label for="nomeCliente">Endereço de entrega</label>
+									<label for="frmEndEntrega">Endereço de entrega</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="frmEndEntrega" name="frmEndEntrega" placeholder="Informe o endereço de entrega" uib-typeahead="ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + ee.complemento for ee in getEndEntrega($viewValue)" typeahead-loading="loadingEE" typeahead-no-results="noResultsEE"  typeahead-on-select="onSelectEE($item, $model, $label)" class="form-control"  autocomplete="off" typeahead-min-length="0">
-										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaEndEntrega()"><i class="glyphicon glyphicon-remove"></i></span>
+										<input type="text" ng-model="frmEndEntrega" name="frmEndEntrega" placeholder="Informe o endereço de entrega" uib-typeahead="ee.EndEnt for ee in getEnderecoEntregaERP($viewValue)" typeahead-loading="loadingEE" typeahead-no-results="noResultsEE"  typeahead-on-select="onSelectEndEnt($item, $model, $label)" class="form-control"  autocomplete="off" typeahead-min-length="0">
+										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaEndEnt()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
 								
@@ -291,7 +289,7 @@
 								<div class="col-sm-6 spacer">
 									<label for="condPagamento">Condição de pagamento <span style="color: red;" ng-show="cadastroPedido.condPagamento.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicoesP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.codCpg + ' - ' + cond.desCpg for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 										
 										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 
@@ -300,9 +298,9 @@
 								</div>
 								
 								<div class="col-sm-6 spacer">
-									<label for="nomeCliente">Forma de pagamento  <span style="color: red;" ng-show="cadastroPedido.formaPagamento.$error.required">*</span></label>
+									<label for="formaPagamento">Forma de pagamento  <span style="color: red;" ng-show="cadastroPedido.formaPagamento.$error.required">*</span></label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+										<input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.codFpg + ' - ' + forma.desFpg for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 
 										<!-- <input type="text" ng-model="formaPagamento" name="formaPagamento" required id="formaPagamento" placeholder="Informe a forma de pagamento" uib-typeahead="forma.nome for forma in getFormasPagamentoERP($viewValue)" typeahead-loading="loadingForma" typeahead-no-results="noResultsForma"  typeahead-on-select="onSelectForma($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaFormaPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
@@ -342,7 +340,7 @@
 								
 								<div class="col-sm-2 spacer ">
 									<label for="validade">Validade Orçamento </label>
-									<input type="text" placeholder=" " class="form-control spacer" name="validade" ng-model="valFrete" id="validade">
+									<input type="text" placeholder=" " class="form-control spacer" name="validade" ng-model="validade" id="validade">
 								</div>
 								
 								<div class="col-sm-12 spacer">
@@ -395,13 +393,7 @@
 															<!-- <div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div> -->
 															<!-- <div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div> -->
 															<p style="white-space: normal;">{{produto.codExterno}}<p>
-															<p style="white-space: normal;">{{produto.codVariacao}}<p>
-															<p style="white-space: normal;">{{produto.descricao}}<p>
-															<p style="white-space: normal;">{{produto.estoque}}<p>
-															<!-- <p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} - {{produto.codVariacao}} <p> -->
-																
-															<!--<p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p>
-															 <p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p> -->
+															
 														</td>
 														
 														<td>
@@ -417,20 +409,19 @@
 																<input type="number" readonly step="any" name="valorNegociado" class="inputTable" required ng-model="produto.valorNegociado">
 															</div>
 														</td>
-														<form>
+														<form >													
 															
-															
 															<td>
-																<input type="radio" name="valorFaixa" value="produto.valorFaixa1"> {{produto.valorNegociado}}
+																<input type="radio" name="valorFaixa-{{$index}}" ng-model="produto.valorFaixa" ng-value="produto.valorFaixa1" ng-click="calcularProdutos();"> {{produto.valorFaixa1 | currency:'R$ '}}
 															</td>
 															<td>
-																<input type="radio" name="valorFaixa" value="produto.valorFaixa2"> {{produto.valorNegociado}}
+																<input type="radio" name="valorFaixa-{{$index}}" ng-model="produto.valorFaixa" ng-value="produto.valorFaixa2" ng-click="calcularProdutos();"> {{produto.valorFaixa2 | currency:'R$ '}}
 															</td>
 															<td>
-																<input type="radio" name="valorFaixa" value="produto.valorFaixa3"> {{produto.valorNegociado}}
+																<input type="radio" name="valorFaixa-{{$index}}" ng-model="produto.valorFaixa" ng-value="produto.valorFaixa3" ng-click="calcularProdutos();"> {{produto.valorFaixa3 | currency:'R$ '}}
 															</td>
 															<td>
-																<input type="radio" name="valorFaixa" value="produto.valorFaixa4"> {{produto.valorNegociado}}
+																<input type="radio" name="valorFaixa-{{$index}}" ng-model="produto.valorFaixa" ng-value="produto.valorFaixa4" ng-click="calcularProdutos();"> {{produto.valorFaixa4 | currency:'R$ '}}
 															</td>
 														</form>
 														
@@ -446,18 +437,72 @@
 														</td>
 													</div>
 													<div>
-													
-													<p style="white-space: normal;">{{produto.codExterno}}<p>
-													<p style="white-space: normal;">{{produto.codVariacao}}<p>
-													
 													</div>
 												</tr>
 												<!-- Detalhes item -->
 												<tr class="cchild">
-													<td colspan ="10">
-														<div class="col-sm-12">
-															<div class="col-sm-4">
-																Código Sapiens: {{produto.codExterno}}
+													<td colspan ="12">
+														<div class="col-sm-6">
+															<div class="col-sm-12 spacer">
+																<label>Produto</label>	
+																<div>
+																	{{produto.descricao}}
+																</div>
+															</div>		
+															
+															<div class="col-sm-12 spacer"> 
+																<label>Derivação</label>												
+																{{produto.codVariacao}}
+															</div>
+															
+															<div class="col-sm-6 spacer">
+																<label for="tipoVendaItem">Transação do produto</label>
+																<div class="input-group spacer">
+																	<input type="text" ng-model="tipoVendaItem" name="tipoVendaItem" id="tipoVendaItem" placeholder="Selecione uma transação para este item" uib-typeahead="tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoPro($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+																	<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTipoVendaItem()"><i class="glyphicon glyphicon-remove"></i></span>
+																</div>
+								
+															</div>
+															<div class="col-sm-6 spacer ">
+																<label for="prevEntregaItem">Data de entrega do item </label>
+																<input type="date" class="form-control spacer" name="prevEntregaItem" ng-model="prevEntregaItem" id="prevEntregaItem">
+															</div>
+															<div class="col-sm-12 spacer">
+																<label for="obsItem">Observação</label>
+																<textarea class="form-control spacer-input"  ng-model="obsItem" placeholder="Máximo de 250 caracteres" id="obsItem" rows="5"></textarea>
+															</div>
+														</div>
+														<div class="col-sm-6">
+
+															<div class="panel panel-default spacer">
+															  <div class="panel-heading">Informações adicionais</div>
+															  <div class="panel-body">
+															  
+																<div class="col-sm-6 spacer ">
+																	<label for="numPedCliItem">Núm. Pedido Cliente </label>
+																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																</div>
+																
+																<div class="col-sm-6 spacer ">
+																	<label for="numPedCliItem">Cód. Produto Cliente </label>
+																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																</div>
+															
+																<div class="col-sm-6 spacer ">
+																	<label for="numPedCliItem">Rev. Produto Cliente </label>
+																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																</div>	
+																
+																<div class="col-sm-6 spacer ">
+																	<label for="numPedCliItem">Seq. Produto Cliente </label>
+																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																</div>	
+																
+																<div class="col-sm-6 spacer ">
+																	<label for="numPedCliItem">Entrega Produto Cliente </label>
+																	<input type="date" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																</div>	
+															  </div>
 															</div>
 														</div>
 													</td>
@@ -555,7 +600,7 @@
 							</div>
 							<div class="col-sm-11">
 								<div class="input-group">
-									<input type="text" ng-model="codProEst" name="codProEst" id="codProEst" placeholder="Localize o produto por código, nome ou referência" uib-typeahead="retorno.produto.codErp + ' - ' + retorno.produto.descricao for retorno in getEstoqueProdutoERP($viewValue)" typeahead-loading="loadingEst" typeahead-no-results="noResults"  typeahead-on-select="onSelectDadosEstoque($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" >
+									<input type="text" ng-model="codProEst" name="codProEst"id="codProEst" placeholder="Localize o produto por código, nome ou referência" uib-typeahead="retorno.produto.codErp + ' - ' + retorno.produto.descricao for retorno in getEstoqueProdutoERP($viewValue)" typeahead-loading="loadingEst" typeahead-no-results="noResults"  typeahead-on-select="onSelectDadosEstoque($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" >
 									<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProdutoEstoque()"><i class="glyphicon glyphicon-remove"></i></span>
 								</div>
 							</div>
@@ -651,6 +696,15 @@
 													</div>
 												</tr>
 											</tbody>
+											<tfoot>
+												<tr>
+													<td>Totais</td>
+													<td>{{somaTotalEstoque}}</td>
+													<td>{{somaTotalReserva}}</td>
+													<td>{{somaTotalPrefatura}}</td>
+													<td>{{somaTotalDisponivel}}</td>
+												</tr>
+											</tfoot>
 										</table>
 									</div>
 								</div>
@@ -825,7 +879,7 @@
 												<tr ng-repeat = "derivacoes in produtoEstoque.produto.derivacoes">
 													<div>
 														<td>
-															{{derivacoes.codigo}}
+															<button type="button" class="btn btn-link" ng-click="onClickDerivacao(derivacoes.codigo)">{{derivacoes.codigo}}</button>
 														</td>
 													</div>
 													<div>
@@ -865,6 +919,18 @@
 													</div>
 												</tr>
 											</tbody>
+											<tfoot>
+												<tr>
+													<td>Totais</td>
+													<td></td>
+													<td>{{somaTotalMatriz}}</td>
+													<td>{{somaTotalMg}}</td>
+													<td>{{somaTotalConsignado}}</td>
+													<td>{{somaTotalResPedidos}}</td>
+													<td>{{somaTotalResPreFat}}</td>
+													<td>{{somaTotalDisponivelDer}}</td>
+												</tr>
+											</tfoot>
 										</table>
 									</div>
 								</div>
@@ -1033,42 +1099,42 @@ angular
 			$scope.exibeHistoricos = true;
 		};
 	
-		$scope.getEndEntrega = function(val) {
-			if(angular.isUndefined($scope.frmCliente) || $scope.frmCliente == ""){
-				$scope.critInfClienteEe = true;
-			}else{
-				$scope.critInfClienteEe = false;
+		// <!-- $scope.getEndEntrega = function(val) { -->
+		// 	<!-- if(angular.isUndefined($scope.frmCliente) || $scope.frmCliente == ""){ -->
+		// 		<!-- $scope.critInfClienteEe = true; -->
+		// 	<!-- }else{ -->
+		// 		<!-- $scope.critInfClienteEe = false; -->
 				
-				return $http({
-					method	: 'GET',
-					url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.cliente.id,
-					params 	: {filtro : val || ''}
-				}).then(	
-				function(response) {    
-					//Sucesso
-					if(response.data.length == 1){				
-						var ee = response.data[0];		
-						$scope.endEntrega = ee;
-						$scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || '');
-					}
+		// 		<!-- return $http({ -->
+		// 			<!-- method	: 'GET', -->
+		// 			<!-- url		: '/clicVendas/rest/ClienteEndEntrega/enderecosCliente/'+$rootScope.cliente.id, -->
+		// 			<!-- params 	: {filtro : val || ''} -->
+		// 		<!-- }).then(	 -->
+		// 		<!-- function(response) {     -->
+		// 			<!-- //Sucesso -->
+		// 			<!-- if(response.data.length == 1){				 -->
+		// 				<!-- var ee = response.data[0];		 -->
+		// 				<!-- $scope.endEntrega = ee; -->
+		// 				<!-- $scope.frmEndEntrega = ee.endereco + ', ' + ee.numero + ', ' + ee.bairro + ', ' + ee.cidade + ', ' + ee.uf + ', ' + ee.cep + ', ' + (ee.complemento || ''); -->
+		// 			<!-- } -->
 
-					return response.data.map(function(item){
-						return item;
-					});
-				}, 
-				function(response) {					
-				});
-			}
-		};
+		// 			<!-- return response.data.map(function(item){ -->
+		// 				<!-- return item; -->
+		// 			<!-- }); -->
+		// 		<!-- },  -->
+		// 		<!-- function(response) {					 -->
+		// 		<!-- }); -->
+		// 	<!-- } -->
+		// <!-- }; -->
 
-		$scope.onSelectEE = function ($item, $model, $label) {			
-			$scope.endEntrega = $item;			
-		};
+		// <!-- $scope.onSelectEE = function ($item, $model, $label) {			 -->
+		// 	<!-- $scope.endEntrega = $item;			 -->
+		// <!-- }; -->
 
-		$scope.limpaEndEntrega = function(){
-			$scope.frmEndEntrega = "";
-			$scope.endEntrega	 = {};
-		};
+		// <!-- $scope.limpaEndEntrega = function(){ -->
+		// 	<!-- $scope.frmEndEntrega = ""; -->
+		// 	<!-- $scope.endEntrega	 = {}; -->
+		// <!-- }; -->
 
 		$scope.getCondicoesP = function(val) {
 			return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
@@ -1083,13 +1149,14 @@ angular
 			});
 		};
 
+		// condições de pagamento
 		$scope.getCondicaoPagamentoERP = async (consulta) => {
 			try{
 				let result = await $scope.executaRequisicaoExterna(
 					{
 						idCvtccnpj : dadosUserLogado.cId,
 						numreg	   : 750,
-						pRotina	   : 'filtrarCondPagamento',
+						pRotina	   : 'filtrarCondPag',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroCondPag : consulta}},
 					}
@@ -1116,23 +1183,25 @@ angular
 			$scope.condPagamento = "";
 		}
 
-		$scope.getFormasP = function(val) {			
-			if	($scope.condPagamento != null){
-				return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, {
-					params: {
-						filtro: val || '',
-						idCvTccnpj	: dadosUserLogado.cId
-					}
-				}).then(function(response){
-					return response.data.map(function(item){
-						return item;
-					});
-				});
-			} else {
-				return "";
-			}			
-		};
+		// <!-- $scope.getFormasP = function(val) {			 -->
+		// 	<!-- if	($scope.condPagamento != null){ -->
+		// 		<!-- return $http.post('/clicVendas/rest/Listas/formaPagamento/'+$scope.condPagamento.id, { -->
+		// 			<!-- params: { -->
+		// 				<!-- filtro: val || '', -->
+		// 				<!-- idCvTccnpj	: dadosUserLogado.cId -->
+		// 			<!-- } -->
+		// 		<!-- }).then(function(response){ -->
+		// 			<!-- return response.data.map(function(item){ -->
+		// 				<!-- return item; -->
+		// 			<!-- }); -->
+		// 		<!-- }); -->
+		// 	<!-- } else { -->
+		// 		<!-- return ""; -->
+		// 	<!-- }			 -->
+		// <!-- }; -->
 
+		
+		// formas de pagamento
 		$scope.getFormasPagamentoERP = async (consulta) => {
 
 			try{
@@ -1140,7 +1209,7 @@ angular
 					{
 						idCvtccnpj : dadosUserLogado.cId,
 						numreg	   : 750,
-						pRotina	   : 'filtrarFormaPagamento',
+						pRotina	   : 'filtrarFormaPag',
 						pCodCli    : dadosUserLogado.rId,
 						pFilter    : {filtro:{filtroFormaPag : consulta}},
 					}
@@ -1189,6 +1258,127 @@ angular
 			};
 
 		}
+		
+		// Carrega dados de Estoque 
+		
+		$scope.onSelectDadosEstoque = ($item) =>{
+			console.log("XXX");
+			console.log($item);
+			
+			$scope.produtoEstoque = $item;
+			$scope.calcularTotalEstoqueDepositos();
+			$scope.calcularTotalEstoqueDerivacoes();
+			
+			console.log($scope.produtoEstoque);
+		}
+		
+		//Nova função para calcular os totais de produtos da consulta de estoque
+	
+		$scope.calcularTotalEstoqueDepositos = () =>{
+
+			let valorEstoque 	= 0;
+			let valorReserva 	= 0;
+			let valorPrefatura 	= 0;
+			let valorDisponivel	= 0;
+
+			for(let i=0; i < $scope.produtoEstoque.produto.depositos.length ; i++){
+
+				if($scope.produtoEstoque.produto.depositos[i].estoque != null ){
+					valorEstoque += parseFloat($scope.produtoEstoque.produto.depositos[i].estoque.replace('.',''));
+				}
+
+				if($scope.produtoEstoque.produto.depositos[i].reserva != null ){
+					valorReserva += parseFloat($scope.produtoEstoque.produto.depositos[i].reserva.replace('.',''));
+				}
+				
+				if($scope.produtoEstoque.produto.depositos[i].prefatura != null ){
+					valorPrefatura += parseFloat($scope.produtoEstoque.produto.depositos[i].prefatura.replace('.',''));
+				}
+			}
+			
+			console.log(valorEstoque);
+			$scope.somaTotalEstoque = valorEstoque.toFixed(2);
+			
+			$scope.somaTotalReserva = valorReserva.toFixed(2);
+			
+			$scope.somaTotalPrefatura = valorPrefatura.toFixed(2);
+			
+			$scope.somaTotalDisponivel = (parseFloat($scope.somaTotalEstoque) - parseFloat($scope.somaTotalReserva) - parseFloat($scope.somaTotalPrefatura));
+			
+			$scope.somaTotalDisponivel = $scope.somaTotalDisponivel.toFixed(2);
+
+		}
+		
+		
+		$scope.calcularTotalEstoqueDerivacoes = () =>{
+
+			let valorMatriz 	= 0;
+			let valorMg 		= 0;
+			let valorConsignado	= 0;
+			let valorResPedidos = 0;
+			let valorResPreFat	= 0;
+			let valorDisponivel	= 0;
+			
+
+			for(let i=0; i < $scope.produtoEstoque.produto.derivacoes.length ; i++){
+
+				if($scope.produtoEstoque.produto.derivacoes[i].matriz != null ){
+					valorMatriz += parseFloat($scope.produtoEstoque.produto.derivacoes[i].matriz.replace('.',''));
+				}
+				
+				if($scope.produtoEstoque.produto.derivacoes[i].mg != null ){
+					valorMg += parseFloat($scope.produtoEstoque.produto.derivacoes[i].mg.replace('.',''));
+				}
+				
+				if($scope.produtoEstoque.produto.derivacoes[i].consignado != null ){
+					valorConsignado += parseFloat($scope.produtoEstoque.produto.derivacoes[i].consignado.replace('.',''));
+				}
+				
+				if($scope.produtoEstoque.produto.derivacoes[i].resPedidos != null ){
+					valorResPedidos += parseFloat($scope.produtoEstoque.produto.derivacoes[i].resPedidos.replace('.',''));
+				}
+				
+				if($scope.produtoEstoque.produto.derivacoes[i].resPreFat != null ){
+					valorResPreFat += parseFloat($scope.produtoEstoque.produto.derivacoes[i].resPreFat.replace('.',''));
+				}
+			}
+			
+			$scope.somaTotalMatriz 			= valorMatriz.toFixed(2);
+			$scope.somaTotalMg 				= valorMg.toFixed(2);
+			$scope.somaTotalConsignado 		= valorConsignado.toFixed(2);
+			$scope.somaTotalResPedidos 		= valorResPedidos.toFixed(2);
+			$scope.somaTotalResPreFat 		= valorResPreFat.toFixed(2);
+			
+			$scope.somaTotalDisponivelDer = (parseFloat($scope.somaTotalMatriz) + parseFloat($scope.somaTotalMg) + 
+											 parseFloat($scope.somaTotalConsignado) + parseFloat($scope.somaTotalResPedidos) +
+											 parseFloat($scope.somaTotalResPreFat));
+			$scope.somaTotalDisponivelDer = $scope.somaTotalDisponivelDer.toFixed(2);
+			
+
+		}
+		
+		$scope.onClickDerivacao = async function(codDer){
+			var cCodProEst		 = angular.element(document.querySelector('#codProEst'));
+			
+			$timeout(function () {
+				cCodProEst.focus();
+			}, 200);
+			
+			// <!-- $scope.codProEst = ''; -->
+			// <!-- $scope.codProEst = codDer; -->
+			
+			let result = await $scope.getEstoqueProdutoERP(codDer);
+			console.log('result teste');
+			console.log(result);
+			$scope.onSelectDadosEstoque(result[0]);
+			
+			$scope.codProEst = result[0].produto.codErp + " - " + result[0].produto.descricao;
+		}
+		
+		$scope.limpaProdutoEstoque = function(){
+			$scope.codProEst = "";
+		}
+		
 
 		$scope.onSelectForma = function ($item, $model, $label) {					
 			$scope.formaPagamento = $item;			
@@ -1197,39 +1387,206 @@ angular
 		$scope.limpaFormaPagamento = function(){
 			$scope.formaPagamento = "";
 		}
+		
+		// cliente
+		// AQUI	
+		$scope.getClienteERP = async (consulta) => {
 
-		$scope.getClientes = function(val) {
-			
-			var idRep = dadosUserLogado.rId;
-
-			return $http.post('/clicVendas/rest/Listas/cliente', {
-				params: {
-					filtro: val,
-					rId: idRep
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 750,
+						pRotina	   : 'filtrarCliente',
+						pCodCli    : dadosUserLogado.rId,
+						pFilter    : {filtro:{filtroCliente : consulta}},
+					},
+					1000
+				);
+		
+				if(result != undefined && result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						console.log(item);
+						return item
+					})
+				}else{
+					return [];
 				}
-			}).then(function(response){
-				return response.data.map(function(item){
-					return item;
-				});
-			});
-		};
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
 
-		$scope.onSelectCli = ($item, $model, $label) => {
+		}
+
+		$scope.onSelectCliente = function ($item, $model, $label) {					
+			$scope.nomeCliente = $item;	
 			$rootScope.cliente = $item;	
-			$scope.codigoCliente = $rootScope.cliente.codExterno
-
-			$scope.getEndEntrega();
-		};
-
-		$scope.limpaCliente = () =>{
-			$scope.frmCliente 	 = '';
-			$scope.codigoCliente = '';
-			var cCliente		 = angular.element(document.querySelector('#frmCliente'));
+			$scope.tipoVenda = {codExterno: $scope.nomeCliente.codTns, nome: $scope.nomeCliente.nomeTns};
+			$scope.frmEndEntrega = $scope.nomeCliente.endCli;
+			$scope.condPagamento = {codCpg: $scope.nomeCliente.codCpg, desCpg: $scope.nomeCliente.desCpg };
+			$scope.formaPagamento = {codFpg: $scope.nomeCliente.codFpg, desFpg: $scope.nomeCliente.desFpg };
+			$scope.pedMoeda = "01 - Real (R$)";
+			$scope.valMinFat = "2.500,00";
+			$scope.valMinDup = "1.000,00";
+			$scope.validade = "10 dias";
 			
-			$timeout(function () {
-				cCliente.focus();
-			}, 200);
 		};
+		
+		$scope.limpaCliente = function(){
+			$scope.nomeCliente = "";
+			$scope.frmCliente  = "";
+		}
+
+		//endereço de entrega
+		$scope.getEnderecoEntregaERP = async (consulta) => {
+
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 750,
+						pRotina	   : 'filtrarEndEnt',
+						pCodCli    : $scope.nomeCliente.codExterno,
+						pFilter    : {filtro:{filtroEndEnt : consulta}},
+					},
+					1000
+				);
+		
+				if(result != undefined && result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						return item
+					})
+				}else{
+					return [];
+				}
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+
+		}
+
+		$scope.onSelectEndEnt = function ($item, $model, $label) {					
+			$scope.frmEndEntrega = $item;			
+		};
+		
+		$scope.limpaEndEnt = function(){
+			$scope.frmEndEntrega = "";
+		}
+		
+		
+		//transportadoras
+		$scope.getTransportadoraERP = async (consulta) => {
+
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 750,
+						pRotina	   : 'filtrarTransportadora',
+						pCodCli    : dadosUserLogado.rId,
+						pFilter    : {filtro:{filtroTra : consulta}},
+					},
+					1000
+				);
+		
+				if(result != undefined && result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						return item
+					})
+				}else{
+					return [];
+				}
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+
+		}
+
+		$scope.onSelectTransportadoraERP = function ($item, $model, $label) {					
+			$scope.transportadora = $item;			
+		};
+		
+		$scope.onSelectRedespachoERP = function ($item, $model, $label) {					
+			$scope.redespacho = $item;			
+		};
+		
+		//Transações de venda
+		$scope.getTipoVendaERP = async (consulta) => {
+
+			try{
+				let result = await $scope.executaRequisicaoExterna(
+					{
+						idCvtccnpj : dadosUserLogado.cId,
+						numreg	   : 750,
+						pRotina	   : 'filtrarTransacao',
+						pCodCli    : dadosUserLogado.rId,
+						pFilter    : {filtro:{filtroTns : consulta}},
+					},
+					1000
+				);
+		
+				if(result != undefined && result.resultado != undefined){
+					return result.resultado.map((item)=>{
+						return item
+					})
+				}else{
+					return [];
+				}
+			}catch(err){
+				console.log("Ocorreu um erro na requisição: ", err);
+			};
+
+		}
+
+		$scope.onSelectTransacaoERP = function ($item, $model, $label) {					
+			$scope.tipoVenda = $item;			
+		};
+		
+		$scope.limpaTipoVenda = function(){
+			$scope.tipoVenda = "";
+		}
+		
+		$scope.onSelectTransacaoPro = function ($item, $model, $label) {					
+			$scope.tipoVendaItem = $item;			
+		};
+		
+		$scope.limpaTransacaoPro = function(){
+			$scope.tipoVendaItem = "";
+		}
+																
+		
+		// <!-- $scope.getClientes = function(val) { -->
+			
+		// 	<!-- var idRep = dadosUserLogado.rId; -->
+
+		// 	<!-- return $http.post('/clicVendas/rest/Listas/cliente', { -->
+		// 		<!-- params: { -->
+		// 			<!-- filtro: val, -->
+		// 			<!-- rId: idRep -->
+		// 		<!-- } -->
+		// 	<!-- }).then(function(response){ -->
+		// 		<!-- return response.data.map(function(item){ -->
+		// 			<!-- return item; -->
+		// 		<!-- }); -->
+		// 	<!-- }); -->
+		// <!-- }; -->
+
+		// <!-- $scope.onSelectCli = ($item, $model, $label) => { -->
+		// 	<!-- $rootScope.cliente = $item;	 -->
+		// 	<!-- $scope.codigoCliente = $rootScope.cliente.codExterno -->
+
+		// 	<!-- $scope.getEndEntrega(); -->
+		// <!-- }; -->
+
+		// <!-- $scope.limpaCliente = () =>{ -->
+		// 	<!-- $scope.frmCliente 	 = ''; -->
+		// 	<!-- $scope.codigoCliente = ''; -->
+		// 	<!-- var cCliente		 = angular.element(document.querySelector('#frmCliente')); -->
+			
+		// 	<!-- $timeout(function () { -->
+		// 		<!-- cCliente.focus(); -->
+		// 	<!-- }, 200); -->
+		// <!-- }; -->
 
 		$scope.getFilScinronizacao = () =>{
 			$scope.listaFilSincronizacao = [ 
@@ -1380,6 +1737,7 @@ angular
 						numreg	   : 750,
 						pRotina	   : 'filtrarProduto',
 						pCodCli    : dadosUserLogado.rId,
+						pCliente   : $scope.nomeCliente.codExterno,
 						pFilter    : {filtro:{filtroProd : consulta}},
 					}
 				);
@@ -1418,6 +1776,7 @@ angular
 				$scope.pedido			 		= 0,
 			
 				$rootScope.produtos 			= [];
+				$scope.tipoVenda				= "";
 
 				$scope.condPagamento			= '';
 				$scope.formaPagamento			= '';
@@ -1425,6 +1784,7 @@ angular
 				$scope.frmCliente				= '';
 				$scope.codigoCliente			= '';
 				$scope.frmEndEntrega			= '';
+				$scope.redespacho				= '';
 
 				$scope.prevEntrega				= '';
 				
@@ -1452,6 +1812,7 @@ angular
 				$rootScope.hashDoc			= docs.docCtrl;
 				$rootScope.idDocumento 		= $dados.id;
 				$rootScope.cliente			= docs.cliente;
+				$scope.tipoVenda			= docs.tipoVenda;
 
 				$scope.condPagamento		= docs.condPagamento;
 				$scope.formaPagamento		= docs.formaPagamento;
@@ -1476,6 +1837,8 @@ angular
 				$scope.pedido				= docs.pedido;
 				$scope.sincronizado			= docs.sincronizado;
 
+				$scope.redespacho			= docs.redespacho;
+
 				$scope.valorTotal			= docs.valorTotal;
 
 				/*Informações sobre o produto*/
@@ -1493,25 +1856,28 @@ angular
 			
 		};
 
+		// xcalc
 		$scope.calcularProdutos = () =>{
 
 			let valorTotalCalc 	= 0;
 			let valorTotalItem 	= 0;
 			let descontoAcresc 	= 0;
 			let calcDescAcresc	= 0;
-
+			let ValorFaixa		= 0;
+			
+			
 			for(let i=0; i < $rootScope.produtos.length; i++){
-
-				if(($rootScope.produtos[i].quantidade != null && $rootScope.produtos[i].quantidade > 0) && $rootScope.produtos[i].valorNegociado != null){
-					valorTotalItem 	= parseFloat($rootScope.produtos[i].quantidade) * parseFloat($rootScope.produtos[i].valorNegociado)
 				
-					/*Verifica se há desconto*/
-					if($rootScope.produtos[i].descAcresc != undefined || $rootScope.produtos[i].descAcresc != null){
-						descontoAcresc	= parseFloat($rootScope.produtos[i].descAcresc)	/ 100;
-						calcDescAcresc	= valorTotalItem * descontoAcresc;
-						valorTotalItem 	= $rootScope.produtos[i].opcaoDescAcresc === 'DESCONTO' ? valorTotalItem - calcDescAcresc : valorTotalItem + calcDescAcresc;
-					}
+				if(($rootScope.produtos[i].quantidade != null && $rootScope.produtos[i].quantidade > 0) && $rootScope.produtos[i].valorNegociado != null){
+										
+					ValorFaixa	=  parseFloat($rootScope.produtos[i].valorFaixa);
 					
+					console.log(ValorFaixa);
+					
+					if(ValorFaixa != null && ValorFaixa > 0){
+						valorTotalItem 	= parseFloat($rootScope.produtos[i].quantidade) * ValorFaixa
+					}
+								
 					/*Grava o valor total do item*/
 					$rootScope.produtos[i].valorTotalItem = valorTotalItem;
 
@@ -1572,17 +1938,6 @@ angular
 			};
 		}
 		
-		// Carrega dados de Estoque 
-		
-		$scope.onSelectDadosEstoque = ($item) =>{
-			console.log("XXX");
-			console.log($item);
-			
-			$scope.produtoEstoque = $item;
-			
-			console.log($scope.produtoEstoque);
-		}
-		
 		
 		$scope.adicionarProduto = ($item) =>{
 			$rootScope.produtos.unshift(
@@ -1599,6 +1954,10 @@ angular
 					estoque				: $item.qtdeEstoque,
 					codTpr				: $item.codTpr,
 					hashDoc				: '',
+					valorFaixa1			: parseFloat($item.valorFaixa1),
+					valorFaixa2			: parseFloat($item.valorFaixa2),
+					valorFaixa3			: parseFloat($item.valorFaixa3),
+					valorFaixa4			: parseFloat($item.valorFaixa4),
 				}
 			);
 			
@@ -1607,20 +1966,23 @@ angular
 			$timeout(function () {
 				buscaProduto.blur();
 				$scope.itemProd = '';
-				/*Com adição da child não está funcionando corretamente, validar*/
-				// $("table tbody tr.parent:first-child").addClass("new-row-enter");
-				// $("table tbody tr.parent:first-child input#quantidadeProdutoAdd").focus();
+
+				$("table tbody tr:first-child").addClass("new-row-enter");
+				$("table tbody tr:first-child input#quantidadeProdutoAdd").focus();
 			}, 200);
 
 			$timeout(()=>{
-				// $("table tbody tr.parent:first-child").removeClass("new-row-enter");
+				$("table tbody tr:first-child").removeClass("new-row-enter");
 			}, 1000)
 
 			$scope.calcularProdutos();
 		};
 
 		$scope.removerProduto = ($item) => {
-			$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno !== $item.codExterno && item.codVariacao !== $item.codVariacao);
+			console.log($item.codExterno);
+			console.log($item.codVariacao);
+			//$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno !== $item.codExterno && item.codVariacao !== $item.codVariacao);
+			$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno+"_"+item.codVariacao !== $item.codExterno+"_"+$item.codVariacao);
 
 			$scope.calcularProdutos();
 		};
@@ -1684,6 +2046,10 @@ angular
 				/*Historico*/
 				obsOportunidade	: $scope.obsOportunidade,
 				histOportunidade: $scope.histOportunidade,
+				
+				tipoVenda		: $scope.tipoVenda,
+				redespacho		: $scope.redespacho,
+
 
 				condPagamento	: $scope.condPagamento,
 				formaPagamento	: $scope.formaPagamento,
