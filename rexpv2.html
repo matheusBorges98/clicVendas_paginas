@@ -223,7 +223,7 @@
 								
 								<div class="col-sm-2 spacer ">
 									<label for="predDatEmi">Data do Pedido</label>
-									<input type="date" class="form-control spacer" name="predDatEmi" ng-model="predDatEmi" id="predDatEmi">
+									<input type="date" readonly class="form-control spacer" name="predDatEmi" ng-model="predDatEmi" id="predDatEmi">
 								</div>
 								
 								<div class="col-sm-4 spacer ">
@@ -458,18 +458,18 @@
 															<div class="col-sm-6 spacer">
 																<label for="tipoVendaItem">Transação do produto</label>
 																<div class="input-group spacer">
-																	<input type="text" ng-model="tipoVendaItem" name="tipoVendaItem" id="tipoVendaItem" placeholder="Selecione uma transação para este item" uib-typeahead="tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoPro($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+																	<input type="text" ng-model="produto.tipoVendaItem" name="tipoVendaItem" id="tipoVendaItem" placeholder="Selecione uma transação para este item" uib-typeahead="tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoPro($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 																	<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTipoVendaItem()"><i class="glyphicon glyphicon-remove"></i></span>
 																</div>
 								
 															</div>
 															<div class="col-sm-6 spacer ">
 																<label for="prevEntregaItem">Data de entrega do item </label>
-																<input type="date" class="form-control spacer" name="prevEntregaItem" ng-model="prevEntregaItem" id="prevEntregaItem">
+																<input type="date" class="form-control spacer" name="prevEntregaItem" ng-model="produto.prevEntregaItem" id="prevEntregaItem">
 															</div>
 															<div class="col-sm-12 spacer">
 																<label for="obsItem">Observação</label>
-																<textarea class="form-control spacer-input"  ng-model="obsItem" placeholder="Máximo de 250 caracteres" id="obsItem" rows="5"></textarea>
+																<textarea class="form-control spacer-input"  ng-model="produto.obsItem" placeholder="Máximo de 250 caracteres" id="obsItem" rows="5"></textarea>
 															</div>
 														</div>
 														<div class="col-sm-6">
@@ -480,27 +480,27 @@
 															  
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Núm. Pedido Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
 																</div>
 																
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Cód. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
 																</div>
 															
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Rev. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
 																</div>	
 																
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Seq. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
 																</div>	
 																
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Entrega Produto Cliente </label>
-																	<input type="date" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																	<input type="date" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
 																</div>	
 															  </div>
 															</div>
@@ -1774,10 +1774,8 @@ angular
 				
 				$rootScope.idDocumento 			= 0;
 				$scope.pedido			 		= 0,
-			
 				$rootScope.produtos 			= [];
 				$scope.tipoVenda				= "";
-
 				$scope.condPagamento			= '';
 				$scope.formaPagamento			= '';
 
@@ -1785,20 +1783,24 @@ angular
 				$scope.codigoCliente			= '';
 				$scope.frmEndEntrega			= '';
 				$scope.redespacho				= '';
+				$scope.predCliente				= '';
+				$scope.pedMoeda					= '';
+				$scope.predDatEmi				= new Date();
+				$scope.transportadora			= '';
+				$scope.valFrete					= '';
+				$scope.valMinFat				= '';
+				$scope.valMinDup				= '';
+				$scope.validade					= '';
+				$scope.obsPed					= '';
 
 				$scope.prevEntrega				= '';
-				
-				$scope.codigoProduto			= '';
-				
+				$scope.codigoProduto			= '';				
 				$scope.representante			= dadosUserLogado.rNome;
-
 				$scope.datEmiERP				= '';
-				
 				$scope.obsOportunidade			= '';
 				$scope.histOportunidade			= '';
 				$rootScope.hashDoc				= '';
 				$scope.sincronizado				= 'DOCUMENTO_NAO_SINCRONIZADO';
-
 				$scope.dataEmissaoFormat		= '';
 				$scope.dataPrevEntregaFormatada	= "";
 				// $scope.dataEmissaoErpFormatada	= "";
@@ -1812,32 +1814,32 @@ angular
 				$rootScope.hashDoc			= docs.docCtrl;
 				$rootScope.idDocumento 		= $dados.id;
 				$rootScope.cliente			= docs.cliente;
-				$scope.tipoVenda			= docs.tipoVenda;
-
 				$scope.condPagamento		= docs.condPagamento;
 				$scope.formaPagamento		= docs.formaPagamento;
-
 				$scope.frmCliente			= docs.cliente;
 				$scope.codigoCliente		= docs.cliente.codExterno;
-				$scope.nomeCliente			= docs.cliente.nome
-
+				$scope.nomeCliente			= docs.cliente.nome;
 				$scope.representante		= docs.representante.nome;
-
-				$scope.prevEntrega			= docs.prevEntrega != null ? new Date(docs.prevEntrega) : null
-
+				$scope.prevEntrega			= docs.prevEntrega != null ? new Date(docs.prevEntrega) : null;
 				$scope.datEmiERP			= docs.datEmiERP;
-
 				$scope.dataEmissaoFormat	= docs.datEmiERP != null ? docs.datEmiERP.substr(0,10) : "";
-
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
-
 				$scope.frmEndEntrega		= docs.endEntrega;
-
 				$scope.pedido				= docs.pedido;
 				$scope.sincronizado			= docs.sincronizado;
 
+				$scope.tipoVenda			= docs.tipoVenda;
 				$scope.redespacho			= docs.redespacho;
+				$scope.predCliente			= docs.predCliente;
+				$scope.pedMoeda				= docs.pedMoeda;
+				$scope.predDatEmi			= docs.predDatEmi;
+				$scope.transportadora		= docs.transportadora;
+				$scope.valFrete				= docs.valFrete;
+				$scope.valMinFat			= docs.valMinFat;
+				$scope.valMinDup			= docs.valMinDup;
+				$scope.validade				= docs.validade;
+				$scope.obsPed				= docs.obsPed;
 
 				$scope.valorTotal			= docs.valorTotal;
 
@@ -1940,6 +1942,7 @@ angular
 		
 		
 		$scope.adicionarProduto = ($item) =>{
+			console.log($item)
 			$rootScope.produtos.unshift(
 				{ 
 					descricao			: $item.nome,
@@ -2049,7 +2052,13 @@ angular
 				
 				tipoVenda		: $scope.tipoVenda,
 				redespacho		: $scope.redespacho,
-
+				predCliente		: $scope.predCliente,
+				pedMoeda		: $scope.pedMoeda,
+				predDatEmi		: $scope.predDatEmi,
+				transportadora	: $scope.transportadora,
+				valMinFat		: $scope.valMinFat,
+				valMinDup		: $scope.valMinDup,
+				validade		: $scope.validade,
 
 				condPagamento	: $scope.condPagamento,
 				formaPagamento	: $scope.formaPagamento,
