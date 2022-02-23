@@ -1033,9 +1033,12 @@
 					}
 
 					$scope.imprimeOrcamento = async($item) => {
-						//console.log("Chegou no impreme Orcamento")
-						let dados = $item != undefined ? $item : $scope.pedidoInfos
-						console.log(dados)
+						let dados  = $item != undefined ? $item : $scope.pedidoInfos
+						let dialog = bootbox.dialog({
+							message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Gerando relátorio...</p></div>',
+							closeButton: false
+						});
+
 						try {
 							let result = await $scope.executaRequisicaoExterna(
 								{
@@ -1046,12 +1049,22 @@
 									pFilter: { filtro: {dados} },
 								},
 							);
-							console.log(result)
+							dialog.modal('hide');
+							$scope.exibeOrcamento(result);
 
 						} catch (err){
 							console.log("ocorreu um erro na requisição ", err);
 							
 						};
+					}
+
+					$scope.exibeOrcamento = ($item) => {
+						let pdfWindow = window.open("")
+						pdfWindow.document.write(
+							"<title>Relatório</title>"+
+							"<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+							encodeURI($item) + "'></iframe>"
+						)
 					}
 
 					// requisicao para tabela de preco
@@ -1188,7 +1201,6 @@
 							},
 						);
 						let newResult = result.resultado
-						console.log(newResult)
 						for (let i = 0; i < newResult.length; i++) {
 							$scope.adicionarProduto(newResult[i])
 							$scope.qtdm3 = newResult[i].qtdm3
@@ -1351,7 +1363,6 @@
 					});
 
 					$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
-						console.log($json, "Documento enviado ao ERP")
 						try {
 							let response;
 							await setAsyncTimeout(async done => {
@@ -1438,13 +1449,11 @@
 								numreg: 750,
 								pRotina: 'criarPedidoNovo',
 								pCodCli: dadosUserLogado.rId,
-								pDocumento: { documento: $item }
+								pDocumento: $item
 							},
 							20//limite tempo
 
 						);
-
-						console.log(result, "GRAVADO ERP")
 
 						$rootScope.isLoading = false;
 
@@ -1587,7 +1596,8 @@
 							$scope.valorPesoTotal = docs.valorPesoTotal;
 							$scope.valorVolumeTotal = docs.valorVolumeTotal;
 							$scope.valorQuantidadeTotal = docs.valorQuantidadeTotal;
-							$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
+							$scope.prevEntrega = $scope.prevEntrega != "" ? $scope.prevEntrega : null; 
+							$scope.dataPrevEntregaFormatada = $scope.prevEntrega != "" ? new Date($scope.prevEntrega) : null;
 							//$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada != "" ? $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br') : null;
 						};
 						$rootScope.changeView($dados);
@@ -1728,8 +1738,7 @@
 						if ($scope.prevEntregCli == null || $scope.prevEntregCli == undefined){
 							$scope.prevEntregCli = ""
 						}
-						console.log($scope.prevEntregCli)
-
+					
 						jsonDocs = [{
 							/*Historico*/
 							obsOportunidade		: $scope.obsOportunidade,
@@ -1780,19 +1789,17 @@
 						var json = JSON.parse(dados.jsonDocs);
 
 						if (rotina == 2) {
-							console.log(dados.jsonDocs)
 							let sendToERP = JSON.parse(dados.jsonDocs);
-							let result = await $scope.executaRequisicaoExterna(
-								{
-									idCvtccnpj 	 : dadosUserLogado.cId,
-									numreg	   	 : 750,
-									pRotina	   	 : 'criarPedidoNovo',
-									pCodCli    	 : dadosUserLogado.rId,
-									pDocumento 	 : dados.jsonDocs
-								},
-							);
-
-							console.log(result)
+							
+							// let result = await $scope.executaRequisicaoExterna(
+							// 	{
+							// 		idCvtccnpj 	 : dadosUserLogado.cId,
+							// 		numreg	   	 : 750,
+							// 		pRotina	   	 : 'criarPedidoNovo',
+							// 		pCodCli    	 : dadosUserLogado.rId,
+							// 		pDocumento 	 : dados.jsonDocs
+							// 	},
+							// );
 
 							$rootScope.pedidoAprovado = await $scope.calculoValidacaoProdutoERP(sendToERP[0]);
 
@@ -1801,8 +1808,7 @@
 								json[0].sincronizado = "ERRO: " + $rootScope.pedidoAprovado.erro;
 								json[0].pedido = 0;
 							} else {
-								$rootScope.documentoERP = await $scope.gravaDocumentoERP(sendToERP[0]);
-								console.log($rootScope.documentoERP, "RETORNO AO SALVAR DOC")
+								$rootScope.documentoERP = await $scope.gravaDocumentoERP(dados.jsonDocs);
 								/*Atualiza numero do pedido*/
 								if (!isNaN(parseInt($rootScope.documentoERP))) {
 									let dataFormat = new Date();
