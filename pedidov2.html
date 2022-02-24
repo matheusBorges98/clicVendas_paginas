@@ -223,7 +223,7 @@
 								
 								<div class="col-sm-2 spacer ">
 									<label for="predDatEmi">Data do Pedido</label>
-									<input type="date" class="form-control spacer" name="predDatEmi" ng-model="predDatEmi" id="predDatEmi">
+									<input type="text" readonly class="form-control spacer" name="predDatEmi" ng-model="predDatEmi" id="predDatEmi">
 								</div>
 								
 								<div class="col-sm-4 spacer ">
@@ -265,14 +265,7 @@
 								<div class="col-sm-2 spacer ">
 									<label for="tipFrete">Tipo de Frete </label>
 									<div class="input-group spacer">
-										<form>
-											<label class="radio-inline">
-											  <input type="radio" name="tipFrete" value="C" checked> CIF
-											</label>
-											<label class="radio-inline">
-											  <input type="radio" name="tipFrete" value="F"> FOB
-											</label>
-										</form>
+										<input class="form-control" ng-value="tipoFrete.nome" uib-typeahead="(tipoFrete.nome) for tipoFrete in getListaTipoFrete($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectListaTipoFrete($item, $model, $label)" ng-model="tipoFrete">
 									</div>
 								</div>
 								
@@ -313,16 +306,16 @@
 									<div class="input-group spacer">
 										<form>
 											<label class="checkbox-inline">
-											  <input type="checkbox" id="emiteCertificado" value="emiteCertificado"> Emite Certificado
+											  <input type="checkbox" ng-value="true" ng-model="emiteCertificado" id="emiteCertificado" value="emiteCertificado"> Emite Certificado
 											</label>
 											<label class="checkbox-inline">
-											  <input type="checkbox" id="emitePPAP" value="emitePPAP"> Emite PPAP
+											  <input type="checkbox"  ng-value="true" ng-model="emitePPAP" id="emitePPAP" value="emitePPAP"> Emite PPAP
 											</label>
 											<label class="checkbox-inline">
-											  <input type="checkbox" id="mantemSaldo" value="mantemSaldo"> Mantém Saldo
+											  <input type="checkbox"  ng-value="true" ng-model="mantemSaldo" id="mantemSaldo" value="mantemSaldo"> Mantém Saldo
 											</label>
 											<label class="checkbox-inline">
-											  <input type="checkbox" id="aceitaParcial" value="aceitaParcial"> Aceita Recebimento Parcial
+											  <input type="checkbox"  ng-value="true" ng-model="aceitaParcial" id="aceitaParcial" value="aceitaParcial"> Aceita Recebimento Parcial
 											</label>
 										</form>
 									</div>
@@ -458,18 +451,18 @@
 															<div class="col-sm-6 spacer">
 																<label for="tipoVendaItem">Transação do produto</label>
 																<div class="input-group spacer">
-																	<input type="text" ng-model="tipoVendaItem" name="tipoVendaItem" id="tipoVendaItem" placeholder="Selecione uma transação para este item" uib-typeahead="tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoPro($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+																	<input type="text" ng-model="produto.tipoVendaItem" name="tipoVendaItem" id="tipoVendaItem" placeholder="Selecione uma transação para este item" uib-typeahead="tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoPro($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 																	<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTipoVendaItem()"><i class="glyphicon glyphicon-remove"></i></span>
 																</div>
 								
 															</div>
 															<div class="col-sm-6 spacer ">
 																<label for="prevEntregaItem">Data de entrega do item </label>
-																<input type="date" class="form-control spacer" name="prevEntregaItem" ng-model="prevEntregaItem" id="prevEntregaItem">
+																<input type="text" ui-mask="99/99/9999" class="form-control spacer" name="prevEntregaItem" ng-model="produto.prevEntregaItem" id="prevEntregaItem">
 															</div>
 															<div class="col-sm-12 spacer">
 																<label for="obsItem">Observação</label>
-																<textarea class="form-control spacer-input"  ng-model="obsItem" placeholder="Máximo de 250 caracteres" id="obsItem" rows="5"></textarea>
+																<textarea class="form-control spacer-input"  ng-model="produto.obsItem" placeholder="Máximo de 250 caracteres" id="obsItem" rows="5"></textarea>
 															</div>
 														</div>
 														<div class="col-sm-6">
@@ -480,27 +473,27 @@
 															  
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Núm. Pedido Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
 																</div>
 																
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Cód. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="codPedCliItem" ng-model="produto.codPedCliItem" id="codPedCliItem">
 																</div>
 															
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Rev. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="revPedCliItem" ng-model="produto.revPedCliItem" id="revPedCliItem">
 																</div>	
 																
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Seq. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="seqPedCliItem" ng-model="produto.seqPedCliItem" id="seqPedCliItem">
 																</div>	
 																
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Entrega Produto Cliente </label>
-																	<input type="date" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="numPedCliItem" id="numPedCliItem">
+																	<input type="text" ui-mask="99/99/9999"  class="form-control spacer" name="entregaProdPedCliItem" ng-model="produto.entregaProdPedCliItem" id="entregaProdPedCliItem">
 																</div>	
 															  </div>
 															</div>
@@ -1136,6 +1129,24 @@ angular
 		// 	<!-- $scope.endEntrega	 = {}; -->
 		// <!-- }; -->
 
+		$scope.getListaTipoFrete = () =>{
+			$scope.listaTipoFrete = [ 
+				{
+					nome: 'CIF',
+				
+				},
+				{
+					nome: 'FOB',
+				
+				},
+			];
+			return $scope.listaTipoFrete;
+		};
+
+		$scope.onSelectListaTipoFrete = ($item, $model, $label) => {
+			$scope.tipoFrete = $item;
+		};
+
 		$scope.getCondicoesP = function(val) {
 			return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
 			params: {
@@ -1769,35 +1780,46 @@ angular
 		};
 
 		$scope.abreFormulario = ($dados) =>{
-
+			console.log($dados)
 			if($dados == undefined){
+				$scope.tipoFrete				= '';
 				
 				$rootScope.idDocumento 			= 0;
 				$scope.pedido			 		= 0,
-			
 				$rootScope.produtos 			= [];
 				$scope.tipoVenda				= "";
-
 				$scope.condPagamento			= '';
 				$scope.formaPagamento			= '';
 
 				$scope.frmCliente				= '';
 				$scope.codigoCliente			= '';
 				$scope.frmEndEntrega			= '';
+				$scope.redespacho				= '';
+				$scope.predCliente				= '';
+				$scope.pedMoeda					= '';
+				$scope.predDatEmi				= new Date().toLocaleDateString('pt-br');
+				$scope.transportadora			= '';
+				$scope.valFrete					= '';
+				$scope.valMinFat				= '';
+				$scope.valMinDup				= '';
+				$scope.validade					= '';
+				$scope.obsPed					= '';
+				$scope.emiteCertificado			= '';
+				$scope.emitePPAP				= '';
+				$scope.mantemSaldo				= '';
+				$scope.aceitaParcial			= '';
+
+				$scope.tipoFreteCif				= '';
+				$scope.tipoFrenteFob			= '';
 
 				$scope.prevEntrega				= '';
-				
-				$scope.codigoProduto			= '';
-				
+				$scope.codigoProduto			= '';				
 				$scope.representante			= dadosUserLogado.rNome;
-
 				$scope.datEmiERP				= '';
-				
 				$scope.obsOportunidade			= '';
 				$scope.histOportunidade			= '';
 				$rootScope.hashDoc				= '';
 				$scope.sincronizado				= 'DOCUMENTO_NAO_SINCRONIZADO';
-
 				$scope.dataEmissaoFormat		= '';
 				$scope.dataPrevEntregaFormatada	= "";
 				// $scope.dataEmissaoErpFormatada	= "";
@@ -1811,31 +1833,40 @@ angular
 				$rootScope.hashDoc			= docs.docCtrl;
 				$rootScope.idDocumento 		= $dados.id;
 				$rootScope.cliente			= docs.cliente;
-				$scope.tipoVenda			= docs.tipoVenda;
-
 				$scope.condPagamento		= docs.condPagamento;
 				$scope.formaPagamento		= docs.formaPagamento;
-
 				$scope.frmCliente			= docs.cliente;
 				$scope.codigoCliente		= docs.cliente.codExterno;
-				$scope.nomeCliente			= docs.cliente.nome
-
+				$scope.nomeCliente			= docs.cliente.nome;
 				$scope.representante		= docs.representante.nome;
-
-				$scope.prevEntrega			= docs.prevEntrega != null ? new Date(docs.prevEntrega) : null
-
+				$scope.prevEntrega			= docs.prevEntrega != null ? new Date(docs.prevEntrega) : null;
 				$scope.datEmiERP			= docs.datEmiERP;
-
 				$scope.dataEmissaoFormat	= docs.datEmiERP != null ? docs.datEmiERP.substr(0,10) : "";
-
 				$scope.obsOportunidade		= '';
 				$scope.histOportunidade		= docs.histOportunidade;
-
 				$scope.frmEndEntrega		= docs.endEntrega;
-
 				$scope.pedido				= docs.pedido;
 				$scope.sincronizado			= docs.sincronizado;
 
+				$scope.tipoVenda			= docs.tipoVenda;
+				$scope.redespacho			= docs.redespacho;
+				$scope.predCliente			= docs.predCliente;
+				$scope.pedMoeda				= docs.pedMoeda;
+				$scope.predDatEmi			= docs.predDatEmi;
+				$scope.transportadora		= docs.transportadora;
+				$scope.valFrete				= docs.valFrete;
+				$scope.valMinFat			= docs.valMinFat;
+				$scope.valMinDup			= docs.valMinDup;
+				$scope.validade				= docs.validade;
+				$scope.obsPed				= docs.obsPed;
+				
+				$scope.emiteCertificado		= docs.emiteCertificado;
+				$scope.emitePPAP			= docs.emitePPAP;
+				$scope.mantemSaldo			= docs.mantemSaldo;
+				$scope.aceitaParcial		= docs.aceitaParcial;
+				
+				$scope.tipoFrete			= docs.tipoFrete;
+				
 				$scope.valorTotal			= docs.valorTotal;
 
 				/*Informações sobre o produto*/
@@ -1937,6 +1968,7 @@ angular
 		
 		
 		$scope.adicionarProduto = ($item) =>{
+			console.log($item)
 			$rootScope.produtos.unshift(
 				{ 
 					descricao			: $item.nome,
@@ -2038,12 +2070,30 @@ angular
 			$scope.messageNotific	= '';
 			
 			dados.cnpj 				= {id: dadosUserLogado.cId};
-
+			console.log($scope.tipoFrete, "tp")
 			jsonDocs = [{
 				/*Historico*/
 				obsOportunidade	: $scope.obsOportunidade,
 				histOportunidade: $scope.histOportunidade,
+				
 				tipoVenda		: $scope.tipoVenda,
+				redespacho		: $scope.redespacho,
+				predCliente		: $scope.predCliente,
+				pedMoeda		: $scope.pedMoeda,
+				predDatEmi		: $scope.predDatEmi,
+				transportadora	: $scope.transportadora,
+				valMinFat		: $scope.valMinFat,
+				valMinDup		: $scope.valMinDup,
+				validade		: $scope.validade,
+				valFrete		: $scope.valFrete,
+				obsPed			: $scope.obsPed,
+				//opcaoPedido		: $scope.opcaoPedido,
+				emiteCertificado: $scope.emiteCertificado,
+				emitePPAP		: $scope.emitePPAP,
+				mantemSaldo		: $scope.mantemSaldo,
+				aceitaParcial	: $scope.aceitaParcial,
+
+				tipoFrete		: $scope.tipoFrete,
 
 				condPagamento	: $scope.condPagamento,
 				formaPagamento	: $scope.formaPagamento,

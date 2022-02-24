@@ -223,7 +223,7 @@
 								
 								<div class="col-sm-2 spacer ">
 									<label for="predDatEmi">Data do Pedido</label>
-									<input type="date" readonly class="form-control spacer" name="predDatEmi" ng-model="predDatEmi" id="predDatEmi">
+									<input type="text" readonly class="form-control spacer" name="predDatEmi" ng-model="predDatEmi" id="predDatEmi">
 								</div>
 								
 								<div class="col-sm-4 spacer ">
@@ -465,7 +465,7 @@
 															</div>
 															<div class="col-sm-6 spacer ">
 																<label for="prevEntregaItem">Data de entrega do item </label>
-																<input type="date" class="form-control spacer" name="prevEntregaItem" ng-model="produto.prevEntregaItem" id="prevEntregaItem">
+																<input type="text" ui-mask="99/99/9999" class="form-control spacer" name="prevEntregaItem" ng-model="produto.prevEntregaItem" id="prevEntregaItem">
 															</div>
 															<div class="col-sm-12 spacer">
 																<label for="obsItem">Observação</label>
@@ -485,22 +485,22 @@
 																
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Cód. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="codPedCliItem" ng-model="produto.codPedCliItem" id="codPedCliItem">
 																</div>
 															
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Rev. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="revPedCliItem" ng-model="produto.revPedCliItem" id="revPedCliItem">
 																</div>	
 																
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Seq. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="seqPedCliItem" ng-model="produto.seqPedCliItem" id="seqPedCliItem">
 																</div>	
 																
 																<div class="col-sm-6 spacer ">
 																	<label for="numPedCliItem">Entrega Produto Cliente </label>
-																	<input type="date" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
+																	<input type="text" ui-mask="99/99/9999"  class="form-control spacer" name="entregaProdPedCliItem" ng-model="produto.entregaProdPedCliItem" id="entregaProdPedCliItem">
 																</div>	
 															  </div>
 															</div>
@@ -1833,7 +1833,7 @@ angular
 				$scope.redespacho			= docs.redespacho;
 				$scope.predCliente			= docs.predCliente;
 				$scope.pedMoeda				= docs.pedMoeda;
-				$scope.predDatEmi			= docs.predDatEmi;
+				$scope.predDatEmi			= new Date(docs.predDatEmi);
 				$scope.transportadora		= docs.transportadora;
 				$scope.valFrete				= docs.valFrete;
 				$scope.valMinFat			= docs.valMinFat;
@@ -2059,6 +2059,8 @@ angular
 				valMinFat		: $scope.valMinFat,
 				valMinDup		: $scope.valMinDup,
 				validade		: $scope.validade,
+				valFrete		: $scope.valFrete,
+				obsPed			: $scope.obsPed,
 
 				condPagamento	: $scope.condPagamento,
 				formaPagamento	: $scope.formaPagamento,
