@@ -782,7 +782,8 @@
 					</td>			
 					<td>
 						<div class="row">
-							<div class="col-md-12">{{match.model.produto.codExterno}} - {{match.model.produto.nome}} - {{match.model.produto.codVariacao}}</div>				
+							<div class="col-md-12"><b>Produto:</b> {{match.model.produto.codExterno}} - {{match.model.produto.nome}} - {{match.model.produto.codVariacao}}</div>	
+							<div class="col-md-12"><b>Estoque:</b> {{match.model.produto.qtdeEstoque || 'Não informado'}}</div>								
 						</div>							
 					</td>
 				</tr>
@@ -1372,17 +1373,17 @@ angular
 
 			$rootScope.isLoading = true;
 
-			// let result = await $scope.executaRequisicaoExterna(
-			// 	{
-			// 		idCvtccnpj : dadosUserLogado.cId,
-			// 		numreg	   : 752,
-			// 		pRotina	   : 'criarPedidoAmostra',
-			// 		pCodCli    : dadosUserLogado.rId,
-			// 		pDocumento : {documento : $item}
-			// 	}		
-			// );
+			let result = await $scope.executaRequisicaoExterna(
+				{
+					idCvtccnpj : dadosUserLogado.cId,
+					numreg	   : 750,
+					pRotina	   : 'criarPedidoAmostra',
+					pCodCli    : dadosUserLogado.rId,
+					pDocumento : {documento : $item}
+				}		
+			);
 
-			result = "612"  /*Valor fixo para teste*/
+			//result = "612"  /*Valor fixo para teste*/
 			$rootScope.isLoading = false;
 			
 			if(!isNaN(parseInt(result))){
@@ -1406,6 +1407,7 @@ angular
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
+					console.log(item)
 					return item;
 				});
 			});

@@ -20,7 +20,7 @@
 <body>
 	<div class="container" ng-controller="MainController">
 		
-		<!--Primeira página-->
+		<!--Primeira pï¿½gina-->
 		<div ng-show="exibeListaDocumentos">
 		
 			<!-- Sidebar Menu FILTRO -->
@@ -46,12 +46,12 @@
 					</div>
 																			
 					<div class="form-group">
-						<label for="filCarteira">Data Emissão</label>
+						<label for="filCarteira">Data EmissÃ£o</label>
 						<input type="text" style="width: 220px;" ui-mask="99/99/9999" class="form-control spacer-input" autocomplete="off" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
 					</div>
 
 					<div class="form-group">
-						<label for="projeto">Sincronização</label>
+						<label for="projeto">SincronizaÃ§Ã£o</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" ng-value="filSincronizado.nome" ng-model="filSincronizado" id="filSincronizado" uib-typeahead="(sincronizado.nome) for sincronizado in getFilScinronizacao($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectFilSincronizacao($item, $model, $label)">
 					</div>
 									
@@ -79,7 +79,7 @@
 			<!-- Tabela -->
 		
 		</div>
-		<!--Primeira página-->
+		<!--Primeira pï¿½gina-->
 
 		<!-- FORM NOVO DOCUMENTO -->
 
@@ -106,7 +106,7 @@
 				
 					<div ng-hide="exibeHistoricos" class="col-sm-12 spacer">
 
-						<!-- Informações resumidas do pedido -->
+						<!-- Informaï¿½ï¿½es resumidas do pedido -->
 
 						<div class="row">
 							
@@ -117,20 +117,20 @@
 										<p>{{frmCliente.nome}}<p>
 									</div>
 									<div class="col-sm-6">
-										<h5>Endereço de entrega</h5>
+										<h5>EndereÃ§o de entrega</h5>
 										<p>{{frmEndEntrega}}</p>
 									</div>
 
 									<div class="col-sm-2 spacer">
-										<h5>Data de emissão</h5>
+										<h5>Data de emissÃ£o</h5>
 										<p>{{dataEmissaoFormat}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
-										<h5>Previsão de entrega</h5>
-										<p ng-show="dataPrevEntregaFormatada != 'Invalid Date'" >{{dataPrevEntregaFormatada}}</p>
+										<h5>PrevisÃ£o de entrega</h5>
+										<p ng-show="dataPrevEntrega" >{{dataPrevEntrega}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
-										<h5>Condição de pagamento</h5>
+										<h5>CondiÃ§Ã£o de pagamento</h5>
 										<p>{{condPagamento.nome}}</p>
 									</div>
 									<div class="col-sm-2 spacer">
@@ -204,16 +204,15 @@
 									<div class="input-group spacer">
 										<input type="text" ng-model="tipoVenda" name="tipoVenda" required id="tipoVenda" placeholder="Informe o tipo de Venda / Transação" uib-typeahead="tipven.codExterno + ' - ' + tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoERP($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 										
-										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condiï¿½ï¿½o de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTipoVenda()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 								</div>
 								
-								
 								<div class="col-sm-4 spacer ">
 									<label for="predCliente">Pedido / O.C. do Cliente </label>
-									<input type="text" placeholder="Número do pedido do cliente" class="form-control spacer" name="predCliente" ng-model="predCliente" id="predCliente">
+									<input type="text" placeholder="NÃºmero do pedido do cliente" class="form-control spacer" name="predCliente" ng-model="predCliente" id="predCliente">
 								</div>
 								
 								<div class="col-sm-2 spacer ">
@@ -237,7 +236,7 @@
 									<div class="input-group spacer">
 										<input type="text" ng-model="transportadora" name="transportadora" required id="transportadora" placeholder="Informe a Transportadora" uib-typeahead="transportadora.codExterno + ' - ' + transportadora.nome for transportadora in getTransportadoraERP($viewValue)" typeahead-loading="loadingTransportadora" typeahead-no-results="noResultsTransportadora"  typeahead-on-select="onSelectTransportadoraERP($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 										
-										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condiï¿½ï¿½o de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTransportadora()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
@@ -248,7 +247,7 @@
 									<div class="input-group spacer">
 										<input type="text" ng-model="redespacho" name="redespacho" required id="redespacho" placeholder="Informe o Redespacho" uib-typeahead="redespacho.codExterno + ' - ' + redespacho.nome for redespacho in getTransportadoraERP($viewValue)" typeahead-loading="loadingRedespacho" typeahead-no-results="noResultsRedespacho"  typeahead-on-select="onSelectRedespachoERP($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 										
-										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condiï¿½ï¿½o de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaRedespacho()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
@@ -265,14 +264,7 @@
 								<div class="col-sm-2 spacer ">
 									<label for="tipFrete">Tipo de Frete </label>
 									<div class="input-group spacer">
-										<form>
-											<label class="radio-inline">
-											  <input type="radio" name="tipFrete" value="C" checked> CIF
-											</label>
-											<label class="radio-inline">
-											  <input type="radio" name="tipFrete" value="F"> FOB
-											</label>
-										</form>
+										<input class="form-control" ng-value="tipoFrete.nome" uib-typeahead="tipoFrete.id + ' - ' + tipoFrete.nome for tipoFrete in getListaTipoFrete($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectListaTipoFrete($item, $model, $label)" ng-model="tipoFrete">
 									</div>
 								</div>
 								
@@ -283,7 +275,7 @@
 								
 								<div class="col-sm-2 spacer ">
 									<label for="prevEntrega">Previsão de entrega </label>
-									<input type="date" class="form-control spacer" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
+									<input type="text" ui-mask="99/99/9999" model-view-value="true" class="form-control spacer" name="prevEntrega" ng-model="prevEntrega" id="prevEntrega">
 								</div>
 							
 								<div class="col-sm-6 spacer">
@@ -291,7 +283,7 @@
 									<div class="input-group spacer">
 										<input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.codCpg + ' - ' + cond.desCpg for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 										
-										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condição de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
+										<!-- <input type="text" ng-model="condPagamento" name="condPagamento" required id="condPagamento" placeholder="Informe a condiï¿½ï¿½o de pagamento" uib-typeahead="cond.nome for cond in getCondicaoPagamentoERP($viewValue)" typeahead-loading="loadingCond" typeahead-no-results="noResultsCond"  typeahead-on-select="onSelectCond($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0"> -->
 
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaCondicaoPagamento()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
@@ -313,16 +305,16 @@
 									<div class="input-group spacer">
 										<form>
 											<label class="checkbox-inline">
-											  <input type="checkbox" id="emiteCertificado" value="emiteCertificado"> Emite Certificado
+											  <input type="checkbox" ng-value="true" ng-model="emiteCertificado" id="emiteCertificado" value="emiteCertificado"> Emite Certificado
 											</label>
 											<label class="checkbox-inline">
-											  <input type="checkbox" id="emitePPAP" value="emitePPAP"> Emite PPAP
+											  <input type="checkbox"  ng-value="true" ng-model="emitePPAP" id="emitePPAP" value="emitePPAP"> Emite PPAP
 											</label>
 											<label class="checkbox-inline">
-											  <input type="checkbox" id="mantemSaldo" value="mantemSaldo"> Mantém Saldo
+											  <input type="checkbox"  ng-value="true" ng-model="mantemSaldo" id="mantemSaldo" value="mantemSaldo"> Mantém Saldo
 											</label>
 											<label class="checkbox-inline">
-											  <input type="checkbox" id="aceitaParcial" value="aceitaParcial"> Aceita Recebimento Parcial
+											  <input type="checkbox"  ng-value="true" ng-model="aceitaParcial" id="aceitaParcial" value="aceitaParcial"> Aceita Recebimento Parcial
 											</label>
 										</form>
 									</div>
@@ -334,7 +326,7 @@
 								</div>
 								
 								<div class="col-sm-2 spacer ">
-									<label for="valMinDup">Valor Mínimo Duplicata </label>
+									<label for="valMinDup">Valor Máximo Duplicata </label>
 									<input type="text" placeholder=" " class="form-control spacer" name="valMinDup" ng-model="valMinDup" id="valMinDup">
 								</div>
 								
@@ -352,7 +344,7 @@
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="adicionarProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. PreÃ§o - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="verificaProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 									<i ng-show="loadingProd" class="glyphicon glyphicon-refresh"></i>
@@ -360,7 +352,6 @@
 										<i class="glyphicon glyphicon-remove"></i> Sem Resultados
 									</div>	
 								</div>
-							
 
 								<div style="margin-top:5px" class="form-group col-md-12">
 									<div style="padding:0;" class="col-sm-12 spacer">
@@ -372,7 +363,7 @@
 													<th>Produto</th>
 													<th>Quantidade</th>
 													<th>Unid. Medida</th>
-													<th>Preço Bruto</th>
+													<th>PreÃ§o Bruto</th>
 													<th>Faixa 1</th>
 													<th>Faixa 2</th>
 													<th>Faixa 3</th>
@@ -398,7 +389,7 @@
 														
 														<td>
 															<div>
-																<input type="number" step="any" name="quantidadeProduto" min="1" class="inputTable" required ng-value="produto.quantidade" id="quantidadeProdutoAdd" ng-model="produto.quantidade">
+																<input type="number" step="any" name="quantidadeProduto" min="1" class="inputTable" required ng-value="produto.quantidade" id="quantidadeProdutoAdd" ng-model="produto.quantidade" ng-change="calcularProdutos()">
 															</div>
 														</td>
 														<td>
@@ -442,37 +433,50 @@
 												<!-- Detalhes item -->
 												<tr class="cchild">
 													<td colspan ="12">
-														<div class="col-sm-6">
-															<div class="col-sm-12 spacer">
-																<label>Produto</label>	
-																<div>
-																	{{produto.descricao}}
+														<div class="col-sm-6"> <!--Informações sobre o Produto -->
+
+															<div class="panel panel-default spacer">
+
+																<div class="panel-heading">Informações sobre o Produto</div>
+
+																<div class="panel-body">
+
+																	<div class="col-sm-12 spacer">
+																		<label>Produto</label>	
+																		<div>
+																			{{produto.descricao}}
+																		</div>
+																	</div>		
+																	
+																	<div class="col-sm-12 spacer"> 
+																		<label>Derivação</label>												
+																		{{produto.codVariacao}}
+																	</div>
+																	
+																	<div class="col-sm-6 spacer">
+																		<label for="tipoVendaItem">Transação do produto</label>
+																		<div class="input-group spacer">
+																			<input type="text" ng-model="produto.tipoVendaItem" name="tipoVendaItem" id="tipoVendaItem" placeholder="Selecione uma transaÃ§Ã£o para este item" uib-typeahead="tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoPro($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+																			<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTipoVendaItem()"><i class="glyphicon glyphicon-remove"></i></span>
+																		</div>
+										
+																	</div>
+																	<div class="col-sm-6 spacer ">
+																		<label for="prevEntregaItem">Data de entrega do item </label>
+																		<input type="text"  ui-mask="99/99/9999" class="form-control spacer" name="prevEntregaItem" ng-model="produto.prevEntregaItem" id="prevEntregaItem">
+																	</div>
+																	<div class="col-sm-12 spacer">
+																		<label for="obsItem">Observação</label>
+																		<textarea class="form-control spacer-input"  ng-model="produto.obsItem" placeholder="MÃ¡ximo de 250 caracteres" id="obsItem" rows="5"></textarea>
+																	</div>
+																
 																</div>
-															</div>		
-															
-															<div class="col-sm-12 spacer"> 
-																<label>Derivação</label>												
-																{{produto.codVariacao}}
+
 															</div>
-															
-															<div class="col-sm-6 spacer">
-																<label for="tipoVendaItem">Transação do produto</label>
-																<div class="input-group spacer">
-																	<input type="text" ng-model="produto.tipoVendaItem" name="tipoVendaItem" id="tipoVendaItem" placeholder="Selecione uma transação para este item" uib-typeahead="tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoPro($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-																	<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTipoVendaItem()"><i class="glyphicon glyphicon-remove"></i></span>
-																</div>
-								
-															</div>
-															<div class="col-sm-6 spacer ">
-																<label for="prevEntregaItem">Data de entrega do item </label>
-																<input type="text" ui-mask="99/99/9999" class="form-control spacer" name="prevEntregaItem" ng-model="produto.prevEntregaItem" id="prevEntregaItem">
-															</div>
-															<div class="col-sm-12 spacer">
-																<label for="obsItem">Observação</label>
-																<textarea class="form-control spacer-input"  ng-model="produto.obsItem" placeholder="Máximo de 250 caracteres" id="obsItem" rows="5"></textarea>
-															</div>
+
 														</div>
-														<div class="col-sm-6">
+
+														<div class="col-sm-6"> <!--Informações adicionais -->
 
 															<div class="panel panel-default spacer">
 															  <div class="panel-heading">Informações adicionais</div>
@@ -505,9 +509,112 @@
 															  </div>
 															</div>
 														</div>
+
+														<div class="col-sm-12"> <!--Estoque -->
+															<div class="panel panel-default spacer">
+																<div class="panel-heading">Estoque</div>
+																<div class="panel-body">
+																	<table>
+																		<thead>
+																			<tr>
+																				<th>Deposito</th>
+																				<th>Estoque</th>
+																				<th>Reserva</th>
+																				<th>Prefatura</th>
+																				<th>Disponivel</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr ng-repeat="deposito in produto.depositos">
+																				<td>
+																					{{deposito.deposito}}
+																				</td>
+																				<td>
+																					{{deposito.estoque}}
+																				</td>
+																				<td>
+																					{{deposito.reserva}}
+																				</td>
+																				<td>
+																					{{deposito.prefatura}}
+																				</td>
+																				<td>
+																					{{deposito.disponivel}}
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+														
+														<div class="col-sm-12"> <!--Acabamentos -->
+															<div class="panel panel-default spacer">
+																<div class="panel-heading">Acabamento</div>
+																<div class="panel-body">
+																	<table>
+																		<thead>
+																			<tr>
+																				<th>
+																					Codigo
+																				</th>
+																				<th>
+																					consignado
+																				</th>
+																				<th>
+																					derivação
+																				</th>
+																				<th>
+																					disponivel
+																				</th>
+																				<th>
+																					matriz
+																				</th>
+																				<th>
+																					mg
+																				</th>
+																				<th>
+																					resPedidos
+																				</th>
+																				<th>
+																					resPreFat
+																				</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr ng-repeat="x in produto.acabamentos">
+																				<td>
+																					{{x.codigo}}
+																				</td>
+																				<td>
+																					{{x.consignado}}
+																				</td>
+																				<td>
+																					{{x.derivacao}}
+																				</td>
+																				<td>
+																					{{x.disponivel}}
+																				</td>
+																				<td>
+																					{{x.matriz}}
+																				</td>
+																				<td>
+																					{{x.mg}}
+																				</td>
+																				<td>
+																					{{x.resPedidos}}
+																				</td>
+																				<td>
+																					{{x.resPreFat}}
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
 													</td>
 												</tr>
-												
 											</tbody>
 										</table>
 		
@@ -526,7 +633,7 @@
 					<div ng-show="exibeHistoricos" class="col-sm-12">
 						<div class="form-row">
 							<div class="col-sm-12 spacer">
-									<label for="histOportunidade">Histórico</label>
+									<label for="histOportunidade">HistÃ³rico</label>
 									<textarea readonly class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
 							</div>
 						</div>
@@ -537,8 +644,8 @@
 						</div>
 						<div class="form-row">
 							<div class="col-sm-11 spacer">
-								<label for="obsOportunidade">Observação</label>
-								<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="3"></textarea>
+								<label for="obsOportunidade">ObservaÃ§Ã£o</label>
+								<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="1"></textarea>
 							</div>
 							<div class="col-sm-1 spacer" style="padding-top: 30px;">
 								<label for="obsOportunidade"> </label>							
@@ -555,7 +662,7 @@
 			<!-- Capa do pedido -->
 						
 			<hr class="divider">
-			<!-- Ações sob o formulario -->
+			<!-- Aï¿½ï¿½es sob o formulario -->
 			<div class="row spacer">
 				<div class="pull-right" style="padding-right: 10px;">
 					<div class="btn-group">
@@ -569,7 +676,7 @@
 					</div>	
 				</div>
 			</div>
-			<!-- Ações sob o formulario -->
+			<!-- Aï¿½ï¿½es sob o formulario -->
 			<hr class="divider">	
 
 		</div>
@@ -590,7 +697,7 @@
 			<!-- Body -->
 			<div class="row spacer">
 				<div class="col-sm-12">
-					<!-- Conteúdo página -->
+					<!-- Conteï¿½do pï¿½gina -->
 					
 					<div class="panel panel-default">
 					  <div class="panel-body">
@@ -646,8 +753,6 @@
 								<label class="spacer" for="codProEst">Classificação Fiscal:</label> {{produtoEstoque.produto.claFiscal}}	
 							</div>
 						
-					
-					
 							<div style="margin-top:5px" class="form-group col-md-12">
 								<div style="padding:0;" class="col-sm-12 spacer">
 								
@@ -696,15 +801,6 @@
 													</div>
 												</tr>
 											</tbody>
-											<tfoot>
-												<tr>
-													<td>Totais</td>
-													<td>{{somaTotalEstoque}}</td>
-													<td>{{somaTotalReserva}}</td>
-													<td>{{somaTotalPrefatura}}</td>
-													<td>{{somaTotalDisponivel}}</td>
-												</tr>
-											</tfoot>
 										</table>
 									</div>
 								</div>
@@ -799,10 +895,10 @@
 									<!-- <table id ="tabelaRoteiroOp" class="table"> -->
 										<!-- <thead> -->
 											<!-- <tr> -->
-												<!-- <th>Estágio</th> -->
-												<!-- <th>Operação</th> -->
-												<!-- <th>Início</th> -->
-												<!-- <th>Término</th> -->
+												<!-- <th>Estï¿½gio</th> -->
+												<!-- <th>Operaï¿½ï¿½o</th> -->
+												<!-- <th>Inï¿½cio</th> -->
+												<!-- <th>Tï¿½rmino</th> -->
 												<!-- <th>Previsto</th> -->
 												<!-- <th>Realizado</th> -->
 												<!-- <th>Saldo</th> -->
@@ -855,7 +951,7 @@
 								<div style="padding:0;" class="col-sm-12 spacer">
 									<div class="panel panel-default">
 										<!-- Default panel contents -->
-										<div class="panel-heading">Derivações do Produto
+										<div class="panel-heading">Derivaçôes do Produto
 										</div>
 										
 										<div class="panel-body">
@@ -1002,6 +1098,7 @@
 <!-- Scripts importados -->	
 
 <script>
+	console.log("testes 173")
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
 
 angular
@@ -1040,7 +1137,7 @@ angular
 		$scope.consultarEstoqueERP = async () =>{
 			
 			/*A fazer
-				Requisição para o ERP trazendo as informações 
+				Requisiï¿½ï¿½o para o ERP trazendo as informaï¿½ï¿½es 
 			*/
 		}
 	
@@ -1079,7 +1176,7 @@ angular
 					$scope.$apply();
 
 				}else{
-					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP Nº '+ $dados.jsonDocs[0].pedido : "Pedido Nº "+$dados.id
+					$scope.tipoFormulario = $dados.jsonDocs[0].sincronizado === 'DOCUMENTO_SINCRONIZADO' ? 'Pedido ERP N° '+ $dados.jsonDocs[0].pedido : "Pedido N° "+$dados.id
 										
 					$scope.inputDesabilitado  = true;
 					$scope.permiteEditar	  = false;
@@ -1136,6 +1233,28 @@ angular
 		// 	<!-- $scope.endEntrega	 = {}; -->
 		// <!-- }; -->
 
+		$scope.getListaTipoFrete = () =>{
+			$scope.listaTipoFrete = [ 
+				{
+				    id: 'C',
+					nome: 'CIF',
+				},
+				{
+					id: 'F',
+					nome: 'FOB',
+				},
+				{
+					id: 'X',
+					nome: 'SEM FRETE',
+				},
+			];
+			return $scope.listaTipoFrete;
+		};
+
+		$scope.onSelectListaTipoFrete = ($item, $model, $label) => {
+			$scope.tipoFrete = $item;
+		};
+
 		$scope.getCondicoesP = function(val) {
 			return $http.post('/clicVendas/rest/Listas/condicaoPagamento', {
 			params: {
@@ -1149,7 +1268,7 @@ angular
 			});
 		};
 
-		// condições de pagamento
+		// condiï¿½ï¿½es de pagamento
 		$scope.getCondicaoPagamentoERP = async (consulta) => {
 			try{
 				let result = await $scope.executaRequisicaoExterna(
@@ -1170,7 +1289,7 @@ angular
 					return [];
 				}
 			}catch(err){
-				console.log("Ocorreu um erro na requisição: ", err);
+				console.log("Ocorreu um erro na requisiï¿½ï¿½o: ", err);
 			};
 
 		}
@@ -1229,7 +1348,7 @@ angular
 		}
 		
 		
-		//Minha nova função para obter estoque do produto
+		//Minha nova funï¿½ï¿½o para obter estoque do produto
 		
 		$scope.getEstoqueProdutoERP = async (consulta) => {
 
@@ -1262,17 +1381,17 @@ angular
 		// Carrega dados de Estoque 
 		
 		$scope.onSelectDadosEstoque = ($item) =>{
-			console.log("XXX");
-			console.log($item);
+			//console.log("XXX");
+			//console.log($item);
 			
 			$scope.produtoEstoque = $item;
 			$scope.calcularTotalEstoqueDepositos();
 			$scope.calcularTotalEstoqueDerivacoes();
 			
-			console.log($scope.produtoEstoque);
+			//console.log($scope.produtoEstoque);
 		}
 		
-		//Nova função para calcular os totais de produtos da consulta de estoque
+		//Nova funï¿½ï¿½o para calcular os totais de produtos da consulta de estoque
 	
 		$scope.calcularTotalEstoqueDepositos = () =>{
 
@@ -1296,7 +1415,7 @@ angular
 				}
 			}
 			
-			console.log(valorEstoque);
+			//console.log(valorEstoque);
 			$scope.somaTotalEstoque = valorEstoque.toFixed(2);
 			
 			$scope.somaTotalReserva = valorReserva.toFixed(2);
@@ -1324,6 +1443,7 @@ angular
 
 				if($scope.produtoEstoque.produto.derivacoes[i].matriz != null ){
 					valorMatriz += parseFloat($scope.produtoEstoque.produto.derivacoes[i].matriz.replace('.',''));
+					
 				}
 				
 				if($scope.produtoEstoque.produto.derivacoes[i].mg != null ){
@@ -1343,6 +1463,7 @@ angular
 				}
 			}
 			
+
 			$scope.somaTotalMatriz 			= valorMatriz.toFixed(2);
 			$scope.somaTotalMg 				= valorMg.toFixed(2);
 			$scope.somaTotalConsignado 		= valorConsignado.toFixed(2);
@@ -1369,7 +1490,7 @@ angular
 			
 			let result = await $scope.getEstoqueProdutoERP(codDer);
 			console.log('result teste');
-			console.log(result);
+			//console.log(result);
 			$scope.onSelectDadosEstoque(result[0]);
 			
 			$scope.codProEst = result[0].produto.codErp + " - " + result[0].produto.descricao;
@@ -1403,10 +1524,11 @@ angular
 					},
 					1000
 				);
+				console.log(result)
 		
 				if(result != undefined && result.resultado != undefined){
 					return result.resultado.map((item)=>{
-						console.log(item);
+						//console.log(item);
 						return item
 					})
 				}else{
@@ -1418,10 +1540,21 @@ angular
 
 		}
 
-		$scope.onSelectCliente = function ($item, $model, $label) {					
+		$scope.onSelectCliente = function ($item, $model, $label) {	
+
 			$scope.nomeCliente = $item;	
 			$rootScope.cliente = $item;	
+
 			$scope.tipoVenda = {codExterno: $scope.nomeCliente.codTns, nome: $scope.nomeCliente.nomeTns};
+
+			if($scope.nomeCliente.codTra == "0"){
+				console.log("chegou no if")
+				$scope.transportadora = ""
+			}else{
+				console.log("else")
+				$scope.transportadora = {codExterno: $scope.nomeCliente.codTra, nome: $scope.nomeCliente.nomTra};
+			}
+
 			$scope.frmEndEntrega = $scope.nomeCliente.endCli;
 			$scope.condPagamento = {codCpg: $scope.nomeCliente.codCpg, desCpg: $scope.nomeCliente.desCpg };
 			$scope.formaPagamento = {codFpg: $scope.nomeCliente.codFpg, desFpg: $scope.nomeCliente.desFpg };
@@ -1437,7 +1570,7 @@ angular
 			$scope.frmCliente  = "";
 		}
 
-		//endereço de entrega
+		//endereï¿½o de entrega
 		$scope.getEnderecoEntregaERP = async (consulta) => {
 
 			try{
@@ -1553,6 +1686,14 @@ angular
 		$scope.limpaTransacaoPro = function(){
 			$scope.tipoVendaItem = "";
 		}
+		
+		$scope.limpaTransportadora = function(){
+			$scope.transportadora = "";
+		}
+		
+		$scope.limpaRedespacho = function(){
+			$scope.redespacho = "";
+		}
 																
 		
 		// <!-- $scope.getClientes = function(val) { -->
@@ -1610,28 +1751,28 @@ angular
 			$scope.filSincronizado	= $item;
 		};
 
-		/*Tempo limite para funções*/
+		/*Tempo limite para funï¿½ï¿½es*/
 		const setAsyncTimeout = (cb, timeout = 0) => new Promise((resolve, reject) => {
 			cb(resolve);
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
 		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
-		
-			console.log($json);
+			console.log($json, 'Requisicao Externa ENTRADA');
 			
 			try {
 				let response;
 
 				await setAsyncTimeout(async done => {		
 					response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
-					done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
+					done();/*Aguarda a requisiï¿½ï¿½o - Se estourar o tempo, gera erro.*/
 								
 				}, timeLimit * 1000); // limite em segundos
 			
-				console.log(response);
+				console.log(response, "SAIDA Req Ext.");
 				return response.data;
 			}catch(err){
+				console.log(err, "erro")
 				$scope.geraNotificacao("Não foi possível se comunicar com o ERP. "+err+"", 5000, 'danger')
 				console.error('[Timeout] Não foi possível se comunicar com o ERP.', err);
 			};
@@ -1682,8 +1823,8 @@ angular
 								Codigo externo - Codigo variacao - Numero pedido ERP*/
 							if($rootScope.dadosGrid[l].jsonDocs[0].pedido == pedidosGravadosERP[k].jsonDocs[0].pedido){
 								
-								/*Itens que serão atualizados*/							
-								/*Atualiza informações do produto vinculado ao pedido*/
+								/*Itens que serï¿½o atualizados*/							
+								/*Atualiza informaï¿½ï¿½es do produto vinculado ao pedido*/
 								//pedidosGravadosERP[k].jsonDocs[0].produtos.		= "5"
 
 								continue;
@@ -1693,29 +1834,53 @@ angular
 				};
 			}
 						
-			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, não busca da base de dados */
+			$scope.atualizaTabela(1);/* 1 - Atualiza apenas a view, nï¿½o busca da base de dados */
 		};
 		
 		$scope.gravaDocumentoERP = async ($item) => {
+			let produtoToSend = [];
+
+			for(let i = 0; i < $item.produtos.length; i++){
+				produtoToSend.push({
+					codExterno  		: $item.produtos[i].codExterno,
+					codTpr				: $item.produtos[i].codTpr,
+					codVariacao			: $item.produtos[i].codVariacao,
+					descricao			: $item.produtos[i].descricao,
+					estoque				: $item.produtos[i].estoque,
+					hashDoc				: $item.produtos[i].hashDoc,
+					opcaoDescAcresc		: $item.produtos[i].opcaoDescAcresc,
+					precoTabela			: $item.produtos[i].precoTabela,
+					prevEntregaItem		: $item.produtos[i].prevEntregaItem,
+					quantidade			: $item.produtos[i].quantidade,
+					unidMedida			: $item.produtos[i].unidMedida,
+					valorFaixa			: $item.produtos[i].valorFaixa,
+					valorFaixa1			: $item.produtos[i].valorFaixa1,
+					valorFaixa2			: $item.produtos[i].valorFaixa2,
+					valorFaixa3			: $item.produtos[i].valorFaixa3,
+					valorFaixa4			: $item.produtos[i].valorFaixa4,
+					valorNegociado		: $item.produtos[i].valorNegociado,
+					valorTotalItem		: $item.produtos[i].valorTotalItem
+				})
+			}
+			$item.produtos = produtoToSend;
 
 			let dialog = bootbox.dialog({
 				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Enviando pedido para o ERP...</p></div>',
 				closeButton: false
 			});
-
 			$rootScope.isLoading = true;
-			
+
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj : dadosUserLogado.cId,
 					numreg	   : 750,
 					pRotina	   : 'criarPedidoERP',
 					pCodCli    : dadosUserLogado.rId,
+					pCodRep	   : dadosUserLogado.rCod,
 					pDocumento : {documento : $item}
 				},
 				20//limite tempo		
 			);
-
 			$rootScope.isLoading = false;
 						
 			if(!isNaN(parseInt(result))){
@@ -1730,6 +1895,11 @@ angular
 		};
 
 		$scope.getProdutosERP = async (consulta) => {
+			//data vem do input data de entrega 
+			//console.log($scope.prevEntrega)
+
+			//$scope.prevEntrega = $scope.prevEntrega.toLocaleDateString('pt-br')
+
 			try{
 				let result = await $scope.executaRequisicaoExterna(
 					{
@@ -1738,19 +1908,18 @@ angular
 						pRotina	   : 'filtrarProduto',
 						pCodCli    : dadosUserLogado.rId,
 						pCliente   : $scope.nomeCliente.codExterno,
+						pDatEnt    : $scope.prevEntrega,
 						pFilter    : {filtro:{filtroProd : consulta}},
 					}
 				);
-				
-				console.log(result);
-										
+		
 				if(result != undefined && result.resultado != undefined){
 					return result.resultado.slice(0, 8).map((item)=>{
 						return item
 					})
 				}else{
 					return [];
-				}
+				}				
 			}catch(err){
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
@@ -1770,7 +1939,22 @@ angular
 
 		$scope.abreFormulario = ($dados) =>{
 
+			//var today = new Date();
+			//var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+			//$scope.todayTest = new Date();
+			//$scope.dateTest =  $scope.todayTest.getDate() + '/' + ($scope.todayTest.getMonth() + 1) + '/' + $scope.todayTest.getFullYear();
+			//console.log($scope.dateTest)
+
+			//$scope.dateTest =   ($scope.todayTest.getMonth() + 1) + '-' +  $scope.todayTest.getDate() + '-' + $scope.todayTest.getFullYear();
+			//console.log($scope.dateTest)
+
+			//$scope.dateTeste = new Date($scope.dateTest)
+			//console.log($scope.dateTeste)
+
+			//console.log($dados)
 			if($dados == undefined){
+				$scope.tipoFrete				= '';
 				
 				$rootScope.idDocumento 			= 0;
 				$scope.pedido			 		= 0,
@@ -1785,15 +1969,23 @@ angular
 				$scope.redespacho				= '';
 				$scope.predCliente				= '';
 				$scope.pedMoeda					= '';
-				$scope.predDatEmi				= new Date();
+
+				$scope.predDatEmi				= new Date().toLocaleDateString('pt-br');
 				$scope.transportadora			= '';
 				$scope.valFrete					= '';
 				$scope.valMinFat				= '';
 				$scope.valMinDup				= '';
 				$scope.validade					= '';
 				$scope.obsPed					= '';
+				$scope.emiteCertificado			= '';
+				$scope.emitePPAP				= '';
+				$scope.mantemSaldo				= '';
+				$scope.aceitaParcial			= '';
 
-				$scope.prevEntrega				= '';
+				$scope.tipoFreteCif				= '';
+				$scope.tipoFrenteFob			= '';
+
+				$scope.prevEntrega				= new Date().toLocaleDateString('pt-br')
 				$scope.codigoProduto			= '';				
 				$scope.representante			= dadosUserLogado.rNome;
 				$scope.datEmiERP				= '';
@@ -1802,7 +1994,7 @@ angular
 				$rootScope.hashDoc				= '';
 				$scope.sincronizado				= 'DOCUMENTO_NAO_SINCRONIZADO';
 				$scope.dataEmissaoFormat		= '';
-				$scope.dataPrevEntregaFormatada	= "";
+				$scope.dataPrevEntregaFormatada	= '';
 				// $scope.dataEmissaoErpFormatada	= "";
 
 				$scope.valorTotal				= 0;
@@ -1820,7 +2012,7 @@ angular
 				$scope.codigoCliente		= docs.cliente.codExterno;
 				$scope.nomeCliente			= docs.cliente.nome;
 				$scope.representante		= docs.representante.nome;
-				$scope.prevEntrega			= docs.prevEntrega != null ? new Date(docs.prevEntrega) : null;
+				$scope.prevEntrega			= docs.prevEntrega;
 				$scope.datEmiERP			= docs.datEmiERP;
 				$scope.dataEmissaoFormat	= docs.datEmiERP != null ? docs.datEmiERP.substr(0,10) : "";
 				$scope.obsOportunidade		= '';
@@ -1829,18 +2021,27 @@ angular
 				$scope.pedido				= docs.pedido;
 				$scope.sincronizado			= docs.sincronizado;
 
+				$scope.previsaoEntregra		= docs.previsaoEntregra;
+
 				$scope.tipoVenda			= docs.tipoVenda;
 				$scope.redespacho			= docs.redespacho;
 				$scope.predCliente			= docs.predCliente;
 				$scope.pedMoeda				= docs.pedMoeda;
-				$scope.predDatEmi			= new Date(docs.predDatEmi);
+				$scope.predDatEmi			= docs.predDatEmi;
 				$scope.transportadora		= docs.transportadora;
 				$scope.valFrete				= docs.valFrete;
 				$scope.valMinFat			= docs.valMinFat;
 				$scope.valMinDup			= docs.valMinDup;
 				$scope.validade				= docs.validade;
 				$scope.obsPed				= docs.obsPed;
-
+				
+				$scope.emiteCertificado		= docs.emiteCertificado;
+				$scope.emitePPAP			= docs.emitePPAP;
+				$scope.mantemSaldo			= docs.mantemSaldo;
+				$scope.aceitaParcial		= docs.aceitaParcial;
+				
+				$scope.tipoFrete			= docs.tipoFrete;
+				
 				$scope.valorTotal			= docs.valorTotal;
 
 				/*Informações sobre o produto*/
@@ -1866,15 +2067,60 @@ angular
 			let descontoAcresc 	= 0;
 			let calcDescAcresc	= 0;
 			let ValorFaixa		= 0;
-			
-			
+
+			// calculos totais de tabela de estoque
+
+			let valorEstoque = 0
+			let valorPrefatura = 0
+			let valorReserva = 0
+			let valorDisponivel = 0
+
+			let valorTotalEstoque = 0
+			let valorTotalPrefatura = 0
+			let valorTotalReserva = 0
+			let valorTotalDisponivel = 0
+
 			for(let i=0; i < $rootScope.produtos.length; i++){
 				
+				//atribuindo valores das tabelas
+
+				arrayDepositos = $rootScope.produtos[i].depositos
+				//console.log(arrayDepositos)
+
 				if(($rootScope.produtos[i].quantidade != null && $rootScope.produtos[i].quantidade > 0) && $rootScope.produtos[i].valorNegociado != null){
-										
+
+					/*for(let j=0; j < arrayDepositos.length; j++){
+
+						valorEstoque 		= arrayDepositos[j].estoque;
+						valorEstoque 		= valorEstoque.replace(",",".") 
+						valorEstoque 		= parseFloat(valorEstoque)
+						valorTotalEstoque 	+= valorEstoque
+
+						valorPrefatura 		= arrayDepositos[j].prefatura;
+						valorPrefatura 		 = valorPrefatura.replace(",",".")
+						valorPrefatura 		 = parseFloat(valorPrefatura)
+						valorTotalPrefatura  += valorPrefatura
+
+						valorReserva 		= arrayDepositos[j].reserva; 
+						valorReserva 		= valorReserva.replace(",",".")
+						valorReserva 		= parseFloat(valorReserva)
+						valorTotalReserva 	+= valorReserva
+
+						valorDisponivel 	  = arrayDepositos[j].valorDisponivel; 
+						valorDisponivel 	  = valorDisponivel.replace(",",".")
+						valorDisponivel 	  = parseFloat(valorDisponivel)
+						valorTotalDisponivel += valorDisponivel
+
+
+					}*/
+
+					/*	 $scope.valorTotalDisponivel = valorTotalDisponivel
+						$scope.valorTotalEstoque = valorTotalEstoque
+						$scope.valorTotalPrefatura = valorTotalPrefatura
+						$scope.valorTotalReserva = valorTotalReserva */
+					
 					ValorFaixa	=  parseFloat($rootScope.produtos[i].valorFaixa);
 					
-					console.log(ValorFaixa);
 					
 					if(ValorFaixa != null && ValorFaixa > 0){
 						valorTotalItem 	= parseFloat($rootScope.produtos[i].quantidade) * ValorFaixa
@@ -1912,15 +2158,15 @@ angular
 				// 	}
 				// );
 
-				//return result /*Verdadeiro ou falso para prosseguir inserção do produto*/
+				//return result /*Verdadeiro ou falso para prosseguir inserï¿½ï¿½o do produto*/
 
 				// let result = {
-				// 	erro: "O produto X está fora da margem de lucro",
+				// 	erro: "O produto X estï¿½ fora da margem de lucro",
 				// 	aprovado:false,
 				// }
 
 				/*Retorna sempre true - 
-					TO DO: Calculo de validação no ERP
+					TO DO: Calculo de validaï¿½ï¿½o no ERP
 				*/
 
 				result = {
@@ -1939,33 +2185,44 @@ angular
 				console.log("Ocorreu um erro na requisição: ", err);
 			};
 		}
-		
-		
+
+		$scope.verificaProduto = ($item) =>{
+			console.log("entrou no onSelect")
+			if($item.tipoErro == "BLOQUEIA"){
+				alert($item.msgErro)
+			}else if($item.tipoErro == "AVISA"){
+				alert($item.msgErro)
+				$scope.adicionarProduto($item)
+			}else{
+				$scope.adicionarProduto($item)
+			}
+		}
 		$scope.adicionarProduto = ($item) =>{
-			console.log($item)
-			$rootScope.produtos.unshift(
-				{ 
-					descricao			: $item.nome,
-					codigoProduto		: $item.id,
-					codVariacao			: $item.codVariacao,
-					codExterno			: $item.codExterno,
-					opcaoDescAcresc		: 'DESCONTO',
-					quantidade			: 1,
-					valorNegociado		: parseFloat($item.preco),
-					precoTabela			: $item.preco,
-					unidMedida			: $item.unimed,
-					estoque				: $item.qtdeEstoque,
-					codTpr				: $item.codTpr,
-					hashDoc				: '',
-					valorFaixa1			: parseFloat($item.valorFaixa1),
-					valorFaixa2			: parseFloat($item.valorFaixa2),
-					valorFaixa3			: parseFloat($item.valorFaixa3),
-					valorFaixa4			: parseFloat($item.valorFaixa4),
-				}
-			);
-			
+			console.log($item, "estou no adicionarProduto")
+					$rootScope.produtos.unshift(
+						{ 
+							descricao			: $item.nome,
+							codigoProduto		: $item.id,
+							codVariacao			: $item.codVariacao,
+							codExterno			: $item.codExterno,
+							opcaoDescAcresc		: 'DESCONTO',
+							quantidade			: 1,
+							valorNegociado		: parseFloat($item.preco),
+							precoTabela			: $item.preco,
+							unidMedida			: $item.unimed,
+							estoque				: $item.qtdeEstoque,
+							codTpr				: $item.codTpr,
+							prevEntregaItem     : $item.datEnt,
+							hashDoc				: '',
+							valorFaixa1			: parseFloat($item.valorFaixa1),
+							valorFaixa2			: parseFloat($item.valorFaixa2),
+							valorFaixa3			: parseFloat($item.valorFaixa3),
+							valorFaixa4			: parseFloat($item.valorFaixa4),
+							acabamentos			: $item.acabamento,
+							depositos			: $item.depositos,
+						}
+					);
 			var buscaProduto		= angular.element(document.querySelector('#itemProd'));
-			
 			$timeout(function () {
 				buscaProduto.blur();
 				$scope.itemProd = '';
@@ -1982,8 +2239,8 @@ angular
 		};
 
 		$scope.removerProduto = ($item) => {
-			console.log($item.codExterno);
-			console.log($item.codVariacao);
+			//console.log($item.codExterno);
+			//console.log($item.codVariacao);
 			//$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno !== $item.codExterno && item.codVariacao !== $item.codVariacao);
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno+"_"+item.codVariacao !== $item.codExterno+"_"+$item.codVariacao);
 
@@ -2006,8 +2263,8 @@ angular
 			for(let i = 0; i < strHistorico.length; i++){
 				$scope.histOportunidade += `
 				
-- Descrição: ${strHistorico[i].item}
-- Registrado em: ${dataAtual.toLocaleDateString('pt-BR')} às ${horas}:${minutos}`
+				- Descrição: ${strHistorico[i].item}
+				- Registrado em: ${dataAtual.toLocaleDateString('pt-BR')} às ${horas}:${minutos}`
 			}
 		
 			$scope.obsOportunidade = "";
@@ -2044,7 +2301,7 @@ angular
 			$scope.messageNotific	= '';
 			
 			dados.cnpj 				= {id: dadosUserLogado.cId};
-
+			//console.log($scope.tipoFrete, "tp")
 			jsonDocs = [{
 				/*Historico*/
 				obsOportunidade	: $scope.obsOportunidade,
@@ -2061,6 +2318,13 @@ angular
 				validade		: $scope.validade,
 				valFrete		: $scope.valFrete,
 				obsPed			: $scope.obsPed,
+				//opcaoPedido		: $scope.opcaoPedido,
+				emiteCertificado: $scope.emiteCertificado,
+				emitePPAP		: $scope.emitePPAP,
+				mantemSaldo		: $scope.mantemSaldo,
+				aceitaParcial	: $scope.aceitaParcial,
+
+				tipoFrete		: $scope.tipoFrete,
 
 				condPagamento	: $scope.condPagamento,
 				formaPagamento	: $scope.formaPagamento,
@@ -2087,11 +2351,13 @@ angular
 			}];
 			
 			dados.jsonDocs 		= JSON.stringify(jsonDocs);
-			/*Recebe dados e para que sejam feitas as alterações necessarias*/
+			/*Recebe dados e para que sejam feitas as alteraï¿½ï¿½es necessarias*/
 			var json 			= JSON.parse(dados.jsonDocs);
 			
 			if(rotina == 2){					
 				let sendToERP 				= JSON.parse(dados.jsonDocs);
+
+				console.log(sendToERP)
 
 				$rootScope.pedidoAprovado	= await $scope.calculoValidacaoProdutoERP(sendToERP[0]);
 
@@ -2189,7 +2455,7 @@ angular
 					dataSrc: function(json) {
 
 						/*Modo 1 - 
-							Atualiza tabela com valores do ERP quando o pedido há número
+							Atualiza tabela com valores do ERP quando o pedido hï¿½ nï¿½mero
 						*/
 						if (modo != 1){
 							$rootScope.dadosGrid = json.data;
@@ -2249,8 +2515,8 @@ angular
 			]);	
 
 
-			defPD = {	'id'								:	{i:0, vsbl: true,	tlt: 'Nº Pedido',   	width:''	},
-						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
+			defPD = {	'id'								:	{i:0, vsbl: true,	tlt: 'N° Pedido',   	width:''	},
+						'jsonDocs[0].pedido'				:	{i:1, vsbl: true,	tlt: 'N° Pedido ERP',	width:''	},
 						'jsonDocs[0].cliente.nome'			:	{i:1, vsbl: true,	tlt: 'Cliente',			width:''	},
 				};
 
@@ -2286,7 +2552,7 @@ angular
 				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
-					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+row.jsonDocs[0].pedido+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - N°"+row.jsonDocs[0].pedido+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
 					btnhtml1 += "<div class='glyphicon glyphicon-exclamation-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}
@@ -2419,7 +2685,7 @@ angular
 	}
 
 	tr{
-		height: 55px;
+		height: 45px;
 	}
 
 	.table>thead>tr>th {
@@ -2452,11 +2718,19 @@ angular
 	th, td, a{
 		font-size: 12px;
 		white-space: nowrap;
+		padding-right: 6vh;
+		padding-left: 2vh
+	}
+
+	.thLarge{
+		padding-right: 33vh;
+
 	}
 
 	th{
 		background-color: #FAFAFA;
 		border-radius: 2px;
+		padding-right: 17vh;
 	}
 
 	.dataTables_wrapper .dataTables_info{
@@ -2674,6 +2948,11 @@ angular
 		margin: -.5rem;
 		padding: .5rem;
 	
+	}
+
+	.tableChange{
+		margin-top: -2vh;
+   		margin-left: 1px;
 	}
 	.open .parent i {
 		transform: rotate(180deg)
