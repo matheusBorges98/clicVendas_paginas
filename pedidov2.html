@@ -823,7 +823,7 @@
 
 <script>
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
-console.log("TESTE6")
+console.log("TESTE1")
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
 	.controller("MainController",
@@ -1936,7 +1936,7 @@ angular
 					}else{
 						json[0].sincronizado 		= "ERRO: "+$rootScope.documentoERP;
 						json[0].pedNumped	 		= 0;
-						amostrasPedido.situacao		= {nome:"Em análise", send:"EM_ANALISE"}
+						//amostrasPedido.situacao		= {nome:"Em análise", send:"EM_ANALISE"}
 
 						$scope.erroPedido 			= true
 					}
@@ -1948,10 +1948,12 @@ angular
 
 					for(j = 0; j < $rootScope.docsToEdit.length; j++){						
 						json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
+						
 						console.log(amostrasPedido.situacao, "situacao old")
 						console.log($scope.erroPedido, "erro")
+
 						if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
-							json[0].produtos.situacao = rotina == 2 &&  !$scope.erroPedido ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
+							json[0].produtos.situacao = rotina == 2 &&  !$scope.erroPedido ?  {nome:"Integrado", send:"AM_INTEGRADA"} : {nome:"Em análise", send:"EM_ANALISE"}
 						}else if(json[0].produtos.situacao.send == 'AM_FECHADA'){
 							json[0].produtos.situacao = {nome:"Fechado", send:"AM_FECHADA"}
 						}else if(json[0].produtos.situacao.send == 'AM_FECHADA_VENDA'){
