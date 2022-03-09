@@ -750,7 +750,8 @@
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<li ng-show="!inputDesabilitado"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li> 
-							<li ng-show="!amostraIntegrada"><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>       
+							<li ng-show="!amostraIntegrada"><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>  
+							<li ng-show="!amostraIntegrada"><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA_VENDA')">Arquivar(Venda)</a></li>       
 						</ul>
 						<ul ng-show="usuarioAprovador && amostraEmAnalise" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
@@ -897,7 +898,9 @@ angular
 					$scope.amostraEmAnalise	  = false;
 					$scope.amostraIntegrada	  = false;
 
-					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA" || $dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA"){
+					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA" ||
+					 	$dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA" ||
+						$dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA_VENDA"){
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
 						$scope.exibeTabManutencao = false;
@@ -1024,7 +1027,12 @@ angular
 				{
 					nome:'Fechada',
 					send:'AM_FECHADA'
+				},
+				{
+					nome:'Fechada(Venda)',
+					send:'AM_FECHADA_VENDA'
 				}
+
 			];
 			return $scope.listaSituacaoAmostra;
 		};
@@ -1373,17 +1381,17 @@ angular
 
 			$rootScope.isLoading = true;
 
-			let result = await $scope.executaRequisicaoExterna(
-				{
-					idCvtccnpj : dadosUserLogado.cId,
-					numreg	   : 750,
-					pRotina	   : 'criarPedidoAmostra',
-					pCodCli    : dadosUserLogado.rId,
-					pDocumento : {documento : $item}
-				}		
-			);
+			// let result = await $scope.executaRequisicaoExterna(
+			// 	{
+			// 		idCvtccnpj : dadosUserLogado.cId,
+			// 		numreg	   : 750,
+			// 		pRotina	   : 'criarPedidoAmostra',
+			// 		pCodCli    : dadosUserLogado.rId,
+			// 		pDocumento : {documento : $item}
+			// 	}		
+			// );
 
-			//result = "612"  /*Valor fixo para teste*/
+			let result = "ERRO - Isso é apenas um teste"  /*Valor fixo para teste*/
 			$rootScope.isLoading = false;
 			
 			if(!isNaN(parseInt(result))){
@@ -1786,11 +1794,12 @@ angular
 				2 - Finalizar (Envia o pedido para ERP)
 
 			Situação: 
-				Em digitação - EM_DIGITACAO: Primeira etapa do fluxo | É possível editar e adicionar novos produtos ao pedido
-				Em análise	 - EM_ANALISE: Quando o pedido é editável pelo Gerente e podendo retornar como revisão ou ser encaminhado ao ERP
-				Em revisão	 - EM_REVISAO: Quando o pedido retorna da análise, o processo só pode ser feito pelo Gerente
-				Finalizado	 - AM_FINALIZADA: Quando a prospecção foi aprovada e enviada parao ERP
-				Fechada	  	 - AM_FECHADA: Quando é fechada, arquivada.
+				Em digitação 	- EM_DIGITACAO: Primeira etapa do fluxo | É possível editar e adicionar novos produtos ao pedido
+				Em análise	 	- EM_ANALISE: Quando o pedido é editável pelo Gerente e podendo retornar como revisão ou ser encaminhado ao ERP
+				Em revisão	 	- EM_REVISAO: Quando o pedido retorna da análise, o processo só pode ser feito pelo Gerente
+				Finalizado	 	- AM_FINALIZADA: Quando a prospecção foi aprovada e enviada parao ERP
+				Fechada	  	 	- AM_FECHADA: Quando é fechada, arquivada.
+				Fechada(Venda)	- AM_FECHADA_VENDA: Quando a amostra é fechada pois já gerou uma venda.
 			*/
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
@@ -1822,23 +1831,27 @@ angular
 				switch(situacao){
 					case 'EM_DIGITACAO':
 						$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
-						break;
+					break;
 					
 					case 'EM_ANALISE':
 						$rootScope.produtos[i].situacao = {nome:"Em análise", send:situacao}
-						break;
+					break;
 					
 					case 'EM_REVISAO':
 						$rootScope.produtos[i].situacao = {nome:"Em revisão", send:situacao}
-						break;
+					break;
 
 					case 'AM_INTEGRADA':
 						$rootScope.produtos[i].situacao = {nome:"Integrado", send:situacao}
-						break;
+					break;
 						
 					case 'AM_FECHADA':
 						$rootScope.produtos[i].situacao = {nome:"Fechado", send:situacao}
-						break;
+					break;
+					
+					case 'AM_FECHADA_VENDA':
+						$rootScope.produtos[i].situacao = {nome:"Fechado(Venda)", send:situacao}
+					break;
 				}
 			}
 
@@ -1890,7 +1903,7 @@ angular
 				/*Recebe dados e para que sejam feitas as alterações necessarias*/
 				var json 			= JSON.parse(dados.jsonDocs);
 
-				let amostrasPedido  = $scope.situacao && ($scope.situacao.send == 'AM_INTEGRADA' || $scope.situacao.send == 'AM_FECHADA') ? json[0].produtos : json[0].produtos[0];
+				let amostrasPedido  = $scope.situacao && ($scope.situacao.send == 'AM_INTEGRADA' || $scope.situacao.send == 'AM_FECHADA' || $scope.stiuacao.send == 'AM_FECHADA_VENDA') ? json[0].produtos : json[0].produtos[0];
 
 				if(rotina == 2){
 					/*Faz o envio dos produtos como um array para o ERP*/
@@ -1936,6 +1949,8 @@ angular
 							json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
 						}else if(json[0].produtos.situacao.send == 'AM_FECHADA'){
 							json[0].produtos.situacao = {nome:"Fechado", send:"AM_FECHADA"}
+						}else if(json[0].produtos.situacao.send == 'AM_FECHADA_VENDA'){
+							json[0].produtos.situacao = {nome:"Fechado(Venda)", send:"AM_FECHADA_VENDA"}
 						}
 							
 						/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
