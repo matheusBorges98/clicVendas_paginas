@@ -823,7 +823,7 @@
 
 <script>
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
-console.log("TESTE2")
+console.log("TESTE3")
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
 	.controller("MainController",
@@ -1932,9 +1932,12 @@ angular
 						json[0].sincronizado    	= "DOCUMENTO_SINCRONIZADO";
 						json[0].pedDatEmi			= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
 						json[0].pedNumped			= $rootScope.documentoERP;
+						$scope.erroPedido 			= false
 					}else{
-						json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
-						json[0].pedNumped	 = 0;
+						json[0].sincronizado 		= "ERRO: "+$rootScope.documentoERP;
+						json[0].pedNumped	 		= 0;
+
+						$scope.erroPedido 			= true
 					}
 
 				};
@@ -1946,7 +1949,7 @@ angular
 						json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 
 						if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
-							json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
+							json[0].produtos.situacao = rotina == 2 &&  !$scope.erroPedido ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
 						}else if(json[0].produtos.situacao.send == 'AM_FECHADA'){
 							json[0].produtos.situacao = {nome:"Fechado", send:"AM_FECHADA"}
 						}else if(json[0].produtos.situacao.send == 'AM_FECHADA_VENDA'){
@@ -2204,7 +2207,7 @@ angular
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Sinc.').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml1 = '';				
 				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
-					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Não sincronizado' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
 					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+row.jsonDocs[0].pedNumped+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
