@@ -823,7 +823,7 @@
 
 <script>
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
-console.log("TESTE")
+console.log("TESTE2")
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
 	.controller("MainController",
@@ -1903,7 +1903,7 @@ angular
 				/*Recebe dados e para que sejam feitas as alterações necessarias*/
 				var json 			= JSON.parse(dados.jsonDocs);
 
-				let amostrasPedido  = $scope.situacao && ($scope.situacao.send == 'AM_INTEGRADA' || $scope.situacao.send == 'AM_FECHADA' || $scope.stiuacao.send == 'AM_FECHADA_VENDA') ? json[0].produtos : json[0].produtos[0];
+				let amostrasPedido  = $scope.situacao && ($scope.situacao.send == 'AM_INTEGRADA' || $scope.situacao.send == 'AM_FECHADA' || $scope.situacao.send == 'AM_FECHADA_VENDA') ? json[0].produtos : json[0].produtos[0];
 
 				if(rotina == 2){
 					/*Faz o envio dos produtos como um array para o ERP*/
