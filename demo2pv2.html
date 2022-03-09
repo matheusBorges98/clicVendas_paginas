@@ -816,8 +816,10 @@ angular
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP.', 2000, 'success')
 			}else{
+				let formatText = result.replace(/[\\"]/g, '').replace(/[''"]/g, "")
+				result = formatText;
 				dialog.modal('hide');
-				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
+				$scope.geraNotificacao('Houve falha uma ao gravar o pedido no ERP.',2000, 'danger');
 			};
 							
 			return result

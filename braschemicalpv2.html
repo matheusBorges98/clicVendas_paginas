@@ -206,7 +206,7 @@
 												</td>
 												<td>
 													<div>
-														<input type="number" step="any" name="quantidadeProduto" class="inputTable" ng-value="produto.quantidade" id="quantidadeProdutoAdd" ng-model="produto.quantidade">
+														<input type="number" step="any" model-view-value="true" name="quantidadeProduto" class="inputTable" ng-value="produto.quantidade" id="quantidadeProdutoAdd" ng-model="produto.quantidade">
 													</div>
 												</td>
 												<td>
@@ -223,7 +223,7 @@
 
 												<td>
 													<div>
-														<input type="text" step="any" name="dataTestes" class="inputTable" ng-model="produto.dataTestes">
+														<input type="text" step="any" ui-mask="99/99/9999" model-view-value="true" name="dataTestes" class="inputTable" ng-model="produto.dataTestes">
 													</div>
 												</td>
 
@@ -750,7 +750,8 @@
 						<ul ng-show="!usuarioAprovador" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Será salvo e manterá em aberto" ng-click="salvarDocumento(1, 'EM_DIGITACAO')">Apenas Salvar</a></li>
 							<li ng-show="!inputDesabilitado"><a title="Será salvo e enviado para análise" ng-click="salvarDocumento(1, 'EM_ANALISE')">Enviar para análise</a></li> 
-							<li ng-show="!amostraIntegrada"><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>       
+							<li ng-show="!amostraIntegrada"><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA')">Arquivar</a></li>  
+							<li ng-show="!amostraIntegrada"><a title="Irá arquivar o pedido" ng-click="salvarDocumento(1, 'AM_FECHADA_VENDA')">Arquivar(Venda)</a></li>       
 						</ul>
 						<ul ng-show="usuarioAprovador && amostraEmAnalise" style="cursor: pointer;" class="dropdown-menu drop-up" role="menu">
 							<li><a title="Salvar e enviar para o ERP" ng-click="finalizarDocumento()">Enviar para o ERP</a></li>  
@@ -897,7 +898,9 @@ angular
 					$scope.amostraEmAnalise	  = false;
 					$scope.amostraIntegrada	  = false;
 
-					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA" || $dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA"){
+					if($dados.jsonDocs[0].produtos.situacao && $dados.jsonDocs[0].produtos.situacao.send == "AM_INTEGRADA" ||
+					 	$dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA" ||
+						$dados.jsonDocs[0].produtos.situacao.send == "AM_FECHADA_VENDA"){
 						$scope.inputDesabilitado  = true;
 						$scope.permiteEditar	  = false;
 						$scope.exibeTabManutencao = false;
@@ -1024,7 +1027,12 @@ angular
 				{
 					nome:'Fechada',
 					send:'AM_FECHADA'
+				},
+				{
+					nome:'Fechada(Venda)',
+					send:'AM_FECHADA_VENDA'
 				}
+
 			];
 			return $scope.listaSituacaoAmostra;
 		};
@@ -1293,7 +1301,7 @@ angular
 			let result = await $scope.executaRequisicaoExterna(
 				{
 					idCvtccnpj 	 : dadosUserLogado.cId,
-					numreg	   	 : 752,
+					numreg	   	 : 750,
 					pRotina	   	 : 'listarPedidosAmostras',
 					pCodCli    	 : dadosUserLogado.rId,
 					pListaPedido : {lista:{pedidos : consulta}},
@@ -1383,15 +1391,17 @@ angular
 				}		
 			);
 
-			//result = "612"  /*Valor fixo para teste*/
+			// let result = "ERRO - Isso é apenas um teste"  /*Valor fixo para teste*/
 			$rootScope.isLoading = false;
 			
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
 			}else{
+				let formatText = result.replace(/[\\"]/g, '').replace(/[''"]/g, "")
+				result = formatText;
 				dialog.modal('hide');
-				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
+				$scope.geraNotificacao('Houve falha uma ao gravar o pedido no ERP.',2000, 'danger');
 			};
 			
 			return result;
@@ -1407,7 +1417,6 @@ angular
 			
 			return $http.post('/clicVendas/rest/Listas/produtosPedido', dados).then(function(response){
 				return response.data.map(function(item){
-					console.log(item)
 					return item;
 				});
 			});
@@ -1660,7 +1669,7 @@ angular
 					descricao			: $item.produto.nome,
 					codigoProduto		: $item.produto.id,
 					aplicacao			: $item.produto.aplicacao,
-					quantidade			: $item.produto.quantidadeProduto,
+					quantidade			: $item.produto.quantidadeProduto != undefined ? $item.produto.quantidadeProduto.replace(".", ",") : $item.produto.quantidadeProduto,
 					codVariacao			: $item.produto.codVariacao,
 					codExterno			: $item.produto.codExterno,
 					/*Grava durante a edição  do pedido*/
@@ -1696,7 +1705,7 @@ angular
 				$scope.itemProd = '';
 
 				$("table tbody tr:first-child").addClass("new-row-enter");
-				$("table tbody tr:first-child input#quantidadeProdutoAdd").focus();
+				// $("table tbody tr:first-child input#quantidadeProdutoAdd").focus();
 			}, 200);
 
 			$timeout(()=>{
@@ -1786,11 +1795,12 @@ angular
 				2 - Finalizar (Envia o pedido para ERP)
 
 			Situação: 
-				Em digitação - EM_DIGITACAO: Primeira etapa do fluxo | É possível editar e adicionar novos produtos ao pedido
-				Em análise	 - EM_ANALISE: Quando o pedido é editável pelo Gerente e podendo retornar como revisão ou ser encaminhado ao ERP
-				Em revisão	 - EM_REVISAO: Quando o pedido retorna da análise, o processo só pode ser feito pelo Gerente
-				Finalizado	 - AM_FINALIZADA: Quando a prospecção foi aprovada e enviada parao ERP
-				Fechada	  	 - AM_FECHADA: Quando é fechada, arquivada.
+				Em digitação 	- EM_DIGITACAO: Primeira etapa do fluxo | É possível editar e adicionar novos produtos ao pedido
+				Em análise	 	- EM_ANALISE: Quando o pedido é editável pelo Gerente e podendo retornar como revisão ou ser encaminhado ao ERP
+				Em revisão	 	- EM_REVISAO: Quando o pedido retorna da análise, o processo só pode ser feito pelo Gerente
+				Finalizado	 	- AM_FINALIZADA: Quando a prospecção foi aprovada e enviada parao ERP
+				Fechada	  	 	- AM_FECHADA: Quando é fechada, arquivada.
+				Fechada(Venda)	- AM_FECHADA_VENDA: Quando a amostra é fechada pois já gerou uma venda.
 			*/
 			
 			let hashDoc 			= $rootScope.hashDoc == '' ? '_' + Math.random().toString(36).substr(2, 9) : $rootScope.hashDoc;
@@ -1822,23 +1832,27 @@ angular
 				switch(situacao){
 					case 'EM_DIGITACAO':
 						$rootScope.produtos[i].situacao = {nome:"Em digitação", send:situacao}
-						break;
+					break;
 					
 					case 'EM_ANALISE':
 						$rootScope.produtos[i].situacao = {nome:"Em análise", send:situacao}
-						break;
+					break;
 					
 					case 'EM_REVISAO':
 						$rootScope.produtos[i].situacao = {nome:"Em revisão", send:situacao}
-						break;
+					break;
 
 					case 'AM_INTEGRADA':
 						$rootScope.produtos[i].situacao = {nome:"Integrado", send:situacao}
-						break;
+					break;
 						
 					case 'AM_FECHADA':
 						$rootScope.produtos[i].situacao = {nome:"Fechado", send:situacao}
-						break;
+					break;
+					
+					case 'AM_FECHADA_VENDA':
+						$rootScope.produtos[i].situacao = {nome:"Fechado(Venda)", send:situacao}
+					break;
 				}
 			}
 
@@ -1890,7 +1904,7 @@ angular
 				/*Recebe dados e para que sejam feitas as alterações necessarias*/
 				var json 			= JSON.parse(dados.jsonDocs);
 
-				let amostrasPedido  = $scope.situacao && ($scope.situacao.send == 'AM_INTEGRADA' || $scope.situacao.send == 'AM_FECHADA') ? json[0].produtos : json[0].produtos[0];
+				let amostrasPedido  = $scope.situacao && ($scope.situacao.send == 'AM_INTEGRADA' || $scope.situacao.send == 'AM_FECHADA' || $scope.situacao.send == 'AM_FECHADA_VENDA') ? json[0].produtos : json[0].produtos[0];
 
 				if(rotina == 2){
 					/*Faz o envio dos produtos como um array para o ERP*/
@@ -1919,9 +1933,13 @@ angular
 						json[0].sincronizado    	= "DOCUMENTO_SINCRONIZADO";
 						json[0].pedDatEmi			= dataFormat.toLocaleDateString("pt-BR")+" EMI";;
 						json[0].pedNumped			= $rootScope.documentoERP;
+						$scope.erroPedido 			= false;
 					}else{
-						json[0].sincronizado = "ERRO: "+$rootScope.documentoERP;
-						json[0].pedNumped	 = 0;
+						json[0].sincronizado 		= "ERRO: "+$rootScope.documentoERP;
+						json[0].pedNumped	 		= 0;
+						//amostrasPedido.situacao		= {nome:"Em análise", send:"EM_ANALISE"}
+
+						$scope.erroPedido 			= true
 					}
 
 				};
@@ -1931,11 +1949,13 @@ angular
 
 					for(j = 0; j < $rootScope.docsToEdit.length; j++){						
 						json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
-
+						
 						if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
-							json[0].produtos.situacao = rotina == 2 ?  {nome:"Integrado", send:"AM_INTEGRADA"} : amostrasPedido.situacao
+							json[0].produtos.situacao = rotina == 2 &&  !$scope.erroPedido ?  {nome:"Integrado", send:"AM_INTEGRADA"} : {nome:"Em análise", send:"EM_ANALISE"}
 						}else if(json[0].produtos.situacao.send == 'AM_FECHADA'){
 							json[0].produtos.situacao = {nome:"Fechado", send:"AM_FECHADA"}
+						}else if(json[0].produtos.situacao.send == 'AM_FECHADA_VENDA'){
+							json[0].produtos.situacao = {nome:"Fechado(Venda)", send:"AM_FECHADA_VENDA"}
 						}
 							
 						/*Irá verificar o produto vinculado ao documento e gravar os campos do formulario vinculado ao produto - Manutenção da amostra*/
@@ -2189,11 +2209,11 @@ angular
 			montaColunas.push(DTColumnBuilder.newColumn(null).withTitle('Sinc.').withOption('sortable', false).withClass('colBtn').withOption('sWidth', '50px').renderWith(function(data, type, row) {
 				var btnhtml1 = '';				
 				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
-					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Não sincronizado' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
-					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+row.jsonDocs[0].pedNumped+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+					btnhtml1 += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+JSON.stringify(row.jsonDocs[0].pedNumped)+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
-					btnhtml1 += "<div class='glyphicon glyphicon-exclamation-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+					btnhtml1 += "<div class='glyphicon glyphicon-exclamation-sign' title='"+JSON.stringify(row.jsonDocs[0].sincronizado)+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}
 				
 				return btnhtml1;
@@ -2373,7 +2393,7 @@ angular
 				if(row.jsonDocs[0].sincronizado == "DOCUMENTO_NAO_SINCRONIZADO"){
 					btnhtmlSinc += "<div class='glyphicon glyphicon-ok-sign' title='Aguardando finalização' disabled style='font-size:1.5em; color:grey;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado  === "DOCUMENTO_SINCRONIZADO"){
-					btnhtmlSinc += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+row.jsonDocs[0].pedNumped+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
+					btnhtmlSinc += "<div class='glyphicon glyphicon-ok-sign' title='Pedido sincronizado - Nº"+JSON.stringify(row.jsonDocs[0].pedNumped)+"' style='font-size:1.5em; color:green;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}else if(row.jsonDocs[0].sincronizado != "DOCUMENTO_NAO_SINCRONIZADO" && row.jsonDocs[0].sincronizado != "DOCUMENTO_SINCRONIZADO") {
 					btnhtmlSinc += "<div class='glyphicon glyphicon-exclamation-sign' title='"+row.jsonDocs[0].sincronizado+"' disabled style='font-size:1.5em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;'></div>";
 				}
