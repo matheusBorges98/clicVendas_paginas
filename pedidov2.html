@@ -630,7 +630,7 @@
 
 <script>
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();
-console.log("TESTE2")	
+console.log("TESTE3")	
 
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
@@ -1759,7 +1759,11 @@ angular
 						json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 						
 						if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
-							json[0].produtos.situacao = rotina == 2 && !$scope.erroPedido ?  {nome:"Integrado", send:"AM_INTEGRADA"} : {nome:"Em análise", send:"EM_ANALISE"}
+							if(rotina == 2){
+								json[0].produtos.situacao = !$scope.erroPedido ?  {nome:"Integrado", send:"AM_INTEGRADA"} : {nome:"Em análise", send:"EM_ANALISE"} 
+							}else if(rotina == 1){
+								json[0].produtos.situacao = {nome:"Integrado", send:"AM_INTEGRADA"}
+							}
 						}else if(json[0].produtos.situacao.send == 'AM_FECHADA'){
 							json[0].produtos.situacao = {nome:"Fechado", send:"AM_FECHADA"}
 						}else if(json[0].produtos.situacao.send == 'AM_FECHADA_VENDA'){
@@ -1797,25 +1801,25 @@ angular
 							json[0].produtos.anoAmostra			= $scope.anoAmostra,
 							json[0].produtos.trimestreAmostra	= $scope.trimestreAmostra
 
-							if(json[0].produtos.situacao.send === "EM_DIGITACAO" || json[0].produtos.situacao.send === "EM_ANALISE" || json[0].produtos.situacao.send === "EM_REVISAO"){
-								switch(situacao){
-									case 'EM_DIGITACAO':
-										console.log("abcax")
-										json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
-										break;
+							// if(json[0].produtos.situacao.send === "EM_DIGITACAO" || json[0].produtos.situacao.send === "EM_ANALISE" || json[0].produtos.situacao.send === "EM_REVISAO"){
+							// 	switch(situacao){
+							// 		case 'EM_DIGITACAO':
+							// 			console.log("abcax")
+							// 			json[0].produtos.situacao = {nome:"Em digitação", send:situacao}
+							// 			break;
 									
-									case 'EM_ANALISE':
-										json[0].produtos.situacao = {nome:"Em análise", send:situacao}
-										break;
+							// 		case 'EM_ANALISE':
+							// 			json[0].produtos.situacao = {nome:"Em análise", send:situacao}
+							// 			break;
 									
-									case 'EM_REVISAO':
-										json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
-										break;
-								}
-							}
-							if(amostrasPedido.situacao.send != "AM_INTEGRADA"){
-								json[0].produtos.situacao = {nome:"Integrado", send:"AM_INTEGRADA"}
-							}
+							// 		case 'EM_REVISAO':
+							// 			json[0].produtos.situacao = {nome:"Em revisão", send:situacao}
+							// 			break;
+							// 	}
+							// }
+							// if(amostrasPedido.situacao.send != "AM_INTEGRADA"){
+							// 	json[0].produtos.situacao = {nome:"Integrado", send:"AM_INTEGRADA"}
+							// }
 						}
 						
 						dados.jsonDocs 		= JSON.stringify(json); 
