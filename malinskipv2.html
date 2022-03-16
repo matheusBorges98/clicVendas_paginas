@@ -1329,6 +1329,7 @@
 					$scope.imprimeOrcamento = async($item) => {
 
 						let dados  = $item != undefined ? $item : $scope.pedidoInfos
+						console.log(dados)
 						let dialog = bootbox.dialog({
 
 							message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Gerando relátorio...</p></div>',
@@ -1469,16 +1470,25 @@
 
 							//preco liquido de produto
 							let precoLiquido = parseFloat($rootScope.produtos[i].precoLiquido.replace(',', '.'))
+							//console.log("preço liquido: ",precoLiquido)
+
+							let testeConta = parseFloat($rootScope.produtos[i].precoLiquido.replace(',', '.'))
+							//testeConta = testeConta - (testeConta * (25 / 100));
+							//console.log("teste de conta: ",testeConta)
 
 							if ((qtd != null && qtd > 0) && $rootScope.produtos[i].qtdm3 != null) {
 
-								//calculando valor liquido
+
+								precoLiquido = precoLiquido - (precoLiquido * (valorOfertaPreco/100))
+								precoLiquido = precoLiquido.toFixed(3)
+								//console.log(precoLiquido)
+
 								vlrLiquido = qtd * precoLiquido
-								$rootScope.produtos[i].vlrLiquido = vlrLiquido.toFixed('3');
-								
-								//calculando o desconto com a oferta de preco
-								vlrLiquido = vlrLiquido - (vlrLiquido * (valorOfertaPreco / 100));
-								$rootScope.produtos[i].vlrLiquido = vlrLiquido.toFixed('3');
+								 
+								//console.log(vlrLiquido)
+								// vlrLiquido = precoLiquido * qtd 
+
+								$rootScope.produtos[i].vlrLiquido = vlrLiquido;
 
 								// calculando volume
 								volumeM3 = qtd * qtdm3;
@@ -1799,6 +1809,8 @@
 							dialog.modal('hide');
 							$scope.geraNotificacao('O pedido ' + result + ' foi gravado com sucesso no ERP.', 2000, 'success')
 						} else {
+							let formatText = result != undefined ? result.replace(/[\\"]/g, '').replace(/[''"]/g, "") : " Ocorreu uma falha de comunicação com o ERP. Por favor, tente novamente mais tarde."
+							result = formatText
 							dialog.modal('hide');
 							$scope.geraNotificacao('Houve uma falha na gravação do pedido.', 2000, 'danger');
 						};

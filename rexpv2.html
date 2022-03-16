@@ -46,12 +46,12 @@
 					</div>
 																			
 					<div class="form-group">
-						<label for="filCarteira">Data EmissÃ£o</label>
+						<label for="filCarteira">Data Emissão</label>
 						<input type="text" style="width: 220px;" ui-mask="99/99/9999" class="form-control spacer-input" autocomplete="off" id="filDataEmissao" ng-model="filDataEmissao" aria-describedby=" ">
 					</div>
 
 					<div class="form-group">
-						<label for="projeto">SincronizaÃ§Ã£o</label>
+						<label for="projeto">Sincronização</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" ng-value="filSincronizado.nome" ng-model="filSincronizado" id="filSincronizado" uib-typeahead="(sincronizado.nome) for sincronizado in getFilScinronizacao($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectFilSincronizacao($item, $model, $label)">
 					</div>
 									
@@ -112,40 +112,46 @@
 							
 							<div ng-show="sincronizado === 'DOCUMENTO_SINCRONIZADO'" class="form-group col-md-12">
 								<div style="background-color: #FBFBFB">
-									<div class="col-sm-6">
-										<h5>Cliente</h5>
-										<p>{{frmCliente.nome}}<p>
-									</div>
-									<div class="col-sm-6">
-										<h5>EndereÃ§o de entrega</h5>
-										<p>{{frmEndEntrega}}</p>
-									</div>
+									<div class="panel panel-default spacer">
+										<div class="panel-heading">Informações do pedido</div>
+										<div class="panel-body">
+											
+											<div class="col-sm-3">
+												<h5>Cliente</h5>
+												<p>{{frmCliente.nome}}<p>
+											</div>
+											<div class="col-sm-3">
+												<h5>Endereço de entrega</h5>
+												<p>{{frmEndEntrega}}</p>
+											</div>
 
-									<div class="col-sm-2 spacer">
-										<h5>Data de emissÃ£o</h5>
-										<p>{{dataEmissaoFormat}}</p>
+											<div class="col-sm-3">
+												<h5>Data de emissão</h5>
+												<p>{{dataEmissaoFormat}}</p>
+											</div>
+											<div class="col-sm-3">
+												<h5>Previsão de entrega</h5>
+												<p>{{dataPrevEntregaFormatada || "Não Informado"}}</p>
+											</div>
+											<div class="col-sm-3">
+												<h5>Condição de pagamento</h5>
+												<p>{{condPagamento.desCpg || "Não Informado "}}</p>
+											</div>
+											<div class="col-sm-3">
+												<h5>Forma de pagamento</h5>
+												<p>{{formaPagamento.desFpg}}</p>
+											</div>
+											<div class="col-sm-3">
+												<h5>Total</h5>
+												<p>{{valorTotal | currency:'R$ '}}</p>
+											</div>	
+											<div class="col-sm-3">
+												<h5>Representante</h5>
+												<p>{{representante}}</p>
+											</div>
+
+										</div>
 									</div>
-									<div class="col-sm-2 spacer">
-										<h5>PrevisÃ£o de entrega</h5>
-										<p ng-show="dataPrevEntrega" >{{dataPrevEntrega}}</p>
-									</div>
-									<div class="col-sm-2 spacer">
-										<h5>CondiÃ§Ã£o de pagamento</h5>
-										<p>{{condPagamento.nome}}</p>
-									</div>
-									<div class="col-sm-2 spacer">
-										<h5>Forma de pagamento</h5>
-										<p>{{formaPagamento.nome}}</p>
-									</div>
-									<div class="col-sm-2 spacer">
-										<h5>Total</h5>
-										<p>{{valorTotal | currency:'R$ '}}</p>
-									</div>	
-									<div class="col-sm-2 spacer">
-										<h5>Representante</h5>
-										<p>{{representante}}</p>
-									</div>
-									
 								</div>
 								
 								<div style="margin-top: 2%; padding:0;" class="col-sm-12 spacer">
@@ -155,6 +161,7 @@
 												<th>Produto</th>
 												<th>Quantidade</th>
 												<th>Valor und.</th>
+												<th>Faixa</th>
 												<th>Desc. / Acrésc.</th>
 												<th>Total item</th>
 											</tr>
@@ -172,7 +179,10 @@
 													{{produto.quantidade}}
 												</td>
 												<td>
-													{{produto.valorNegociado | currency:'R$ '}}
+													{{produto.valorNegociado | currency:'R$'}}
+												</td>
+												<td>
+													{{produto.valorFaixa | currency:'R$'}}
 												</td>
 												<td>
 													<p ng-show="produto.opcaoDescAcresc === 'DESCONTO' && produto.descAcresc != undefined ">- {{produto.descAcresc}}%</p>
@@ -212,7 +222,7 @@
 								
 								<div class="col-sm-4 spacer ">
 									<label for="predCliente">Pedido / O.C. do Cliente </label>
-									<input type="text" placeholder="NÃºmero do pedido do cliente" class="form-control spacer" name="predCliente" ng-model="predCliente" id="predCliente">
+									<input type="text" placeholder="Número do pedido do cliente" class="form-control spacer" name="predCliente" ng-model="predCliente" id="predCliente">
 								</div>
 								
 								<div class="col-sm-2 spacer ">
@@ -344,7 +354,7 @@
 								<div style="margin-top:1.5%" class="col-sm-12">
 									<label class="spacer" for="codPro">Adicionar Produto</label>
 									<div class="input-group spacer">
-										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. PreÃ§o - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="verificaProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
+										<input type="text" ng-model="itemProd" name="itemProd" id="itemProd" placeholder="Informe o nome do produto desejado..." uib-typeahead="retorno.codExterno + ' - ' + retorno.nome + ' - ' + retorno.codVariacao  + ' | Tab. Preço - ' + retorno.codTpr for retorno in getProdutosERP($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResults"  typeahead-on-select="verificaProduto($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="3" typeahead-template-url="templateAutoCompleteProduto" >
 										<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaProduto()"><i class="glyphicon glyphicon-remove"></i></span>
 									</div>
 									<i ng-show="loadingProd" class="glyphicon glyphicon-refresh"></i>
@@ -353,110 +363,94 @@
 									</div>	
 								</div>
 
-								<div style="margin-top:5px" class="form-group col-md-12">
-									<div style="padding:0;" class="col-sm-12 spacer">
+								<!-- Modal -->
+								
+								<div class="modal" id="modalProduto">
+									<div class="modal-dialog modal-lg" style="margin-top: -150px;">
 									
-										<table id ="tabelaProdutos" class="table">
-											<thead>
-												<tr>
-													<th></th>
-													<th>Produto</th>
-													<th>Quantidade</th>
-													<th>Unid. Medida</th>
-													<th>PreÃ§o Bruto</th>
-													<th>Faixa 1</th>
-													<th>Faixa 2</th>
-													<th>Faixa 3</th>
-													<th>Faixa 4</th>
-													<th>Valor total</th>
-													<th></th>
-												</tr>
-											</thead>
-											<tbody ng-repeat = "produto in produtos">
-												<tr class="parent">
+										<div class="modal-content">
+											
+											<div class="modal-header">
+												<label class="modal-title">Adicionar Produto</label>
+											</div>
+											
+											<div class="modal-body" style="margin-top: 0;">
+											
+												<div class="form-group col-md-12">
+													<div class="col-sm-12 spacer">
 													
-													<td>
-														<i class="glyphicon glyphicon-chevron-down"></i>
-													</td>
-
-													<div>
-														<td>
-															<!-- <div ng-show="produto.codVariacao == ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div> -->
-															<!-- <div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div> -->
-															<p style="white-space: normal;">{{produto.codExterno}}<p>
-															
-														</td>
-														
-														<td>
-															<div>
-																<input type="number" step="any" name="quantidadeProduto" min="1" class="inputTable" required ng-value="produto.quantidade" id="quantidadeProdutoAdd" ng-model="produto.quantidade" ng-change="calcularProdutos()">
+														<div class="col-sm-2 spacer">
+															<label>Código</label>	
+															<div class="spacer">
+																{{itensModal.codExterno}}
 															</div>
-														</td>
-														<td>
-															{{produto.unidMedida}}
-														</td>
-														<td>
-															<div>
-																<input type="number" readonly step="any" name="valorNegociado" class="inputTable" required ng-model="produto.valorNegociado">
-															</div>
-														</td>
-														<form >													
-															
-															<td>
-																<input type="radio" name="valorFaixa-{{$index}}" ng-model="produto.valorFaixa" ng-value="produto.valorFaixa1" ng-click="calcularProdutos();"> {{produto.valorFaixa1 | currency:'R$ '}}
-															</td>
-															<td>
-																<input type="radio" name="valorFaixa-{{$index}}" ng-model="produto.valorFaixa" ng-value="produto.valorFaixa2" ng-click="calcularProdutos();"> {{produto.valorFaixa2 | currency:'R$ '}}
-															</td>
-															<td>
-																<input type="radio" name="valorFaixa-{{$index}}" ng-model="produto.valorFaixa" ng-value="produto.valorFaixa3" ng-click="calcularProdutos();"> {{produto.valorFaixa3 | currency:'R$ '}}
-															</td>
-															<td>
-																<input type="radio" name="valorFaixa-{{$index}}" ng-model="produto.valorFaixa" ng-value="produto.valorFaixa4" ng-click="calcularProdutos();"> {{produto.valorFaixa4 | currency:'R$ '}}
-															</td>
-														</form>
+														</div>	
 														
-			
-														<td>
-															{{produto.valorTotalItem | currency:'R$ '}}
-														</td>
-														<td>
-															<div class="col-sm-12">
-																<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
-																<div class='glyphicon glyphicon-floppy-saved col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Gravar' ng-click='calcularProdutos()'></div>
-															</div>		
-														</td>
-													</div>
-													<div>
-													</div>
-												</tr>
-												<!-- Detalhes item -->
-												<tr class="cchild">
-													<td colspan ="12">
-														<div class="col-sm-6"> <!--Informações sobre o Produto -->
+														<div class="col-sm-8 spacer">
+															<label>Descrição</label>	
+															<div class="spacer">
+																{{itensModal.descricao}}
+															</div>
+														</div>		
+														
+														<div class="col-sm-2 spacer"> 
+															<label>Derivação</label>
+															<div class="spacer">
+																{{itensModal.codVariacao}}
+															</div>
+														</div>
+														
+														<div class="col-sm-2 spacer">
+															<label>Quantidade</label>
+															<input type="number" step="any" name="quantidadeProduto" min="1" class="inputTable spacer" required ng-value="itensModal.quantidade" id="quantidadeProdutoAdd" ng-model="itensModal.quantidade" ng-change="calcularTotalItem()">
+														</div>
+													
+														<div class="col-sm-1 spacer"> 
+															<label>Unidade</label>
+															<div class="spacer">
+																{{itensModal.unidMedida}} 
+															</div>
+														</div>
+														
+														<div class="col-sm-2 spacer"> 
+															<label>Preço Tabela</label>
+															<div class="spacer">
+																{{itensModal.valorNegociado}}
+															</div>
+														</div>
+																		
+														<div class="col-sm-5 spacer"> 
+															<label>Faixas de preço</label>
+															<form>													
+																<div class="spacer">
+																	<input class="spacer" checked type="radio" name="valorFaixa-{{$index}}" ng-model="itensModal.valorFaixa" ng-value="itensModal.valorFaixa1" ng-click="calcularTotalItem();"> {{itensModal.valorFaixa1 | currency:'R$ '}}
+																	<input class="spacer" type="radio" name="valorFaixa-{{$index}}" ng-model="itensModal.valorFaixa" ng-value="itensModal.valorFaixa2" ng-click="calcularTotalItem();"> {{itensModal.valorFaixa2 | currency:'R$ '}}
+																	<input class="spacer" type="radio" name="valorFaixa-{{$index}}" ng-model="itensModal.valorFaixa" ng-value="itensModal.valorFaixa3" ng-click="calcularTotalItem();"> {{itensModal.valorFaixa3 | currency:'R$ '}}
+																	<input class="spacer" type="radio" name="valorFaixa-{{$index}}" ng-model="itensModal.valorFaixa" ng-value="itensModal.valorFaixa4" ng-click="calcularTotalItem();"> {{itensModal.valorFaixa4 | currency:'R$ '}}
+																</div>
+															</form>
+														</div>
+																		
+														<div class="col-sm-2 spacer">
+															<label>Total Item</label>
+																<div class="spacer">
+																	{{itensModal.valorTotalItem | currency:'R$ '}}
+																</div>
+														</div>
+														
+														
+														<div class="col-sm-12"> <!--Informações sobre o Produto -->
 
 															<div class="panel panel-default spacer">
 
 																<div class="panel-heading">Informações sobre o Produto</div>
 
 																<div class="panel-body">
-
-																	<div class="col-sm-12 spacer">
-																		<label>Produto</label>	
-																		<div>
-																			{{produto.descricao}}
-																		</div>
-																	</div>		
-																	
-																	<div class="col-sm-12 spacer"> 
-																		<label>Derivação</label>												
-																		{{produto.codVariacao}}
-																	</div>
 																	
 																	<div class="col-sm-6 spacer">
 																		<label for="tipoVendaItem">Transação do produto</label>
 																		<div class="input-group spacer">
-																			<input type="text" ng-model="produto.tipoVendaItem" name="tipoVendaItem" id="tipoVendaItem" placeholder="Selecione uma transaÃ§Ã£o para este item" uib-typeahead="tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoPro($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
+																			<input type="text" ng-model="itensModal.tipoVendaItem" name="tipoVendaItem" id="tipoVendaItem" placeholder="Selecione uma transasão para este item" uib-typeahead="tipven.nome for tipven in getTipoVendaERP($viewValue)" typeahead-loading="loadingTipVen" typeahead-no-results="noResultsTipVen"  typeahead-on-select="onSelectTransacaoPro($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
 																			<span class="input-group-addon" style="cursor: pointer;" ng-click="limpaTipoVendaItem()"><i class="glyphicon glyphicon-remove"></i></span>
 																		</div>
 										
@@ -467,44 +461,41 @@
 																	</div>
 																	<div class="col-sm-12 spacer">
 																		<label for="obsItem">Observação</label>
-																		<textarea class="form-control spacer-input"  ng-model="produto.obsItem" placeholder="MÃ¡ximo de 250 caracteres" id="obsItem" rows="5"></textarea>
-																	</div>
-																
+																		<textarea class="form-control spacer-input"  ng-model="itensModal.obsItem" placeholder="Máximo de 250 caracteres" id="obsItem" rows="1"></textarea>
+																	</div>		
 																</div>
-
 															</div>
-
 														</div>
 
-														<div class="col-sm-6"> <!--Informações adicionais -->
+														<div class="col-sm-12"> <!--Informações adicionais -->
 
 															<div class="panel panel-default spacer">
 															  <div class="panel-heading">Informações adicionais</div>
 															  <div class="panel-body">
 															  
-																<div class="col-sm-6 spacer ">
+																<div class="col-sm-3 spacer ">
 																	<label for="numPedCliItem">Núm. Pedido Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="produto.numPedCliItem" id="numPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="numPedCliItem" ng-model="itensModal.numPedCliItem" id="numPedCliItem">
 																</div>
 																
-																<div class="col-sm-6 spacer ">
+																<div class="col-sm-3 spacer ">
 																	<label for="numPedCliItem">Cód. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="codPedCliItem" ng-model="produto.codPedCliItem" id="codPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="codPedCliItem" ng-model="itensModal.codPedCliItem" id="codPedCliItem">
 																</div>
 															
-																<div class="col-sm-6 spacer ">
+																<div class="col-sm-3 spacer ">
 																	<label for="numPedCliItem">Rev. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="revPedCliItem" ng-model="produto.revPedCliItem" id="revPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="revPedCliItem" ng-model="itensModal.revPedCliItem" id="revPedCliItem">
 																</div>	
 																
-																<div class="col-sm-6 spacer ">
+																<div class="col-sm-3 spacer ">
 																	<label for="numPedCliItem">Seq. Produto Cliente </label>
-																	<input type="text" placeholder=" " class="form-control spacer" name="seqPedCliItem" ng-model="produto.seqPedCliItem" id="seqPedCliItem">
+																	<input type="text" placeholder=" " class="form-control spacer" name="seqPedCliItem" ng-model="itensModal.seqPedCliItem" id="seqPedCliItem">
 																</div>	
 																
-																<div class="col-sm-6 spacer ">
+																<div class="col-sm-3 spacer ">
 																	<label for="numPedCliItem">Entrega Produto Cliente </label>
-																	<input type="text" ui-mask="99/99/9999"  class="form-control spacer" name="entregaProdPedCliItem" ng-model="produto.entregaProdPedCliItem" id="entregaProdPedCliItem">
+																	<input type="text" ui-mask="99/99/9999"  class="form-control spacer" name="entregaProdPedCliItem" ng-model="itensModal.entregaProdPedCliItem" id="entregaProdPedCliItem">
 																</div>	
 															  </div>
 															</div>
@@ -514,7 +505,7 @@
 															<div class="panel panel-default spacer">
 																<div class="panel-heading">Estoque</div>
 																<div class="panel-body">
-																	<table>
+																	<table id="produto_estoque" class="table">
 																		<thead>
 																			<tr>
 																				<th>Deposito</th>
@@ -525,7 +516,7 @@
 																			</tr>
 																		</thead>
 																		<tbody>
-																			<tr ng-repeat="deposito in produto.depositos">
+																			<tr ng-repeat="deposito in itensModal.depositos">
 																				<td>
 																					{{deposito.deposito}}
 																				</td>
@@ -547,93 +538,167 @@
 																</div>
 															</div>
 														</div>
-														
+																		
 														<div class="col-sm-12"> <!--Acabamentos -->
 															<div class="panel panel-default spacer">
 																<div class="panel-heading">Acabamento</div>
 																<div class="panel-body">
-																	<table>
+																	<table id="produto_acabamentos" class="table">
 																		<thead>
 																			<tr>
 																				<th>
-																					Codigo
+																					Código
 																				</th>
 																				<th>
-																					consignado
+																					Consignado
 																				</th>
 																				<th>
-																					derivação
+																					Derivação
 																				</th>
 																				<th>
-																					disponivel
+																					Dísponivel
 																				</th>
 																				<th>
-																					matriz
+																					Matriz
 																				</th>
 																				<th>
-																					mg
+																					MG
 																				</th>
 																				<th>
-																					resPedidos
+																					Reserva Pedido
 																				</th>
 																				<th>
-																					resPreFat
+																					Reserva Pré Fatura
 																				</th>
 																			</tr>
 																		</thead>
 																		<tbody>
-																			<tr ng-repeat="x in produto.acabamentos">
+																			<tr ng-repeat="acabamento in itensModal.acabamento">
 																				<td>
-																					{{x.codigo}}
+																					{{acabamento.codigo}}
 																				</td>
 																				<td>
-																					{{x.consignado}}
+																					{{acabamento.consignado}}
 																				</td>
 																				<td>
-																					{{x.derivacao}}
+																					{{acabamento.derivacao}}
 																				</td>
 																				<td>
-																					{{x.disponivel}}
+																					{{acabamento.disponivel}}
 																				</td>
 																				<td>
-																					{{x.matriz}}
+																					{{acabamento.matriz}}
 																				</td>
 																				<td>
-																					{{x.mg}}
+																					{{acabamento.mg}}
 																				</td>
 																				<td>
-																					{{x.resPedidos}}
+																					{{acabamento.resPedidos}}
 																				</td>
 																				<td>
-																					{{x.resPreFat}}
+																					{{acabamento.resPreFat}}
 																				</td>
 																			</tr>
 																		</tbody>
 																	</table>
 																</div>
 															</div>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-		
-									</div>
+														</div>	
+													</div>
+												</div>
+											</div> <!-- fecha o body do modal-->
 
-									<div class="col-sm-12 spacer">
-										<h5>Total: </h5><h5 id="valorTotalPedido">{{valorTotal | currency:'R$ '}}</h5>
-									</div>	
-								</div>
+
+									
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+										<button type="button" class="btn btn-primary" ng-click="montaListaProduto()">Adicionar</button>
+										<button type="button" class="btn btn-primary" ng-click="atualizarProduto()">Salvar</button>
+									</div>
+									
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+								
+						
+						<div style="margin-top:5px" class="form-group col-md-12">
+							<div style="padding:0;" class="col-sm-12 spacer">
+							
+								<table id ="tabelaProdutos" class="table">
+									<thead>
+										<tr>
+											<th>Código</th>
+											<th>Descrição</th>
+											<th>Quantidade</th>
+											<th>Unid. Medida</th>
+											<th>Preço Unitário</th>
+											<th>Valor total</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody ng-repeat = "produto in produtos">
+										<tr class="parent">
+
+											<div>
+												<td>
+													<div class="spacer">
+														{{produto.codExterno}}
+													</div>
+												</td>
+												
+												<td>
+													<div class="spacer">
+														{{produto.descricao}}
+													</div>
+												</td>
+												
+												<td>
+													<div class="spacer">
+														{{produto.quantidade}}
+													</div>
+												</td>
+												<td>
+													<div class="spacer">
+														{{produto.unidMedida}}
+													</div>
+												</td>
+												<td>
+													<div class="spacer">
+														{{produto.valorFaixa | currency:'R$ '}}
+													</div>
+												</td>	
+												<td>
+													<div class="spacer">
+														{{produto.valorTotalItem | currency:'R$ '}}
+													</div>
+												</td>
+												<td>
+													<div class="col-sm-12">
+														<div class='glyphicon glyphicon-remove col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Remover' ng-click='removerProduto(produto)'></div>
+														<div class='glyphicon glyphicon-edit col-sm-6' style='font-size:1.5em; padding-left:4px; color:var(--cor_principal); display:inline-block; vertical-align: middle; cursor:pointer;' title='Editar' ng-click='editarProdutoModal(produto);'></div>
+													</div>		
+												</td>
+											</div>
+										</tr>
+									</tbody>
+								</table>
 
 							</div>
 
+							<div class="col-sm-12 spacer">
+								<h5>Total: </h5><h5 id="valorTotalPedido">{{valorTotal | currency:'R$ '}}</h5>
+							</div>	
 						</div>
+
+					</div>
+					
+					
 					</div>
 
 					<div ng-show="exibeHistoricos" class="col-sm-12">
 						<div class="form-row">
 							<div class="col-sm-12 spacer">
-									<label for="histOportunidade">HistÃ³rico</label>
+									<label for="histOportunidade">Histórico</label>
 									<textarea readonly class="form-control spacer-input" ng-disabled="inputDesabilitado" ng-model="histOportunidade" id="histOportunidade" rows="10"></textarea>
 							</div>
 						</div>
@@ -644,7 +709,7 @@
 						</div>
 						<div class="form-row">
 							<div class="col-sm-11 spacer">
-								<label for="obsOportunidade">ObservaÃ§Ã£o</label>
+								<label for="obsOportunidade">Observação</label>
 								<textarea class="form-control spacer-input"  ng-model="obsOportunidade" id="obsOportunidade" rows="1"></textarea>
 							</div>
 							<div class="col-sm-1 spacer" style="padding-top: 30px;">
@@ -1098,7 +1163,7 @@
 <!-- Scripts importados -->	
 
 <script>
-	console.log("testes 173")
+	//console.log("testes 188")
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
 
 angular
@@ -1838,7 +1903,7 @@ angular
 		};
 		
 		$scope.gravaDocumentoERP = async ($item) => {
-			let produtosToSend = [];
+			let produtoToSend = [];
 
 			for(let i = 0; i < $item.produtos.length; i++){
 				produtoToSend.push({
@@ -1862,7 +1927,7 @@ angular
 					valorTotalItem		: $item.produtos[i].valorTotalItem
 				})
 			}
-			$item.produtos = produtosToSend;
+			$item.produtos = produtoToSend;
 
 			let dialog = bootbox.dialog({
 				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Enviando pedido para o ERP...</p></div>',
@@ -1887,8 +1952,8 @@ angular
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido '+result+' foi gravado com sucesso no ERP.', 2000, 'success')
 			}else{
-				let formatText = result.replace(/[\\"]/g, '').replace(/[''"]/g, "")
-				result = formatText;
+				let formatText = result != undefined ? result.replace(/[\\"]/g, '').replace(/[''"]/g, "") : " Ocorreu uma falha de comunicação com o ERP. Por favor, tente novamente mais tarde."
+				result = formatText
 				dialog.modal('hide');
 				$scope.geraNotificacao('Houve falha uma ao gravar o pedido no ERP.',2000, 'danger');
 			};
@@ -2051,16 +2116,44 @@ angular
 				$scope.codigoProduto		= docs.produtos.codigoProduto;
 				$scope.descricao			= docs.produtos.descricao;
 				$scope.codExternoProduto	= docs.produtos.codExterno;
-			
 
-				$scope.dataPrevEntregaFormatada = new Date($scope.prevEntrega);
-				$scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada != "" ? $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br') : null;
+				
+				$scope.dataPrevEntregaFormatada = $scope.prevEntrega;
+
+
+				//scope.dataPrevEntregaFormatada = $scope.dataPrevEntregaFormatada != "" ? $scope.dataPrevEntregaFormatada.toLocaleDateString('pt-br') : null;
 			};
 			
 			$rootScope.changeView($dados);
 			
 		};
 
+		$scope.calcularTotalItem = () => 
+		{
+			let valorTotalItem 	= 0;
+			let ValorFaixa		= 0;
+
+			if(
+				($scope.itensModal.quantidade != null && $scope.itensModal.quantidade > 0
+				) && $scope.itensModal.valorNegociado != null
+			)
+			{				
+				ValorFaixa	=  parseFloat($scope.itensModal.valorFaixa);
+				
+				if(ValorFaixa != null && ValorFaixa > 0)
+				{
+					valorTotalItem 	= parseFloat($scope.itensModal.quantidade) * ValorFaixa;
+				}
+							
+				/*Grava o valor total do item*/
+				$scope.itensModal.valorTotalItem = valorTotalItem;
+			}
+			else
+			{
+				$scope.geraNotificacao('Informe o valor e quantidade do produto.', 2000, 'warning');
+			}
+		};
+		
 		// xcalc
 		$scope.calcularProdutos = () =>{
 
@@ -2070,56 +2163,13 @@ angular
 			let calcDescAcresc	= 0;
 			let ValorFaixa		= 0;
 
-			// calculos totais de tabela de estoque
-
-			let valorEstoque = 0
-			let valorPrefatura = 0
-			let valorReserva = 0
-			let valorDisponivel = 0
-
-			let valorTotalEstoque = 0
-			let valorTotalPrefatura = 0
-			let valorTotalReserva = 0
-			let valorTotalDisponivel = 0
-
 			for(let i=0; i < $rootScope.produtos.length; i++){
 				
-				//atribuindo valores das tabelas
-
-				arrayDepositos = $rootScope.produtos[i].depositos
-				//console.log(arrayDepositos)
-
+				console.log('calcularProdutos');
+				console.log($rootScope.produtos);
+				
 				if(($rootScope.produtos[i].quantidade != null && $rootScope.produtos[i].quantidade > 0) && $rootScope.produtos[i].valorNegociado != null){
 
-					/*for(let j=0; j < arrayDepositos.length; j++){
-
-						valorEstoque 		= arrayDepositos[j].estoque;
-						valorEstoque 		= valorEstoque.replace(",",".") 
-						valorEstoque 		= parseFloat(valorEstoque)
-						valorTotalEstoque 	+= valorEstoque
-
-						valorPrefatura 		= arrayDepositos[j].prefatura;
-						valorPrefatura 		 = valorPrefatura.replace(",",".")
-						valorPrefatura 		 = parseFloat(valorPrefatura)
-						valorTotalPrefatura  += valorPrefatura
-
-						valorReserva 		= arrayDepositos[j].reserva; 
-						valorReserva 		= valorReserva.replace(",",".")
-						valorReserva 		= parseFloat(valorReserva)
-						valorTotalReserva 	+= valorReserva
-
-						valorDisponivel 	  = arrayDepositos[j].valorDisponivel; 
-						valorDisponivel 	  = valorDisponivel.replace(",",".")
-						valorDisponivel 	  = parseFloat(valorDisponivel)
-						valorTotalDisponivel += valorDisponivel
-
-
-					}*/
-
-					/*	 $scope.valorTotalDisponivel = valorTotalDisponivel
-						$scope.valorTotalEstoque = valorTotalEstoque
-						$scope.valorTotalPrefatura = valorTotalPrefatura
-						$scope.valorTotalReserva = valorTotalReserva */
 					
 					ValorFaixa	=  parseFloat($rootScope.produtos[i].valorFaixa);
 					
@@ -2190,59 +2240,147 @@ angular
 
 		$scope.verificaProduto = ($item) =>{
 			console.log("entrou no onSelect")
+			console.log($item);
+			
 			if($item.tipoErro == "BLOQUEIA"){
 				alert($item.msgErro)
 			}else if($item.tipoErro == "AVISA"){
 				alert($item.msgErro)
-				$scope.adicionarProduto($item)
+				$scope.adicionarProdutoModal($item)
 			}else{
-				$scope.adicionarProduto($item)
+				$scope.adicionarProdutoModal($item)
 			}
 		}
-		$scope.adicionarProduto = ($item) =>{
-			console.log($item, "estou no adicionarProduto")
+		
+			
+		$scope.adicionarProdutoModal = ($item) =>{
+			
+			$scope.itensModal = {};
+			
+			$scope.itensModal = {
+			
+				descricao			: $item.nome,
+				codigoProduto		: $item.id,
+				codVariacao			: $item.codVariacao,
+				codExterno			: $item.codExterno,
+				opcaoDescAcresc		: 'DESCONTO',
+				quantidade			: 1,
+				valorNegociado		: parseFloat($item.preco),
+				precoTabela			: $item.preco,
+				unidMedida			: $item.unimed,
+				estoque				: $item.qtdeEstoque,
+				codTpr				: $item.codTpr,
+				prevEntregaItem      : $item.datEnt,
+				hashDoc				: '',
+				valorFaixa1			: parseFloat($item.valorFaixa1),
+				valorFaixa2			: parseFloat($item.valorFaixa2),
+				valorFaixa3			: parseFloat($item.valorFaixa3),
+				valorFaixa4			: parseFloat($item.valorFaixa4),
+				acabamento			: $item.acabamento,
+				depositos			: $item.depositos
+    
+			};
+			
+			
+			
+			$('#modalProduto').modal('show');
+		};
+		
+		
+		// <!--Chama a função que adiciona o produto na lista-->
+		$scope.montaListaProduto = () => {
+		
+		$scope.adicionarProdutoLista($scope.itensModal);
+		
+		}
+		
+		
+		// <!-- Lista Produtos do pedido -->
+		// <!-- Incluir produto na tabela de itens do pedido -->
+		
+		$scope.adicionarProdutoLista = ($item) =>{
+		
+					console.log('Item do modal');
+					console.log($item);
+						
 					$rootScope.produtos.unshift(
 						{ 
-							descricao			: $item.nome,
 							codigoProduto		: $item.id,
+							descricao			: $item.descricao,
 							codVariacao			: $item.codVariacao,
 							codExterno			: $item.codExterno,
 							opcaoDescAcresc		: 'DESCONTO',
-							quantidade			: 1,
-							valorNegociado		: parseFloat($item.preco),
+							quantidade			: $item.quantidade,
+							valorNegociado		: parseFloat($item.valorNegociado),
 							precoTabela			: $item.preco,
-							unidMedida			: $item.unimed,
+							unidMedida			: $item.unidMedida,
 							estoque				: $item.qtdeEstoque,
 							codTpr				: $item.codTpr,
 							prevEntregaItem     : $item.datEnt,
 							hashDoc				: '',
+							valorFaixa			: parseFloat($item.valorFaixa),
 							valorFaixa1			: parseFloat($item.valorFaixa1),
 							valorFaixa2			: parseFloat($item.valorFaixa2),
 							valorFaixa3			: parseFloat($item.valorFaixa3),
 							valorFaixa4			: parseFloat($item.valorFaixa4),
-							acabamentos			: $item.acabamento,
+							acabamento			: $item.acabamento,
 							depositos			: $item.depositos,
+							valorTotalItem		: parseFloat($item.valorTotalItem),
 						}
 					);
-			var buscaProduto		= angular.element(document.querySelector('#itemProd'));
+					
+			var buscaProduto	= angular.element(document.querySelector('#itemProd'));
 			$timeout(function () {
 				buscaProduto.blur();
 				$scope.itemProd = '';
-
-				$("table tbody tr:first-child").addClass("new-row-enter");
-				$("table tbody tr:first-child input#quantidadeProdutoAdd").focus();
 			}, 200);
-
-			$timeout(()=>{
-				$("table tbody tr:first-child").removeClass("new-row-enter");
-			}, 1000)
-
+			
 			$scope.calcularProdutos();
 		};
+		
+		
+		
+		$scope.editarProdutoModal = ($item) => {
+			console.log('editando o item');
+			console.log($item);
+			
+			$scope.itensModal = {};
+			
+			$scope.itensModal = {
+			
+				descricao			: $item.descricao,
+				codigoProduto		: $item.id,
+				codVariacao			: $item.codVariacao,
+				codExterno			: $item.codExterno,
+				opcaoDescAcresc		: 'DESCONTO',
+				quantidade			: $item.quantidade,
+				valorNegociado		: parseFloat($item.valorNegociado),
+				precoTabela			: $item.precoTabela,
+				unidMedida			: $item.unidMedida,
+				estoque				: $item.qtdeEstoque,
+				codTpr				: $item.codTpr,
+				prevEntregaItem     : $item.datEnt,
+				hashDoc				: '',
+				valorFaixa1			: parseFloat($item.valorFaixa1),
+				valorFaixa2			: parseFloat($item.valorFaixa2),
+				valorFaixa3			: parseFloat($item.valorFaixa3),
+				valorFaixa4			: parseFloat($item.valorFaixa4),
+				acabamento			: $item.acabamento,
+				depositos			: $item.depositos
+    
+			};
+			
+			$('#modalProduto').modal('show');
+		}
+		
+		$scope.salvarProduto = ($item) => {
+			console.log('SALVANDO O ITEM');
+			console.log($item);
+		}
 
 		$scope.removerProduto = ($item) => {
-			//console.log($item.codExterno);
-			//console.log($item.codVariacao);
+			console.log($item.codExterno);
+			console.log($item.codVariacao);
 			//$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno !== $item.codExterno && item.codVariacao !== $item.codVariacao);
 			$rootScope.produtos = $rootScope.produtos.filter(item => item.codExterno+"_"+item.codVariacao !== $item.codExterno+"_"+$item.codVariacao);
 

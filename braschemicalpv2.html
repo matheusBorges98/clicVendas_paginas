@@ -58,12 +58,7 @@
 						<label for="filCarteira">Data Emissão</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" ui-mask="99/99/9999" id="filDataEmissao" ng-model="filDataEmissao">
 					</div>
-										
-					<!-- <div class="form-group">
-						<label for="filCarteira">Prioridade</label>
-						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filPrioridade" ng-model="filPrioridade" aria-describedby=" " placeholder=" ">
-					</div> -->
-					
+															
 					<div class="form-group">
 						<label for="filCarteira">Produto</label>
 						<input type="text" style="width: 220px;" class="form-control spacer-input" id="filProduto" ng-model="filProduto" aria-describedby=" " placeholder=" ">
@@ -122,13 +117,7 @@
 				<div class="col-sm-12">
 
 					<!-- Body formulario -->
-					<!-- <ul ng-show="idDocumento > 0 && exibeAbaManutencao" style="overflow: hidden; margin-top:10px" class="nav nav-tabs" role="tablist" id="myTab">
-						<li role="presentation" class="active"><a href="#docAdd-cliente-tab" role="tab" data-toggle="tab">Dados</a></li>
-						<li role="presentation"><a href="#docEdit-manu-projeto" role="tab" data-toggle="tab">Manutenção</a></li>
-					</ul> -->
-
 					<div class="tab-content">
-						<!-- <div role="tabpanel" class="tab-pane active" id="docAdd-cliente-tab"> -->
 						<div role="tabpanel" class="tab-pane active" id="docAdd-cliente-tab">
 						
 							<div id="docAdd-cliente" class="form-row">
@@ -183,7 +172,6 @@
 												<th>Aplicação</th>
 												<th>Potencial BC (Kg/Mês)</th>
 												<th>Data Teste</th>
-												<!-- <th>Valor total</th> -->
 												<th ng-show="!usuarioAprovador"></th>
 											</tr>
 										</thead>
@@ -194,15 +182,8 @@
 													<div ng-show="produto.codVariacao != ''" class='thumbnail pull-left' style='margin:0'> <img class='media-object' ng-src='/clicvenda/produtos/{{subdomain}}/{{produto.codExterno}}_{{produto.codVariacao}}.jpg' onerror='this.src="images/icon/semimagem.png"' style='width: 80px;'></div>
 													<p style="white-space: normal;">{{produto.codExterno}} - {{produto.descricao}} <p>
 													<div ng-show="exibeTabManutencao">
-														<!--<h5 style="cursor: pointer;" id="abreTabManutencao">Manutenção</h5>-->
 														<button style="cursor: pointer; margin-left:5px" id="abreTabManutencao" class="btn btn_grid btn_cor_padrao">Manutenção</button>
 													</div>
-													<!-- <div ng-show="produto.acoes != '' ">
-														<span class='glyphicon glyphicon-exclamation-sign' style='font-size:1.2em; color:#D0C84F;  display:inline-block; vertical-align: middle; cursor:pointer;' title="Revisar"></span>
-														{{produto.acoes}}
-													</div>													 -->
-													<!-- <p style="font-size: 0.8em;"><b style="margin-left:5px">Estoque: </b>{{produto.estoque}}</p> -->
-													<!-- <p style="font-size: 0.8em;"><b style="margin-left:5px">Un. medida: </b>{{produto.unidMedida}}</p> -->
 												</td>
 												<td>
 													<div>
@@ -308,91 +289,6 @@
 							</div>
 							
 						</div>
-						<!-- man -->
-						<!-- <div role="tabpanel" class="tab-pane fade in" id="docEdit-manu-projeto">
-					
-							<div class="form-row ">
-								<div class="form-group col-md-12">
-									<div class="col-sm-2 spacer ">
-										<label for="projeto">Projeto</label>
-										<input type="text" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
-									</div>
-
-									<div class="col-sm-2 spacer">
-										<label for="prioridade">Ano</label>
-										<input type="text" class="form-control spacer-input" ng-value="anoAmostra.nome" ng-model="anoAmosta" id="anoAmosta" uib-typeahead="(ano.nome) for ano in getAnoAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectAnoAmostra($item, $model, $label)">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="prioridade">Trimestre</label>
-										<input type="text" class="form-control spacer-input" ng-value="trimestreAmostra.nome" ng-model="trimestreAmostra" id="trimestreAmostra" uib-typeahead="(trimestre.nome) for trimestre in getTrimestreAmostra($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectTrimestreAmostra($item, $model, $label)">
-									</div>				  
-									<div class="col-sm-2 spacer">
-										<label for="potencial">Potencial</label>
-										<input type="text" class="form-control spacer-input" ng-model="potencial0XCM" id="potencial0XCM" >
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="consumoAg">Consumo Ano Ger.</label>
-										<input type="text" class="form-control spacer-input" ng-model="consumoAg" id="consumoAg">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="con2021Ident">Consumo indent</label>
-										<input type="text" class="form-control spacer-input" ng-model="conIndent" id="conIndent">
-									</div>	
-									<div class="col-sm-2 spacer">
-										<label for="conLocal">Consumo local</label>
-										<input type="text" class="form-control spacer-input" ng-model="conLocal" id="conLocal" >
-									</div>		
-									<div class="col-sm-2 spacer">
-										<label for="mesIniConsumo">Mes Início Consumo</label>
-										<input type="text" class="form-control spacer-input" ng-model="mesIniConsumo" id="mesIniConsumo" >
-									</div>											
-									<div class="col-sm-2 spacer">
-										<label for="probFechamento">% Prob. Fec.</label>
-										<input type="text" class="form-control spacer-input" ng-model="probFechamento" id="probFechamento" >
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="concorrencia">Concorrência</label>
-										<input type="text" class="form-control spacer-input" ng-model="concorrencia" id="concorrencia" >
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="precoConc">Preço Conc. US$</label>
-										<input type="text" class="form-control spacer-input" ng-model="precoConc" id="precoConc" >
-									</div>
-									<div class="col-sm-2 spacer hidden">
-										<label for="dataAtu">Data Atualização</label>
-										<input type="date" class="form-control spacer-input" ng-model="dataAtu" id="dataAtu" >
-									</div>
-									
-									<div class="col-sm-2 spacer">
-										<label for="situacao">Situação Amostra</label>
-										<input type="text" class="form-control spacer-input" ng-model="situacaoAmostra" id="situacaoAmostra" uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-									</div>
-									<div class="col-sm-8 spacer">
-										<label for="justificativa">Justificativa</label>
-										<textarea type="text" class="form-control spacer-input" ng-model="justificativa" id="justificativa"></textarea>
-									</div>		
-								</div>
-							</div>
-							
-							<div class="form-row col-md-12 spacer">
-									<hr class="divider"> 
-							</div>
-								
-							<div class="form-row ">
-								<div class="form-group col-md-12">		  	   
-									<div class="col-sm-10 spacer">
-										<label for="acoes">Ações</label>
-										<textarea class="form-control spacer-input" ng-model="acoes" id="acoes" rows="3"></textarea>
-									</div>	
-									<div class="col-sm-2 spacer">
-										<label for="statusAcao">Status da Ação</label>
-										<input type="text" class="form-control spacer-input" ng-model="statusAcao" id="statusAcao" >
-									</div>		
-								</div>
-							</div>
-							
-						</div> -->
-						<!-- man -->
 					</div>
 				</div>
 			</div>	
@@ -408,25 +304,7 @@
 					</ul>
 					
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane" id="docEdit-info-projeto">
-
-							<!-- <div class="form-row ">
-								<div class="form-group col-md-12" >
-									<div class="col-sm-2 spacer hidden">
-										<label for="anoFat">Ano Faturamento</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoFat" id="anoFat" >
-									</div> -->
-									<!-- <div class="col-sm-3 spacer ">
-										<label for="responsavel">Responsável</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="responsavel" id="responsavel">
-									</div> -->
-									<!-- <div class="col-sm-2 spacer ">
-										<label for="projeto">Projeto</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="projeto" id="projeto" uib-typeahead="(projetos.nome) for projetos in getProjetos($viewValue)"  autocomplete="off" typeahead-min-length="0" typeahead-on-select="onSelectProjeto($item, $model, $label)">
-									</div>
-								</div>
-							</div> -->
-				
+						<div role="tabpanel" class="tab-pane" id="docEdit-info-projeto">				
 							<div class="form-row " >
 								<div class="form-group col-md-12">
 									<div class="col-sm-2 spacer">
@@ -505,83 +383,12 @@
 										<label for="dataStatus">Data Status</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="dataStatus" id="dataStatus">
 									</div>
-									<!-- <div class="col-sm-2 spacer">
-										<label for="situacao">Situação Amostra</label>
-										<input type="text" class="form-control spacer-input" ng-model="situacaoAmostra" id="situacaoAmostra" uib-typeahead="situacao.nome for situacao in getSituacaoAmostra($viewValue)" typeahead-loading="loadingProd" typeahead-no-results="noResultsIV"  typeahead-on-select="onSelectSituacaoAmostra($item, $model, $label)" class="form-control" autocomplete="off" typeahead-min-length="0">
-									</div> -->
 									<div class="col-sm-2 spacer">
 										<label for="consumo">Consumo (Kg/mês)</label>
 										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="consumoProdutoKgMes" id="consumoProdutoKgMes">
 									</div>
-									<!-- <div class="col-sm-8 spacer">
-										<label for="justificativa">Justificativa</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="justificativa" id="justificativa">
-									</div>				  		   -->
-									<!-- <div class="col-sm-2 spacer"> -->
-										<!-- <label for="con2021n">Con. 2021 (em nº)</label> -->
-										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2021n" id="con2021n"> -->
-									<!-- </div>			   -->
-									<!-- <div class="col-sm-2 spacer"> -->
-										<!-- <label for="con2022n">Con. 2022 (em nº)</label> -->
-										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="con2022n" id="con2022n"> -->
-									<!-- </div> -->
 								</div>	
 							</div>
-							
-							<!-- <div class="form-row ">
-								<div class="form-group col-md-12">
-									<div class="col-sm-2 spacer">
-										<label for="ofertaData">OFERTA Data</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaData" id="ofertaData">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="ofertaUnit">OFERTA Unit. (US$)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ofertaUnit" id="ofertaUnit">
-									</div>			  
-									
-									<div class="col-sm-2 spacer">
-										<label for="identQtd">INDENT Qtde</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="identQtd" id="identQtd">
-									</div>			  
-									<div class="col-sm-2 spacer hidden">
-										<label for="venda">Venda</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="venda" id="venda">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="vendaLocalKg">Venda Local (KG)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="vendaLocalKg" id="vendaLocalKg">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="ultVendaTabdin">Últ. Venda TABDIN</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="ultVendaTabdin" id="ultVendaTabdin">
-									</div>
-									<div class="col-sm-2 spacer">
-										<label for="primVendaTabdin">1.a Venda TABDIN</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="primVendaTabdin" id="primVendaTabdin">
-									</div>			   -->
-									<!-- <div class="col-sm-2 spacer"> -->
-										<!-- <label for="anoPrimVenda">ANO 1.a VENDA</label> -->
-										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="anoPrimVenda" id="anoPrimVenda"> -->
-									<!-- </div> -->
-									<!-- <div class="col-sm-2 spacer">
-										<label for="totalFatUSD">Tot. Fat. (USD)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="totalFatUSD" id="totalFatUSD">
-									</div>			  
-									<div class="col-sm-2 spacer">
-										<label for="margemR">Margem (R$)</label>
-										<input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="margemR" id="margemR"> 
-									</div>			   -->
-									<!-- <div class="col-sm-2 spacer"> -->
-										<!-- <label for="preUSD">Pre. USD</label> -->
-										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="preUSD" id="preUSD"> -->
-									<!-- </div>			   -->
-									<!-- <div class="col-sm-2 spacer"> -->
-										<!-- <label for="potVolAg">Pot. Vol. AG</label> -->
-										<!-- <input type="text" ng-disabled="inputDesabilitado" class="form-control spacer-input" ng-model="potVolAg" id="potVolAg"> -->
-									<!-- </div> -->
-								<!-- </div>
-							</div> -->
-
 						</div>
 					
 						<div role="tabpanel" class="tab-pane active" id="docEdit-manu-projeto">
@@ -822,7 +629,8 @@
 <!-- Scripts importados -->	
 
 <script>
-var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
+var dadosUserLogado = parent.dadosUserLogadoPersonalizado();
+console.log("TEST1")	
 
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
@@ -846,11 +654,11 @@ angular
 		$scope.filProduto				= "";
 		$scope.filSincronizado			= {nome:"", send:""};
 		$scope.filPesquisaGeral			= "";
-		/*Incializa produtos*/
+		/*Inicializa produtos*/
 		$rootScope.produtos 			= [];
 		$scope.novoProdutoAdicionado	= false;  
 
-		/*Incializa cliente*/
+		/*Inicializa cliente*/
 		$rootScope.cliente				= {};
 		$scope.usuarioAprovador 		= dadosUserLogado.rTipoId != 3 ? false : true;
 		$scope.amostraEmAnalise			= false;
@@ -1250,15 +1058,13 @@ angular
 			setTimeout(() => reject('A requisição demorou muito para responder, por favor tente novamente mais tarde.'), timeout);
 		});
 
-		$scope.executaRequisicaoExterna = async ($json, timeLimit = 15) => {
+		$scope.executaRequisicaoExterna = async ($json, timeLimit = 25) => {
 			console.log($json, "REQUISICAO EXTERNA - Envio para o ERP")
 			try {
 				let response;
-
-				await setAsyncTimeout(async done => {		
-					response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+				await setAsyncTimeout(async done => {
+					response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json); // undefined
 					done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
-								
 				}, timeLimit * 1000); // limite em segundos
 				
 				console.log(response.data, "Retorno ERP")
@@ -1358,7 +1164,8 @@ angular
 								pedidosGravadosERP[k].jsonDocs[0].produtos.ultVendaTabdin			= dadosAtualizados[0].produto[0].venUltDat;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.primVendaTabdin			= dadosAtualizados[0].produto[0].venPriDat;
 
-
+								/*Atualizar quantidade do produto conforme no ERP*/
+								pedidosGravadosERP[k].jsonDocs[0].produtos.quantidade				= dadosAtualizados[0].produto[0]./*quantidade vindo do ERP*/	
 								/*Adiciona ao documento campos que não estão listados*/
 								pedidosGravadosERP[k].jsonDocs[0].nfvDatEmi							= dadosAtualizados[0].nfvDatEmi;
 							
@@ -1391,15 +1198,15 @@ angular
 				}		
 			);
 
-			// let result = "ERRO - Isso é apenas um teste"  /*Valor fixo para teste*/
+			//let result = undefined  /*Valor fixo para teste*/
 			$rootScope.isLoading = false;
 			
 			if(!isNaN(parseInt(result))){
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
 			}else{
-				let formatText = result.replace(/[\\"]/g, '')
-				result = formatText.replace(/[''"]/g, "")
+				let formatText = result != undefined ? result.replace(/[\\"]/g, '').replace(/[''"]/g, "") : " Ocorreu uma falha de comunicação com o ERP. Por favor, tente novamente mais tarde."
+				result = formatText
 				dialog.modal('hide');
 				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
 			};
@@ -1792,7 +1599,7 @@ angular
 			/*
 			Rotinas:
 				1 - Salvar (Mantém apenas no ClicVenda)
-				2 - Finalizar (Envia o pedido para ERP)
+				2 - Finalizar (Envia o pedido para ERP e Salva na base ClicVenda)
 
 			Situação: 
 				Em digitação 	- EM_DIGITACAO: Primeira etapa do fluxo | É possível editar e adicionar novos produtos ao pedido
@@ -2017,10 +1824,7 @@ angular
 					if(($scope.novoProdutoAdicionado || id > 0)){
 						await $scope.atualizaProdutosPedido()
 					}
-					// if(($scope.novoProdutoAdicionado || id > 0) && amostrasPedido.situacao.send !=="AM_FECHADA"){
-					// 	await $scope.atualizaProdutosPedido()
-					// }
-
+					
 					for(i = 0; i < $rootScope.produtos.length; i++){
 
 						/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
