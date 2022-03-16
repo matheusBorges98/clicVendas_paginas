@@ -630,7 +630,7 @@
 
 <script>
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();
-console.log("TESTe")	
+console.log("TESTE1")	
 
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
@@ -1752,14 +1752,14 @@ angular
 				};
 				console.log(amostrasPedido.situacao.send, " amostras")
 				if(id > 0 && amostrasPedido.situacao.send === "AM_INTEGRADA"){
-				//if(id > 0){
+				
 					$rootScope.docsToEdit = $rootScope.listAllDocs.filter(item => item.jsonDocs[0].docCtrl == hashDoc);
 
 					for(j = 0; j < $rootScope.docsToEdit.length; j++){						
 						json[0].produtos	= $rootScope.docsToEdit[j].jsonDocs[0].produtos; /*Recebe o produto referente ao documento - Item por pedido*/
 						
 						if(rotina == 2 || json[0].produtos.situacao.send == 'AM_INTEGRADA'){
-							json[0].produtos.situacao = rotina == 2 &&  !$scope.erroPedido ?  {nome:"Integrado", send:"AM_INTEGRADA"} : {nome:"Em análise", send:"EM_ANALISE"}
+							json[0].produtos.situacao = rotina == 2 && !$scope.erroPedido ?  {nome:"Integrado", send:"AM_INTEGRADA"} : {nome:"Em análise", send:"EM_ANALISE"}
 						}else if(json[0].produtos.situacao.send == 'AM_FECHADA'){
 							json[0].produtos.situacao = {nome:"Fechado", send:"AM_FECHADA"}
 						}else if(json[0].produtos.situacao.send == 'AM_FECHADA_VENDA'){
@@ -1797,8 +1797,7 @@ angular
 							json[0].produtos.anoAmostra			= $scope.anoAmostra,
 							json[0].produtos.trimestreAmostra	= $scope.trimestreAmostra
 
-							if(json[0].produtos.situacao.send === "EM_DIGITACAO" || json[0].produtos.situacao.send === "EM_ANALISE" || json[0].produtos.situacao.send === "EM_REVISAO" &&
-							(amostrasPedido.situacao.send != "AM_INTEGRADA")){
+							if((amostrasPedido.situacao.send != "AM_INTEGRADA") && json[0].produtos.situacao.send === "EM_DIGITACAO" || json[0].produtos.situacao.send === "EM_ANALISE" || json[0].produtos.situacao.send === "EM_REVISAO"){
 								switch(situacao){
 									case 'EM_DIGITACAO':
 										console.log("abcax")
