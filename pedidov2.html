@@ -823,7 +823,7 @@
 
 <script>
 var dadosUserLogado = parent.dadosUserLogadoPersonalizado();
-console.log("TESTE4")	
+console.log("TESTE5")	
 
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
@@ -1256,12 +1256,14 @@ angular
 			try {
 				let response;
 
-				await setAsyncTimeout(async done => {		
+				await setAsyncTimeout(async done => {
+					
+					//response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
 					setTimeout(()=>{
-						response = await $http.post(dadosUserLogado.cContextIntegracao + '/rest/Listas/executarRequisicaoExterna', $json);
+						done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
 					},5000)
 					
-					done();/*Aguarda a requisição - Se estourar o tempo, gera erro.*/
+				
 								
 				}, timeLimit * 1000); // limite em segundos
 				
