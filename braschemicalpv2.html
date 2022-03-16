@@ -179,9 +179,9 @@
 										<thead>
 											<tr>
 												<th>Produto</th>
-												<th>Quantidade</th>
+												<th>Quantidade (kg)</th>
 												<th>Aplicação</th>
-												<th>Consumo</th>
+												<th>Potencial BC (Kg/Mês)</th>
 												<th>Data Teste</th>
 												<!-- <th>Valor total</th> -->
 												<th ng-show="!usuarioAprovador"></th>
@@ -1398,10 +1398,10 @@ angular
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
 			}else{
-				let formatText = result.replace(/[\\"]/g, '').replace(/[''"]/g, "")
-				result = formatText;
+				let formatText = result.replace(/[\\"]/g, '')
+				result = formatText.replace(/[''"]/g, "")
 				dialog.modal('hide');
-				$scope.geraNotificacao('Houve falha uma ao gravar o pedido no ERP.',2000, 'danger');
+				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
 			};
 			
 			return result;
@@ -2042,7 +2042,7 @@ angular
 				$scope.exibeFormulario 		= false;
 				$scope.exibeListaDocumentos = true;
 			}else{
-				$scope.geraNotificacao("Para enviar para análise os campos aplicação, data teste e consumo devem estar preenchidos.", 1500, "warning")
+				$scope.geraNotificacao("Para enviar para análise os campos aplicação, data teste e consumo devem estar preenchidos.", 3000, "warning")
 			}
 
 			
@@ -2177,7 +2177,7 @@ angular
 			]);	
 
 
-			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Nº Pedido',  		width:''	},
+			defPD = {	'jsonDocs[0].numPedidoClic'					:	{i:0, vsbl: true,	tlt: 'Id',  		width:''	},
 						'jsonDocs[0].pedNumped'						:	{i:1, vsbl: true,	tlt: 'Nº Pedido ERP',	width:''	},
 						'jsonDocs[0].produtos.situacaoAmostra.nome'	:	{i:49,  vsbl: true,	tlt: 'Sit. Amostra',	width:''	},
 						'jsonDocs[0].cliente.nome'					:	{i:3, vsbl: true,	tlt: 'Cliente',			width:''	},
