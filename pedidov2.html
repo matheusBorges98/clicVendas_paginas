@@ -822,7 +822,8 @@
 <!-- Scripts importados -->	
 
 <script>
-var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
+var dadosUserLogado = parent.dadosUserLogadoPersonalizado();
+console.log("TESTE")	
 
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
@@ -1381,17 +1382,17 @@ angular
 
 			$rootScope.isLoading = true;
 
-			let result = await $scope.executaRequisicaoExterna(
-				{
-					idCvtccnpj : dadosUserLogado.cId,
-					numreg	   : 750,
-					pRotina	   : 'criarPedidoAmostra',
-					pCodCli    : dadosUserLogado.rId,
-					pDocumento : {documento : $item}
-				}		
-			);
+			// let result = await $scope.executaRequisicaoExterna(
+			// 	{
+			// 		idCvtccnpj : dadosUserLogado.cId,
+			// 		numreg	   : 750,
+			// 		pRotina	   : 'criarPedidoAmostra',
+			// 		pCodCli    : dadosUserLogado.rId,
+			// 		pDocumento : {documento : $item}
+			// 	}		
+			// );
 
-			// let result = "ERRO - Isso é apenas um teste"  /*Valor fixo para teste*/
+			let result = `ERRO: ${undefined}`  /*Valor fixo para teste*/
 			$rootScope.isLoading = false;
 			
 			if(!isNaN(parseInt(result))){
