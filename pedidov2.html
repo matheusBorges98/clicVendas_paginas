@@ -1357,7 +1357,8 @@ angular
 								pedidosGravadosERP[k].jsonDocs[0].produtos.ultVendaTabdin			= dadosAtualizados[0].produto[0].venUltDat;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.primVendaTabdin			= dadosAtualizados[0].produto[0].venPriDat;
 
-
+								/*Atualizar quantidade do produto conforme no ERP*/
+								pedidosGravadosERP[k].jsonDocs[0].produtos.quantidade				= dadosAtualizados[0].produto[0]./*quantidade vindo do ERP*/	
 								/*Adiciona ao documento campos que não estão listados*/
 								pedidosGravadosERP[k].jsonDocs[0].nfvDatEmi							= dadosAtualizados[0].nfvDatEmi;
 							
@@ -1397,7 +1398,7 @@ angular
 				dialog.modal('hide');
 				$scope.geraNotificacao('O pedido foi gravado com sucesso no ERP.', 2000, 'success')
 			}else{
-				let formatText = result != undefined ? result.replace(/[\\"]/g, '').replace(/[''"]/g, "") : " Ocorreu uma falha desconhecida."
+				let formatText = result != undefined ? result.replace(/[\\"]/g, '').replace(/[''"]/g, "") : " Ocorreu uma falha de comunicação com o ERP. Por favor, tente novamente mais tarde."
 				result = formatText
 				dialog.modal('hide');
 				$scope.geraNotificacao('Houve uma falha na gravação do pedido.',2000, 'danger');
@@ -1791,7 +1792,7 @@ angular
 			/*
 			Rotinas:
 				1 - Salvar (Mantém apenas no ClicVenda)
-				2 - Finalizar (Envia o pedido para ERP)
+				2 - Finalizar (Envia o pedido para ERP e Salva na base ClicVenda)
 
 			Situação: 
 				Em digitação 	- EM_DIGITACAO: Primeira etapa do fluxo | É possível editar e adicionar novos produtos ao pedido
@@ -2016,10 +2017,7 @@ angular
 					if(($scope.novoProdutoAdicionado || id > 0)){
 						await $scope.atualizaProdutosPedido()
 					}
-					// if(($scope.novoProdutoAdicionado || id > 0) && amostrasPedido.situacao.send !=="AM_FECHADA"){
-					// 	await $scope.atualizaProdutosPedido()
-					// }
-
+					
 					for(i = 0; i < $rootScope.produtos.length; i++){
 
 						/*Grava no base Clic um produto por pedido - Ligados por hashCode*/
