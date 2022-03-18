@@ -144,6 +144,13 @@
 											<input type="text" readonly class="form-control" ng-value="vendedor.nome" ng-model="vendedor" id="vendedor">
 										</div>
 									</div>
+									
+									<div class="col-sm-12 spacer">
+										<label for="obsNotaFiscal">Observação Nota Fiscal</label>
+										<div class="spacer">
+											<textarea autocomplete="false" class="form-control spacer-input ng-pristine ng-valid ng-empty ng-touched" placeholder="Digite uma obervação para a Nota Fiscal. (255 caracteres)" style="width: 100%;" rows="3" type="text" step="any" name="obsNotaFiscal" ng-model="obsNotaFiscal"></textarea>
+										</div>
+									</div>
 								</div>
 								
 								<div class="form-group col-md-12">
@@ -163,11 +170,7 @@
 
 								</div>
 								
-								<div class="form-group col-md-12">
-									<label for="obsPed">Localizar Produto</label>
-									<input type="text"> 
-									
-								</div>
+								
 								
 								<div class="form-group col-md-12">
 									<table id ="listDocumentsProdutos" class="table">
@@ -176,7 +179,6 @@
 												<th>Produto</th>
 												<th>Quantidade (kg)</th>
 												<th>Aplicação</th>
-												<th>Motivo</th>
 												<th>Potencial BC (Kg/Mês)</th>
 												<th>Data Teste</th>
 												<th ng-show="!usuarioAprovador"></th>
@@ -205,12 +207,6 @@
 												
 												<td>
 													<div>
-														<input type="text" step="any" name="motivo" class="inputTable" ng-model="produto.motivo">
-													</div>
-												</td>
-												
-												<td>
-													<div>
 														<input type="text" step="any" name="consumoProdutoKgMes" class="inputTable" ng-model="produto.consumoProdutoKgMes">
 													</div>
 												</td>
@@ -228,9 +224,17 @@
 												</td>
 											</tr>
 											<tr class="parent">
-												<td colspan ="20">
-													<div>
-														<textarea placeholder="Digite uma obervação para o item." style="width: 100%;" type="text" step="any" name="observacao" class="inputTable" ng-model="produto.observacao"></textarea>
+												<td colspan="2">
+													<div class="col-sm-12">
+														<label for="motivo">Motivo</label>
+														<textarea autocomplete="false" class="form-control spacer-input ng-pristine ng-valid ng-empty ng-touched" placeholder="Insira o motivo" style="width: 100%;" type="text" step="any" name="motivo" ng-model="produto.motivo"></textarea>
+									
+													</div>
+												</td>
+												<td colspan="4">
+													<div class="col-sm-12">
+														<label for="observacao">Observação do item</label>
+														<textarea autocomplete="false" class="form-control spacer-input ng-pristine ng-valid ng-empty ng-touched" placeholder="Digite uma obervação para o item." style="width: 100%;" type="text" step="any" name="observacao" ng-model="produto.observacao"></textarea>
 													</div>
 												</td>
 											</tr>
@@ -642,8 +646,7 @@
 <!-- Scripts importados -->	
 
 <script>
-var dadosUserLogado = parent.dadosUserLogadoPersonalizado();
-console.log("TEST1")	
+var dadosUserLogado = parent.dadosUserLogadoPersonalizado();	
 
 angular
 	.module("appV2",['ngRoute', 'ngSanitize', 'ui.bootstrap', 'datatables', 'datatables.buttons', 'ui.mask'])
@@ -1144,7 +1147,7 @@ angular
 								($rootScope.dadosGrid[l].jsonDocs[0].produtos.codExterno === pedidosGravadosERP[k].jsonDocs[0].produtos.codExterno)){
 																								
 								/*Itens do documento geral que serão atualizados*/
-								//pedidosGravadosERP[k].jsonDocs[0].pedDatEmi 						= dadosAtualizados[0].pedDatEmi;
+								pedidosGravadosERP[k].jsonDocs[0].pedDatEmi 						= dadosAtualizados[0].pedDatEmi;
 								pedidosGravadosERP[k].jsonDocs[0].uf								= dadosAtualizados[0].cliSigUfs;
 								pedidosGravadosERP[k].jsonDocs[0].bu								= dadosAtualizados[0].cliBU;
 								pedidosGravadosERP[k].jsonDocs[0].subsegmento						= dadosAtualizados[0].cliSubSeg;
@@ -1161,7 +1164,7 @@ angular
 								pedidosGravadosERP[k].jsonDocs[0].produtos.justificativa			= dadosAtualizados[0].produto[0].ipdObsAmo;
 								pedidosGravadosERP[k].jsonDocs[0].produtos.ofertaData				= dadosAtualizados[0].produto[0].ofrDatEmi;
 								
-								// pedidosGravadosERP[k].jsonDocs[0].produtos.responsavel				= dadosAtualizados[0].produto[0].proResFor;
+								pedidosGravadosERP[k].jsonDocs[0].produtos.responsavel				= dadosAtualizados[0].produto[0].proResFor;
 								
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.potencial0XCM			= dadosAtualizados[0].produto[0].
 								// pedidosGravadosERP[k].jsonDocs[0].produtos.chaveCp				= dadosAtualizados[0].produto[0].
@@ -1194,6 +1197,10 @@ angular
 		};
 
 		$scope.gravaDocumentoERP = async ($item) => {
+			
+			console.log('GravandoDocumento');
+			console.log($item);
+	
 			let dialog = bootbox.dialog({
 				message: '<div class="alert alert-light popup"role="alert"><p style="font-size:1.0em; font-weight:bold; text-align:center;">Enviando pedido para o ERP...</p></div>',
 				closeButton: false
@@ -1339,6 +1346,7 @@ angular
 				$scope.projeto				= '';				
 				$scope.uf					= '';
 				$scope.vendedor				= {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
+				$scope.obsNotaFiscal		= '';
 				$scope.segmento				= '';
 				$scope.subsegmento			= '';
 				$scope.bu					= '';
@@ -1393,6 +1401,7 @@ angular
 				$scope.projeto				= docs.projeto;
 				$scope.uf					= docs.uf;
 				$scope.vendedor				= docs.vendedor;
+				$scope.obsNotaFiscal		= docs.obsNotaFiscal;
 				$scope.segmento				= docs.segmento;
 				$scope.subsegmento			= docs.subsegmento;
 				$scope.bu					= docs.bu;
@@ -1472,7 +1481,6 @@ angular
 		};
 
 		$scope.adicionarProduto = ($item) =>{
-
 			$scope.novoProdutoAdicionado	= true;
 			$scope.descricaoProd 			= $item.produto.nome;
 			$scope.codVariacao	 			= $item.produto.codVariacao;
@@ -1484,7 +1492,7 @@ angular
 					observacao			: $item.produto.observacao,
 					dataTeste			: $item.produto.dataTeste,
 					situacaoAmostra		: $scope.situacaoAmostra,
-					anoAmostra			: $scope.anoAmostra,
+					anoAmostra			: $scope.anoAmostra != "" ? $scope.anoAmostra : {id: '', nome:''},
 					trimestreAmostra	: $scope.trimestreAmostra,
 
 					consumoProdutoKgMes	: $scope.consumoProdutoKgMes,
@@ -1688,6 +1696,7 @@ angular
 					projeto     		: $scope.projeto,
 					uf 					: $scope.uf,
 					vendedor			: $scope.usuarioAprovador ? $scope.vendedor : {rId: dadosUserLogado.rId, nome: dadosUserLogado.rNome, rCod:dadosUserLogado.rCod},
+					obsNotaFiscal       : $scope.obsNotaFiscal,
 					segmento			: $scope.segmento,
 					subsegmento 		: $scope.subsegmento,
 					bu 					: $scope.bu,
@@ -1724,8 +1733,12 @@ angular
 				}];
 				
 				dados.jsonDocs 		= JSON.stringify(jsonDocs);
+				
 				/*Recebe dados e para que sejam feitas as alterações necessarias*/
 				var json 			= JSON.parse(dados.jsonDocs);
+				
+				console.log('salvar documento');
+				console.log(json);
 
 				let amostrasPedido  = $scope.situacao && ($scope.situacao.send == 'AM_INTEGRADA' || $scope.situacao.send == 'AM_FECHADA' || $scope.situacao.send == 'AM_FECHADA_VENDA') ? json[0].produtos : json[0].produtos[0];
 
@@ -1803,7 +1816,7 @@ angular
 							json[0].produtos.preUSD			= $scope.preUSD,
 							json[0].produtos.ofertaData		= $scope.ofertaData,
 							json[0].produtos.probFechamento	= $scope.probFechamento,		
-							json[0].produtos.consumoAg		= $scope.consumoAg,	//
+							json[0].produtos.consumoAg		= $scope.consumoAg,	
 							json[0].produtos.familia		= $scope.familia,
 							json[0].produtos.concorrencia	= $scope.concorrencia,
 							json[0].produtos.precoConc		= $scope.precoConc,
@@ -2081,7 +2094,8 @@ angular
 							// 	$scope.consultaPedidosERP($rootScope.dadosGrid);
 							// }
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
-						};			
+						};
+                        
 						
 						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
 					}		
@@ -2137,29 +2151,28 @@ angular
 						'jsonDocs[0].pedNumped'						:	{i:1,  vsbl: true,	tlt: 'Nº Pedido ERP',			width:'130px'	},
 						'jsonDocs[0].produtos.situacao.nome'		:	{i:20, vsbl: true,	tlt: 'Status',					width:'130px'	},
 						'jsonDocs[0].produtos.descricao'			:	{i:4,  vsbl: true,	tlt: 'Produto',					width:'130px'	},
-						'jsonDocs[0].produtos.codExterno'    		:	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'	},
+						'jsonDocs[0].produtos.codExterno'   	    :	{i:5,  vsbl: true,	tlt: 'Código',					width:'130px'	},
+                        'jsonDocs[0].produtos.codVariacao'   	    :	{i:5,  vsbl: true,	tlt: 'Código Variação', 		width:'130px'	},
 						'jsonDocs[0].cliente.nome'					:	{i:6,  vsbl: true,	tlt: 'Nome Cliente',			width:'350px'	},
 						'jsonDocs[0].uf'							:	{i:7,  vsbl: true,	tlt: 'UF',						width:'130px'	},
 						'jsonDocs[0].vendedor.nome'					:	{i:8,  vsbl: true,	tlt: 'Vendedor',				width:'130px'	},
 						'jsonDocs[0].segmento'						:	{i:9,  vsbl: true,	tlt: 'Segmento',				width:'130px'	},
 						'jsonDocs[0].subsegmento'					:	{i:10, vsbl: true,	tlt: 'Subsegmento',				width:'130px'	},
 						'jsonDocs[0].bu'							:	{i:11, vsbl: true,	tlt: 'BU',						width:'130px'	},
-						'jsonDocs[0].aplicacao'						:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:'130px'	},
-						'jsonDocs[0].ano'							:	{i:13, vsbl: true,	tlt: 'Ano',						width:'130px'	},
-						'jsonDocs[0].familia'						:	{i:14, vsbl: true,	tlt: 'Família',					width:'130px'	},
-						'jsonDocs[0].cluster'						:	{i:15, vsbl: true,	tlt: 'Cluster',					width:'130px'	},
-						'jsonDocs[0].descricao'						:	{i:16, vsbl: true,	tlt: 'Descrição',				width:'130px'	},
+						'jsonDocs[0].produtos.aplicacao'			:	{i:12, vsbl: true,	tlt: 'Aplicação',				width:'130px'	},
+						'jsonDocs[0].produtos.anoAmostra.nome'		:	{i:13, vsbl: true,	tlt: 'Ano',						width:'130px'	},
+						'jsonDocs[0].produtos.familia'				:	{i:14, vsbl: true,	tlt: 'Família',					width:'130px'	},
+						'jsonDocs[0].produtos.cluster'				:	{i:15, vsbl: true,	tlt: 'Cluster',					width:'130px'	},
 						'jsonDocs[0].desagr'						:	{i:17, vsbl: true,	tlt: 'Agrupamento Comercial',	width:'130px'	},
 						'jsonDocs[0].produtos.quantidade'			:	{i:18, vsbl: true,	tlt: 'Qtd. KG',					width:'130px'	},
 						'jsonDocs[0].produtos.dataStatus'			:	{i:19, vsbl: true,	tlt: 'Data Status',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoProdutoKgMes'	:	{i:21, vsbl: true,	tlt: 'Consumo',					width:'130px'	},
-						//'jsonDocs[0].prioridade.nome'				:	{i:22, vsbl: true,	tlt: 'Prioridade',				width:'130px'	},
 						'jsonDocs[0].produtos.consumoAg'      		:	{i:24, vsbl: true,	tlt: 'Consumo AG',				width:'130px'	},
 						'jsonDocs[0].conIndent'     				:	{i:25, vsbl: true,	tlt: 'Con. indent',				width:'130px'	},
 						'jsonDocs[0].con2021n'      				:	{i:26, vsbl: true,	tlt: 'Con. 2021(em nº)',		width:'130px'	},
 						'jsonDocs[0].con2022n'      				:	{i:27, vsbl: true,	tlt: 'Con. 2022(em nº)',		width:'130px'	},
 						'jsonDocs[0].conLocal'    					:	{i:28, vsbl: true,	tlt: 'Con. local',				width:'130px'	},
-						'jsonDocs[0].produtos.probFechamento'  		:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:'130px'	},
+						'jsonDocs[0].produtos.probFechamento.nome'	:	{i:29, vsbl: true,	tlt: '% Prob. Fec.',			width:'130px'	},
 						'jsonDocs[0].produtos.concorrencia'    		:	{i:30, vsbl: true,	tlt: 'Concorrência',			width:'130px'	},
 						'jsonDocs[0].produtos.acoes'	 			:	{i:31, vsbl: true,	tlt: 'Ações',					width:'130px'	},
 						'jsonDocs[0].produtos.statusAcao'			:	{i:32, vsbl: true,	tlt: 'Status Ação',				width:'130px'	},
@@ -2170,16 +2183,13 @@ angular
 						'jsonDocs[0].produtos.chaveCp'      		:	{i:37, vsbl: true,	tlt: 'Chave CP',				width:'130px'	},
 						'jsonDocs[0].produtos.identQtd'     		:	{i:38, vsbl: true,	tlt: 'INDENT Qtde',				width:'130px'	},
 						'jsonDocs[0].produtos.venda'				:	{i:39, vsbl: true,	tlt: 'Venda',					width:'130px'	},
-						'jsonDocs[0].vendaLocalKg'    				:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:'130px'	},
-						'jsonDocs[0].produtos.ultVendaTabdin'  		:	{i:41, vsbl: true,	tlt: 'ºlt. Venda TABDIN',		width:'130px'	},
-						'jsonDocs[0].produtos.primVendaTabdin' 		:	{i:42, vsbl: true,	tlt: '1.a Venda TABDIN',		width:'130px'	},
+						'jsonDocs[0].produtos.vendaLocalKg'    		:	{i:40, vsbl: true,	tlt: 'Venda Local (KG)',		width:'130px'	},
 						'jsonDocs[0].anoPrimVenda'     				:	{i:43, vsbl: true,	tlt: 'ANO 1.a VENDA',			width:'130px'	},
 						'jsonDocs[0].produtos.totalFatUSD'      	:	{i:44, vsbl: true,	tlt: 'Tot. Fat. (USD)',			width:'130px'	},
 						'jsonDocs[0].produtos.margemR'	      		:	{i:45, vsbl: true,	tlt: 'Margem (R$)',				width:'130px'	},
 						'jsonDocs[0].produtos.preUSD'	      		:	{i:46, vsbl: true,	tlt: 'Pre. USD',				width:'130px'	},
-						'jsonDocs[0].potVolAg'	      				:	{i:47, vsbl: true,	tlt: 'Pot. Vol. AG',			width:'130px'	},
-						'jsonDocs[0].projeto.nome'					:	{i:48,  vsbl: true,	tlt: 'Projeto',					width:'130px'	},
-						'jsonDocs[0].produtos.situacaoAmostra.nome'	:	{i:49,  vsbl: true,	tlt: 'Sit. Amostra',			width:'130px'	},
+						'jsonDocs[0].projeto'					    :	{i:48,  vsbl: true,	tlt: 'Projeto',					width:'130px'	},
+						'jsonDocs[0].produtos.situacaoAmostra'	    :	{i:49,  vsbl: true,	tlt: 'Sit. Amostra',			width:'130px'	},
 				};
 		
 			DTDefaultOptions.setLanguageSource('plugins/pt-br.json');
