@@ -1868,7 +1868,7 @@ angular
 
 			$scope.openNav();
 		};
-
+		console.log("TESTE")
 		$scope.atualizaTabela = async (modo) =>{
 
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
@@ -1917,8 +1917,8 @@ angular
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
 
 						}	
-
-						return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);					
+						return $rootScope.dadosGrid
+						//return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);					
 					}
 				})
 					.withDataProp('data')

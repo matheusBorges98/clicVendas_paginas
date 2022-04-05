@@ -817,12 +817,17 @@ angular
 				{
 					nome:'STAND BY',
 					id:10
-				},
-				{
-					nome:'CANCELADA',
-					id:11
-				},
+				}
+				// {
+				// 	nome:'CANCELADA',
+				// 	id:11
+				// },
 			];
+			
+			if($scope.usuarioAprovador){
+				$scope.listaSituacaoAmostra[0] += {nome:'CANCELADA', id:11}
+			}
+
 			return $scope.listaSituacaoAmostra;
 		};
 
@@ -1130,7 +1135,7 @@ angular
 				},
 				20//limite de espera em segundos
 			);
-						
+			console.log(result, " RESULTADO RETORNO PEDIDOS QUE ESTAO NO ERP")	
 			dialog.modal('hide');
 			$rootScope.isLoading = false;
 			
