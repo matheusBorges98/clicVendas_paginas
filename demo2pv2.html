@@ -1225,7 +1225,7 @@ angular
 
 			$scope.openNav();
 		};
-	
+		console.log("teste")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1234,7 +1234,7 @@ angular
 				data	: function(d) {   
 							var param = {idCvTccnpj	: dadosUserLogado.cId};
 							var filter = {
-								fil1:  $scope.filCliente.toUpperCase(),
+								fil1:  "",
 								fil2:  $scope.filRepresentante,
 								fil3:  $scope.filPesquisaGeral,
 								fil4:  $scope.filSincronizado.send,
@@ -1246,7 +1246,7 @@ angular
 								fil10: "",
 								fil11: "",
 								customFilter:{
-									nome: "ANDRE"
+									nome: $scope.filCliente
 								}
 							};
 							d.param = param;
