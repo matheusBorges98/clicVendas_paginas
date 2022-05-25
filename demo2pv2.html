@@ -1225,7 +1225,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("teste")
+		console.log("teste2")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1246,12 +1246,19 @@ angular
 								fil10: "",
 								fil11: "",
 								customFilter:[
-									{
+									[
+										{
 										"cliente.nome":$scope.filCliente,
-									},
-									{
-										"cliente.representante":$scope.filRepresentante,
-									},
+										}
+									],
+									[
+										{
+										"cliente.xxxx":$scope.filCliente,
+										}
+									],
+																		
+										
+									
 								]
 							};
 							d.param = param;
