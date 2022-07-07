@@ -1225,7 +1225,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("4")
+		console.log("5")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1271,10 +1271,14 @@ angular
 							};
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
+						}else{
+							$rootScope.dadosGrid = json.data;
+							return $rootScope.dadosGrid;
 						}	
 
 						//return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
-						//return $rootScope.dadosGrid;
+						
+						
 					}
 				})
 					.withDataProp('data')
