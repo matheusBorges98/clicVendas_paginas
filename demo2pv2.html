@@ -1225,7 +1225,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("5")
+		console.log("1")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1263,6 +1263,7 @@ angular
 						/*Modo 1 - 
 							Atualiza tabela com valores do ERP quando o pedido há número
 						*/
+						console.log(modo, 'MODO')
 						if (modo != 1){
 							$rootScope.dadosGrid = json.data;
 
@@ -1272,6 +1273,7 @@ angular
 
 							$scope.consultaPedidosERP($rootScope.dadosGrid);
 						}else{
+							conosole.log(json.data, 'jsonD')
 							$rootScope.dadosGrid = json.data;
 							return $rootScope.dadosGrid;
 						}	
