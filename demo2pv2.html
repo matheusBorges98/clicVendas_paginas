@@ -1225,7 +1225,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("3")
+		console.log("4")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1274,13 +1274,13 @@ angular
 						}	
 
 						//return $rootScope.dadosGrid.sort((a) => (a.jsonDocs[0].sincronizado !="DOCUMENTO_SINCRONIZADO" && a.jsonDocs[0].sincronizado !="DOCUMENTO_NAO_SINCRONIZADO") ? -1 : 1);				
-						return $rootScope.dadosGrid;
+						//return $rootScope.dadosGrid;
 					}
 				})
 					.withDataProp('data')
 					.withOption('processing', true)
 					.withOption('serverSide', true)
-					.withOption('bFilter', true)
+					.withOption('bFilter', false)
 					.withOption('searchDelay', 1000)
 					.withOption('scrollY', '100%')
 					.withPaginationType('full_numbers')            
