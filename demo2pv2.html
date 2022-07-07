@@ -1225,7 +1225,7 @@ angular
 
 			$scope.openNav();
 		};
-		console.log("2")
+		console.log("3")
 		$scope.atualizaTabela = async (modo) =>{
 			$scope.dtOptions = DTOptionsBuilder.newOptions()            
 			.withOption('ajax', {
@@ -1275,6 +1275,9 @@ angular
 						}else{
 							console.log(json.data, 'jsonD')
 							$rootScope.dadosGrid = json.data;
+							for(ped of $rootScope.dadosGrid){
+								ped.jsonDocs  = JSON.parse(ped.jsonDocs);
+							};
 							return $rootScope.dadosGrid;
 						}	
 
